@@ -284,6 +284,206 @@
       "description": "Calculus limit concept diagram",
       "format": "png",
       "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-home-cute-20260124",
+      "path": "icons/icon-home-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["home", "house", "navigation", "ui", "cute", "elementary"],
+      "description": "귀여운 홈 버튼 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-back-arrow-cute-20260124",
+      "path": "icons/icon-back-arrow-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["back", "arrow", "navigation", "ui", "cute", "elementary"],
+      "description": "귀여운 뒤로가기 화살표 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-star-reward-cute-20260124",
+      "path": "icons/icon-star-reward-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["star", "reward", "achievement", "ui", "cute", "elementary"],
+      "description": "귀여운 별 보상 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-trophy-achievement-cute-20260124",
+      "path": "icons/icon-trophy-achievement-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["trophy", "achievement", "winner", "ui", "cute", "elementary"],
+      "description": "귀여운 트로피 성취 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-book-open-cute-20260124",
+      "path": "icons/icon-book-open-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["book", "reading", "learning", "ui", "cute", "elementary"],
+      "description": "귀여운 펼친 책 학습 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-pencil-write-cute-20260124",
+      "path": "icons/icon-pencil-write-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["pencil", "write", "edit", "ui", "cute", "elementary"],
+      "description": "귀여운 연필 쓰기 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-bell-notification-cute-20260124",
+      "path": "icons/icon-bell-notification-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["bell", "notification", "alert", "ui", "cute", "elementary"],
+      "description": "귀여운 알림 종 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-help-question-cute-20260124",
+      "path": "icons/icon-help-question-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["help", "question", "support", "ui", "cute", "elementary"],
+      "description": "귀여운 도움말 물음표 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-heart-favorite-cute-20260124",
+      "path": "icons/icon-heart-favorite-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["heart", "favorite", "like", "ui", "cute", "elementary"],
+      "description": "귀여운 하트 즐겨찾기 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-play-start-cute-20260124",
+      "path": "icons/icon-play-start-cute-20260124.svg",
+      "category": "icons",
+      "tags": ["play", "start", "begin", "ui", "cute", "elementary"],
+      "description": "귀여운 재생 시작 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-flowchart-basic-20260124",
+      "path": "diagrams/diagram-flowchart-basic-20260124.svg",
+      "category": "diagrams",
+      "tags": ["flowchart", "algorithm", "logic", "process", "decision"],
+      "description": "기본 순서도 다이어그램 (시작, 처리, 조건, 종료)",
+      "dimensions": { "width": 400, "height": 500 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-cycle-process-20260124",
+      "path": "diagrams/diagram-cycle-process-20260124.svg",
+      "category": "diagrams",
+      "tags": ["cycle", "pdca", "process", "continuous", "improvement"],
+      "description": "PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)",
+      "dimensions": { "width": 400, "height": 400 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-timeline-horizontal-20260124",
+      "path": "diagrams/diagram-timeline-horizontal-20260124.svg",
+      "category": "diagrams",
+      "tags": ["timeline", "schedule", "milestone", "project", "horizontal"],
+      "description": "수평 타임라인 다이어그램 (프로젝트 일정 표현)",
+      "dimensions": { "width": 600, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-hierarchy-tree-20260124",
+      "path": "diagrams/diagram-hierarchy-tree-20260124.svg",
+      "category": "diagrams",
+      "tags": ["hierarchy", "tree", "organization", "structure", "levels"],
+      "description": "계층 트리 구조 다이어그램 (조직도, 분류 체계)",
+      "dimensions": { "width": 500, "height": 400 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-comparison-chart-20260124",
+      "path": "diagrams/diagram-comparison-chart-20260124.svg",
+      "category": "diagrams",
+      "tags": ["comparison", "table", "chart", "versus", "analysis"],
+      "description": "비교 차트 다이어그램 (옵션 비교 테이블)",
+      "dimensions": { "width": 500, "height": 350 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-mind-map-central-20260124",
+      "path": "diagrams/diagram-mind-map-central-20260124.svg",
+      "category": "diagrams",
+      "tags": ["mind-map", "brainstorm", "ideas", "central", "radial"],
+      "description": "중심형 마인드맵 다이어그램 (아이디어 확장 구조)",
+      "dimensions": { "width": 600, "height": 450 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-pie-chart-segments-20260124",
+      "path": "diagrams/diagram-pie-chart-segments-20260124.svg",
+      "category": "diagrams",
+      "tags": ["pie-chart", "percentage", "distribution", "segments", "donut"],
+      "description": "파이 차트 다이어그램 (비율 분포 시각화)",
+      "dimensions": { "width": 450, "height": 350 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-bar-chart-vertical-20260124",
+      "path": "diagrams/diagram-bar-chart-vertical-20260124.svg",
+      "category": "diagrams",
+      "tags": ["bar-chart", "vertical", "statistics", "data", "comparison"],
+      "description": "세로 막대 그래프 다이어그램 (데이터 비교 시각화)",
+      "dimensions": { "width": 500, "height": 350 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-number-line-basic-20260124",
+      "path": "diagrams/diagram-number-line-basic-20260124.svg",
+      "category": "diagrams",
+      "tags": ["number-line", "math", "integers", "real-numbers", "elementary"],
+      "description": "기본 수직선 다이어그램 (정수와 실수 표현)",
+      "dimensions": { "width": 600, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-pythagorean-theorem-20260124",
+      "path": "diagrams/diagram-pythagorean-theorem-20260124.svg",
+      "category": "diagrams",
+      "tags": ["pythagorean", "theorem", "geometry", "triangle", "math"],
+      "description": "피타고라스 정리 시각화 다이어그램 (a² + b² = c²)",
+      "dimensions": { "width": 500, "height": 400 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
     }
   ]
 }
