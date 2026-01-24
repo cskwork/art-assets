@@ -484,6 +484,406 @@
       "dimensions": { "width": 500, "height": 400 },
       "format": "svg",
       "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-settings-gear-modern-20260124",
+      "path": "icons/icon-settings-gear-modern-20260124.svg",
+      "category": "icons",
+      "tags": ["settings", "gear", "config", "ui", "modern"],
+      "description": "모던한 설정 톱니바퀴 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-search-magnify-bold-20260124",
+      "path": "icons/icon-search-magnify-bold-20260124.svg",
+      "category": "icons",
+      "tags": ["search", "find", "magnify", "ui", "bold"],
+      "description": "대담한 검색 돋보기 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-menu-hamburger-rounded-20260124",
+      "path": "icons/icon-menu-hamburger-rounded-20260124.svg",
+      "category": "icons",
+      "tags": ["menu", "hamburger", "nav", "ui", "rounded"],
+      "description": "둥근 햄버거 메뉴 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-close-x-elegant-20260124",
+      "path": "icons/icon-close-x-elegant-20260124.svg",
+      "category": "icons",
+      "tags": ["close", "x", "dismiss", "ui", "elegant"],
+      "description": "우아한 닫기 X 버튼 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-lightbulb-idea-bright-20260124",
+      "path": "icons/icon-lightbulb-idea-bright-20260124.svg",
+      "category": "icons",
+      "tags": ["idea", "lightbulb", "think", "education", "bright"],
+      "description": "밝은 아이디어 전구 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-graduation-cap-proud-20260124",
+      "path": "icons/icon-graduation-cap-proud-20260124.svg",
+      "category": "icons",
+      "tags": ["graduation", "cap", "achievement", "education", "proud"],
+      "description": "자랑스러운 졸업모자 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-puzzle-piece-fit-20260124",
+      "path": "icons/icon-puzzle-piece-fit-20260124.svg",
+      "category": "icons",
+      "tags": ["puzzle", "logic", "problem-solving", "education"],
+      "description": "맞춰지는 퍼즐 조각 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-target-goal-bullseye-20260124",
+      "path": "icons/icon-target-goal-bullseye-20260124.svg",
+      "category": "icons",
+      "tags": ["target", "goal", "aim", "achievement", "bullseye"],
+      "description": "목표 과녁 명중 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-clock-timer-study-20260124",
+      "path": "icons/icon-clock-timer-study-20260124.svg",
+      "category": "icons",
+      "tags": ["clock", "timer", "study", "time", "education"],
+      "description": "학습 타이머 시계 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-brain-thinking-glow-20260124",
+      "path": "icons/icon-brain-thinking-glow-20260124.svg",
+      "category": "icons",
+      "tags": ["brain", "think", "intelligence", "education", "glow"],
+      "description": "빛나는 두뇌 생각 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-checklist-progress-20260124",
+      "path": "icons/icon-checklist-progress-20260124.svg",
+      "category": "icons",
+      "tags": ["checklist", "progress", "tasks", "ui", "education"],
+      "description": "진행률 체크리스트 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-medal-award-gold-20260124",
+      "path": "icons/icon-medal-award-gold-20260124.svg",
+      "category": "icons",
+      "tags": ["medal", "award", "gold", "achievement", "winner"],
+      "description": "금메달 수상 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-download-arrow-curved-20260124",
+      "path": "icons/icon-download-arrow-curved-20260124.svg",
+      "category": "icons",
+      "tags": ["download", "arrow", "save", "action"],
+      "description": "곡선 다운로드 화살표 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-upload-cloud-sync-20260124",
+      "path": "icons/icon-upload-cloud-sync-20260124.svg",
+      "category": "icons",
+      "tags": ["upload", "cloud", "sync", "action"],
+      "description": "클라우드 업로드 동기화 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-share-network-nodes-20260124",
+      "path": "icons/icon-share-network-nodes-20260124.svg",
+      "category": "icons",
+      "tags": ["share", "network", "connect", "action"],
+      "description": "네트워크 공유 노드 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-refresh-cycle-spin-20260124",
+      "path": "icons/icon-refresh-cycle-spin-20260124.svg",
+      "category": "icons",
+      "tags": ["refresh", "cycle", "reload", "action"],
+      "description": "회전 새로고침 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-chat-bubble-friendly-20260124",
+      "path": "icons/icon-chat-bubble-friendly-20260124.svg",
+      "category": "icons",
+      "tags": ["chat", "bubble", "message", "communication"],
+      "description": "친근한 채팅 버블 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-mail-envelope-open-20260124",
+      "path": "icons/icon-mail-envelope-open-20260124.svg",
+      "category": "icons",
+      "tags": ["mail", "envelope", "email", "communication"],
+      "description": "펼쳐진 메일 봉투 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-microphone-voice-active-20260124",
+      "path": "icons/icon-microphone-voice-active-20260124.svg",
+      "category": "icons",
+      "tags": ["mic", "voice", "audio", "communication"],
+      "description": "활성화된 마이크 음성 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-camera-photo-flash-20260124",
+      "path": "icons/icon-camera-photo-flash-20260124.svg",
+      "category": "icons",
+      "tags": ["camera", "photo", "capture", "communication"],
+      "description": "플래시 카메라 사진 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-student-desk-study-20260124",
+      "path": "illustrations/illust-student-desk-study-20260124.svg",
+      "category": "illustrations",
+      "tags": ["student", "desk", "study", "education", "learning"],
+      "description": "책상에서 공부하는 학생 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-classroom-scene-modern-20260124",
+      "path": "illustrations/illust-classroom-scene-modern-20260124.svg",
+      "category": "illustrations",
+      "tags": ["classroom", "school", "education", "modern", "students"],
+      "description": "현대적인 교실 장면 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-backpack-school-colorful-20260124",
+      "path": "illustrations/illust-backpack-school-colorful-20260124.svg",
+      "category": "illustrations",
+      "tags": ["backpack", "school", "supplies", "colorful"],
+      "description": "컬러풀한 학교 가방 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-laptop-learning-online-20260124",
+      "path": "illustrations/illust-laptop-learning-online-20260124.svg",
+      "category": "illustrations",
+      "tags": ["laptop", "online", "e-learning", "video-call"],
+      "description": "온라인 학습 노트북 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-library-books-cozy-20260124",
+      "path": "illustrations/illust-library-books-cozy-20260124.svg",
+      "category": "illustrations",
+      "tags": ["library", "books", "reading", "cozy"],
+      "description": "아늑한 도서관 책들 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-rocket-launch-success-20260124",
+      "path": "illustrations/illust-rocket-launch-success-20260124.svg",
+      "category": "illustrations",
+      "tags": ["rocket", "launch", "success", "achievement", "space"],
+      "description": "성공 로켓 발사 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-mountain-peak-climb-20260124",
+      "path": "illustrations/illust-mountain-peak-climb-20260124.svg",
+      "category": "illustrations",
+      "tags": ["mountain", "peak", "goal", "climb", "achievement"],
+      "description": "산 정상 등반 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-trophy-celebration-burst-20260124",
+      "path": "illustrations/illust-trophy-celebration-burst-20260124.svg",
+      "category": "illustrations",
+      "tags": ["trophy", "celebration", "win", "confetti", "achievement"],
+      "description": "폭발적인 트로피 축하 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-target-arrow-bullseye-20260124",
+      "path": "illustrations/illust-target-arrow-bullseye-20260124.svg",
+      "category": "illustrations",
+      "tags": ["target", "arrow", "bullseye", "goal", "achievement"],
+      "description": "과녁 화살 명중 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-medal-podium-winners-20260124",
+      "path": "illustrations/illust-medal-podium-winners-20260124.svg",
+      "category": "illustrations",
+      "tags": ["medal", "podium", "winners", "award", "achievement"],
+      "description": "수상대 메달 수상자들 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-teamwork-hands-together-20260124",
+      "path": "illustrations/illust-teamwork-hands-together-20260124.svg",
+      "category": "illustrations",
+      "tags": ["teamwork", "hands", "collaboration", "together"],
+      "description": "함께하는 팀워크 손들 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-group-discussion-circle-20260124",
+      "path": "illustrations/illust-group-discussion-circle-20260124.svg",
+      "category": "illustrations",
+      "tags": ["group", "discussion", "meeting", "collaboration"],
+      "description": "원형 그룹 토론 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-chat-conversation-bubbles-20260124",
+      "path": "illustrations/illust-chat-conversation-bubbles-20260124.svg",
+      "category": "illustrations",
+      "tags": ["chat", "conversation", "communication", "bubbles"],
+      "description": "대화 채팅 버블들 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-network-connection-global-20260124",
+      "path": "illustrations/illust-network-connection-global-20260124.svg",
+      "category": "illustrations",
+      "tags": ["network", "global", "connection", "earth", "technology"],
+      "description": "글로벌 네트워크 연결 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-lightbulbs-brainstorm-20260124",
+      "path": "illustrations/illust-lightbulbs-brainstorm-20260124.svg",
+      "category": "illustrations",
+      "tags": ["lightbulb", "brainstorm", "ideas", "creativity"],
+      "description": "브레인스토밍 전구들 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-microscope-science-lab-20260124",
+      "path": "illustrations/illust-microscope-science-lab-20260124.svg",
+      "category": "illustrations",
+      "tags": ["microscope", "science", "lab", "research"],
+      "description": "과학 실험실 현미경 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-atom-molecule-structure-20260124",
+      "path": "illustrations/illust-atom-molecule-structure-20260124.svg",
+      "category": "illustrations",
+      "tags": ["atom", "molecule", "chemistry", "science"],
+      "description": "원자 분자 구조 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-coding-screen-developer-20260124",
+      "path": "illustrations/illust-coding-screen-developer-20260124.svg",
+      "category": "illustrations",
+      "tags": ["coding", "screen", "developer", "programming"],
+      "description": "코딩 화면 개발자 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-robot-friendly-ai-20260124",
+      "path": "illustrations/illust-robot-friendly-ai-20260124.svg",
+      "category": "illustrations",
+      "tags": ["robot", "ai", "friendly", "technology"],
+      "description": "친근한 AI 로봇 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-planet-earth-ecosystem-20260124",
+      "path": "illustrations/illust-planet-earth-ecosystem-20260124.svg",
+      "category": "illustrations",
+      "tags": ["planet", "earth", "ecosystem", "environment", "space"],
+      "description": "지구 생태계 행성 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-24"
     }
   ]
 }
