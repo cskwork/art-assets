@@ -1,0 +1,289 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-24",
+  "categories": {
+    "icons": {
+      "description": "아이콘 (SVG 권장)",
+      "recommendedFormat": "svg"
+    },
+    "illustrations": {
+      "description": "일러스트레이션",
+      "recommendedFormat": "svg,png"
+    },
+    "backgrounds": {
+      "description": "배경 이미지",
+      "recommendedFormat": "jpg,png"
+    },
+    "diagrams": {
+      "description": "다이어그램, 차트, 플로우차트",
+      "recommendedFormat": "svg,png"
+    },
+    "photos": {
+      "description": "사진",
+      "recommendedFormat": "jpg"
+    }
+  },
+  "assets": [
+    {
+      "id": "icon-arithmetic-basic-color-20260124",
+      "path": "icons/icon-arithmetic-basic-color-20260124.svg",
+      "category": "icons",
+      "tags": ["arithmetic", "math", "elementary", "plus", "minus"],
+      "description": "Elementary arithmetic operators icon",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-numbers-fun-flat-20260124",
+      "path": "illustrations/illust-numbers-fun-flat-20260124.svg",
+      "category": "illustrations",
+      "tags": ["numbers", "123", "elementary", "fun"],
+      "description": "Fun stylized numbers 1-2-3",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-shapes-primary-bold-20260124",
+      "path": "icons/icon-shapes-primary-bold-20260124.svg",
+      "category": "icons",
+      "tags": ["shapes", "geometry", "elementary", "basic"],
+      "description": "Basic geometric shapes icon",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-counting-apples-modern-20260124",
+      "path": "illustrations/illust-counting-apples-modern-20260124.svg",
+      "category": "illustrations",
+      "tags": ["counting", "apples", "elementary", "math"],
+      "description": "Counting apples illustration",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-clock-learning-simple-20260124",
+      "path": "illustrations/illust-clock-learning-simple-20260124.svg",
+      "category": "illustrations",
+      "tags": ["clock", "time", "elementary", "learning"],
+      "description": "Simple analog clock for learning time",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-fraction-pie-thirds-20260124",
+      "path": "diagrams/diagram-fraction-pie-thirds-20260124.svg",
+      "category": "diagrams",
+      "tags": ["fraction", "pie", "middle-school", "math"],
+      "description": "Pie chart showing thirds fraction",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-coordinate-plane-clean-20260124",
+      "path": "diagrams/diagram-coordinate-plane-clean-20260124.svg",
+      "category": "diagrams",
+      "tags": ["coordinate", "plane", "xy-axis", "middle-school"],
+      "description": "Clean coordinate plane grid",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-angles-geometry-blue-20260124",
+      "path": "icons/icon-angles-geometry-blue-20260124.svg",
+      "category": "icons",
+      "tags": ["angles", "geometry", "middle-school", "math"],
+      "description": "Geometry angles types icon",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-triangle-area-labeled-20260124",
+      "path": "diagrams/diagram-triangle-area-labeled-20260124.svg",
+      "category": "diagrams",
+      "tags": ["triangle", "area", "geometry", "middle-school"],
+      "description": "Triangle with height and base labels",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-probability-dice-pair-20260124",
+      "path": "illustrations/illust-probability-dice-pair-20260124.svg",
+      "category": "illustrations",
+      "tags": ["probability", "dice", "middle-school", "math"],
+      "description": "Pair of dice for probability",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-parabola-graph-gradient-20260124",
+      "path": "diagrams/diagram-parabola-graph-gradient-20260124.svg",
+      "category": "diagrams",
+      "tags": ["parabola", "function", "high-school", "algebra"],
+      "description": "Parabola graph diagram",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-unit-circle-trig-dark-20260124",
+      "path": "diagrams/diagram-unit-circle-trig-dark-20260124.svg",
+      "category": "diagrams",
+      "tags": ["unit-circle", "trigonometry", "high-school", "math"],
+      "description": "Unit circle trigonometry diagram",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "icon-sigma-summation-sleek-20260124",
+      "path": "icons/icon-sigma-summation-sleek-20260124.svg",
+      "category": "icons",
+      "tags": ["sigma", "summation", "math", "symbol"],
+      "description": "Sleek sigma summation symbol",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-solid-shapes-3d-20260124",
+      "path": "illustrations/illust-solid-shapes-3d-20260124.svg",
+      "category": "illustrations",
+      "tags": ["solid", "3d", "geometry", "high-school"],
+      "description": "Wireframe 3D solid shapes",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-integral-curve-filled-20260124",
+      "path": "diagrams/diagram-integral-curve-filled-20260124.svg",
+      "category": "diagrams",
+      "tags": ["integral", "calculus", "high-school", "area"],
+      "description": "Integral area under curve diagram",
+      "format": "svg",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "bg-grid-paper-blue-textured-20260124",
+      "path": "backgrounds/bg-grid-paper-blue-textured-20260124.png",
+      "category": "backgrounds",
+      "tags": ["grid", "paper", "texture", "background"],
+      "description": "Blue textured grid paper background",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "bg-math-formulas-overlay-20260124",
+      "path": "backgrounds/bg-math-formulas-overlay-20260124.png",
+      "category": "backgrounds",
+      "tags": ["formulas", "math", "overlay", "background"],
+      "description": "Subtle math formulas overlay background",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-calculator-scientific-20260124",
+      "path": "illustrations/illust-calculator-scientific-20260124.png",
+      "category": "illustrations",
+      "tags": ["calculator", "scientific", "tool", "math"],
+      "description": "Scientific calculator illustration",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-geometry-set-classic-20260124",
+      "path": "illustrations/illust-geometry-set-classic-20260124.png",
+      "category": "illustrations",
+      "tags": ["geometry", "tools", "ruler", "compass"],
+      "description": "Classic geometry tool set",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "illust-math-symbols-collection-20260124",
+      "path": "illustrations/illust-math-symbols-collection-20260124.png",
+      "category": "illustrations",
+      "tags": ["symbols", "math", "collection", "art"],
+      "description": "Artistic math symbols collection",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-normal-distribution-curve-20260124",
+      "path": "diagrams/diagram-normal-distribution-curve-20260124.png",
+      "category": "diagrams",
+      "tags": ["statistics", "normal-distribution", "bell-curve"],
+      "description": "Normal distribution bell curve diagram",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-box-whisker-plot-20260124",
+      "path": "diagrams/diagram-box-whisker-plot-20260124.png",
+      "category": "diagrams",
+      "tags": ["statistics", "box-plot", "chart"],
+      "description": "Box and whisker plot diagram",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-scatter-plot-trendline-20260124",
+      "path": "diagrams/diagram-scatter-plot-trendline-20260124.png",
+      "category": "diagrams",
+      "tags": ["statistics", "scatter-plot", "trendline"],
+      "description": "Scatter plot with trendline",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-histogram-frequency-20260124",
+      "path": "diagrams/diagram-histogram-frequency-20260124.png",
+      "category": "diagrams",
+      "tags": ["statistics", "histogram", "bar-chart"],
+      "description": "Histogram frequency distribution chart",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-venn-diagram-intersection-20260124",
+      "path": "diagrams/diagram-venn-diagram-intersection-20260124.png",
+      "category": "diagrams",
+      "tags": ["statistics", "venn-diagram", "set-theory"],
+      "description": "Venn diagram intersection",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-matrix-grid-20260124",
+      "path": "diagrams/diagram-matrix-grid-20260124.png",
+      "category": "diagrams",
+      "tags": ["matrix", "advanced", "algebra"],
+      "description": "Matrix transformation grid",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-complex-plane-argand-20260124",
+      "path": "diagrams/diagram-complex-plane-argand-20260124.png",
+      "category": "diagrams",
+      "tags": ["complex-numbers", "argand", "advanced"],
+      "description": "Complex plane Argand diagram",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-vector-field-flow-20260124",
+      "path": "diagrams/diagram-vector-field-flow-20260124.png",
+      "category": "diagrams",
+      "tags": ["vector", "field", "physics", "advanced"],
+      "description": "Vector field flow diagram",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    },
+    {
+      "id": "diagram-limit-function-20260124",
+      "path": "diagrams/diagram-limit-function-20260124.png",
+      "category": "diagrams",
+      "tags": ["calculus", "limit", "function", "advanced"],
+      "description": "Calculus limit concept diagram",
+      "format": "png",
+      "addedDate": "2026-01-24"
+    }
+  ]
+}
