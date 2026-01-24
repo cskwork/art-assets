@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Assets Gallery</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .header h1 span {
+      color: #888;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-box input {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      width: 250px;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #4a90d9;
+    }
+
+    .tabs {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 2rem;
+    }
+
+    .tabs-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #666;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: #333;
+      background: #f9f9f9;
+    }
+
+    .tab.active {
+      color: #4a90d9;
+      border-bottom-color: #4a90d9;
+      font-weight: 500;
+    }
+
+    .tab .count {
+      background: #eee;
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      margin-left: 0.3rem;
+    }
+
+    .tab.active .count {
+      background: #e3f0fc;
+      color: #4a90d9;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+    }
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card-preview {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .card-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .card-preview.bg-preview {
+      padding: 0;
+    }
+
+    .card-preview.bg-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 0.75rem;
+    }
+
+    .card-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      word-break: break-all;
+      color: #333;
+    }
+
+    .card-desc {
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      background: #f0f0f0;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      color: #666;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-copy {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #4a90d9;
+      border-color: #4a90d9;
+      color: #fff;
+    }
+
+    .btn-copy.copied {
+      background: #4caf50;
+      border-color: #4caf50;
+      color: #fff;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+      grid-column: 1 / -1;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #333;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Art Assets Gallery <span>(49개)</span></h1>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="태그 또는 설명으로 검색..." />
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <div class="tabs-inner">
+      <button class="tab active" data-category="all">
+        전체 <span class="count">49</span>
+      </button>
+      <button class="tab" data-category="icons">
+        Icons <span class="count">14</span>
+      </button>
+      <button class="tab" data-category="illustrations">
+        Illustrations <span class="count">8</span>
+      </button>
+      <button class="tab" data-category="diagrams">
+        Diagrams <span class="count">25</span>
+      </button>
+      <button class="tab" data-category="backgrounds">
+        Backgrounds <span class="count">2</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="grid" id="gallery">
+      <div class="card" data-category="icons" data-tags="arithmetic math elementary plus minus" data-desc="Elementary arithmetic operators icon" data-name="icon-arithmetic-basic-color-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-arithmetic-basic-color-20260124.svg" alt="Elementary arithmetic operators icon" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-arithmetic-basic-color-20260124</div>
+          <div class="card-desc">Elementary arithmetic operators icon</div>
+          <div class="card-tags"><span class="tag">arithmetic</span><span class="tag">math</span><span class="tag">elementary</span><span class="tag">plus</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-arithmetic-basic-color-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="numbers 123 elementary fun" data-desc="Fun stylized numbers 1-2-3" data-name="illust-numbers-fun-flat-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-numbers-fun-flat-20260124.svg" alt="Fun stylized numbers 1-2-3" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-numbers-fun-flat-20260124</div>
+          <div class="card-desc">Fun stylized numbers 1-2-3</div>
+          <div class="card-tags"><span class="tag">numbers</span><span class="tag">123</span><span class="tag">elementary</span><span class="tag">fun</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-numbers-fun-flat-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="shapes geometry elementary basic" data-desc="Basic geometric shapes icon" data-name="icon-shapes-primary-bold-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-shapes-primary-bold-20260124.svg" alt="Basic geometric shapes icon" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-shapes-primary-bold-20260124</div>
+          <div class="card-desc">Basic geometric shapes icon</div>
+          <div class="card-tags"><span class="tag">shapes</span><span class="tag">geometry</span><span class="tag">elementary</span><span class="tag">basic</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-shapes-primary-bold-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="counting apples elementary math" data-desc="Counting apples illustration" data-name="illust-counting-apples-modern-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-counting-apples-modern-20260124.svg" alt="Counting apples illustration" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-counting-apples-modern-20260124</div>
+          <div class="card-desc">Counting apples illustration</div>
+          <div class="card-tags"><span class="tag">counting</span><span class="tag">apples</span><span class="tag">elementary</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-counting-apples-modern-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="clock time elementary learning" data-desc="Simple analog clock for learning time" data-name="illust-clock-learning-simple-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-clock-learning-simple-20260124.svg" alt="Simple analog clock for learning time" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-clock-learning-simple-20260124</div>
+          <div class="card-desc">Simple analog clock for learning time</div>
+          <div class="card-tags"><span class="tag">clock</span><span class="tag">time</span><span class="tag">elementary</span><span class="tag">learning</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-clock-learning-simple-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="fraction pie middle-school math" data-desc="Pie chart showing thirds fraction" data-name="diagram-fraction-pie-thirds-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-fraction-pie-thirds-20260124.svg" alt="Pie chart showing thirds fraction" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-fraction-pie-thirds-20260124</div>
+          <div class="card-desc">Pie chart showing thirds fraction</div>
+          <div class="card-tags"><span class="tag">fraction</span><span class="tag">pie</span><span class="tag">middle-school</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-fraction-pie-thirds-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="coordinate plane xy-axis middle-school" data-desc="Clean coordinate plane grid" data-name="diagram-coordinate-plane-clean-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-coordinate-plane-clean-20260124.svg" alt="Clean coordinate plane grid" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-coordinate-plane-clean-20260124</div>
+          <div class="card-desc">Clean coordinate plane grid</div>
+          <div class="card-tags"><span class="tag">coordinate</span><span class="tag">plane</span><span class="tag">xy-axis</span><span class="tag">middle-school</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-coordinate-plane-clean-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="angles geometry middle-school math" data-desc="Geometry angles types icon" data-name="icon-angles-geometry-blue-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-angles-geometry-blue-20260124.svg" alt="Geometry angles types icon" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-angles-geometry-blue-20260124</div>
+          <div class="card-desc">Geometry angles types icon</div>
+          <div class="card-tags"><span class="tag">angles</span><span class="tag">geometry</span><span class="tag">middle-school</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-angles-geometry-blue-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="triangle area geometry middle-school" data-desc="Triangle with height and base labels" data-name="diagram-triangle-area-labeled-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-triangle-area-labeled-20260124.svg" alt="Triangle with height and base labels" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-triangle-area-labeled-20260124</div>
+          <div class="card-desc">Triangle with height and base labels</div>
+          <div class="card-tags"><span class="tag">triangle</span><span class="tag">area</span><span class="tag">geometry</span><span class="tag">middle-school</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-triangle-area-labeled-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="probability dice middle-school math" data-desc="Pair of dice for probability" data-name="illust-probability-dice-pair-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-probability-dice-pair-20260124.svg" alt="Pair of dice for probability" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-probability-dice-pair-20260124</div>
+          <div class="card-desc">Pair of dice for probability</div>
+          <div class="card-tags"><span class="tag">probability</span><span class="tag">dice</span><span class="tag">middle-school</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-probability-dice-pair-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="parabola function high-school algebra" data-desc="Parabola graph diagram" data-name="diagram-parabola-graph-gradient-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-parabola-graph-gradient-20260124.svg" alt="Parabola graph diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-parabola-graph-gradient-20260124</div>
+          <div class="card-desc">Parabola graph diagram</div>
+          <div class="card-tags"><span class="tag">parabola</span><span class="tag">function</span><span class="tag">high-school</span><span class="tag">algebra</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-parabola-graph-gradient-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="unit-circle trigonometry high-school math" data-desc="Unit circle trigonometry diagram" data-name="diagram-unit-circle-trig-dark-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-unit-circle-trig-dark-20260124.svg" alt="Unit circle trigonometry diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-unit-circle-trig-dark-20260124</div>
+          <div class="card-desc">Unit circle trigonometry diagram</div>
+          <div class="card-tags"><span class="tag">unit-circle</span><span class="tag">trigonometry</span><span class="tag">high-school</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-unit-circle-trig-dark-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="sigma summation math symbol" data-desc="Sleek sigma summation symbol" data-name="icon-sigma-summation-sleek-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-sigma-summation-sleek-20260124.svg" alt="Sleek sigma summation symbol" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-sigma-summation-sleek-20260124</div>
+          <div class="card-desc">Sleek sigma summation symbol</div>
+          <div class="card-tags"><span class="tag">sigma</span><span class="tag">summation</span><span class="tag">math</span><span class="tag">symbol</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-sigma-summation-sleek-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="solid 3d geometry high-school" data-desc="Wireframe 3D solid shapes" data-name="illust-solid-shapes-3d-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-solid-shapes-3d-20260124.svg" alt="Wireframe 3D solid shapes" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-solid-shapes-3d-20260124</div>
+          <div class="card-desc">Wireframe 3D solid shapes</div>
+          <div class="card-tags"><span class="tag">solid</span><span class="tag">3d</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-solid-shapes-3d-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="integral calculus high-school area" data-desc="Integral area under curve diagram" data-name="diagram-integral-curve-filled-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-integral-curve-filled-20260124.svg" alt="Integral area under curve diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-integral-curve-filled-20260124</div>
+          <div class="card-desc">Integral area under curve diagram</div>
+          <div class="card-tags"><span class="tag">integral</span><span class="tag">calculus</span><span class="tag">high-school</span><span class="tag">area</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-integral-curve-filled-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="backgrounds" data-tags="grid paper texture background" data-desc="Blue textured grid paper background" data-name="bg-grid-paper-blue-textured-20260124">
+        <div class="card-preview bg-preview">
+          <img src="backgrounds/bg-grid-paper-blue-textured-20260124.png" alt="Blue textured grid paper background" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">bg-grid-paper-blue-textured-20260124</div>
+          <div class="card-desc">Blue textured grid paper background</div>
+          <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">texture</span><span class="tag">background</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-blue-textured-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="backgrounds" data-tags="formulas math overlay background" data-desc="Subtle math formulas overlay background" data-name="bg-math-formulas-overlay-20260124">
+        <div class="card-preview bg-preview">
+          <img src="backgrounds/bg-math-formulas-overlay-20260124.png" alt="Subtle math formulas overlay background" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">bg-math-formulas-overlay-20260124</div>
+          <div class="card-desc">Subtle math formulas overlay background</div>
+          <div class="card-tags"><span class="tag">formulas</span><span class="tag">math</span><span class="tag">overlay</span><span class="tag">background</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-math-formulas-overlay-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="calculator scientific tool math" data-desc="Scientific calculator illustration" data-name="illust-calculator-scientific-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-calculator-scientific-20260124.png" alt="Scientific calculator illustration" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-calculator-scientific-20260124</div>
+          <div class="card-desc">Scientific calculator illustration</div>
+          <div class="card-tags"><span class="tag">calculator</span><span class="tag">scientific</span><span class="tag">tool</span><span class="tag">math</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-scientific-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="geometry tools ruler compass" data-desc="Classic geometry tool set" data-name="illust-geometry-set-classic-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-geometry-set-classic-20260124.png" alt="Classic geometry tool set" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-geometry-set-classic-20260124</div>
+          <div class="card-desc">Classic geometry tool set</div>
+          <div class="card-tags"><span class="tag">geometry</span><span class="tag">tools</span><span class="tag">ruler</span><span class="tag">compass</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-geometry-set-classic-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="illustrations" data-tags="symbols math collection art" data-desc="Artistic math symbols collection" data-name="illust-math-symbols-collection-20260124">
+        <div class="card-preview">
+          <img src="illustrations/illust-math-symbols-collection-20260124.png" alt="Artistic math symbols collection" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">illust-math-symbols-collection-20260124</div>
+          <div class="card-desc">Artistic math symbols collection</div>
+          <div class="card-tags"><span class="tag">symbols</span><span class="tag">math</span><span class="tag">collection</span><span class="tag">art</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-math-symbols-collection-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="statistics normal-distribution bell-curve" data-desc="Normal distribution bell curve diagram" data-name="diagram-normal-distribution-curve-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-normal-distribution-curve-20260124.png" alt="Normal distribution bell curve diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-normal-distribution-curve-20260124</div>
+          <div class="card-desc">Normal distribution bell curve diagram</div>
+          <div class="card-tags"><span class="tag">statistics</span><span class="tag">normal-distribution</span><span class="tag">bell-curve</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-normal-distribution-curve-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="statistics box-plot chart" data-desc="Box and whisker plot diagram" data-name="diagram-box-whisker-plot-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-box-whisker-plot-20260124.png" alt="Box and whisker plot diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-box-whisker-plot-20260124</div>
+          <div class="card-desc">Box and whisker plot diagram</div>
+          <div class="card-tags"><span class="tag">statistics</span><span class="tag">box-plot</span><span class="tag">chart</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-box-whisker-plot-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="statistics scatter-plot trendline" data-desc="Scatter plot with trendline" data-name="diagram-scatter-plot-trendline-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-scatter-plot-trendline-20260124.png" alt="Scatter plot with trendline" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-scatter-plot-trendline-20260124</div>
+          <div class="card-desc">Scatter plot with trendline</div>
+          <div class="card-tags"><span class="tag">statistics</span><span class="tag">scatter-plot</span><span class="tag">trendline</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-scatter-plot-trendline-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="statistics histogram bar-chart" data-desc="Histogram frequency distribution chart" data-name="diagram-histogram-frequency-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-histogram-frequency-20260124.png" alt="Histogram frequency distribution chart" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-histogram-frequency-20260124</div>
+          <div class="card-desc">Histogram frequency distribution chart</div>
+          <div class="card-tags"><span class="tag">statistics</span><span class="tag">histogram</span><span class="tag">bar-chart</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-histogram-frequency-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="statistics venn-diagram set-theory" data-desc="Venn diagram intersection" data-name="diagram-venn-diagram-intersection-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-venn-diagram-intersection-20260124.png" alt="Venn diagram intersection" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-venn-diagram-intersection-20260124</div>
+          <div class="card-desc">Venn diagram intersection</div>
+          <div class="card-tags"><span class="tag">statistics</span><span class="tag">venn-diagram</span><span class="tag">set-theory</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-diagram-intersection-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="matrix advanced algebra" data-desc="Matrix transformation grid" data-name="diagram-matrix-grid-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-matrix-grid-20260124.png" alt="Matrix transformation grid" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-matrix-grid-20260124</div>
+          <div class="card-desc">Matrix transformation grid</div>
+          <div class="card-tags"><span class="tag">matrix</span><span class="tag">advanced</span><span class="tag">algebra</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-matrix-grid-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="complex-numbers argand advanced" data-desc="Complex plane Argand diagram" data-name="diagram-complex-plane-argand-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-complex-plane-argand-20260124.png" alt="Complex plane Argand diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-complex-plane-argand-20260124</div>
+          <div class="card-desc">Complex plane Argand diagram</div>
+          <div class="card-tags"><span class="tag">complex-numbers</span><span class="tag">argand</span><span class="tag">advanced</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-complex-plane-argand-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="Vector field flow diagram" data-name="diagram-vector-field-flow-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-vector-field-flow-20260124.png" alt="Vector field flow diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-vector-field-flow-20260124</div>
+          <div class="card-desc">Vector field flow diagram</div>
+          <div class="card-tags"><span class="tag">vector</span><span class="tag">field</span><span class="tag">physics</span><span class="tag">advanced</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-vector-field-flow-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="calculus limit function advanced" data-desc="Calculus limit concept diagram" data-name="diagram-limit-function-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-limit-function-20260124.png" alt="Calculus limit concept diagram" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-limit-function-20260124</div>
+          <div class="card-desc">Calculus limit concept diagram</div>
+          <div class="card-tags"><span class="tag">calculus</span><span class="tag">limit</span><span class="tag">function</span><span class="tag">advanced</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-limit-function-20260124.png', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="home house navigation ui cute elementary" data-desc="귀여운 홈 버튼 아이콘" data-name="icon-home-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-home-cute-20260124.svg" alt="귀여운 홈 버튼 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-home-cute-20260124</div>
+          <div class="card-desc">귀여운 홈 버튼 아이콘</div>
+          <div class="card-tags"><span class="tag">home</span><span class="tag">house</span><span class="tag">navigation</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-home-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="back arrow navigation ui cute elementary" data-desc="귀여운 뒤로가기 화살표 아이콘" data-name="icon-back-arrow-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-back-arrow-cute-20260124.svg" alt="귀여운 뒤로가기 화살표 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-back-arrow-cute-20260124</div>
+          <div class="card-desc">귀여운 뒤로가기 화살표 아이콘</div>
+          <div class="card-tags"><span class="tag">back</span><span class="tag">arrow</span><span class="tag">navigation</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-back-arrow-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="star reward achievement ui cute elementary" data-desc="귀여운 별 보상 아이콘" data-name="icon-star-reward-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-star-reward-cute-20260124.svg" alt="귀여운 별 보상 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-star-reward-cute-20260124</div>
+          <div class="card-desc">귀여운 별 보상 아이콘</div>
+          <div class="card-tags"><span class="tag">star</span><span class="tag">reward</span><span class="tag">achievement</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-star-reward-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="trophy achievement winner ui cute elementary" data-desc="귀여운 트로피 성취 아이콘" data-name="icon-trophy-achievement-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-trophy-achievement-cute-20260124.svg" alt="귀여운 트로피 성취 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-trophy-achievement-cute-20260124</div>
+          <div class="card-desc">귀여운 트로피 성취 아이콘</div>
+          <div class="card-tags"><span class="tag">trophy</span><span class="tag">achievement</span><span class="tag">winner</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-trophy-achievement-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="book reading learning ui cute elementary" data-desc="귀여운 펼친 책 학습 아이콘" data-name="icon-book-open-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-book-open-cute-20260124.svg" alt="귀여운 펼친 책 학습 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-book-open-cute-20260124</div>
+          <div class="card-desc">귀여운 펼친 책 학습 아이콘</div>
+          <div class="card-tags"><span class="tag">book</span><span class="tag">reading</span><span class="tag">learning</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-book-open-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="pencil write edit ui cute elementary" data-desc="귀여운 연필 쓰기 아이콘" data-name="icon-pencil-write-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-pencil-write-cute-20260124.svg" alt="귀여운 연필 쓰기 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-pencil-write-cute-20260124</div>
+          <div class="card-desc">귀여운 연필 쓰기 아이콘</div>
+          <div class="card-tags"><span class="tag">pencil</span><span class="tag">write</span><span class="tag">edit</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-pencil-write-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="bell notification alert ui cute elementary" data-desc="귀여운 알림 종 아이콘" data-name="icon-bell-notification-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-bell-notification-cute-20260124.svg" alt="귀여운 알림 종 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-bell-notification-cute-20260124</div>
+          <div class="card-desc">귀여운 알림 종 아이콘</div>
+          <div class="card-tags"><span class="tag">bell</span><span class="tag">notification</span><span class="tag">alert</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-bell-notification-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="help question support ui cute elementary" data-desc="귀여운 도움말 물음표 아이콘" data-name="icon-help-question-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-help-question-cute-20260124.svg" alt="귀여운 도움말 물음표 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-help-question-cute-20260124</div>
+          <div class="card-desc">귀여운 도움말 물음표 아이콘</div>
+          <div class="card-tags"><span class="tag">help</span><span class="tag">question</span><span class="tag">support</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-help-question-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="heart favorite like ui cute elementary" data-desc="귀여운 하트 즐겨찾기 아이콘" data-name="icon-heart-favorite-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-heart-favorite-cute-20260124.svg" alt="귀여운 하트 즐겨찾기 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-heart-favorite-cute-20260124</div>
+          <div class="card-desc">귀여운 하트 즐겨찾기 아이콘</div>
+          <div class="card-tags"><span class="tag">heart</span><span class="tag">favorite</span><span class="tag">like</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-heart-favorite-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="icons" data-tags="play start begin ui cute elementary" data-desc="귀여운 재생 시작 아이콘" data-name="icon-play-start-cute-20260124">
+        <div class="card-preview">
+          <img src="icons/icon-play-start-cute-20260124.svg" alt="귀여운 재생 시작 아이콘" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">icon-play-start-cute-20260124</div>
+          <div class="card-desc">귀여운 재생 시작 아이콘</div>
+          <div class="card-tags"><span class="tag">play</span><span class="tag">start</span><span class="tag">begin</span><span class="tag">ui</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('icons/icon-play-start-cute-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="flowchart algorithm logic process decision" data-desc="기본 순서도 다이어그램 (시작, 처리, 조건, 종료)" data-name="diagram-flowchart-basic-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-flowchart-basic-20260124.svg" alt="기본 순서도 다이어그램 (시작, 처리, 조건, 종료)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-flowchart-basic-20260124</div>
+          <div class="card-desc">기본 순서도 다이어그램 (시작, 처리, 조건, 종료)</div>
+          <div class="card-tags"><span class="tag">flowchart</span><span class="tag">algorithm</span><span class="tag">logic</span><span class="tag">process</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-flowchart-basic-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="cycle pdca process continuous improvement" data-desc="PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)" data-name="diagram-cycle-process-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-cycle-process-20260124.svg" alt="PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-cycle-process-20260124</div>
+          <div class="card-desc">PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)</div>
+          <div class="card-tags"><span class="tag">cycle</span><span class="tag">pdca</span><span class="tag">process</span><span class="tag">continuous</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cycle-process-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="timeline schedule milestone project horizontal" data-desc="수평 타임라인 다이어그램 (프로젝트 일정 표현)" data-name="diagram-timeline-horizontal-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-timeline-horizontal-20260124.svg" alt="수평 타임라인 다이어그램 (프로젝트 일정 표현)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-timeline-horizontal-20260124</div>
+          <div class="card-desc">수평 타임라인 다이어그램 (프로젝트 일정 표현)</div>
+          <div class="card-tags"><span class="tag">timeline</span><span class="tag">schedule</span><span class="tag">milestone</span><span class="tag">project</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-timeline-horizontal-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="hierarchy tree organization structure levels" data-desc="계층 트리 구조 다이어그램 (조직도, 분류 체계)" data-name="diagram-hierarchy-tree-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-hierarchy-tree-20260124.svg" alt="계층 트리 구조 다이어그램 (조직도, 분류 체계)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-hierarchy-tree-20260124</div>
+          <div class="card-desc">계층 트리 구조 다이어그램 (조직도, 분류 체계)</div>
+          <div class="card-tags"><span class="tag">hierarchy</span><span class="tag">tree</span><span class="tag">organization</span><span class="tag">structure</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-hierarchy-tree-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="comparison table chart versus analysis" data-desc="비교 차트 다이어그램 (옵션 비교 테이블)" data-name="diagram-comparison-chart-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-comparison-chart-20260124.svg" alt="비교 차트 다이어그램 (옵션 비교 테이블)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-comparison-chart-20260124</div>
+          <div class="card-desc">비교 차트 다이어그램 (옵션 비교 테이블)</div>
+          <div class="card-tags"><span class="tag">comparison</span><span class="tag">table</span><span class="tag">chart</span><span class="tag">versus</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-comparison-chart-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="mind-map brainstorm ideas central radial" data-desc="중심형 마인드맵 다이어그램 (아이디어 확장 구조)" data-name="diagram-mind-map-central-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-mind-map-central-20260124.svg" alt="중심형 마인드맵 다이어그램 (아이디어 확장 구조)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-mind-map-central-20260124</div>
+          <div class="card-desc">중심형 마인드맵 다이어그램 (아이디어 확장 구조)</div>
+          <div class="card-tags"><span class="tag">mind-map</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">central</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-mind-map-central-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="pie-chart percentage distribution segments donut" data-desc="파이 차트 다이어그램 (비율 분포 시각화)" data-name="diagram-pie-chart-segments-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-pie-chart-segments-20260124.svg" alt="파이 차트 다이어그램 (비율 분포 시각화)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-pie-chart-segments-20260124</div>
+          <div class="card-desc">파이 차트 다이어그램 (비율 분포 시각화)</div>
+          <div class="card-tags"><span class="tag">pie-chart</span><span class="tag">percentage</span><span class="tag">distribution</span><span class="tag">segments</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pie-chart-segments-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="bar-chart vertical statistics data comparison" data-desc="세로 막대 그래프 다이어그램 (데이터 비교 시각화)" data-name="diagram-bar-chart-vertical-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-bar-chart-vertical-20260124.svg" alt="세로 막대 그래프 다이어그램 (데이터 비교 시각화)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-bar-chart-vertical-20260124</div>
+          <div class="card-desc">세로 막대 그래프 다이어그램 (데이터 비교 시각화)</div>
+          <div class="card-tags"><span class="tag">bar-chart</span><span class="tag">vertical</span><span class="tag">statistics</span><span class="tag">data</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-bar-chart-vertical-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="number-line math integers real-numbers elementary" data-desc="기본 수직선 다이어그램 (정수와 실수 표현)" data-name="diagram-number-line-basic-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-number-line-basic-20260124.svg" alt="기본 수직선 다이어그램 (정수와 실수 표현)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-number-line-basic-20260124</div>
+          <div class="card-desc">기본 수직선 다이어그램 (정수와 실수 표현)</div>
+          <div class="card-tags"><span class="tag">number-line</span><span class="tag">math</span><span class="tag">integers</span><span class="tag">real-numbers</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-number-line-basic-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="diagrams" data-tags="pythagorean theorem geometry triangle math" data-desc="피타고라스 정리 시각화 다이어그램 (a² + b² = c²)" data-name="diagram-pythagorean-theorem-20260124">
+        <div class="card-preview">
+          <img src="diagrams/diagram-pythagorean-theorem-20260124.svg" alt="피타고라스 정리 시각화 다이어그램 (a² + b² = c²)" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-pythagorean-theorem-20260124</div>
+          <div class="card-desc">피타고라스 정리 시각화 다이어그램 (a² + b² = c²)</div>
+          <div class="card-tags"><span class="tag">pythagorean</span><span class="tag">theorem</span><span class="tag">geometry</span><span class="tag">triangle</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pythagorean-theorem-20260124.svg', this)">Copy Path</button>
+          </div>
+        </div>
+      </div>
+      <div class="no-results" id="no-results" style="display: none;">
+        검색 결과가 없습니다.
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">경로가 복사되었습니다</div>
+
+  <script>
+    // 탭 필터링
+    const tabs = document.querySelectorAll('.tab');
+    const cards = document.querySelectorAll('.card');
+    const searchInput = document.getElementById('search');
+    const noResults = document.getElementById('no-results');
+    const toast = document.getElementById('toast');
+
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCategory = tab.dataset.category;
+        filterCards();
+      });
+    });
+
+    // 검색 필터링
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase();
+      filterCards();
+    });
+
+    function filterCards() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const category = card.dataset.category;
+        const tags = card.dataset.tags.toLowerCase();
+        const desc = card.dataset.desc.toLowerCase();
+        const name = card.dataset.name.toLowerCase();
+
+        const categoryMatch = currentCategory === 'all' || category === currentCategory;
+        const searchMatch = !currentSearch ||
+          tags.includes(currentSearch) ||
+          desc.includes(currentSearch) ||
+          name.includes(currentSearch);
+
+        if (categoryMatch && searchMatch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // 경로 복사
+    function copyPath(path, btn) {
+      navigator.clipboard.writeText(path).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        showToast(path);
+        setTimeout(() => {
+          btn.textContent = 'Copy Path';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    }
+
+    function showToast(path) {
+      toast.textContent = path + ' 복사됨';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
