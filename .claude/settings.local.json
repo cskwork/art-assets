@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"Get-ChildItem -Path ''./icons'' -Include ''*.svg'' | Measure-Object | Select-Object -ExpandProperty Count\")"
+      "Bash(powershell -Command \"Get-ChildItem -Path ''./icons'' -Include ''*.svg'' | Measure-Object | Select-Object -ExpandProperty Count\")",
+      "Bash(node scripts/generate-platonic-solids.mjs:*)"
     ]
   }
 }

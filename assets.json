@@ -21,6 +21,10 @@
     "photos": {
       "description": "사진",
       "recommendedFormat": "jpg"
+    },
+    "3d": {
+      "description": "3D 모델 (Three.js GLB/GLTF)",
+      "recommendedFormat": "glb,gltf"
     }
   },
   "assets": [
@@ -799,11 +803,156 @@
       "id": "illust-group-discussion-circle-20260124",
       "path": "illustrations/illust-group-discussion-circle-20260124.svg",
       "category": "illustrations",
-      "tags": ["group", "discussion", "meeting", "collaboration"],
-      "description": "원형 그룹 토론 일러스트",
+      "tags": ["group", "discussion", "circle", "students", "collaboration"],
+      "description": "원형 그룹 토론 학생들 일러스트",
       "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
       "addedDate": "2026-01-24"
+    },
+    {
+      "id": "3d-geometry-icosahedron-math-20260125",
+      "path": "3d/3d-geometry-icosahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["geometry", "math", "icosahedron", "platonic-solid", "3d"],
+      "description": "정이십면체 (플라톤 다면체) 3D 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-topology-mobius-strip-20260125",
+      "path": "3d/3d-topology-mobius-strip-20260125.glb",
+      "category": "3d",
+      "tags": ["topology", "math", "mobius-strip", "surface", "3d"],
+      "description": "뫼비우스의 띠 위상수학 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-statistics-normal-surface-20260125",
+      "path": "3d/3d-statistics-normal-surface-20260125.glb",
+      "category": "3d",
+      "tags": ["statistics", "math", "normal-distribution", "gaussian", "surface", "3d"],
+      "description": "정규 분포 곡면 (통계) 3D 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-geometry-torus-simple-20260125",
+      "path": "3d/3d-geometry-torus-simple-20260125.glb",
+      "category": "3d",
+      "tags": ["geometry", "math", "torus", "donut", "shape", "3d"],
+      "description": "토러스 (도넛 모양) 기하학 3D 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-complex-riemann-surface-20260125",
+      "path": "3d/3d-complex-riemann-surface-20260125.glb",
+      "category": "3d",
+      "tags": ["complex-analysis", "math", "riemann-surface", "spiral", "3d"],
+      "description": "리만 곡면 (복소수 해석학) 3D 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-science-lab-beaker-20260125",
+      "path": "illustrations/illust-science-lab-beaker-20260125.svg",
+      "category": "illustrations",
+      "tags": ["science", "chemistry", "lab", "beaker", "experiment"],
+      "description": "과학 실험실 비커 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-world-globe-learning-20260125",
+      "path": "illustrations/illust-world-globe-learning-20260125.svg",
+      "category": "illustrations",
+      "tags": ["globe", "geography", "world", "earth", "learning"],
+      "description": "지구본 지리학 학습 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-music-notes-melody-20260125",
+      "path": "illustrations/illust-music-notes-melody-20260125.svg",
+      "category": "illustrations",
+      "tags": ["music", "notes", "melody", "arts", "song"],
+      "description": "음표 멜로디 음악 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-palette-brush-art-20260125",
+      "path": "illustrations/illust-palette-brush-art-20260125.svg",
+      "category": "illustrations",
+      "tags": ["art", "palette", "brush", "paint", "creativity"],
+      "description": "아트 팔레트와 붓 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-magnifying-glass-explore-20260125",
+      "path": "illustrations/illust-magnifying-glass-explore-20260125.svg",
+      "category": "illustrations",
+      "tags": ["magnifying-glass", "explore", "search", "investigate", "science"],
+      "description": "탐구용 돋보기 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-diploma-certificate-scroll-20260125",
+      "path": "illustrations/illust-diploma-certificate-scroll-20260125.svg",
+      "category": "illustrations",
+      "tags": ["diploma", "certificate", "graduation", "achievement", "award"],
+      "description": "졸업장 상장 두루마리 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-bus-school-journey-20260125",
+      "path": "illustrations/illust-bus-school-journey-20260125.svg",
+      "category": "illustrations",
+      "tags": ["bus", "school", "transportation", "journey", "yellow"],
+      "description": "노란색 스쿨버스 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-calculator-math-simple-20260125",
+      "path": "illustrations/illust-calculator-math-simple-20260125.svg",
+      "category": "illustrations",
+      "tags": ["calculator", "math", "tool", "arithmetic", "simple"],
+      "description": "간단한 수학 계산기 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-notebook-pencil-notes-20260125",
+      "path": "illustrations/illust-notebook-pencil-notes-20260125.svg",
+      "category": "illustrations",
+      "tags": ["notebook", "pencil", "write", "notes", "study"],
+      "description": "공책과 연필 필기 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "illust-microscope-biology-lab-20260125",
+      "path": "illustrations/illust-microscope-biology-lab-20260125.svg",
+      "category": "illustrations",
+      "tags": ["microscope", "biology", "science", "lab", "tool"],
+      "description": "생물학 실험 현미경 일러스트",
+      "dimensions": { "width": 200, "height": 200 },
+      "format": "svg",
+      "addedDate": "2026-01-25"
     },
     {
       "id": "illust-chat-conversation-bubbles-20260124",
@@ -1208,6 +1357,51 @@
       "description": "추상적인 세계 지도 배경 (4K)",
       "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-tetrahedron-math-20260125",
+      "path": "3d/3d-tetrahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정사면체"],
+      "description": "정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-hexahedron-math-20260125",
+      "path": "3d/3d-hexahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정육면체"],
+      "description": "정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-octahedron-math-20260125",
+      "path": "3d/3d-octahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정팔면체"],
+      "description": "정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-dodecahedron-math-20260125",
+      "path": "3d/3d-dodecahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정십이면체"],
+      "description": "정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-icosahedron-math-20260125",
+      "path": "3d/3d-icosahedron-math-20260125.glb",
+      "category": "3d",
+      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정이십면체"],
+      "description": "정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)",
+      "format": "glb",
       "addedDate": "2026-01-25"
     }
   ]

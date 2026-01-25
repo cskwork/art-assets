@@ -1,6 +1,6 @@
 # Art Assets Repository
 
-한국 학생들을 위한 교육용 아트 에셋 저장소. LLM이 에셋을 검색하고 Vue/HTML 프로젝트에 삽입할 수 있도록 구성됨. (For any text that exists should be korean)
+한국 학생들을 위한 교육용 아트 고유 에셋 저장소. LLM이 에셋을 검색하고 Vue/HTML 프로젝트에 삽입할 수 있도록 구성됨. (For any text that exists should be korean)
 
 ## 폴더 구조
 
@@ -12,7 +12,8 @@ art-assets/
 ├── illustrations/     # 일러스트레이션 (SVG/PNG)
 ├── backgrounds/       # 배경 이미지 (JPG/PNG)
 ├── diagrams/          # 다이어그램, 차트 (SVG/PNG)
-└── photos/            # 사진 (JPG)
+├── photos/            # 사진 (JPG)
+└── 3d/                # 3D 모델/씬 (Three.js GLB/GLTF)
 ```
 
 ## 파일 명명 규칙
@@ -21,17 +22,18 @@ art-assets/
 
 | 필드 | 설명 | 예시 |
 |------|------|------|
-| category | 카테고리 약어 | icon, illust, bg, diagram, photo |
+| category | 카테고리 약어 | icon, illust, bg, diagram, photo, 3d |
 | description | kebab-case 설명 | checkmark, user-profile, login-flow |
 | variant | 변형 (선택) | green, dark, wide, ko |
 | YYYYMMDD | 생성일 | 20260124 |
-| ext | 확장자 | svg, png, jpg |
+| ext | 확장자 | svg, png, jpg, glb, gltf |
 
 **예시**:
 - `icon-checkmark-green-20260124.svg`
 - `photo-classroom-wide-20260124.jpg`
 - `diagram-login-flow-20260124.svg`
 - `bg-gradient-blue-20260124.png`
+- `3d-molecule-water-20260125.glb`
 
 ## assets.json 스키마
 
@@ -58,13 +60,13 @@ art-assets/
 ### 필수 필드
 - `id`: 파일명 (확장자 제외)
 - `path`: 상대 경로
-- `category`: icons | illustrations | backgrounds | diagrams | photos
+- `category`: icons | illustrations | backgrounds | diagrams | photos | 3d
 - `tags`: 검색용 태그 배열
 - `description`: 한글 설명
 
 ### 선택 필드
 - `dimensions`: { width, height } (픽셀)
-- `format`: svg | png | jpg
+- `format`: svg | png | jpg | glb | gltf
 - `addedDate`: 추가일
 
 ## 에셋 추가 절차
@@ -105,6 +107,13 @@ const found = assets.assets.filter(a =>
 <script setup>
 // 에셋 경로 헬퍼 (프로젝트 설정에 따라 조정)
 const assetPath = (path) => `/assets/${path}`;
+
+// Three.js GLB 로딩 예시
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+const loader = new GLTFLoader();
+loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
+  scene.add(gltf.scene);
+});
 </script>
 ```
 
@@ -131,6 +140,7 @@ const assetPath = (path) => `/assets/${path}`;
 | backgrounds | JPG, PNG | 사진형 JPG, 투명 필요시 PNG |
 | diagrams | SVG, PNG | 편집 가능한 SVG 우선 |
 | photos | JPG | 파일 크기 효율 |
+| 3d | GLB, GLTF | Three.js 호환, 압축 효율 |
 
 ## 주의사항
 

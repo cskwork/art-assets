@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D 에셋 뷰어 - Art Assets</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2rem;
+      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.85rem;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(0,210,255,0.3);
+      border-color: #00d2ff;
+    }
+    .filter-btn .count {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+      font-size: 0.75rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .viewer {
+      width: 100%;
+      height: 250px;
+      background: #0f0f1a;
+      cursor: grab;
+      position: relative;
+    }
+    .viewer:active { cursor: grabbing; }
+    .viewer .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #666;
+    }
+    .info {
+      padding: 20px;
+    }
+    .info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .info .description {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+    .meta .format {
+      background: #3a7bd5;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    .empty-state h2 { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>3D 에셋 뷰어</h1>
+    <p class="subtitle">art-assets/3d/ 폴더의 GLB/GLTF 파일 동적 로드</p>
+    <p class="controls">마우스 드래그: 회전 | 스크롤: 확대/축소 | 더블클릭: 리셋</p>
+
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    const grid = document.getElementById('grid');
+    const filterBar = document.getElementById('filterBar');
+
+    let allAssets = [];
+    let activeFilter = 'all';
+
+    // assets.json에서 3D 에셋 로드
+    async function loadAssets() {
+      try {
+        const response = await fetch('../assets.json');
+        const data = await response.json();
+
+        // 3d 카테고리 필터링
+        allAssets = data.assets.filter(asset => asset.category === '3d');
+
+        if (allAssets.length === 0) {
+          grid.innerHTML = `
+            <div class="empty-state">
+              <h2>3D 에셋이 없습니다</h2>
+              <p>assets.json에 category: "3d" 에셋을 추가하세요</p>
+            </div>
+          `;
+          return;
+        }
+
+        // 태그 기반 필터 버튼 생성
+        createFilterButtons();
+
+        // 에셋 렌더링
+        renderAssets(allAssets);
+
+      } catch (error) {
+        console.error('Failed to load assets.json:', error);
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h2>assets.json 로드 실패</h2>
+            <p>${error.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    // 태그 필터 버튼 생성
+    function createFilterButtons() {
+      const tagCounts = {};
+      allAssets.forEach(asset => {
+        (asset.tags || []).forEach(tag => {
+          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
+      });
+
+      // 가장 많이 사용된 태그 상위 8개
+      const topTags = Object.entries(tagCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
+
+      filterBar.innerHTML = `
+        <button class="filter-btn active" data-filter="all">
+          전체<span class="count">${allAssets.length}</span>
+        </button>
+      `;
+
+      topTags.forEach(([tag, count]) => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = tag;
+        btn.innerHTML = `${tag}<span class="count">${count}</span>`;
+        filterBar.appendChild(btn);
+      });
+
+      // 필터 이벤트
+      filterBar.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+
+        filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        activeFilter = btn.dataset.filter;
+        const filtered = activeFilter === 'all'
+          ? allAssets
+          : allAssets.filter(a => (a.tags || []).includes(activeFilter));
+
+        renderAssets(filtered);
+      });
+    }
+
+    // 에셋 카드 렌더링
+    function renderAssets(assets) {
+      grid.innerHTML = '';
+
+      assets.forEach((asset, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="viewer" id="viewer-${asset.id}">
+            <div class="loading">로딩 중...</div>
+          </div>
+          <div class="info">
+            <h3>${asset.id}</h3>
+            <p class="description">${asset.description || ''}</p>
+            <div class="tags">
+              ${(asset.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="meta">
+              <span>${asset.addedDate || ''}</span>
+              <span class="format">${asset.format || 'glb'}</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+
+        // Three.js 뷰어 초기화
+        initViewer(asset);
+      });
+    }
+
+    // Three.js 뷰어 초기화
+    function initViewer(asset) {
+      const container = document.getElementById(`viewer-${asset.id}`);
+      if (!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.z = 3;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // 조명
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(directionalLight);
+
+      const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
+      backLight.position.set(-5, -5, -5);
+      scene.add(backLight);
+
+      // OrbitControls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 1.5;
+
+      // 더블클릭으로 리셋
+      renderer.domElement.addEventListener('dblclick', () => {
+        controls.reset();
+      });
+
+      // GLB/GLTF 로드
+      const loader = new GLTFLoader();
+      const modelPath = `../${asset.path}`;
+
+      loader.load(
+        modelPath,
+        (gltf) => {
+          const model = gltf.scene;
+
+          // 모델 크기 정규화
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 1.5 / maxDim;
+          model.scale.setScalar(scale);
+
+          // 중심 맞추기
+          box.setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          model.position.sub(center);
+
+          // 와이어프레임 에지 추가
+          model.traverse((child) => {
+            if (child.isMesh) {
+              const edges = new THREE.EdgesGeometry(child.geometry, 15);
+              const line = new THREE.LineSegments(
+                edges,
+                new THREE.LineBasicMaterial({ color: 0x333333 })
+              );
+              child.add(line);
+            }
+          });
+
+          scene.add(model);
+
+          // 로딩 표시 제거
+          const loadingEl = container.querySelector('.loading');
+          if (loadingEl) loadingEl.remove();
+        },
+        (progress) => {
+          // 로딩 진행률
+          const loadingEl = container.querySelector('.loading');
+          if (loadingEl && progress.total > 0) {
+            const percent = Math.round((progress.loaded / progress.total) * 100);
+            loadingEl.textContent = `${percent}%`;
+          }
+        },
+        (error) => {
+          console.error('Error loading:', modelPath, error);
+          const loadingEl = container.querySelector('.loading');
+          if (loadingEl) {
+            loadingEl.textContent = '로드 실패';
+            loadingEl.style.color = '#ff6b6b';
+          }
+        }
+      );
+
+      // 애니메이션 루프
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // 리사이즈 핸들러 (IntersectionObserver로 가시성 체크)
+      const resizeObserver = new ResizeObserver(() => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+      resizeObserver.observe(container);
+    }
+
+    // 초기화
+    loadAssets();
+  </script>
+</body>
+</html>
