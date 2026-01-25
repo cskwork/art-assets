@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-24",
+  "lastUpdated": "2026-01-25",
   "categories": {
     "icons": {
       "description": "아이콘 (SVG 권장)",
@@ -884,6 +884,141 @@
       "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
       "addedDate": "2026-01-24"
+    },
+    {
+      "id": "bg-gradient-soft-blue-20260125",
+      "path": "backgrounds/bg-gradient-soft-blue-20260125.png",
+      "category": "backgrounds",
+      "tags": ["gradient", "blue", "soft", "abstract", "modern"],
+      "description": "Soft blue abstract gradient background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-geometric-shapes-pastel-20260125",
+      "path": "backgrounds/bg-geometric-shapes-pastel-20260125.png",
+      "category": "backgrounds",
+      "tags": ["geometric", "pastel", "shapes", "modern", "abstract"],
+      "description": "Pastel geometric shapes background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-whiteboard-blur-clean-20260125",
+      "path": "backgrounds/bg-whiteboard-blur-clean-20260125.png",
+      "category": "backgrounds",
+      "tags": ["whiteboard", "blur", "clean", "classroom"],
+      "description": "Clean defocused whiteboard background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-grid-paper-math-subtle-20260125",
+      "path": "backgrounds/bg-grid-paper-math-subtle-20260125.png",
+      "category": "backgrounds",
+      "tags": ["grid", "paper", "math", "subtle", "technical"],
+      "description": "Subtle math grid paper background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-paper-texture-warm-20260125",
+      "path": "backgrounds/bg-paper-texture-warm-20260125.png",
+      "category": "backgrounds",
+      "tags": ["paper", "texture", "warm", "minimalist"],
+      "description": "Warm clean paper texture background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-science-molecules-pattern-20260125",
+      "path": "backgrounds/bg-science-molecules-pattern-20260125.png",
+      "category": "backgrounds",
+      "tags": ["science", "molecules", "pattern", "chemistry", "biology"],
+      "description": "Stylized molecular pattern background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-nature-leaves-green-20260125",
+      "path": "backgrounds/bg-nature-leaves-green-20260125.png",
+      "category": "backgrounds",
+      "tags": ["nature", "leaves", "green", "organic", "fresh"],
+      "description": "Green leaves nature pattern background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-tech-circuit-minimal-20260125",
+      "path": "backgrounds/bg-tech-circuit-minimal-20260125.png",
+      "category": "backgrounds",
+      "tags": ["tech", "circuit", "minimal", "futuristic", "coding"],
+      "description": "Minimalist tech circuit background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-library-books-defocused-20260125",
+      "path": "backgrounds/bg-library-books-defocused-20260125.png",
+      "category": "backgrounds",
+      "tags": ["library", "books", "defocused", "cozy", "education"],
+      "description": "Defocused library bookshelves background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-space-stars-dark-20260125",
+      "path": "backgrounds/bg-space-stars-dark-20260125.png",
+      "category": "backgrounds",
+      "tags": ["space", "stars", "dark", "cosmos", "astronomy"],
+      "description": "Dark space stars background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-history-parchment-vintage-20260125",
+      "path": "backgrounds/bg-history-parchment-vintage-20260125.png",
+      "category": "backgrounds",
+      "tags": ["history", "parchment", "vintage", "paper", "old"],
+      "description": "Vintage parchment paper texture background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-music-notes-sheet-20260125",
+      "path": "backgrounds/bg-music-notes-sheet-20260125.png",
+      "category": "backgrounds",
+      "tags": ["music", "notes", "sheet", "clef", "art"],
+      "description": "Minimalist musical notes sheet background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-art-watercolor-splash-20260125",
+      "path": "backgrounds/bg-art-watercolor-splash-20260125.png",
+      "category": "backgrounds",
+      "tags": ["art", "watercolor", "splash", "pastel", "paint"],
+      "description": "Soft pastel watercolor splash background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-geography-contours-topo-20260125",
+      "path": "backgrounds/bg-geography-contours-topo-20260125.png",
+      "category": "backgrounds",
+      "tags": ["geography", "map", "contours", "topographic", "lines"],
+      "description": "Topographic map contour lines background",
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-literature-letters-floating-20260125",
+      "path": "backgrounds/bg-literature-letters-floating-20260125.png",
+      "category": "backgrounds",
+      "tags": ["literature", "letters", "alphabet", "floating", "whimsical"],
+      "description": "Whimsical floating alphabet letters background",
+      "format": "png",
+      "addedDate": "2026-01-25"
     }
   ]
 }
