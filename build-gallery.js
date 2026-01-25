@@ -1,10 +1,23 @@
 /**
  * build-gallery.js
- * assets.json을 읽어 gallery.html을 생성하는 빌드 스크립트
+ * assets-source.json -> assets.json 빌드 후 gallery.html 생성
  */
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
+
+// 먼저 assets 빌드 실행
+console.log('=== assets 빌드 ===');
+try {
+  execSync('node scripts/build-assets.js', { cwd: __dirname, stdio: 'inherit' });
+} catch (error) {
+  console.error('assets 빌드 실패:', error.message);
+  process.exit(1);
+}
+
+console.log('');
+console.log('=== gallery.html 생성 ===');
 
 // assets.json 로드
 const assetsPath = path.join(__dirname, 'assets.json');
@@ -20,7 +33,7 @@ assets.assets.forEach(asset => {
 });
 
 // 카테고리 정렬 순서
-const categoryOrder = ['icons', 'illustrations', 'diagrams', 'backgrounds', 'photos'];
+const categoryOrder = ['icons', 'illustrations', 'diagrams', 'backgrounds', 'photos', '3d'];
 
 // HTML 생성
 function generateHTML() {
@@ -404,7 +417,8 @@ function getCategoryLabel(category) {
     illustrations: 'Illustrations',
     diagrams: 'Diagrams',
     backgrounds: 'Backgrounds',
-    photos: 'Photos'
+    photos: 'Photos',
+    '3d': '3D Models'
   };
   return labels[category] || category;
 }
