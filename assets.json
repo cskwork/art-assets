@@ -32,7 +32,13 @@
       "id": "icon-arithmetic-basic-color-20260124",
       "path": "icons/icon-arithmetic-basic-color-20260124.svg",
       "category": "icons",
-      "tags": ["arithmetic", "math", "elementary", "plus", "minus"],
+      "tags": [
+        "arithmetic",
+        "math",
+        "elementary",
+        "plus",
+        "minus"
+      ],
       "description": "기초 산수 연산자 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -41,7 +47,12 @@
       "id": "illust-numbers-fun-flat-20260124",
       "path": "illustrations/illust-numbers-fun-flat-20260124.svg",
       "category": "illustrations",
-      "tags": ["numbers", "123", "elementary", "fun"],
+      "tags": [
+        "numbers",
+        "123",
+        "elementary",
+        "fun"
+      ],
       "description": "재미있는 숫자 1-2-3 스타일",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -50,7 +61,12 @@
       "id": "icon-shapes-primary-bold-20260124",
       "path": "icons/icon-shapes-primary-bold-20260124.svg",
       "category": "icons",
-      "tags": ["shapes", "geometry", "elementary", "basic"],
+      "tags": [
+        "shapes",
+        "geometry",
+        "elementary",
+        "basic"
+      ],
       "description": "기본 기하학 도형 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -59,7 +75,12 @@
       "id": "illust-counting-apples-modern-20260124",
       "path": "illustrations/illust-counting-apples-modern-20260124.svg",
       "category": "illustrations",
-      "tags": ["counting", "apples", "elementary", "math"],
+      "tags": [
+        "counting",
+        "apples",
+        "elementary",
+        "math"
+      ],
       "description": "사과 세기 일러스트",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -68,7 +89,12 @@
       "id": "illust-clock-learning-simple-20260124",
       "path": "illustrations/illust-clock-learning-simple-20260124.svg",
       "category": "illustrations",
-      "tags": ["clock", "time", "elementary", "learning"],
+      "tags": [
+        "clock",
+        "time",
+        "elementary",
+        "learning"
+      ],
       "description": "시간 학습용 간단한 아날로그 시계",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -77,7 +103,12 @@
       "id": "diagram-fraction-pie-thirds-20260124",
       "path": "diagrams/diagram-fraction-pie-thirds-20260124.svg",
       "category": "diagrams",
-      "tags": ["fraction", "pie", "middle-school", "math"],
+      "tags": [
+        "fraction",
+        "pie",
+        "middle-school",
+        "math"
+      ],
       "description": "3등분 분수 파이 차트",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -86,7 +117,12 @@
       "id": "diagram-coordinate-plane-clean-20260124",
       "path": "diagrams/diagram-coordinate-plane-clean-20260124.svg",
       "category": "diagrams",
-      "tags": ["coordinate", "plane", "xy-axis", "middle-school"],
+      "tags": [
+        "coordinate",
+        "plane",
+        "xy-axis",
+        "middle-school"
+      ],
       "description": "깔끔한 좌표평면 그리드",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -95,7 +131,12 @@
       "id": "icon-angles-geometry-blue-20260124",
       "path": "icons/icon-angles-geometry-blue-20260124.svg",
       "category": "icons",
-      "tags": ["angles", "geometry", "middle-school", "math"],
+      "tags": [
+        "angles",
+        "geometry",
+        "middle-school",
+        "math"
+      ],
       "description": "기하학 각도 종류 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -104,7 +145,12 @@
       "id": "diagram-triangle-area-labeled-20260124",
       "path": "diagrams/diagram-triangle-area-labeled-20260124.svg",
       "category": "diagrams",
-      "tags": ["triangle", "area", "geometry", "middle-school"],
+      "tags": [
+        "triangle",
+        "area",
+        "geometry",
+        "middle-school"
+      ],
       "description": "높이와 밑변이 표시된 삼각형",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -113,7 +159,12 @@
       "id": "illust-probability-dice-pair-20260124",
       "path": "illustrations/illust-probability-dice-pair-20260124.svg",
       "category": "illustrations",
-      "tags": ["probability", "dice", "middle-school", "math"],
+      "tags": [
+        "probability",
+        "dice",
+        "middle-school",
+        "math"
+      ],
       "description": "확률 학습용 주사위 쌍",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -122,7 +173,12 @@
       "id": "diagram-parabola-graph-gradient-20260124",
       "path": "diagrams/diagram-parabola-graph-gradient-20260124.svg",
       "category": "diagrams",
-      "tags": ["parabola", "function", "high-school", "algebra"],
+      "tags": [
+        "parabola",
+        "function",
+        "high-school",
+        "algebra"
+      ],
       "description": "포물선 그래프 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -131,7 +187,12 @@
       "id": "diagram-unit-circle-trig-dark-20260124",
       "path": "diagrams/diagram-unit-circle-trig-dark-20260124.svg",
       "category": "diagrams",
-      "tags": ["unit-circle", "trigonometry", "high-school", "math"],
+      "tags": [
+        "unit-circle",
+        "trigonometry",
+        "high-school",
+        "math"
+      ],
       "description": "단위 원 삼각함수 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -140,7 +201,12 @@
       "id": "icon-sigma-summation-sleek-20260124",
       "path": "icons/icon-sigma-summation-sleek-20260124.svg",
       "category": "icons",
-      "tags": ["sigma", "summation", "math", "symbol"],
+      "tags": [
+        "sigma",
+        "summation",
+        "math",
+        "symbol"
+      ],
       "description": "세련된 시그마 합계 기호",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -149,7 +215,12 @@
       "id": "illust-solid-shapes-3d-20260124",
       "path": "illustrations/illust-solid-shapes-3d-20260124.svg",
       "category": "illustrations",
-      "tags": ["solid", "3d", "geometry", "high-school"],
+      "tags": [
+        "solid",
+        "3d",
+        "geometry",
+        "high-school"
+      ],
       "description": "와이어프레임 3D 입체 도형",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -158,7 +229,12 @@
       "id": "diagram-integral-curve-filled-20260124",
       "path": "diagrams/diagram-integral-curve-filled-20260124.svg",
       "category": "diagrams",
-      "tags": ["integral", "calculus", "high-school", "area"],
+      "tags": [
+        "integral",
+        "calculus",
+        "high-school",
+        "area"
+      ],
       "description": "곡선 아래 적분 넓이 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
@@ -167,7 +243,12 @@
       "id": "bg-grid-paper-blue-textured-20260124",
       "path": "backgrounds/bg-grid-paper-blue-textured-20260124.png",
       "category": "backgrounds",
-      "tags": ["grid", "paper", "texture", "background"],
+      "tags": [
+        "grid",
+        "paper",
+        "texture",
+        "background"
+      ],
       "description": "파란색 질감 모눈종이 배경",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -176,7 +257,12 @@
       "id": "bg-math-formulas-overlay-20260124",
       "path": "backgrounds/bg-math-formulas-overlay-20260124.png",
       "category": "backgrounds",
-      "tags": ["formulas", "math", "overlay", "background"],
+      "tags": [
+        "formulas",
+        "math",
+        "overlay",
+        "background"
+      ],
       "description": "은은한 수학 공식 오버레이 배경",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -185,7 +271,12 @@
       "id": "illust-calculator-scientific-20260124",
       "path": "illustrations/illust-calculator-scientific-20260124.png",
       "category": "illustrations",
-      "tags": ["calculator", "scientific", "tool", "math"],
+      "tags": [
+        "calculator",
+        "scientific",
+        "tool",
+        "math"
+      ],
       "description": "공학용 계산기 일러스트",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -194,7 +285,12 @@
       "id": "illust-geometry-set-classic-20260124",
       "path": "illustrations/illust-geometry-set-classic-20260124.png",
       "category": "illustrations",
-      "tags": ["geometry", "tools", "ruler", "compass"],
+      "tags": [
+        "geometry",
+        "tools",
+        "ruler",
+        "compass"
+      ],
       "description": "클래식 기하학 도구 세트",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -203,7 +299,12 @@
       "id": "illust-math-symbols-collection-20260124",
       "path": "illustrations/illust-math-symbols-collection-20260124.png",
       "category": "illustrations",
-      "tags": ["symbols", "math", "collection", "art"],
+      "tags": [
+        "symbols",
+        "math",
+        "collection",
+        "art"
+      ],
       "description": "예술적인 수학 기호 모음",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -212,7 +313,11 @@
       "id": "diagram-normal-distribution-curve-20260124",
       "path": "diagrams/diagram-normal-distribution-curve-20260124.png",
       "category": "diagrams",
-      "tags": ["statistics", "normal-distribution", "bell-curve"],
+      "tags": [
+        "statistics",
+        "normal-distribution",
+        "bell-curve"
+      ],
       "description": "정규 분포 종모양 곡선 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -221,7 +326,11 @@
       "id": "diagram-box-whisker-plot-20260124",
       "path": "diagrams/diagram-box-whisker-plot-20260124.png",
       "category": "diagrams",
-      "tags": ["statistics", "box-plot", "chart"],
+      "tags": [
+        "statistics",
+        "box-plot",
+        "chart"
+      ],
       "description": "상자 수염 그림 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -230,7 +339,11 @@
       "id": "diagram-scatter-plot-trendline-20260124",
       "path": "diagrams/diagram-scatter-plot-trendline-20260124.png",
       "category": "diagrams",
-      "tags": ["statistics", "scatter-plot", "trendline"],
+      "tags": [
+        "statistics",
+        "scatter-plot",
+        "trendline"
+      ],
       "description": "추세선이 있는 산점도",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -239,7 +352,11 @@
       "id": "diagram-histogram-frequency-20260124",
       "path": "diagrams/diagram-histogram-frequency-20260124.png",
       "category": "diagrams",
-      "tags": ["statistics", "histogram", "bar-chart"],
+      "tags": [
+        "statistics",
+        "histogram",
+        "bar-chart"
+      ],
       "description": "히스토그램 도수 분포 차트",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -248,7 +365,11 @@
       "id": "diagram-venn-diagram-intersection-20260124",
       "path": "diagrams/diagram-venn-diagram-intersection-20260124.png",
       "category": "diagrams",
-      "tags": ["statistics", "venn-diagram", "set-theory"],
+      "tags": [
+        "statistics",
+        "venn-diagram",
+        "set-theory"
+      ],
       "description": "벤 다이어그램 교집합",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -257,7 +378,11 @@
       "id": "diagram-matrix-grid-20260124",
       "path": "diagrams/diagram-matrix-grid-20260124.png",
       "category": "diagrams",
-      "tags": ["matrix", "advanced", "algebra"],
+      "tags": [
+        "matrix",
+        "advanced",
+        "algebra"
+      ],
       "description": "행렬 변환 그리드",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -266,7 +391,11 @@
       "id": "diagram-complex-plane-argand-20260124",
       "path": "diagrams/diagram-complex-plane-argand-20260124.png",
       "category": "diagrams",
-      "tags": ["complex-numbers", "argand", "advanced"],
+      "tags": [
+        "complex-numbers",
+        "argand",
+        "advanced"
+      ],
       "description": "복소 평면 아르강 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -275,7 +404,12 @@
       "id": "diagram-vector-field-flow-20260124",
       "path": "diagrams/diagram-vector-field-flow-20260124.png",
       "category": "diagrams",
-      "tags": ["vector", "field", "physics", "advanced"],
+      "tags": [
+        "vector",
+        "field",
+        "physics",
+        "advanced"
+      ],
       "description": "벡터장 흐름 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -284,7 +418,12 @@
       "id": "diagram-limit-function-20260124",
       "path": "diagrams/diagram-limit-function-20260124.png",
       "category": "diagrams",
-      "tags": ["calculus", "limit", "function", "advanced"],
+      "tags": [
+        "calculus",
+        "limit",
+        "function",
+        "advanced"
+      ],
       "description": "미적분 극한 개념 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
@@ -293,527 +432,998 @@
       "id": "icon-home-cute-20260124",
       "path": "icons/icon-home-cute-20260124.svg",
       "category": "icons",
-      "tags": ["home", "house", "navigation", "ui", "cute", "elementary"],
+      "tags": [
+        "home",
+        "house",
+        "navigation",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 홈 버튼 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-back-arrow-cute-20260124",
       "path": "icons/icon-back-arrow-cute-20260124.svg",
       "category": "icons",
-      "tags": ["back", "arrow", "navigation", "ui", "cute", "elementary"],
+      "tags": [
+        "back",
+        "arrow",
+        "navigation",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 뒤로가기 화살표 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-star-reward-cute-20260124",
       "path": "icons/icon-star-reward-cute-20260124.svg",
       "category": "icons",
-      "tags": ["star", "reward", "achievement", "ui", "cute", "elementary"],
+      "tags": [
+        "star",
+        "reward",
+        "achievement",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 별 보상 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-trophy-achievement-cute-20260124",
       "path": "icons/icon-trophy-achievement-cute-20260124.svg",
       "category": "icons",
-      "tags": ["trophy", "achievement", "winner", "ui", "cute", "elementary"],
+      "tags": [
+        "trophy",
+        "achievement",
+        "winner",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 트로피 성취 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-book-open-cute-20260124",
       "path": "icons/icon-book-open-cute-20260124.svg",
       "category": "icons",
-      "tags": ["book", "reading", "learning", "ui", "cute", "elementary"],
+      "tags": [
+        "book",
+        "reading",
+        "learning",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 펼친 책 학습 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-pencil-write-cute-20260124",
       "path": "icons/icon-pencil-write-cute-20260124.svg",
       "category": "icons",
-      "tags": ["pencil", "write", "edit", "ui", "cute", "elementary"],
+      "tags": [
+        "pencil",
+        "write",
+        "edit",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 연필 쓰기 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-bell-notification-cute-20260124",
       "path": "icons/icon-bell-notification-cute-20260124.svg",
       "category": "icons",
-      "tags": ["bell", "notification", "alert", "ui", "cute", "elementary"],
+      "tags": [
+        "bell",
+        "notification",
+        "alert",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 알림 종 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-help-question-cute-20260124",
       "path": "icons/icon-help-question-cute-20260124.svg",
       "category": "icons",
-      "tags": ["help", "question", "support", "ui", "cute", "elementary"],
+      "tags": [
+        "help",
+        "question",
+        "support",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 도움말 물음표 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-heart-favorite-cute-20260124",
       "path": "icons/icon-heart-favorite-cute-20260124.svg",
       "category": "icons",
-      "tags": ["heart", "favorite", "like", "ui", "cute", "elementary"],
+      "tags": [
+        "heart",
+        "favorite",
+        "like",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 하트 즐겨찾기 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-play-start-cute-20260124",
       "path": "icons/icon-play-start-cute-20260124.svg",
       "category": "icons",
-      "tags": ["play", "start", "begin", "ui", "cute", "elementary"],
+      "tags": [
+        "play",
+        "start",
+        "begin",
+        "ui",
+        "cute",
+        "elementary"
+      ],
       "description": "귀여운 재생 시작 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "diagram-flowchart-basic-20260124",
       "path": "diagrams/diagram-flowchart-basic-20260124.svg",
       "category": "diagrams",
-      "tags": ["flowchart", "algorithm", "logic", "process", "decision"],
+      "tags": [
+        "flowchart",
+        "algorithm",
+        "logic",
+        "process",
+        "decision"
+      ],
       "description": "기본 순서도 다이어그램 (시작, 처리, 조건, 종료)",
-      "dimensions": { "width": 400, "height": 500 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 400,
+        "height": 500
+      }
     },
     {
       "id": "diagram-cycle-process-20260124",
       "path": "diagrams/diagram-cycle-process-20260124.svg",
       "category": "diagrams",
-      "tags": ["cycle", "pdca", "process", "continuous", "improvement"],
+      "tags": [
+        "cycle",
+        "pdca",
+        "process",
+        "continuous",
+        "improvement"
+      ],
       "description": "PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)",
-      "dimensions": { "width": 400, "height": 400 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "id": "diagram-timeline-horizontal-20260124",
       "path": "diagrams/diagram-timeline-horizontal-20260124.svg",
       "category": "diagrams",
-      "tags": ["timeline", "schedule", "milestone", "project", "horizontal"],
+      "tags": [
+        "timeline",
+        "schedule",
+        "milestone",
+        "project",
+        "horizontal"
+      ],
       "description": "수평 타임라인 다이어그램 (프로젝트 일정 표현)",
-      "dimensions": { "width": 600, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 600,
+        "height": 200
+      }
     },
     {
       "id": "diagram-hierarchy-tree-20260124",
       "path": "diagrams/diagram-hierarchy-tree-20260124.svg",
       "category": "diagrams",
-      "tags": ["hierarchy", "tree", "organization", "structure", "levels"],
+      "tags": [
+        "hierarchy",
+        "tree",
+        "organization",
+        "structure",
+        "levels"
+      ],
       "description": "계층 트리 구조 다이어그램 (조직도, 분류 체계)",
-      "dimensions": { "width": 500, "height": 400 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 500,
+        "height": 400
+      }
     },
     {
       "id": "diagram-comparison-chart-20260124",
       "path": "diagrams/diagram-comparison-chart-20260124.svg",
       "category": "diagrams",
-      "tags": ["comparison", "table", "chart", "versus", "analysis"],
+      "tags": [
+        "comparison",
+        "table",
+        "chart",
+        "versus",
+        "analysis"
+      ],
       "description": "비교 차트 다이어그램 (옵션 비교 테이블)",
-      "dimensions": { "width": 500, "height": 350 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 500,
+        "height": 350
+      }
     },
     {
       "id": "diagram-mind-map-central-20260124",
       "path": "diagrams/diagram-mind-map-central-20260124.svg",
       "category": "diagrams",
-      "tags": ["mind-map", "brainstorm", "ideas", "central", "radial"],
+      "tags": [
+        "mind-map",
+        "brainstorm",
+        "ideas",
+        "central",
+        "radial"
+      ],
       "description": "중심형 마인드맵 다이어그램 (아이디어 확장 구조)",
-      "dimensions": { "width": 600, "height": 450 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 600,
+        "height": 450
+      }
     },
     {
       "id": "diagram-pie-chart-segments-20260124",
       "path": "diagrams/diagram-pie-chart-segments-20260124.svg",
       "category": "diagrams",
-      "tags": ["pie-chart", "percentage", "distribution", "segments", "donut"],
+      "tags": [
+        "pie-chart",
+        "percentage",
+        "distribution",
+        "segments",
+        "donut"
+      ],
       "description": "파이 차트 다이어그램 (비율 분포 시각화)",
-      "dimensions": { "width": 450, "height": 350 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 450,
+        "height": 350
+      }
     },
     {
       "id": "diagram-bar-chart-vertical-20260124",
       "path": "diagrams/diagram-bar-chart-vertical-20260124.svg",
       "category": "diagrams",
-      "tags": ["bar-chart", "vertical", "statistics", "data", "comparison"],
+      "tags": [
+        "bar-chart",
+        "vertical",
+        "statistics",
+        "data",
+        "comparison"
+      ],
       "description": "세로 막대 그래프 다이어그램 (데이터 비교 시각화)",
-      "dimensions": { "width": 500, "height": 350 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 500,
+        "height": 350
+      }
     },
     {
       "id": "diagram-number-line-basic-20260124",
       "path": "diagrams/diagram-number-line-basic-20260124.svg",
       "category": "diagrams",
-      "tags": ["number-line", "math", "integers", "real-numbers", "elementary"],
+      "tags": [
+        "number-line",
+        "math",
+        "integers",
+        "real-numbers",
+        "elementary"
+      ],
       "description": "기본 수직선 다이어그램 (정수와 실수 표현)",
-      "dimensions": { "width": 600, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 600,
+        "height": 200
+      }
     },
     {
       "id": "diagram-pythagorean-theorem-20260124",
       "path": "diagrams/diagram-pythagorean-theorem-20260124.svg",
       "category": "diagrams",
-      "tags": ["pythagorean", "theorem", "geometry", "triangle", "math"],
+      "tags": [
+        "pythagorean",
+        "theorem",
+        "geometry",
+        "triangle",
+        "math"
+      ],
       "description": "피타고라스 정리 시각화 다이어그램 (a² + b² = c²)",
-      "dimensions": { "width": 500, "height": 400 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 500,
+        "height": 400
+      }
     },
     {
       "id": "icon-settings-gear-modern-20260124",
       "path": "icons/icon-settings-gear-modern-20260124.svg",
       "category": "icons",
-      "tags": ["settings", "gear", "config", "ui", "modern"],
+      "tags": [
+        "settings",
+        "gear",
+        "config",
+        "ui",
+        "modern"
+      ],
       "description": "모던한 설정 톱니바퀴 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-search-magnify-bold-20260124",
       "path": "icons/icon-search-magnify-bold-20260124.svg",
       "category": "icons",
-      "tags": ["search", "find", "magnify", "ui", "bold"],
+      "tags": [
+        "search",
+        "find",
+        "magnify",
+        "ui",
+        "bold"
+      ],
       "description": "대담한 검색 돋보기 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-menu-hamburger-rounded-20260124",
       "path": "icons/icon-menu-hamburger-rounded-20260124.svg",
       "category": "icons",
-      "tags": ["menu", "hamburger", "nav", "ui", "rounded"],
+      "tags": [
+        "menu",
+        "hamburger",
+        "nav",
+        "ui",
+        "rounded"
+      ],
       "description": "둥근 햄버거 메뉴 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-close-x-elegant-20260124",
       "path": "icons/icon-close-x-elegant-20260124.svg",
       "category": "icons",
-      "tags": ["close", "x", "dismiss", "ui", "elegant"],
+      "tags": [
+        "close",
+        "x",
+        "dismiss",
+        "ui",
+        "elegant"
+      ],
       "description": "우아한 닫기 X 버튼 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-lightbulb-idea-bright-20260124",
       "path": "icons/icon-lightbulb-idea-bright-20260124.svg",
       "category": "icons",
-      "tags": ["idea", "lightbulb", "think", "education", "bright"],
+      "tags": [
+        "idea",
+        "lightbulb",
+        "think",
+        "education",
+        "bright"
+      ],
       "description": "밝은 아이디어 전구 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-graduation-cap-proud-20260124",
       "path": "icons/icon-graduation-cap-proud-20260124.svg",
       "category": "icons",
-      "tags": ["graduation", "cap", "achievement", "education", "proud"],
+      "tags": [
+        "graduation",
+        "cap",
+        "achievement",
+        "education",
+        "proud"
+      ],
       "description": "자랑스러운 졸업모자 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-puzzle-piece-fit-20260124",
       "path": "icons/icon-puzzle-piece-fit-20260124.svg",
       "category": "icons",
-      "tags": ["puzzle", "logic", "problem-solving", "education"],
+      "tags": [
+        "puzzle",
+        "logic",
+        "problem-solving",
+        "education"
+      ],
       "description": "맞춰지는 퍼즐 조각 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-target-goal-bullseye-20260124",
       "path": "icons/icon-target-goal-bullseye-20260124.svg",
       "category": "icons",
-      "tags": ["target", "goal", "aim", "achievement", "bullseye"],
+      "tags": [
+        "target",
+        "goal",
+        "aim",
+        "achievement",
+        "bullseye"
+      ],
       "description": "목표 과녁 명중 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-clock-timer-study-20260124",
       "path": "icons/icon-clock-timer-study-20260124.svg",
       "category": "icons",
-      "tags": ["clock", "timer", "study", "time", "education"],
+      "tags": [
+        "clock",
+        "timer",
+        "study",
+        "time",
+        "education"
+      ],
       "description": "학습 타이머 시계 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-brain-thinking-glow-20260124",
       "path": "icons/icon-brain-thinking-glow-20260124.svg",
       "category": "icons",
-      "tags": ["brain", "think", "intelligence", "education", "glow"],
+      "tags": [
+        "brain",
+        "think",
+        "intelligence",
+        "education",
+        "glow"
+      ],
       "description": "빛나는 두뇌 생각 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-checklist-progress-20260124",
       "path": "icons/icon-checklist-progress-20260124.svg",
       "category": "icons",
-      "tags": ["checklist", "progress", "tasks", "ui", "education"],
+      "tags": [
+        "checklist",
+        "progress",
+        "tasks",
+        "ui",
+        "education"
+      ],
       "description": "진행률 체크리스트 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-medal-award-gold-20260124",
       "path": "icons/icon-medal-award-gold-20260124.svg",
       "category": "icons",
-      "tags": ["medal", "award", "gold", "achievement", "winner"],
+      "tags": [
+        "medal",
+        "award",
+        "gold",
+        "achievement",
+        "winner"
+      ],
       "description": "금메달 수상 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-download-arrow-curved-20260124",
       "path": "icons/icon-download-arrow-curved-20260124.svg",
       "category": "icons",
-      "tags": ["download", "arrow", "save", "action"],
+      "tags": [
+        "download",
+        "arrow",
+        "save",
+        "action"
+      ],
       "description": "곡선 다운로드 화살표 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-upload-cloud-sync-20260124",
       "path": "icons/icon-upload-cloud-sync-20260124.svg",
       "category": "icons",
-      "tags": ["upload", "cloud", "sync", "action"],
+      "tags": [
+        "upload",
+        "cloud",
+        "sync",
+        "action"
+      ],
       "description": "클라우드 업로드 동기화 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-share-network-nodes-20260124",
       "path": "icons/icon-share-network-nodes-20260124.svg",
       "category": "icons",
-      "tags": ["share", "network", "connect", "action"],
+      "tags": [
+        "share",
+        "network",
+        "connect",
+        "action"
+      ],
       "description": "네트워크 공유 노드 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-refresh-cycle-spin-20260124",
       "path": "icons/icon-refresh-cycle-spin-20260124.svg",
       "category": "icons",
-      "tags": ["refresh", "cycle", "reload", "action"],
+      "tags": [
+        "refresh",
+        "cycle",
+        "reload",
+        "action"
+      ],
       "description": "회전 새로고침 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-chat-bubble-friendly-20260124",
       "path": "icons/icon-chat-bubble-friendly-20260124.svg",
       "category": "icons",
-      "tags": ["chat", "bubble", "message", "communication"],
+      "tags": [
+        "chat",
+        "bubble",
+        "message",
+        "communication"
+      ],
       "description": "친근한 채팅 버블 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-mail-envelope-open-20260124",
       "path": "icons/icon-mail-envelope-open-20260124.svg",
       "category": "icons",
-      "tags": ["mail", "envelope", "email", "communication"],
+      "tags": [
+        "mail",
+        "envelope",
+        "email",
+        "communication"
+      ],
       "description": "펼쳐진 메일 봉투 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-microphone-voice-active-20260124",
       "path": "icons/icon-microphone-voice-active-20260124.svg",
       "category": "icons",
-      "tags": ["mic", "voice", "audio", "communication"],
+      "tags": [
+        "mic",
+        "voice",
+        "audio",
+        "communication"
+      ],
       "description": "활성화된 마이크 음성 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "icon-camera-photo-flash-20260124",
       "path": "icons/icon-camera-photo-flash-20260124.svg",
       "category": "icons",
-      "tags": ["camera", "photo", "capture", "communication"],
+      "tags": [
+        "camera",
+        "photo",
+        "capture",
+        "communication"
+      ],
       "description": "플래시 카메라 사진 아이콘",
-      "dimensions": { "width": 64, "height": 64 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
     },
     {
       "id": "illust-student-desk-study-20260124",
       "path": "illustrations/illust-student-desk-study-20260124.svg",
       "category": "illustrations",
-      "tags": ["student", "desk", "study", "education", "learning"],
+      "tags": [
+        "student",
+        "desk",
+        "study",
+        "education",
+        "learning"
+      ],
       "description": "책상에서 공부하는 학생 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-classroom-scene-modern-20260124",
       "path": "illustrations/illust-classroom-scene-modern-20260124.svg",
       "category": "illustrations",
-      "tags": ["classroom", "school", "education", "modern", "students"],
+      "tags": [
+        "classroom",
+        "school",
+        "education",
+        "modern",
+        "students"
+      ],
       "description": "현대적인 교실 장면 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-backpack-school-colorful-20260124",
       "path": "illustrations/illust-backpack-school-colorful-20260124.svg",
       "category": "illustrations",
-      "tags": ["backpack", "school", "supplies", "colorful"],
+      "tags": [
+        "backpack",
+        "school",
+        "supplies",
+        "colorful"
+      ],
       "description": "컬러풀한 학교 가방 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-laptop-learning-online-20260124",
       "path": "illustrations/illust-laptop-learning-online-20260124.svg",
       "category": "illustrations",
-      "tags": ["laptop", "online", "e-learning", "video-call"],
+      "tags": [
+        "laptop",
+        "online",
+        "e-learning",
+        "video-call"
+      ],
       "description": "온라인 학습 노트북 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-library-books-cozy-20260124",
       "path": "illustrations/illust-library-books-cozy-20260124.svg",
       "category": "illustrations",
-      "tags": ["library", "books", "reading", "cozy"],
+      "tags": [
+        "library",
+        "books",
+        "reading",
+        "cozy"
+      ],
       "description": "아늑한 도서관 책들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-rocket-launch-success-20260124",
       "path": "illustrations/illust-rocket-launch-success-20260124.svg",
       "category": "illustrations",
-      "tags": ["rocket", "launch", "success", "achievement", "space"],
+      "tags": [
+        "rocket",
+        "launch",
+        "success",
+        "achievement",
+        "space"
+      ],
       "description": "성공 로켓 발사 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-mountain-peak-climb-20260124",
       "path": "illustrations/illust-mountain-peak-climb-20260124.svg",
       "category": "illustrations",
-      "tags": ["mountain", "peak", "goal", "climb", "achievement"],
+      "tags": [
+        "mountain",
+        "peak",
+        "goal",
+        "climb",
+        "achievement"
+      ],
       "description": "산 정상 등반 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-trophy-celebration-burst-20260124",
       "path": "illustrations/illust-trophy-celebration-burst-20260124.svg",
       "category": "illustrations",
-      "tags": ["trophy", "celebration", "win", "confetti", "achievement"],
+      "tags": [
+        "trophy",
+        "celebration",
+        "win",
+        "confetti",
+        "achievement"
+      ],
       "description": "폭발적인 트로피 축하 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-target-arrow-bullseye-20260124",
       "path": "illustrations/illust-target-arrow-bullseye-20260124.svg",
       "category": "illustrations",
-      "tags": ["target", "arrow", "bullseye", "goal", "achievement"],
+      "tags": [
+        "target",
+        "arrow",
+        "bullseye",
+        "goal",
+        "achievement"
+      ],
       "description": "과녁 화살 명중 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-medal-podium-winners-20260124",
       "path": "illustrations/illust-medal-podium-winners-20260124.svg",
       "category": "illustrations",
-      "tags": ["medal", "podium", "winners", "award", "achievement"],
+      "tags": [
+        "medal",
+        "podium",
+        "winners",
+        "award",
+        "achievement"
+      ],
       "description": "수상대 메달 수상자들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-teamwork-hands-together-20260124",
       "path": "illustrations/illust-teamwork-hands-together-20260124.svg",
       "category": "illustrations",
-      "tags": ["teamwork", "hands", "collaboration", "together"],
+      "tags": [
+        "teamwork",
+        "hands",
+        "collaboration",
+        "together"
+      ],
       "description": "함께하는 팀워크 손들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-group-discussion-circle-20260124",
       "path": "illustrations/illust-group-discussion-circle-20260124.svg",
       "category": "illustrations",
-      "tags": ["group", "discussion", "circle", "students", "collaboration"],
+      "tags": [
+        "group",
+        "discussion",
+        "circle",
+        "students",
+        "collaboration"
+      ],
       "description": "원형 그룹 토론 학생들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "3d-geometry-icosahedron-math-20260125",
       "path": "3d/3d-geometry-icosahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["geometry", "math", "icosahedron", "platonic-solid", "3d"],
+      "tags": [
+        "geometry",
+        "math",
+        "icosahedron",
+        "platonic-solid",
+        "3d"
+      ],
       "description": "정이십면체 (플라톤 다면체) 3D 모델",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -822,7 +1432,13 @@
       "id": "3d-topology-mobius-strip-20260125",
       "path": "3d/3d-topology-mobius-strip-20260125.glb",
       "category": "3d",
-      "tags": ["topology", "math", "mobius-strip", "surface", "3d"],
+      "tags": [
+        "topology",
+        "math",
+        "mobius-strip",
+        "surface",
+        "3d"
+      ],
       "description": "뫼비우스의 띠 위상수학 모델",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -831,7 +1447,14 @@
       "id": "3d-statistics-normal-surface-20260125",
       "path": "3d/3d-statistics-normal-surface-20260125.glb",
       "category": "3d",
-      "tags": ["statistics", "math", "normal-distribution", "gaussian", "surface", "3d"],
+      "tags": [
+        "statistics",
+        "math",
+        "normal-distribution",
+        "gaussian",
+        "surface",
+        "3d"
+      ],
       "description": "정규 분포 곡면 (통계) 3D 모델",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -840,7 +1463,14 @@
       "id": "3d-geometry-torus-simple-20260125",
       "path": "3d/3d-geometry-torus-simple-20260125.glb",
       "category": "3d",
-      "tags": ["geometry", "math", "torus", "donut", "shape", "3d"],
+      "tags": [
+        "geometry",
+        "math",
+        "torus",
+        "donut",
+        "shape",
+        "3d"
+      ],
       "description": "토러스 (도넛 모양) 기하학 3D 모델",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -849,7 +1479,13 @@
       "id": "3d-complex-riemann-surface-20260125",
       "path": "3d/3d-complex-riemann-surface-20260125.glb",
       "category": "3d",
-      "tags": ["complex-analysis", "math", "riemann-surface", "spiral", "3d"],
+      "tags": [
+        "complex-analysis",
+        "math",
+        "riemann-surface",
+        "spiral",
+        "3d"
+      ],
       "description": "리만 곡면 (복소수 해석학) 3D 모델",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -858,187 +1494,349 @@
       "id": "illust-science-lab-beaker-20260125",
       "path": "illustrations/illust-science-lab-beaker-20260125.svg",
       "category": "illustrations",
-      "tags": ["science", "chemistry", "lab", "beaker", "experiment"],
+      "tags": [
+        "science",
+        "chemistry",
+        "lab",
+        "beaker",
+        "experiment"
+      ],
       "description": "과학 실험실 비커 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-world-globe-learning-20260125",
       "path": "illustrations/illust-world-globe-learning-20260125.svg",
       "category": "illustrations",
-      "tags": ["globe", "geography", "world", "earth", "learning"],
+      "tags": [
+        "globe",
+        "geography",
+        "world",
+        "earth",
+        "learning"
+      ],
       "description": "지구본 지리학 학습 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-music-notes-melody-20260125",
       "path": "illustrations/illust-music-notes-melody-20260125.svg",
       "category": "illustrations",
-      "tags": ["music", "notes", "melody", "arts", "song"],
+      "tags": [
+        "music",
+        "notes",
+        "melody",
+        "arts",
+        "song"
+      ],
       "description": "음표 멜로디 음악 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-palette-brush-art-20260125",
       "path": "illustrations/illust-palette-brush-art-20260125.svg",
       "category": "illustrations",
-      "tags": ["art", "palette", "brush", "paint", "creativity"],
+      "tags": [
+        "art",
+        "palette",
+        "brush",
+        "paint",
+        "creativity"
+      ],
       "description": "아트 팔레트와 붓 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-magnifying-glass-explore-20260125",
       "path": "illustrations/illust-magnifying-glass-explore-20260125.svg",
       "category": "illustrations",
-      "tags": ["magnifying-glass", "explore", "search", "investigate", "science"],
+      "tags": [
+        "magnifying-glass",
+        "explore",
+        "search",
+        "investigate",
+        "science"
+      ],
       "description": "탐구용 돋보기 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-diploma-certificate-scroll-20260125",
       "path": "illustrations/illust-diploma-certificate-scroll-20260125.svg",
       "category": "illustrations",
-      "tags": ["diploma", "certificate", "graduation", "achievement", "award"],
+      "tags": [
+        "diploma",
+        "certificate",
+        "graduation",
+        "achievement",
+        "award"
+      ],
       "description": "졸업장 상장 두루마리 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-bus-school-journey-20260125",
       "path": "illustrations/illust-bus-school-journey-20260125.svg",
       "category": "illustrations",
-      "tags": ["bus", "school", "transportation", "journey", "yellow"],
+      "tags": [
+        "bus",
+        "school",
+        "transportation",
+        "journey",
+        "yellow"
+      ],
       "description": "노란색 스쿨버스 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-calculator-math-simple-20260125",
       "path": "illustrations/illust-calculator-math-simple-20260125.svg",
       "category": "illustrations",
-      "tags": ["calculator", "math", "tool", "arithmetic", "simple"],
+      "tags": [
+        "calculator",
+        "math",
+        "tool",
+        "arithmetic",
+        "simple"
+      ],
       "description": "간단한 수학 계산기 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-notebook-pencil-notes-20260125",
       "path": "illustrations/illust-notebook-pencil-notes-20260125.svg",
       "category": "illustrations",
-      "tags": ["notebook", "pencil", "write", "notes", "study"],
+      "tags": [
+        "notebook",
+        "pencil",
+        "write",
+        "notes",
+        "study"
+      ],
       "description": "공책과 연필 필기 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-microscope-biology-lab-20260125",
       "path": "illustrations/illust-microscope-biology-lab-20260125.svg",
       "category": "illustrations",
-      "tags": ["microscope", "biology", "science", "lab", "tool"],
+      "tags": [
+        "microscope",
+        "biology",
+        "science",
+        "lab",
+        "tool"
+      ],
       "description": "생물학 실험 현미경 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-chat-conversation-bubbles-20260124",
       "path": "illustrations/illust-chat-conversation-bubbles-20260124.svg",
       "category": "illustrations",
-      "tags": ["chat", "conversation", "communication", "bubbles"],
+      "tags": [
+        "chat",
+        "conversation",
+        "communication",
+        "bubbles"
+      ],
       "description": "대화 채팅 버블들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-network-connection-global-20260124",
       "path": "illustrations/illust-network-connection-global-20260124.svg",
       "category": "illustrations",
-      "tags": ["network", "global", "connection", "earth", "technology"],
+      "tags": [
+        "network",
+        "global",
+        "connection",
+        "earth",
+        "technology"
+      ],
       "description": "글로벌 네트워크 연결 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-lightbulbs-brainstorm-20260124",
       "path": "illustrations/illust-lightbulbs-brainstorm-20260124.svg",
       "category": "illustrations",
-      "tags": ["lightbulb", "brainstorm", "ideas", "creativity"],
+      "tags": [
+        "lightbulb",
+        "brainstorm",
+        "ideas",
+        "creativity"
+      ],
       "description": "브레인스토밍 전구들 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-microscope-science-lab-20260124",
       "path": "illustrations/illust-microscope-science-lab-20260124.svg",
       "category": "illustrations",
-      "tags": ["microscope", "science", "lab", "research"],
+      "tags": [
+        "microscope",
+        "science",
+        "lab",
+        "research"
+      ],
       "description": "과학 실험실 현미경 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-atom-molecule-structure-20260124",
       "path": "illustrations/illust-atom-molecule-structure-20260124.svg",
       "category": "illustrations",
-      "tags": ["atom", "molecule", "chemistry", "science"],
+      "tags": [
+        "atom",
+        "molecule",
+        "chemistry",
+        "science"
+      ],
       "description": "원자 분자 구조 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-coding-screen-developer-20260124",
       "path": "illustrations/illust-coding-screen-developer-20260124.svg",
       "category": "illustrations",
-      "tags": ["coding", "screen", "developer", "programming"],
+      "tags": [
+        "coding",
+        "screen",
+        "developer",
+        "programming"
+      ],
       "description": "코딩 화면 개발자 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-robot-friendly-ai-20260124",
       "path": "illustrations/illust-robot-friendly-ai-20260124.svg",
       "category": "illustrations",
-      "tags": ["robot", "ai", "friendly", "technology"],
+      "tags": [
+        "robot",
+        "ai",
+        "friendly",
+        "technology"
+      ],
       "description": "친근한 AI 로봇 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "illust-planet-earth-ecosystem-20260124",
       "path": "illustrations/illust-planet-earth-ecosystem-20260124.svg",
       "category": "illustrations",
-      "tags": ["planet", "earth", "ecosystem", "environment", "space"],
+      "tags": [
+        "planet",
+        "earth",
+        "ecosystem",
+        "environment",
+        "space"
+      ],
       "description": "지구 생태계 행성 일러스트",
-      "dimensions": { "width": 200, "height": 200 },
       "format": "svg",
-      "addedDate": "2026-01-24"
+      "addedDate": "2026-01-24",
+      "dimensions": {
+        "width": 200,
+        "height": 200
+      }
     },
     {
       "id": "bg-gradient-soft-blue-20260125",
       "path": "backgrounds/bg-gradient-soft-blue-20260125.png",
       "category": "backgrounds",
-      "tags": ["gradient", "blue", "soft", "abstract", "modern"],
+      "tags": [
+        "gradient",
+        "blue",
+        "soft",
+        "abstract",
+        "modern"
+      ],
       "description": "Soft blue abstract gradient background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1047,7 +1845,13 @@
       "id": "bg-geometric-shapes-pastel-20260125",
       "path": "backgrounds/bg-geometric-shapes-pastel-20260125.png",
       "category": "backgrounds",
-      "tags": ["geometric", "pastel", "shapes", "modern", "abstract"],
+      "tags": [
+        "geometric",
+        "pastel",
+        "shapes",
+        "modern",
+        "abstract"
+      ],
       "description": "Pastel geometric shapes background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1056,7 +1860,12 @@
       "id": "bg-whiteboard-blur-clean-20260125",
       "path": "backgrounds/bg-whiteboard-blur-clean-20260125.png",
       "category": "backgrounds",
-      "tags": ["whiteboard", "blur", "clean", "classroom"],
+      "tags": [
+        "whiteboard",
+        "blur",
+        "clean",
+        "classroom"
+      ],
       "description": "Clean defocused whiteboard background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1065,7 +1874,13 @@
       "id": "bg-grid-paper-math-subtle-20260125",
       "path": "backgrounds/bg-grid-paper-math-subtle-20260125.png",
       "category": "backgrounds",
-      "tags": ["grid", "paper", "math", "subtle", "technical"],
+      "tags": [
+        "grid",
+        "paper",
+        "math",
+        "subtle",
+        "technical"
+      ],
       "description": "Subtle math grid paper background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1074,7 +1889,12 @@
       "id": "bg-paper-texture-warm-20260125",
       "path": "backgrounds/bg-paper-texture-warm-20260125.png",
       "category": "backgrounds",
-      "tags": ["paper", "texture", "warm", "minimalist"],
+      "tags": [
+        "paper",
+        "texture",
+        "warm",
+        "minimalist"
+      ],
       "description": "Warm clean paper texture background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1083,7 +1903,13 @@
       "id": "bg-science-molecules-pattern-20260125",
       "path": "backgrounds/bg-science-molecules-pattern-20260125.png",
       "category": "backgrounds",
-      "tags": ["science", "molecules", "pattern", "chemistry", "biology"],
+      "tags": [
+        "science",
+        "molecules",
+        "pattern",
+        "chemistry",
+        "biology"
+      ],
       "description": "Stylized molecular pattern background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1092,7 +1918,13 @@
       "id": "bg-nature-leaves-green-20260125",
       "path": "backgrounds/bg-nature-leaves-green-20260125.png",
       "category": "backgrounds",
-      "tags": ["nature", "leaves", "green", "organic", "fresh"],
+      "tags": [
+        "nature",
+        "leaves",
+        "green",
+        "organic",
+        "fresh"
+      ],
       "description": "Green leaves nature pattern background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1101,7 +1933,13 @@
       "id": "bg-tech-circuit-minimal-20260125",
       "path": "backgrounds/bg-tech-circuit-minimal-20260125.png",
       "category": "backgrounds",
-      "tags": ["tech", "circuit", "minimal", "futuristic", "coding"],
+      "tags": [
+        "tech",
+        "circuit",
+        "minimal",
+        "futuristic",
+        "coding"
+      ],
       "description": "Minimalist tech circuit background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1110,7 +1948,13 @@
       "id": "bg-library-books-defocused-20260125",
       "path": "backgrounds/bg-library-books-defocused-20260125.png",
       "category": "backgrounds",
-      "tags": ["library", "books", "defocused", "cozy", "education"],
+      "tags": [
+        "library",
+        "books",
+        "defocused",
+        "cozy",
+        "education"
+      ],
       "description": "Defocused library bookshelves background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1119,7 +1963,13 @@
       "id": "bg-space-stars-dark-20260125",
       "path": "backgrounds/bg-space-stars-dark-20260125.png",
       "category": "backgrounds",
-      "tags": ["space", "stars", "dark", "cosmos", "astronomy"],
+      "tags": [
+        "space",
+        "stars",
+        "dark",
+        "cosmos",
+        "astronomy"
+      ],
       "description": "Dark space stars background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1128,7 +1978,13 @@
       "id": "bg-history-parchment-vintage-20260125",
       "path": "backgrounds/bg-history-parchment-vintage-20260125.png",
       "category": "backgrounds",
-      "tags": ["history", "parchment", "vintage", "paper", "old"],
+      "tags": [
+        "history",
+        "parchment",
+        "vintage",
+        "paper",
+        "old"
+      ],
       "description": "Vintage parchment paper texture background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1137,7 +1993,13 @@
       "id": "bg-music-notes-sheet-20260125",
       "path": "backgrounds/bg-music-notes-sheet-20260125.png",
       "category": "backgrounds",
-      "tags": ["music", "notes", "sheet", "clef", "art"],
+      "tags": [
+        "music",
+        "notes",
+        "sheet",
+        "clef",
+        "art"
+      ],
       "description": "Minimalist musical notes sheet background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1146,7 +2008,13 @@
       "id": "bg-art-watercolor-splash-20260125",
       "path": "backgrounds/bg-art-watercolor-splash-20260125.png",
       "category": "backgrounds",
-      "tags": ["art", "watercolor", "splash", "pastel", "paint"],
+      "tags": [
+        "art",
+        "watercolor",
+        "splash",
+        "pastel",
+        "paint"
+      ],
       "description": "Soft pastel watercolor splash background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1155,7 +2023,13 @@
       "id": "bg-geography-contours-topo-20260125",
       "path": "backgrounds/bg-geography-contours-topo-20260125.png",
       "category": "backgrounds",
-      "tags": ["geography", "map", "contours", "topographic", "lines"],
+      "tags": [
+        "geography",
+        "map",
+        "contours",
+        "topographic",
+        "lines"
+      ],
       "description": "Topographic map contour lines background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1164,7 +2038,13 @@
       "id": "bg-literature-letters-floating-20260125",
       "path": "backgrounds/bg-literature-letters-floating-20260125.png",
       "category": "backgrounds",
-      "tags": ["literature", "letters", "alphabet", "floating", "whimsical"],
+      "tags": [
+        "literature",
+        "letters",
+        "alphabet",
+        "floating",
+        "whimsical"
+      ],
       "description": "Whimsical floating alphabet letters background",
       "format": "png",
       "addedDate": "2026-01-25"
@@ -1173,7 +2053,13 @@
       "id": "diagram-linear-slope-intercept-20260125",
       "path": "diagrams/diagram-linear-slope-intercept-20260125.svg",
       "category": "diagrams",
-      "tags": ["linear", "graph", "slope", "algebra", "middle-school"],
+      "tags": [
+        "linear",
+        "graph",
+        "slope",
+        "algebra",
+        "middle-school"
+      ],
       "description": "기울기와 y절편을 보여주는 일차함수 그래프",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1182,7 +2068,13 @@
       "id": "diagram-cylinder-volume-labeled-20260125",
       "path": "diagrams/diagram-cylinder-volume-labeled-20260125.svg",
       "category": "diagrams",
-      "tags": ["cylinder", "volume", "geometry", "3d", "middle-school"],
+      "tags": [
+        "cylinder",
+        "volume",
+        "geometry",
+        "3d",
+        "middle-school"
+      ],
       "description": "치수가 표시된 원기둥 부피 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1191,7 +2083,13 @@
       "id": "diagram-cone-volume-labeled-20260125",
       "path": "diagrams/diagram-cone-volume-labeled-20260125.svg",
       "category": "diagrams",
-      "tags": ["cone", "volume", "geometry", "3d", "middle-school"],
+      "tags": [
+        "cone",
+        "volume",
+        "geometry",
+        "3d",
+        "middle-school"
+      ],
       "description": "치수가 표시된 원뿔 부피 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1200,7 +2098,13 @@
       "id": "diagram-prism-net-unfolded-20260125",
       "path": "diagrams/diagram-prism-net-unfolded-20260125.svg",
       "category": "diagrams",
-      "tags": ["prism", "net", "geometry", "surface-area", "middle-school"],
+      "tags": [
+        "prism",
+        "net",
+        "geometry",
+        "surface-area",
+        "middle-school"
+      ],
       "description": "직육면체 전개도 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1209,7 +2113,13 @@
       "id": "diagram-circle-anatomy-parts-20260125",
       "path": "diagrams/diagram-circle-anatomy-parts-20260125.svg",
       "category": "diagrams",
-      "tags": ["circle", "anatomy", "radius", "diameter", "circumference"],
+      "tags": [
+        "circle",
+        "anatomy",
+        "radius",
+        "diameter",
+        "circumference"
+      ],
       "description": "원의 구성 요소(반지름, 지름, 원주) 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1218,7 +2128,13 @@
       "id": "diagram-parallel-transversal-angles-20260125",
       "path": "diagrams/diagram-parallel-transversal-angles-20260125.svg",
       "category": "diagrams",
-      "tags": ["parallel", "transversal", "angles", "geometry", "middle-school"],
+      "tags": [
+        "parallel",
+        "transversal",
+        "angles",
+        "geometry",
+        "middle-school"
+      ],
       "description": "평행선과 횡단선이 만드는 각도 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1227,7 +2143,12 @@
       "id": "diagram-inequality-number-line-20260125",
       "path": "diagrams/diagram-inequality-number-line-20260125.svg",
       "category": "diagrams",
-      "tags": ["inequality", "number-line", "algebra", "math"],
+      "tags": [
+        "inequality",
+        "number-line",
+        "algebra",
+        "math"
+      ],
       "description": "수직선 위의 부등식 x > 2",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1236,7 +2157,13 @@
       "id": "diagram-venn-sets-overlap-20260125",
       "path": "diagrams/diagram-venn-sets-overlap-20260125.svg",
       "category": "diagrams",
-      "tags": ["venn", "sets", "intersection", "logic", "middle-school"],
+      "tags": [
+        "venn",
+        "sets",
+        "intersection",
+        "logic",
+        "middle-school"
+      ],
       "description": "두 집합의 교집합을 보여주는 벤 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1245,7 +2172,13 @@
       "id": "diagram-ratio-proportion-blocks-20260125",
       "path": "diagrams/diagram-ratio-proportion-blocks-20260125.svg",
       "category": "diagrams",
-      "tags": ["ratio", "proportion", "blocks", "math", "middle-school"],
+      "tags": [
+        "ratio",
+        "proportion",
+        "blocks",
+        "math",
+        "middle-school"
+      ],
       "description": "비율 2:3의 시각적 표현",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1254,7 +2187,13 @@
       "id": "diagram-angle-types-comparison-20260125",
       "path": "diagrams/diagram-angle-types-comparison-20260125.svg",
       "category": "diagrams",
-      "tags": ["angles", "acute", "right", "obtuse", "geometry"],
+      "tags": [
+        "angles",
+        "acute",
+        "right",
+        "obtuse",
+        "geometry"
+      ],
       "description": "각의 종류 비교 (예각, 직각, 둔각)",
       "format": "svg",
       "addedDate": "2026-01-25"
@@ -1263,107 +2202,205 @@
       "id": "bg-grid-paper-20260125",
       "path": "backgrounds/bg-grid-paper-20260125.png",
       "category": "backgrounds",
-      "tags": ["grid", "paper", "pattern", "math", "background"],
+      "tags": [
+        "grid",
+        "paper",
+        "pattern",
+        "math",
+        "background"
+      ],
       "description": "파란색 모눈종이 패턴 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-lined-paper-20260125",
       "path": "backgrounds/bg-lined-paper-20260125.png",
       "category": "backgrounds",
-      "tags": ["lined", "paper", "notebook", "writing", "background"],
+      "tags": [
+        "lined",
+        "paper",
+        "notebook",
+        "writing",
+        "background"
+      ],
       "description": "공책 줄무늬 배경 (마진 포함, 4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-dot-grid-20260125",
       "path": "backgrounds/bg-dot-grid-20260125.png",
       "category": "backgrounds",
-      "tags": ["dot", "grid", "pattern", "design", "background"],
+      "tags": [
+        "dot",
+        "grid",
+        "pattern",
+        "design",
+        "background"
+      ],
       "description": "미니멀한 도트 그리드 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-gradient-blue-20260125",
       "path": "backgrounds/bg-gradient-blue-20260125.png",
       "category": "backgrounds",
-      "tags": ["gradient", "blue", "soft", "sky", "background"],
+      "tags": [
+        "gradient",
+        "blue",
+        "soft",
+        "sky",
+        "background"
+      ],
       "description": "부드러운 파란색 그라데이션 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-gradient-green-20260125",
       "path": "backgrounds/bg-gradient-green-20260125.png",
       "category": "backgrounds",
-      "tags": ["gradient", "green", "nature", "fresh", "background"],
+      "tags": [
+        "gradient",
+        "green",
+        "nature",
+        "fresh",
+        "background"
+      ],
       "description": "부드러운 녹색 그라데이션 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-geometric-shapes-20260125",
       "path": "backgrounds/bg-geometric-shapes-20260125.png",
       "category": "backgrounds",
-      "tags": ["geometric", "shapes", "pattern", "abstract", "background"],
+      "tags": [
+        "geometric",
+        "shapes",
+        "pattern",
+        "abstract",
+        "background"
+      ],
       "description": "기하학적 도형 패턴 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-science-pattern-20260125",
       "path": "backgrounds/bg-science-pattern-20260125.png",
       "category": "backgrounds",
-      "tags": ["science", "pattern", "atom", "dna", "chemistry", "background"],
+      "tags": [
+        "science",
+        "pattern",
+        "atom",
+        "dna",
+        "chemistry",
+        "background"
+      ],
       "description": "과학 아이콘 패턴 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-alphabet-pattern-20260125",
       "path": "backgrounds/bg-alphabet-pattern-20260125.png",
       "category": "backgrounds",
-      "tags": ["alphabet", "letters", "english", "pattern", "background"],
+      "tags": [
+        "alphabet",
+        "letters",
+        "english",
+        "pattern",
+        "background"
+      ],
       "description": "알파벳 ABC 패턴 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-numbers-pattern-20260125",
       "path": "backgrounds/bg-numbers-pattern-20260125.png",
       "category": "backgrounds",
-      "tags": ["numbers", "math", "pattern", "123", "background"],
+      "tags": [
+        "numbers",
+        "math",
+        "pattern",
+        "123",
+        "background"
+      ],
       "description": "숫자 123 패턴 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "bg-world-map-abstract-20260125",
       "path": "backgrounds/bg-world-map-abstract-20260125.png",
       "category": "backgrounds",
-      "tags": ["map", "world", "geography", "abstract", "background"],
+      "tags": [
+        "map",
+        "world",
+        "geography",
+        "abstract",
+        "background"
+      ],
       "description": "추상적인 세계 지도 배경 (4K)",
-      "dimensions": { "width": 3840, "height": 2160 },
       "format": "png",
-      "addedDate": "2026-01-25"
+      "addedDate": "2026-01-25",
+      "dimensions": {
+        "width": 3840,
+        "height": 2160
+      }
     },
     {
       "id": "3d-tetrahedron-math-20260125",
       "path": "3d/3d-tetrahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정사면체"],
+      "tags": [
+        "3d",
+        "platonic-solid",
+        "geometry",
+        "high-school",
+        "math",
+        "정사면체"
+      ],
       "description": "정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -1372,7 +2409,14 @@
       "id": "3d-hexahedron-math-20260125",
       "path": "3d/3d-hexahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정육면체"],
+      "tags": [
+        "3d",
+        "platonic-solid",
+        "geometry",
+        "high-school",
+        "math",
+        "정육면체"
+      ],
       "description": "정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -1381,7 +2425,14 @@
       "id": "3d-octahedron-math-20260125",
       "path": "3d/3d-octahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정팔면체"],
+      "tags": [
+        "3d",
+        "platonic-solid",
+        "geometry",
+        "high-school",
+        "math",
+        "정팔면체"
+      ],
       "description": "정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -1390,7 +2441,14 @@
       "id": "3d-dodecahedron-math-20260125",
       "path": "3d/3d-dodecahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정십이면체"],
+      "tags": [
+        "3d",
+        "platonic-solid",
+        "geometry",
+        "high-school",
+        "math",
+        "정십이면체"
+      ],
       "description": "정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)",
       "format": "glb",
       "addedDate": "2026-01-25"
@@ -1399,8 +2457,274 @@
       "id": "3d-icosahedron-math-20260125",
       "path": "3d/3d-icosahedron-math-20260125.glb",
       "category": "3d",
-      "tags": ["3d", "platonic-solid", "geometry", "high-school", "math", "정이십면체"],
+      "tags": [
+        "3d",
+        "platonic-solid",
+        "geometry",
+        "high-school",
+        "math",
+        "정이십면체"
+      ],
       "description": "정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-sphere-red-20260125",
+      "path": "3d/3d-elementary-sphere-red-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "sphere",
+        "geometry",
+        "elementary",
+        "math",
+        "구",
+        "입체도형"
+      ],
+      "description": "빨간색 구 - 초등 수학 기본 입체도형",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-cylinder-blue-20260125",
+      "path": "3d/3d-elementary-cylinder-blue-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "cylinder",
+        "geometry",
+        "elementary",
+        "math",
+        "원기둥",
+        "입체도형"
+      ],
+      "description": "파란색 원기둥 - 초등 수학 기본 입체도형",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-cone-yellow-20260125",
+      "path": "3d/3d-elementary-cone-yellow-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "cone",
+        "geometry",
+        "elementary",
+        "math",
+        "원뿔",
+        "입체도형"
+      ],
+      "description": "노란색 원뿔 - 초등 수학 기본 입체도형",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-box-green-20260125",
+      "path": "3d/3d-elementary-box-green-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "box",
+        "prism",
+        "geometry",
+        "elementary",
+        "math",
+        "직육면체",
+        "입체도형"
+      ],
+      "description": "녹색 직육면체 - 초등 수학 기본 입체도형",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-pyramid-purple-20260125",
+      "path": "3d/3d-elementary-pyramid-purple-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "pyramid",
+        "geometry",
+        "elementary",
+        "math",
+        "사각뿔",
+        "입체도형"
+      ],
+      "description": "보라색 사각뿔 - 초등 수학 기본 입체도형",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-dice-white-20260125",
+      "path": "3d/3d-elementary-dice-white-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "dice",
+        "probability",
+        "counting",
+        "elementary",
+        "math",
+        "주사위",
+        "확률"
+      ],
+      "description": "흰색 주사위 - 초등 수학 확률 및 세기 학습용",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-fraction-half-orange-20260125",
+      "path": "3d/3d-elementary-fraction-half-orange-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "fraction",
+        "half",
+        "pie",
+        "elementary",
+        "math",
+        "분수",
+        "반"
+      ],
+      "description": "주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-coin-gold-20260125",
+      "path": "3d/3d-elementary-coin-gold-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "coin",
+        "money",
+        "counting",
+        "elementary",
+        "math",
+        "동전",
+        "화폐"
+      ],
+      "description": "금색 동전 - 초등 수학 화폐 및 세기 학습용",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-counting-blocks-rainbow-20260125",
+      "path": "3d/3d-elementary-counting-blocks-rainbow-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "blocks",
+        "counting",
+        "addition",
+        "subtraction",
+        "elementary",
+        "math",
+        "블록",
+        "세기"
+      ],
+      "description": "무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-elementary-apple-red-20260125",
+      "path": "3d/3d-elementary-apple-red-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "apple",
+        "counting",
+        "fruit",
+        "elementary",
+        "math",
+        "사과",
+        "세기"
+      ],
+      "description": "빨간 사과 - 초등 수학 세기 연습용",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-pythagorean-proof-20260125",
+      "path": "3d/3d-pythagorean-proof-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "math",
+        "geometry",
+        "pythagoras",
+        "theorem",
+        "proof"
+      ],
+      "description": "피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-archimedes-sphere-cylinder-20260125",
+      "path": "3d/3d-archimedes-sphere-cylinder-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "math",
+        "geometry",
+        "archimedes",
+        "sphere",
+        "cylinder",
+        "volume"
+      ],
+      "description": "아르키메데스의 구와 원기둥 (부피비 시각화)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-fractal-sierpinski-pyramid-20260125",
+      "path": "3d/3d-fractal-sierpinski-pyramid-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "math",
+        "fractal",
+        "sierpinski",
+        "pyramid",
+        "geometry",
+        "recursion"
+      ],
+      "description": "시에르핀스키 피라미드 (프랙탈 기하학 Level 4)",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-euler-helix-complex-20260125",
+      "path": "3d/3d-euler-helix-complex-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "math",
+        "complex-analysis",
+        "euler",
+        "helix",
+        "formula"
+      ],
+      "description": "오일러 공식 나선 (e^ix 시각화) - 개념 모델",
+      "format": "glb",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "3d-platonic-icosahedron-20260125",
+      "path": "3d/3d-platonic-icosahedron-20260125.glb",
+      "category": "3d",
+      "tags": [
+        "3d",
+        "math",
+        "geometry",
+        "platonic-solid",
+        "icosahedron",
+        "water"
+      ],
+      "description": "플라톤의 다면체 - 정이십면체 (Icosahedron)",
       "format": "glb",
       "addedDate": "2026-01-25"
     }
