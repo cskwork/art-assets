@@ -1,6 +1,6 @@
 # Art Assets Repository
 
-한국 학생들을 위한 교육용 아트 에셋 저장소. LLM이 에셋을 검색하고 Vue/HTML 프로젝트에 삽입할 수 있도록 구성됨.
+한국 학생들을 위한 교육용 아트 에셋 저장소. LLM이 에셋을 검색하고 Vue/HTML 프로젝트에 삽입할 수 있도록 구성됨. (For any text that exists should be korean)
 
 ## 폴더 구조
 

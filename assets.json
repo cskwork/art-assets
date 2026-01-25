@@ -1019,6 +1019,96 @@
       "description": "Whimsical floating alphabet letters background",
       "format": "png",
       "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-linear-slope-intercept-20260125",
+      "path": "diagrams/diagram-linear-slope-intercept-20260125.svg",
+      "category": "diagrams",
+      "tags": ["linear", "graph", "slope", "algebra", "middle-school"],
+      "description": "기울기와 y절편을 보여주는 일차함수 그래프",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-cylinder-volume-labeled-20260125",
+      "path": "diagrams/diagram-cylinder-volume-labeled-20260125.svg",
+      "category": "diagrams",
+      "tags": ["cylinder", "volume", "geometry", "3d", "middle-school"],
+      "description": "치수가 표시된 원기둥 부피 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-cone-volume-labeled-20260125",
+      "path": "diagrams/diagram-cone-volume-labeled-20260125.svg",
+      "category": "diagrams",
+      "tags": ["cone", "volume", "geometry", "3d", "middle-school"],
+      "description": "치수가 표시된 원뿔 부피 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-prism-net-unfolded-20260125",
+      "path": "diagrams/diagram-prism-net-unfolded-20260125.svg",
+      "category": "diagrams",
+      "tags": ["prism", "net", "geometry", "surface-area", "middle-school"],
+      "description": "직육면체 전개도 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-circle-anatomy-parts-20260125",
+      "path": "diagrams/diagram-circle-anatomy-parts-20260125.svg",
+      "category": "diagrams",
+      "tags": ["circle", "anatomy", "radius", "diameter", "circumference"],
+      "description": "원의 구성 요소(반지름, 지름, 원주) 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-parallel-transversal-angles-20260125",
+      "path": "diagrams/diagram-parallel-transversal-angles-20260125.svg",
+      "category": "diagrams",
+      "tags": ["parallel", "transversal", "angles", "geometry", "middle-school"],
+      "description": "평행선과 횡단선이 만드는 각도 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-inequality-number-line-20260125",
+      "path": "diagrams/diagram-inequality-number-line-20260125.svg",
+      "category": "diagrams",
+      "tags": ["inequality", "number-line", "algebra", "math"],
+      "description": "수직선 위의 부등식 x > 2",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-venn-sets-overlap-20260125",
+      "path": "diagrams/diagram-venn-sets-overlap-20260125.svg",
+      "category": "diagrams",
+      "tags": ["venn", "sets", "intersection", "logic", "middle-school"],
+      "description": "두 집합의 교집합을 보여주는 벤 다이어그램",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-ratio-proportion-blocks-20260125",
+      "path": "diagrams/diagram-ratio-proportion-blocks-20260125.svg",
+      "category": "diagrams",
+      "tags": ["ratio", "proportion", "blocks", "math", "middle-school"],
+      "description": "비율 2:3의 시각적 표현",
+      "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "diagram-angle-types-comparison-20260125",
+      "path": "diagrams/diagram-angle-types-comparison-20260125.svg",
+      "category": "diagrams",
+      "tags": ["angles", "acute", "right", "obtuse", "geometry"],
+      "description": "각의 종류 비교 (예각, 직각, 둔각)",
+      "format": "svg",
+      "addedDate": "2026-01-25"
     }
   ]
 }
