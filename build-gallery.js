@@ -45,6 +45,7 @@ function generateHTML() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Assets Gallery</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -207,6 +208,11 @@ function generateHTML() {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .card-preview model-viewer {
+      width: 100%;
+      height: 100%;
     }
 
     .card-info {
@@ -425,12 +431,20 @@ function getCategoryLabel(category) {
 
 function generateCard(asset) {
   const isBackground = asset.category === 'backgrounds';
+  const is3D = asset.category === '3d';
   const previewClass = isBackground ? 'card-preview bg-preview' : 'card-preview';
   const tags = asset.tags.slice(0, 4).map(t => `<span class="tag">${t}</span>`).join('');
 
+  let previewContent;
+  if (is3D) {
+    previewContent = `<model-viewer src="${asset.path}" alt="${asset.description}" auto-rotate camera-controls></model-viewer>`;
+  } else {
+    previewContent = `<img src="${asset.path}" alt="${asset.description}" loading="lazy" />`;
+  }
+
   return `      <div class="card" data-category="${asset.category}" data-tags="${asset.tags.join(' ')}" data-desc="${asset.description}" data-name="${asset.id}">
         <div class="${previewClass}">
-          <img src="${asset.path}" alt="${asset.description}" loading="lazy" />
+          ${previewContent}
         </div>
         <div class="card-info">
           <div class="card-name">${asset.id}</div>

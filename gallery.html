@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Assets Gallery</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -166,6 +167,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .card-preview model-viewer {
+      width: 100%;
+      height: 100%;
     }
 
     .card-info {
@@ -1351,7 +1357,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="geometry math icosahedron platonic-solid 3d" data-desc="정이십면체 (플라톤 다면체) 3D 모델" data-name="3d-geometry-icosahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-geometry-icosahedron-math-20260125.glb" alt="정이십면체 (플라톤 다면체) 3D 모델" loading="lazy" />
+          <model-viewer src="3d/3d-geometry-icosahedron-math-20260125.glb" alt="정이십면체 (플라톤 다면체) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-geometry-icosahedron-math-20260125</div>
@@ -1364,7 +1370,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="topology math mobius-strip surface 3d" data-desc="뫼비우스의 띠 위상수학 모델" data-name="3d-topology-mobius-strip-20260125">
         <div class="card-preview">
-          <img src="3d/3d-topology-mobius-strip-20260125.glb" alt="뫼비우스의 띠 위상수학 모델" loading="lazy" />
+          <model-viewer src="3d/3d-topology-mobius-strip-20260125.glb" alt="뫼비우스의 띠 위상수학 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-topology-mobius-strip-20260125</div>
@@ -1377,7 +1383,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="statistics math normal-distribution gaussian surface 3d" data-desc="정규 분포 곡면 (통계) 3D 모델" data-name="3d-statistics-normal-surface-20260125">
         <div class="card-preview">
-          <img src="3d/3d-statistics-normal-surface-20260125.glb" alt="정규 분포 곡면 (통계) 3D 모델" loading="lazy" />
+          <model-viewer src="3d/3d-statistics-normal-surface-20260125.glb" alt="정규 분포 곡면 (통계) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-statistics-normal-surface-20260125</div>
@@ -1390,7 +1396,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="geometry math torus donut shape 3d" data-desc="토러스 (도넛 모양) 기하학 3D 모델" data-name="3d-geometry-torus-simple-20260125">
         <div class="card-preview">
-          <img src="3d/3d-geometry-torus-simple-20260125.glb" alt="토러스 (도넛 모양) 기하학 3D 모델" loading="lazy" />
+          <model-viewer src="3d/3d-geometry-torus-simple-20260125.glb" alt="토러스 (도넛 모양) 기하학 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-geometry-torus-simple-20260125</div>
@@ -1403,7 +1409,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="complex-analysis math riemann-surface spiral 3d" data-desc="리만 곡면 (복소수 해석학) 3D 모델" data-name="3d-complex-riemann-surface-20260125">
         <div class="card-preview">
-          <img src="3d/3d-complex-riemann-surface-20260125.glb" alt="리만 곡면 (복소수 해석학) 3D 모델" loading="lazy" />
+          <model-viewer src="3d/3d-complex-riemann-surface-20260125.glb" alt="리만 곡면 (복소수 해석학) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-complex-riemann-surface-20260125</div>
@@ -2105,7 +2111,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정사면체" data-desc="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" data-name="3d-tetrahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-tetrahedron-math-20260125.glb" alt="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" loading="lazy" />
+          <model-viewer src="3d/3d-tetrahedron-math-20260125.glb" alt="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-tetrahedron-math-20260125</div>
@@ -2118,7 +2124,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정육면체" data-desc="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" data-name="3d-hexahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-hexahedron-math-20260125.glb" alt="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" loading="lazy" />
+          <model-viewer src="3d/3d-hexahedron-math-20260125.glb" alt="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-hexahedron-math-20260125</div>
@@ -2131,7 +2137,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정팔면체" data-desc="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" data-name="3d-octahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-octahedron-math-20260125.glb" alt="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" loading="lazy" />
+          <model-viewer src="3d/3d-octahedron-math-20260125.glb" alt="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-octahedron-math-20260125</div>
@@ -2144,7 +2150,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정십이면체" data-desc="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" data-name="3d-dodecahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-dodecahedron-math-20260125.glb" alt="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" loading="lazy" />
+          <model-viewer src="3d/3d-dodecahedron-math-20260125.glb" alt="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-dodecahedron-math-20260125</div>
@@ -2157,7 +2163,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정이십면체" data-desc="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" data-name="3d-icosahedron-math-20260125">
         <div class="card-preview">
-          <img src="3d/3d-icosahedron-math-20260125.glb" alt="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" loading="lazy" />
+          <model-viewer src="3d/3d-icosahedron-math-20260125.glb" alt="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-icosahedron-math-20260125</div>
@@ -2170,7 +2176,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d sphere geometry elementary math 구 입체도형" data-desc="빨간색 구 - 초등 수학 기본 입체도형" data-name="3d-elementary-sphere-red-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-sphere-red-20260125.glb" alt="빨간색 구 - 초등 수학 기본 입체도형" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-sphere-red-20260125.glb" alt="빨간색 구 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-sphere-red-20260125</div>
@@ -2183,7 +2189,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d cylinder geometry elementary math 원기둥 입체도형" data-desc="파란색 원기둥 - 초등 수학 기본 입체도형" data-name="3d-elementary-cylinder-blue-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-cylinder-blue-20260125.glb" alt="파란색 원기둥 - 초등 수학 기본 입체도형" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-cylinder-blue-20260125.glb" alt="파란색 원기둥 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-cylinder-blue-20260125</div>
@@ -2196,7 +2202,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d cone geometry elementary math 원뿔 입체도형" data-desc="노란색 원뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-cone-yellow-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-cone-yellow-20260125.glb" alt="노란색 원뿔 - 초등 수학 기본 입체도형" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-cone-yellow-20260125.glb" alt="노란색 원뿔 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-cone-yellow-20260125</div>
@@ -2209,7 +2215,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d box prism geometry elementary math 직육면체 입체도형" data-desc="녹색 직육면체 - 초등 수학 기본 입체도형" data-name="3d-elementary-box-green-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-box-green-20260125.glb" alt="녹색 직육면체 - 초등 수학 기본 입체도형" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-box-green-20260125.glb" alt="녹색 직육면체 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-box-green-20260125</div>
@@ -2222,7 +2228,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d pyramid geometry elementary math 사각뿔 입체도형" data-desc="보라색 사각뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-pyramid-purple-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-pyramid-purple-20260125.glb" alt="보라색 사각뿔 - 초등 수학 기본 입체도형" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-pyramid-purple-20260125.glb" alt="보라색 사각뿔 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-pyramid-purple-20260125</div>
@@ -2235,7 +2241,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d dice probability counting elementary math 주사위 확률" data-desc="흰색 주사위 - 초등 수학 확률 및 세기 학습용" data-name="3d-elementary-dice-white-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-dice-white-20260125.glb" alt="흰색 주사위 - 초등 수학 확률 및 세기 학습용" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-dice-white-20260125.glb" alt="흰색 주사위 - 초등 수학 확률 및 세기 학습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-dice-white-20260125</div>
@@ -2248,7 +2254,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d fraction half pie elementary math 분수 반" data-desc="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" data-name="3d-elementary-fraction-half-orange-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-fraction-half-orange-20260125.glb" alt="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-fraction-half-orange-20260125.glb" alt="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-fraction-half-orange-20260125</div>
@@ -2261,7 +2267,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d coin money counting elementary math 동전 화폐" data-desc="금색 동전 - 초등 수학 화폐 및 세기 학습용" data-name="3d-elementary-coin-gold-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-coin-gold-20260125.glb" alt="금색 동전 - 초등 수학 화폐 및 세기 학습용" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-coin-gold-20260125.glb" alt="금색 동전 - 초등 수학 화폐 및 세기 학습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-coin-gold-20260125</div>
@@ -2274,7 +2280,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d blocks counting addition subtraction elementary math 블록 세기" data-desc="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" data-name="3d-elementary-counting-blocks-rainbow-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-counting-blocks-rainbow-20260125.glb" alt="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-counting-blocks-rainbow-20260125.glb" alt="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-counting-blocks-rainbow-20260125</div>
@@ -2287,7 +2293,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d apple counting fruit elementary math 사과 세기" data-desc="빨간 사과 - 초등 수학 세기 연습용" data-name="3d-elementary-apple-red-20260125">
         <div class="card-preview">
-          <img src="3d/3d-elementary-apple-red-20260125.glb" alt="빨간 사과 - 초등 수학 세기 연습용" loading="lazy" />
+          <model-viewer src="3d/3d-elementary-apple-red-20260125.glb" alt="빨간 사과 - 초등 수학 세기 연습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-elementary-apple-red-20260125</div>
@@ -2300,7 +2306,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d math geometry pythagoras theorem proof" data-desc="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" data-name="3d-pythagorean-proof-20260125">
         <div class="card-preview">
-          <img src="3d/3d-pythagorean-proof-20260125.glb" alt="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" loading="lazy" />
+          <model-viewer src="3d/3d-pythagorean-proof-20260125.glb" alt="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-pythagorean-proof-20260125</div>
@@ -2313,7 +2319,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d math geometry archimedes sphere cylinder volume" data-desc="아르키메데스의 구와 원기둥 (부피비 시각화)" data-name="3d-archimedes-sphere-cylinder-20260125">
         <div class="card-preview">
-          <img src="3d/3d-archimedes-sphere-cylinder-20260125.glb" alt="아르키메데스의 구와 원기둥 (부피비 시각화)" loading="lazy" />
+          <model-viewer src="3d/3d-archimedes-sphere-cylinder-20260125.glb" alt="아르키메데스의 구와 원기둥 (부피비 시각화)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-archimedes-sphere-cylinder-20260125</div>
@@ -2326,7 +2332,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d math fractal sierpinski pyramid geometry recursion" data-desc="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" data-name="3d-fractal-sierpinski-pyramid-20260125">
         <div class="card-preview">
-          <img src="3d/3d-fractal-sierpinski-pyramid-20260125.glb" alt="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" loading="lazy" />
+          <model-viewer src="3d/3d-fractal-sierpinski-pyramid-20260125.glb" alt="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-fractal-sierpinski-pyramid-20260125</div>
@@ -2339,7 +2345,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d math complex-analysis euler helix formula" data-desc="오일러 공식 나선 (e^ix 시각화) - 개념 모델" data-name="3d-euler-helix-complex-20260125">
         <div class="card-preview">
-          <img src="3d/3d-euler-helix-complex-20260125.glb" alt="오일러 공식 나선 (e^ix 시각화) - 개념 모델" loading="lazy" />
+          <model-viewer src="3d/3d-euler-helix-complex-20260125.glb" alt="오일러 공식 나선 (e^ix 시각화) - 개념 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-euler-helix-complex-20260125</div>
@@ -2352,7 +2358,7 @@
       </div>
       <div class="card" data-category="3d" data-tags="3d math geometry platonic-solid icosahedron water" data-desc="플라톤의 다면체 - 정이십면체 (Icosahedron)" data-name="3d-platonic-icosahedron-20260125">
         <div class="card-preview">
-          <img src="3d/3d-platonic-icosahedron-20260125.glb" alt="플라톤의 다면체 - 정이십면체 (Icosahedron)" loading="lazy" />
+          <model-viewer src="3d/3d-platonic-icosahedron-20260125.glb" alt="플라톤의 다면체 - 정이십면체 (Icosahedron)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
           <div class="card-name">3d-platonic-icosahedron-20260125</div>
