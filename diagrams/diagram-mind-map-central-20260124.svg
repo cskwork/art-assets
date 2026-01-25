@@ -29,7 +29,7 @@
   <rect width="600" height="450" fill="#fdf4ff"/>
 
   <!-- Title -->
-  <text x="300" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">마인드맵 (Mind Map)</text>
+  <text x="300" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">마인드맵</text>
 
   <!-- Connection Lines (Curved) -->
   <!-- Branch 1 (Top-Right) - Orange -->

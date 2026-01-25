@@ -35,22 +35,22 @@
   <!-- Stage 1 (Top) -->
   <circle cx="200" cy="90" r="45" fill="url(#cycleGrad1)" filter="url(#cycleShadow)"/>
   <text x="200" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">계획</text>
-  <text x="200" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Plan</text>
+  <text x="200" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">계획</text>
 
   <!-- Stage 2 (Right) -->
   <circle cx="310" cy="210" r="45" fill="url(#cycleGrad2)" filter="url(#cycleShadow)"/>
   <text x="310" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">실행</text>
-  <text x="310" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Do</text>
+  <text x="310" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">실행</text>
 
   <!-- Stage 3 (Bottom) -->
   <circle cx="200" cy="330" r="45" fill="url(#cycleGrad3)" filter="url(#cycleShadow)"/>
   <text x="200" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">점검</text>
-  <text x="200" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Check</text>
+  <text x="200" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">점검</text>
 
   <!-- Stage 4 (Left) -->
   <circle cx="90" cy="210" r="45" fill="url(#cycleGrad4)" filter="url(#cycleShadow)"/>
   <text x="90" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">개선</text>
-  <text x="90" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Act</text>
+  <text x="90" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">조치</text>
 
   <!-- Curved Arrows -->
   <!-- Top to Right -->

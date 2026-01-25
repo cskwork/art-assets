@@ -21,7 +21,7 @@
   <rect width="500" height="350" fill="#f1f5f9"/>
 
   <!-- Title -->
-  <text x="250" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">비교 차트 (Comparison Chart)</text>
+  <text x="250" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">비교 차트</text>
 
   <!-- Table Container -->
   <rect x="30" y="50" width="440" height="280" rx="12" fill="white" filter="url(#compShadow)"/>

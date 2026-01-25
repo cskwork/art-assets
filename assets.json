@@ -29,7 +29,7 @@
       "path": "icons/icon-arithmetic-basic-color-20260124.svg",
       "category": "icons",
       "tags": ["arithmetic", "math", "elementary", "plus", "minus"],
-      "description": "Elementary arithmetic operators icon",
+      "description": "기초 산수 연산자 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -38,7 +38,7 @@
       "path": "illustrations/illust-numbers-fun-flat-20260124.svg",
       "category": "illustrations",
       "tags": ["numbers", "123", "elementary", "fun"],
-      "description": "Fun stylized numbers 1-2-3",
+      "description": "재미있는 숫자 1-2-3 스타일",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -47,7 +47,7 @@
       "path": "icons/icon-shapes-primary-bold-20260124.svg",
       "category": "icons",
       "tags": ["shapes", "geometry", "elementary", "basic"],
-      "description": "Basic geometric shapes icon",
+      "description": "기본 기하학 도형 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -56,7 +56,7 @@
       "path": "illustrations/illust-counting-apples-modern-20260124.svg",
       "category": "illustrations",
       "tags": ["counting", "apples", "elementary", "math"],
-      "description": "Counting apples illustration",
+      "description": "사과 세기 일러스트",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -65,7 +65,7 @@
       "path": "illustrations/illust-clock-learning-simple-20260124.svg",
       "category": "illustrations",
       "tags": ["clock", "time", "elementary", "learning"],
-      "description": "Simple analog clock for learning time",
+      "description": "시간 학습용 간단한 아날로그 시계",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -74,7 +74,7 @@
       "path": "diagrams/diagram-fraction-pie-thirds-20260124.svg",
       "category": "diagrams",
       "tags": ["fraction", "pie", "middle-school", "math"],
-      "description": "Pie chart showing thirds fraction",
+      "description": "3등분 분수 파이 차트",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -83,7 +83,7 @@
       "path": "diagrams/diagram-coordinate-plane-clean-20260124.svg",
       "category": "diagrams",
       "tags": ["coordinate", "plane", "xy-axis", "middle-school"],
-      "description": "Clean coordinate plane grid",
+      "description": "깔끔한 좌표평면 그리드",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -92,7 +92,7 @@
       "path": "icons/icon-angles-geometry-blue-20260124.svg",
       "category": "icons",
       "tags": ["angles", "geometry", "middle-school", "math"],
-      "description": "Geometry angles types icon",
+      "description": "기하학 각도 종류 아이콘",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -101,7 +101,7 @@
       "path": "diagrams/diagram-triangle-area-labeled-20260124.svg",
       "category": "diagrams",
       "tags": ["triangle", "area", "geometry", "middle-school"],
-      "description": "Triangle with height and base labels",
+      "description": "높이와 밑변이 표시된 삼각형",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -110,7 +110,7 @@
       "path": "illustrations/illust-probability-dice-pair-20260124.svg",
       "category": "illustrations",
       "tags": ["probability", "dice", "middle-school", "math"],
-      "description": "Pair of dice for probability",
+      "description": "확률 학습용 주사위 쌍",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -119,7 +119,7 @@
       "path": "diagrams/diagram-parabola-graph-gradient-20260124.svg",
       "category": "diagrams",
       "tags": ["parabola", "function", "high-school", "algebra"],
-      "description": "Parabola graph diagram",
+      "description": "포물선 그래프 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -128,7 +128,7 @@
       "path": "diagrams/diagram-unit-circle-trig-dark-20260124.svg",
       "category": "diagrams",
       "tags": ["unit-circle", "trigonometry", "high-school", "math"],
-      "description": "Unit circle trigonometry diagram",
+      "description": "단위 원 삼각함수 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -137,7 +137,7 @@
       "path": "icons/icon-sigma-summation-sleek-20260124.svg",
       "category": "icons",
       "tags": ["sigma", "summation", "math", "symbol"],
-      "description": "Sleek sigma summation symbol",
+      "description": "세련된 시그마 합계 기호",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -146,7 +146,7 @@
       "path": "illustrations/illust-solid-shapes-3d-20260124.svg",
       "category": "illustrations",
       "tags": ["solid", "3d", "geometry", "high-school"],
-      "description": "Wireframe 3D solid shapes",
+      "description": "와이어프레임 3D 입체 도형",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -155,7 +155,7 @@
       "path": "diagrams/diagram-integral-curve-filled-20260124.svg",
       "category": "diagrams",
       "tags": ["integral", "calculus", "high-school", "area"],
-      "description": "Integral area under curve diagram",
+      "description": "곡선 아래 적분 넓이 다이어그램",
       "format": "svg",
       "addedDate": "2026-01-24"
     },
@@ -164,7 +164,7 @@
       "path": "backgrounds/bg-grid-paper-blue-textured-20260124.png",
       "category": "backgrounds",
       "tags": ["grid", "paper", "texture", "background"],
-      "description": "Blue textured grid paper background",
+      "description": "파란색 질감 모눈종이 배경",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -173,7 +173,7 @@
       "path": "backgrounds/bg-math-formulas-overlay-20260124.png",
       "category": "backgrounds",
       "tags": ["formulas", "math", "overlay", "background"],
-      "description": "Subtle math formulas overlay background",
+      "description": "은은한 수학 공식 오버레이 배경",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -182,7 +182,7 @@
       "path": "illustrations/illust-calculator-scientific-20260124.png",
       "category": "illustrations",
       "tags": ["calculator", "scientific", "tool", "math"],
-      "description": "Scientific calculator illustration",
+      "description": "공학용 계산기 일러스트",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -191,7 +191,7 @@
       "path": "illustrations/illust-geometry-set-classic-20260124.png",
       "category": "illustrations",
       "tags": ["geometry", "tools", "ruler", "compass"],
-      "description": "Classic geometry tool set",
+      "description": "클래식 기하학 도구 세트",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -200,7 +200,7 @@
       "path": "illustrations/illust-math-symbols-collection-20260124.png",
       "category": "illustrations",
       "tags": ["symbols", "math", "collection", "art"],
-      "description": "Artistic math symbols collection",
+      "description": "예술적인 수학 기호 모음",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -209,7 +209,7 @@
       "path": "diagrams/diagram-normal-distribution-curve-20260124.png",
       "category": "diagrams",
       "tags": ["statistics", "normal-distribution", "bell-curve"],
-      "description": "Normal distribution bell curve diagram",
+      "description": "정규 분포 종모양 곡선 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -218,7 +218,7 @@
       "path": "diagrams/diagram-box-whisker-plot-20260124.png",
       "category": "diagrams",
       "tags": ["statistics", "box-plot", "chart"],
-      "description": "Box and whisker plot diagram",
+      "description": "상자 수염 그림 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -227,7 +227,7 @@
       "path": "diagrams/diagram-scatter-plot-trendline-20260124.png",
       "category": "diagrams",
       "tags": ["statistics", "scatter-plot", "trendline"],
-      "description": "Scatter plot with trendline",
+      "description": "추세선이 있는 산점도",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -236,7 +236,7 @@
       "path": "diagrams/diagram-histogram-frequency-20260124.png",
       "category": "diagrams",
       "tags": ["statistics", "histogram", "bar-chart"],
-      "description": "Histogram frequency distribution chart",
+      "description": "히스토그램 도수 분포 차트",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -245,7 +245,7 @@
       "path": "diagrams/diagram-venn-diagram-intersection-20260124.png",
       "category": "diagrams",
       "tags": ["statistics", "venn-diagram", "set-theory"],
-      "description": "Venn diagram intersection",
+      "description": "벤 다이어그램 교집합",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -254,7 +254,7 @@
       "path": "diagrams/diagram-matrix-grid-20260124.png",
       "category": "diagrams",
       "tags": ["matrix", "advanced", "algebra"],
-      "description": "Matrix transformation grid",
+      "description": "행렬 변환 그리드",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -263,7 +263,7 @@
       "path": "diagrams/diagram-complex-plane-argand-20260124.png",
       "category": "diagrams",
       "tags": ["complex-numbers", "argand", "advanced"],
-      "description": "Complex plane Argand diagram",
+      "description": "복소 평면 아르강 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -272,7 +272,7 @@
       "path": "diagrams/diagram-vector-field-flow-20260124.png",
       "category": "diagrams",
       "tags": ["vector", "field", "physics", "advanced"],
-      "description": "Vector field flow diagram",
+      "description": "벡터장 흐름 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -281,7 +281,7 @@
       "path": "diagrams/diagram-limit-function-20260124.png",
       "category": "diagrams",
       "tags": ["calculus", "limit", "function", "advanced"],
-      "description": "Calculus limit concept diagram",
+      "description": "미적분 극한 개념 다이어그램",
       "format": "png",
       "addedDate": "2026-01-24"
     },
@@ -1108,6 +1108,106 @@
       "tags": ["angles", "acute", "right", "obtuse", "geometry"],
       "description": "각의 종류 비교 (예각, 직각, 둔각)",
       "format": "svg",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-grid-paper-20260125",
+      "path": "backgrounds/bg-grid-paper-20260125.png",
+      "category": "backgrounds",
+      "tags": ["grid", "paper", "pattern", "math", "background"],
+      "description": "파란색 모눈종이 패턴 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-lined-paper-20260125",
+      "path": "backgrounds/bg-lined-paper-20260125.png",
+      "category": "backgrounds",
+      "tags": ["lined", "paper", "notebook", "writing", "background"],
+      "description": "공책 줄무늬 배경 (마진 포함, 4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-dot-grid-20260125",
+      "path": "backgrounds/bg-dot-grid-20260125.png",
+      "category": "backgrounds",
+      "tags": ["dot", "grid", "pattern", "design", "background"],
+      "description": "미니멀한 도트 그리드 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-gradient-blue-20260125",
+      "path": "backgrounds/bg-gradient-blue-20260125.png",
+      "category": "backgrounds",
+      "tags": ["gradient", "blue", "soft", "sky", "background"],
+      "description": "부드러운 파란색 그라데이션 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-gradient-green-20260125",
+      "path": "backgrounds/bg-gradient-green-20260125.png",
+      "category": "backgrounds",
+      "tags": ["gradient", "green", "nature", "fresh", "background"],
+      "description": "부드러운 녹색 그라데이션 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-geometric-shapes-20260125",
+      "path": "backgrounds/bg-geometric-shapes-20260125.png",
+      "category": "backgrounds",
+      "tags": ["geometric", "shapes", "pattern", "abstract", "background"],
+      "description": "기하학적 도형 패턴 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-science-pattern-20260125",
+      "path": "backgrounds/bg-science-pattern-20260125.png",
+      "category": "backgrounds",
+      "tags": ["science", "pattern", "atom", "dna", "chemistry", "background"],
+      "description": "과학 아이콘 패턴 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-alphabet-pattern-20260125",
+      "path": "backgrounds/bg-alphabet-pattern-20260125.png",
+      "category": "backgrounds",
+      "tags": ["alphabet", "letters", "english", "pattern", "background"],
+      "description": "알파벳 ABC 패턴 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-numbers-pattern-20260125",
+      "path": "backgrounds/bg-numbers-pattern-20260125.png",
+      "category": "backgrounds",
+      "tags": ["numbers", "math", "pattern", "123", "background"],
+      "description": "숫자 123 패턴 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
+      "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-world-map-abstract-20260125",
+      "path": "backgrounds/bg-world-map-abstract-20260125.png",
+      "category": "backgrounds",
+      "tags": ["map", "world", "geography", "abstract", "background"],
+      "description": "추상적인 세계 지도 배경 (4K)",
+      "dimensions": { "width": 3840, "height": 2160 },
+      "format": "png",
       "addedDate": "2026-01-25"
     }
   ]

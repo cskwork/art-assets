@@ -21,7 +21,7 @@
   <rect width="500" height="400" fill="#f8fafc"/>
 
   <!-- Title -->
-  <text x="250" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">계층 구조 (Hierarchy Tree)</text>
+  <text x="250" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">계층 구조</text>
 
   <!-- Connection Lines -->
   <!-- Root to Level 1 -->

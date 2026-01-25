@@ -14,7 +14,7 @@
   <rect width="600" height="200" fill="#fafbfc"/>
 
   <!-- Title -->
-  <text x="300" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">타임라인 (Timeline)</text>
+  <text x="300" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">타임라인</text>
 
   <!-- Main Timeline Line -->
   <line x1="50" y1="100" x2="550" y2="100" stroke="url(#timelineGrad)" stroke-width="4" stroke-linecap="round"/>

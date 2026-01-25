@@ -29,7 +29,7 @@
   <rect width="500" height="350" fill="#fafafa"/>
 
   <!-- Title -->
-  <text x="250" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">막대 그래프 (Bar Chart)</text>
+  <text x="250" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">막대 그래프</text>
 
   <!-- Chart Area Background -->
   <rect x="70" y="50" width="400" height="240" fill="white" rx="8" filter="url(#barShadow)"/>

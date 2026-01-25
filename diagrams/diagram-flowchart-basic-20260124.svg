@@ -25,7 +25,7 @@
   <rect width="400" height="500" fill="#f8f9fa"/>
 
   <!-- Title -->
-  <text x="200" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">순서도 (Flowchart)</text>
+  <text x="200" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">순서도</text>
 
   <!-- Start (Rounded Rectangle) -->
   <rect x="140" y="50" width="120" height="50" rx="25" ry="25" fill="url(#startGrad)" filter="url(#shadow)"/>

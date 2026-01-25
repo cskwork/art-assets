@@ -79,6 +79,6 @@
   <g transform="translate(150, 35)">
     <ellipse cx="15" cy="10" rx="22" ry="15" fill="white" stroke="#CBD5E1" stroke-width="1"/>
     <polygon points="5,20 -5,30 10,22" fill="white" stroke="#CBD5E1" stroke-width="1"/>
-    <text x="15" y="14" font-size="10" fill="#3B82F6" text-anchor="middle" font-family="sans-serif">Hi!</text>
+    <text x="15" y="14" font-size="10" fill="#3B82F6" text-anchor="middle" font-family="sans-serif">안녕!</text>
   </g>
 </svg>
