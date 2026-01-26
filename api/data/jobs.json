@@ -133,7 +133,7 @@
     },
     {
       "id": "9d9973ed-6945-4489-8a34-3dc3c52fa724",
-      "status": "processing",
+      "status": "completed",
       "request": {
         "subject": "math",
         "topic": "분수의 덧셈",
@@ -141,7 +141,12 @@
       },
       "createdAt": 1769436958462,
       "moduleId": "20260126-topic-b246acfc",
-      "modulePath": "edu-content/20260126-topic-b246acfc"
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
     }
   ]
 }
