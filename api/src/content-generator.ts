@@ -13,6 +13,8 @@ const RESULT_ERROR_MESSAGES: Record<string, string> = {
   error_max_budget_usd: '예산 한도를 초과했습니다.',
   error_max_structured_output_retries: '출력 재시도 한도를 초과했습니다.'
 };
+const PERMISSION_MODES = ['default', 'acceptEdits', 'bypassPermissions'] as const;
+type PermissionModeValue = (typeof PERMISSION_MODES)[number];
 
 function getProjectRoot() {
   return process.env.PROJECT_ROOT || process.cwd();
@@ -104,8 +106,52 @@ function isAllowedWritePath(filePath: string, rootDir: string) {
   return ALLOWED_EXTENSIONS.has(extension);
 }
 
+function remapTmpEduContentPath(filePath: string, rootDir: string) {
+  const tmpRoot = path.resolve('/tmp/edu-content');
+  const resolvedPath = path.resolve(rootDir, filePath);
+  if (!resolvedPath.startsWith(`${tmpRoot}${path.sep}`)) {
+    return null;
+  }
+
+  const relativePath = path.relative(tmpRoot, resolvedPath);
+  if (!relativePath || relativePath.startsWith('..')) {
+    return null;
+  }
+
+  return path.posix.join('edu-content', relativePath.split(path.sep).join('/'));
+}
+
 function mapResultErrorMessage(subtype: string) {
   return RESULT_ERROR_MESSAGES[subtype] || '콘텐츠 생성 중 오류가 발생했습니다.';
+}
+
+function getClaudeConfigDir(rootDir: string) {
+  return path.join(rootDir, '.claude');
+}
+
+function getPermissionMode(value: string | undefined): PermissionModeValue {
+  if (!value) {
+    return 'default';
+  }
+
+  const mode = value.trim() as PermissionModeValue;
+  if (PERMISSION_MODES.includes(mode)) {
+    return mode;
+  }
+
+  return 'default';
+}
+
+function sanitizeEnv(env: NodeJS.ProcessEnv) {
+  const cleaned = { ...env };
+  ['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN'].forEach((key) => {
+    const value = cleaned[key];
+    if (value !== undefined && value.trim() === '') {
+      delete cleaned[key];
+    }
+  });
+
+  return cleaned;
 }
 
 async function loadClaudeSdk() {
@@ -131,16 +177,44 @@ export async function generateContentForJob(
   try {
     const prompt = await buildPrompt(request, moduleId);
     const { query } = await loadClaudeSdk();
+    const claudeConfigDir = getClaudeConfigDir(rootDir);
+    await fs.mkdir(claudeConfigDir, { recursive: true });
+    process.env.CLAUDE_CONFIG_DIR = claudeConfigDir;
+    if (process.env.ANTHROPIC_API_KEY !== undefined && process.env.ANTHROPIC_API_KEY.trim() === '') {
+      delete process.env.ANTHROPIC_API_KEY;
+    }
+    if (
+      process.env.ANTHROPIC_AUTH_TOKEN !== undefined
+      && process.env.ANTHROPIC_AUTH_TOKEN.trim() === ''
+    ) {
+      delete process.env.ANTHROPIC_AUTH_TOKEN;
+    }
 
     const maxTurnsRaw = Number.parseInt(process.env.CLAUDE_MAX_TURNS || '10', 10);
     const maxTurns = Number.isFinite(maxTurnsRaw) ? maxTurnsRaw : 10;
+    const permissionMode = getPermissionMode(process.env.CLAUDE_PERMISSION_MODE);
+    const claudeNodePath = process.env.CLAUDE_CODE_NODE_PATH;
+    const cliConfigDir = process.env.CLAUDE_CODE_CONFIG_DIR;
+    const env = sanitizeEnv({
+      ...process.env,
+      PATH: claudeNodePath
+        ? `${claudeNodePath}${path.delimiter}${process.env.PATH || ''}`
+        : process.env.PATH
+    });
+    if (cliConfigDir) {
+      env.CLAUDE_CONFIG_DIR = cliConfigDir;
+    } else {
+      delete env.CLAUDE_CONFIG_DIR;
+    }
 
     const response = query({
       prompt,
       options: {
         model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5',
         cwd: rootDir,
-        permissionMode: 'default',
+        env,
+        additionalDirectories: [path.join(rootDir, 'edu-content'), path.resolve('/tmp/edu-content')],
+        permissionMode,
         tools: ['Read', 'Write', 'Glob'],
         disallowedTools: ['Bash'],
         maxTurns,
@@ -149,6 +223,14 @@ export async function generateContentForJob(
             const filePath = extractFilePath(input);
             if (!filePath) {
               return { behavior: 'deny', message: '파일 경로가 필요합니다.' };
+            }
+
+            const remappedPath = remapTmpEduContentPath(filePath, rootDir);
+            if (remappedPath) {
+              return {
+                behavior: 'allow',
+                updatedInput: { ...input, file_path: remappedPath }
+              };
             }
 
             if (!isAllowedWritePath(filePath, rootDir)) {

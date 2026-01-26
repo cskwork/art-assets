@@ -13,6 +13,11 @@
 - `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가
 - `package.json`: `node --test`로 테스트 실행 스크립트 갱신
 - `api/src/content-generator.ts`: OAuth 인증 환경 지원 및 결과 오류 메시지 보강
+- `api/src/content-generator.ts`: `CLAUDE_CONFIG_DIR` 로컬 설정 및 실행 노드/권한 모드 환경변수 지원 (`CLAUDE_CODE_NODE_PATH`)
+- `api/src/content-generator.ts`: 빈 `ANTHROPIC_API_KEY`/`ANTHROPIC_AUTH_TOKEN` 제거로 OAuth 인증 실패 방지
+- `api/src/content-generator.ts`: CLI 설정 경로 분리를 위한 `CLAUDE_CODE_CONFIG_DIR` 지원
+- `api/src/content-generator.ts`: `/tmp/edu-content` 경로 쓰기 요청을 `edu-content/`로 자동 치환
+- `api/src/content-generator.ts`: Claude Code 권한 프롬프트 방지를 위해 `/tmp/edu-content`를 추가 허용 경로로 등록
 
 ## 로컬 서버 실행 스크립트 수정
 

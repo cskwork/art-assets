@@ -41,7 +41,7 @@
     },
     {
       "id": "320aac40-80ce-45b5-974e-55a5965da2ed",
-      "status": "processing",
+      "status": "completed",
       "request": {
         "subject": "english",
         "topic": "Healthy habits: should vs should not (exercise)",
@@ -49,7 +49,80 @@
       },
       "createdAt": 1769433095621,
       "moduleId": "20260126-healthy-habits-should-vs-should-not-exercise",
-      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-exercise"
+      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-exercise",
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
+    },
+    {
+      "id": "a4f0a4c7-25ed-4882-b1d1-4a2858cfbe7b",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (summer camp)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433670700,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-summer-camp",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-summer-camp",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "0ad2dd68-3b71-4297-bfdb-f9a2c15a508b",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (museum trip)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433709684,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-museum-trip",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-museum-trip",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "1814c940-e1dc-48b3-91a0-9952ed03d59d",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (science museum)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433812740,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-science-museum",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-science-museum",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "340427a7-6bae-4326-be7f-f42d23ed7e57",
+      "status": "processing",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (library visit)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769434273139,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-library-visit",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-library-visit"
+    },
+    {
+      "id": "6a3aede7-5164-410f-b977-33ed821e9b82",
+      "status": "completed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (zoo visit)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769434493454,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-zoo-visit",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-zoo-visit",
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
     }
   ]
 }

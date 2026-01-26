@@ -18,6 +18,7 @@ const RESULT_ERROR_MESSAGES = {
     error_max_budget_usd: '예산 한도를 초과했습니다.',
     error_max_structured_output_retries: '출력 재시도 한도를 초과했습니다.'
 };
+const PERMISSION_MODES = ['default', 'acceptEdits', 'bypassPermissions'];
 function getProjectRoot() {
     return process.env.PROJECT_ROOT || process.cwd();
 }
@@ -90,8 +91,43 @@ function isAllowedWritePath(filePath, rootDir) {
     const extension = node_path_1.default.extname(resolvedPath).toLowerCase();
     return ALLOWED_EXTENSIONS.has(extension);
 }
+function remapTmpEduContentPath(filePath, rootDir) {
+    const tmpRoot = node_path_1.default.resolve('/tmp/edu-content');
+    const resolvedPath = node_path_1.default.resolve(rootDir, filePath);
+    if (!resolvedPath.startsWith(`${tmpRoot}${node_path_1.default.sep}`)) {
+        return null;
+    }
+    const relativePath = node_path_1.default.relative(tmpRoot, resolvedPath);
+    if (!relativePath || relativePath.startsWith('..')) {
+        return null;
+    }
+    return node_path_1.default.posix.join('edu-content', relativePath.split(node_path_1.default.sep).join('/'));
+}
 function mapResultErrorMessage(subtype) {
     return RESULT_ERROR_MESSAGES[subtype] || '콘텐츠 생성 중 오류가 발생했습니다.';
+}
+function getClaudeConfigDir(rootDir) {
+    return node_path_1.default.join(rootDir, '.claude');
+}
+function getPermissionMode(value) {
+    if (!value) {
+        return 'default';
+    }
+    const mode = value.trim();
+    if (PERMISSION_MODES.includes(mode)) {
+        return mode;
+    }
+    return 'default';
+}
+function sanitizeEnv(env) {
+    const cleaned = { ...env };
+    ['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN'].forEach((key) => {
+        const value = cleaned[key];
+        if (value !== undefined && value.trim() === '') {
+            delete cleaned[key];
+        }
+    });
+    return cleaned;
 }
 async function loadClaudeSdk() {
     // ESM 전용 SDK를 CommonJS에서 동적 로딩하기 위한 처리
@@ -109,14 +145,41 @@ async function generateContentForJob(jobId, request, moduleId) {
     try {
         const prompt = await (0, prompt_loader_1.buildPrompt)(request, moduleId);
         const { query } = await loadClaudeSdk();
+        const claudeConfigDir = getClaudeConfigDir(rootDir);
+        await promises_1.default.mkdir(claudeConfigDir, { recursive: true });
+        process.env.CLAUDE_CONFIG_DIR = claudeConfigDir;
+        if (process.env.ANTHROPIC_API_KEY !== undefined && process.env.ANTHROPIC_API_KEY.trim() === '') {
+            delete process.env.ANTHROPIC_API_KEY;
+        }
+        if (process.env.ANTHROPIC_AUTH_TOKEN !== undefined
+            && process.env.ANTHROPIC_AUTH_TOKEN.trim() === '') {
+            delete process.env.ANTHROPIC_AUTH_TOKEN;
+        }
         const maxTurnsRaw = Number.parseInt(process.env.CLAUDE_MAX_TURNS || '10', 10);
         const maxTurns = Number.isFinite(maxTurnsRaw) ? maxTurnsRaw : 10;
+        const permissionMode = getPermissionMode(process.env.CLAUDE_PERMISSION_MODE);
+        const claudeNodePath = process.env.CLAUDE_CODE_NODE_PATH;
+        const cliConfigDir = process.env.CLAUDE_CODE_CONFIG_DIR;
+        const env = sanitizeEnv({
+            ...process.env,
+            PATH: claudeNodePath
+                ? `${claudeNodePath}${node_path_1.default.delimiter}${process.env.PATH || ''}`
+                : process.env.PATH
+        });
+        if (cliConfigDir) {
+            env.CLAUDE_CONFIG_DIR = cliConfigDir;
+        }
+        else {
+            delete env.CLAUDE_CONFIG_DIR;
+        }
         const response = query({
             prompt,
             options: {
                 model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5',
                 cwd: rootDir,
-                permissionMode: 'default',
+                env,
+                additionalDirectories: [node_path_1.default.join(rootDir, 'edu-content'), node_path_1.default.resolve('/tmp/edu-content')],
+                permissionMode,
                 tools: ['Read', 'Write', 'Glob'],
                 disallowedTools: ['Bash'],
                 maxTurns,
@@ -125,6 +188,13 @@ async function generateContentForJob(jobId, request, moduleId) {
                         const filePath = extractFilePath(input);
                         if (!filePath) {
                             return { behavior: 'deny', message: '파일 경로가 필요합니다.' };
+                        }
+                        const remappedPath = remapTmpEduContentPath(filePath, rootDir);
+                        if (remappedPath) {
+                            return {
+                                behavior: 'allow',
+                                updatedInput: { ...input, file_path: remappedPath }
+                            };
                         }
                         if (!isAllowedWritePath(filePath, rootDir)) {
                             return {
