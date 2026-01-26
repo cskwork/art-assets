@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passive Voice Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;500;700&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <div class="hook-panel">
+                    <div class="hook-title">
+                        <h1 class="english-text hero-title">Passive Voice Lab</h1>
+                        <p class="section-lead">"Someone stole my bike"와 "My bike was stolen" 중 언제 후자를 쓸까요?</p>
+                    </div>
+                    <svg viewBox="0 0 520 200" class="hook-svg" aria-hidden="true">
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#2b5cff"/>
+                            </marker>
+                        </defs>
+                        <rect x="20" y="40" width="210" height="120" rx="16" fill="#f0f4ff" stroke="#2b5cff" stroke-opacity="0.7" stroke-width="1.6"/>
+                        <rect x="290" y="40" width="210" height="120" rx="16" fill="#fff8ec" stroke="#f57c00" stroke-opacity="0.7" stroke-width="1.6"/>
+                        <circle cx="92" cy="92" r="18" fill="#2b5cff"/>
+                        <rect x="136" y="82" width="64" height="20" rx="10" fill="#2b5cff"/>
+                        <circle cx="362" cy="92" r="18" fill="#f57c00"/>
+                        <rect x="408" y="82" width="64" height="20" rx="10" fill="#f57c00"/>
+                        <path d="M228 100 L280 100" stroke="#2b5cff" stroke-width="3.5" marker-end="url(#arrow)"/>
+                        <text x="125" y="170" text-anchor="middle" class="svg-label">Active</text>
+                        <text x="395" y="170" text-anchor="middle" class="svg-label">Passive</text>
+                    </svg>
+                    <button class="btn-primary" data-action="next">실험 시작</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <h2 class="section-title">먼저 능동태를 복습해요</h2>
+                <div class="anchor-grid">
+                    <div class="anchor-card">
+                        <p class="english-text">The chef cooked the noodles.</p>
+                        <span class="section-body">주어가 행동을 직접 해요.</span>
+                    </div>
+                    <div class="anchor-card">
+                        <p class="english-text">People use English worldwide.</p>
+                        <span class="section-body">누가 했는지가 중요해요.</span>
+                    </div>
+                </div>
+                <div class="bridge-box">
+                    <p>그런데 실험 보고서에서는 <strong>결과</strong>를 강조하고 싶죠?</p>
+                </div>
+                <button class="btn-primary" data-action="next">이야기 보기</button>
+            </div>
+        </section>
+
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="story-panel">
+                    <div class="story-avatar">
+                        <svg viewBox="0 0 120 120" aria-hidden="true">
+                            <circle cx="60" cy="60" r="52" fill="#2b5cff" opacity="0.15"/>
+                            <rect x="28" y="46" width="64" height="50" rx="16" fill="#fff3e0"/>
+                            <circle cx="45" cy="62" r="6" fill="#333"/>
+                            <circle cx="75" cy="62" r="6" fill="#333"/>
+                            <path d="M46 78 Q60 86 74 78" stroke="#333" stroke-width="3" fill="none"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="section-subtitle">과학 동아리 리포트</h3>
+                        <p class="section-body">재현은 실험 결과를 보고서로 써야 해요. "누가 했다"보다 "무엇이 되었다"가 더 중요하대요. 어떻게 바꿔야 할까요?</p>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">변환 실험</button>
+            </div>
+        </section>
+
+        <section id="core-scene" class="scene">
+            <div class="content-wrapper">
+                <h2 class="section-title">문장을 수동태로 변환해요</h2>
+                <p class="section-lead">단어를 순서대로 눌러 문장을 완성해보세요.</p>
+                <div class="transform-grid">
+                    <div class="transform-card" data-task="1">
+                        <div class="active-line">
+                            <span>능동:</span>
+                            <span class="english-text">The chef cooked the noodles.</span>
+                        </div>
+                        <div class="output-line" id="output-1"></div>
+                        <div class="word-bank" id="bank-1">
+                            <button class="word-btn" data-word="The noodles">The noodles</button>
+                            <button class="word-btn" data-word="were">were</button>
+                            <button class="word-btn" data-word="cooked">cooked</button>
+                            <button class="word-btn" data-word="by">by</button>
+                            <button class="word-btn" data-word="the chef">the chef</button>
+                        </div>
+                        <div class="task-feedback" id="feedback-1"></div>
+                        <button class="btn-secondary" data-reset="1">다시하기</button>
+                    </div>
+                    <div class="transform-card" data-task="2">
+                        <div class="active-line">
+                            <span>능동:</span>
+                            <span class="english-text">People use English worldwide.</span>
+                        </div>
+                        <div class="output-line" id="output-2"></div>
+                        <div class="word-bank" id="bank-2">
+                            <button class="word-btn" data-word="English">English</button>
+                            <button class="word-btn" data-word="is">is</button>
+                            <button class="word-btn" data-word="used">used</button>
+                            <button class="word-btn" data-word="worldwide">worldwide</button>
+                        </div>
+                        <div class="task-feedback" id="feedback-2"></div>
+                        <button class="btn-secondary" data-reset="2">다시하기</button>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">원리 정리</button>
+            </div>
+        </section>
+
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <h2 class="section-title">수동태 공식</h2>
+                <div class="formula-card">
+                    <div class="formula">Object + be + past participle (+ by + subject)</div>
+                    <p>행동을 하는 사람보다 <strong>결과나 대상</strong>을 강조하고 싶을 때 사용해요.</p>
+                </div>
+                <div class="compare-box">
+                    <div class="compare-card">
+                        <h4>능동태</h4>
+                        <p class="english-text">The team finished the project.</p>
+                    </div>
+                    <div class="compare-card">
+                        <h4>수동태</h4>
+                        <p class="english-text">The project was finished by the team.</p>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">퀴즈</button>
+            </div>
+        </section>
+
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <h2 class="section-title">상황에 맞는 문장 고르기</h2>
+                <div class="quiz-card" data-quiz="1">
+                    <p>실험 보고서: 결과를 강조하고 싶어요.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-answer="right">The solution was heated to 80°C.</button>
+                        <button class="quiz-option" data-answer="wrong">We heated the solution to 80°C.</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                <div class="quiz-card" data-quiz="2">
+                    <p>뉴스 기사: 사건의 피해가 더 중요해요.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-answer="right">Several windows were broken last night.</button>
+                        <button class="quiz-option" data-answer="wrong">Someone broke several windows last night.</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                <button class="btn-primary" data-action="next">마무리</button>
+            </div>
+        </section>
+
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <h2 class="section-title">오늘의 핵심 정리</h2>
+                <ul class="summary-list">
+                    <li>수동태는 <strong>대상과 결과</strong>를 강조할 때 사용해요.</li>
+                    <li>기본 공식은 <span class="english-text">be + past participle</span>이에요.</li>
+                    <li>행위자가 중요하지 않으면 <span class="english-text">by</span>를 생략할 수 있어요.</li>
+                </ul>
+                <div class="wrap-buttons">
+                    <button class="btn-secondary" data-action="restart">다시 연습</button>
+                    <button class="btn-primary" data-action="finish">다음 개념으로</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefix Factory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Questrial&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <div class="hook-panel">
+                    <h1 class="english-text">Prefix Factory</h1>
+                    <p>단어 앞에 작은 부품을 붙이면 의미가 어떻게 변할까요?</p>
+                    <svg viewBox="0 0 520 200" class="hook-svg" aria-hidden="true">
+                        <rect x="30" y="40" width="200" height="120" rx="16" fill="#0e9f9a" opacity="0.15"/>
+                        <rect x="290" y="40" width="200" height="120" rx="16" fill="#ff6b4a" opacity="0.15"/>
+                        <rect x="70" y="80" width="120" height="40" rx="12" fill="#0e9f9a"/>
+                        <text x="130" y="105" text-anchor="middle" class="svg-label">do</text>
+                        <rect x="330" y="80" width="120" height="40" rx="12" fill="#ff6b4a"/>
+                        <text x="390" y="105" text-anchor="middle" class="svg-label">undo</text>
+                        <path d="M230 100 L290 100" stroke="#0e9f9a" stroke-width="5"/>
+                        <circle cx="260" cy="100" r="12" fill="#ff6b4a"/>
+                    </svg>
+                    <button class="btn-primary" data-action="next">공장 들어가기</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>기본 단어를 떠올려요</h2>
+                <div class="anchor-grid">
+                    <div class="anchor-card">
+                        <span class="english-text">do</span>
+                        <span>하다</span>
+                    </div>
+                    <div class="anchor-card">
+                        <span class="english-text">connect</span>
+                        <span>연결하다</span>
+                    </div>
+                    <div class="anchor-card">
+                        <span class="english-text">agree</span>
+                        <span>동의하다</span>
+                    </div>
+                </div>
+                <div class="bridge-box">
+                    <p>이 단어들 앞에 <strong>접두사</strong>를 붙이면 의미가 바뀌어요.</p>
+                </div>
+                <button class="btn-primary" data-action="next">이야기 보기</button>
+            </div>
+        </section>
+
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="story-panel">
+                    <div class="story-avatar">
+                        <svg viewBox="0 0 120 120" aria-hidden="true">
+                            <rect x="20" y="20" width="80" height="80" rx="20" fill="#ff6b4a" opacity="0.2"/>
+                            <rect x="34" y="34" width="52" height="52" rx="14" fill="#0e9f9a"/>
+                            <circle cx="52" cy="58" r="6" fill="#fff"/>
+                            <circle cx="68" cy="58" r="6" fill="#fff"/>
+                            <path d="M52 72 Q60 78 68 72" stroke="#fff" stroke-width="3" fill="none"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>캠페인 문구 제작</h3>
+                        <p>디자인 동아리에서 포스터 문구를 만들어요. 강한 의미를 전달하려면 접두사를 잘 써야 한대요. 도와줄 수 있나요?</p>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">단어 만들기</button>
+            </div>
+        </section>
+
+        <section id="core-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>접두사 조립기</h2>
+                <p>접두사와 기본 단어를 선택해 새 단어를 만들어보세요.</p>
+                <div class="factory-grid">
+                    <div class="prefix-panel">
+                        <h3>접두사</h3>
+                        <button class="prefix-btn" data-prefix="un">un- (반대)</button>
+                        <button class="prefix-btn" data-prefix="re">re- (다시)</button>
+                        <button class="prefix-btn" data-prefix="dis">dis- (반대)</button>
+                        <button class="prefix-btn" data-prefix="mis">mis- (잘못)</button>
+                    </div>
+                    <div class="factory-stage">
+                        <div class="output-box">
+                            <div class="output-word english-text" id="output-word">prefix + word</div>
+                            <div class="output-meaning" id="output-meaning">의미가 여기에 표시돼요.</div>
+                        </div>
+                        <div class="meter" id="meter">
+                            <span>발견 지수</span>
+                            <div class="meter-bar">
+                                <div class="meter-fill" id="meter-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="word-panel">
+                        <h3>기본 단어</h3>
+                        <button class="word-btn" data-word="do">do</button>
+                        <button class="word-btn" data-word="agree">agree</button>
+                        <button class="word-btn" data-word="connect">connect</button>
+                        <button class="word-btn" data-word="place">place</button>
+                        <button class="word-btn" data-word="write">write</button>
+                        <button class="word-btn" data-word="use">use</button>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">시각화 보기</button>
+            </div>
+        </section>
+
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>의미 변화 지도</h2>
+                <div class="map-grid">
+                    <div class="map-card">
+                        <h4>un-</h4>
+                        <p class="english-text">undo, unlock, unfollow</p>
+                        <span>기존 상태를 반대로</span>
+                    </div>
+                    <div class="map-card">
+                        <h4>re-</h4>
+                        <p class="english-text">redo, rewrite, reconnect</p>
+                        <span>다시 반복</span>
+                    </div>
+                    <div class="map-card">
+                        <h4>dis-</h4>
+                        <p class="english-text">disagree, disconnect</p>
+                        <span>반대/분리</span>
+                    </div>
+                    <div class="map-card">
+                        <h4>mis-</h4>
+                        <p class="english-text">misplace, misuse</p>
+                        <span>잘못/실수</span>
+                    </div>
+                </div>
+                <button class="btn-primary" data-action="next">퀴즈 도전</button>
+            </div>
+        </section>
+
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>빈칸에 들어갈 접두사 찾기</h2>
+                <div class="quiz-card" data-quiz="1">
+                    <p>"I ____placed my ID card." (잘못 두다)</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-answer="wrong">re-</button>
+                        <button class="quiz-option" data-answer="right">mis-</button>
+                        <button class="quiz-option" data-answer="wrong">un-</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                <div class="quiz-card" data-quiz="2">
+                    <p>"Can you ____connect the Wi-Fi?" (다시 연결)</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-answer="right">re-</button>
+                        <button class="quiz-option" data-answer="wrong">dis-</button>
+                        <button class="quiz-option" data-answer="wrong">un-</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                <button class="btn-primary" data-action="next">마무리</button>
+            </div>
+        </section>
+
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>오늘의 핵심 정리</h2>
+                <ul class="summary-list">
+                    <li>접두사는 단어의 <strong>의미 방향</strong>을 바꿔요.</li>
+                    <li><span class="english-text">un-, re-, dis-, mis-</span>는 중학생 필수 패턴이에요.</li>
+                    <li>새 단어를 만나면 접두사부터 해석해보세요.</li>
+                </ul>
+                <div class="wrap-buttons">
+                    <button class="btn-secondary" data-action="restart">다시 연습</button>
+                    <button class="btn-primary" data-action="finish">다음 개념으로</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

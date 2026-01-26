@@ -223,3 +223,60 @@ node scripts/archive.js --list
   - 덮어쓰기 경고 템플릿
   - 출력 형식 템플릿
   - 사용 예시 4개
+
+---
+
+## 중학교 영어 5종 인터랙티브 콘텐츠 추가
+
+### 추가
+- `edu-content/20260126-present-perfect-vs-past/`
+  - 현재완료 vs 과거시제 비교 (타임라인 분류, 예문 드래그)
+- `edu-content/20260126-passive-voice/`
+  - 수동태 변환 실험실 (단어 순서 조립, 공식 시각화)
+- `edu-content/20260126-prefix-word-formation/`
+  - 접두사 단어 조립 공장 (un-/re-/dis-/mis- 조합)
+- `edu-content/20260126-reading-topic-sentence/`
+  - 주제문 찾기 읽기 훈련 (문단 클릭, 구조 시각화)
+- `edu-content/20260126-speaking-suggestions/`
+  - 제안 표현 말하기 (대화 빈칸 채우기, 톤 비교)
+
+### 구성
+- 각 콘텐츠: `index.html`, `style.css`, `script.js` 7개 씬 구조 적용
+- 중학생 관심 맥락 기반 스토리와 조작형 인터랙션 포함
+
+---
+
+## 영어 콘텐츠 UI/UX 정렬 개선
+
+### 추가
+- `edu-content/common.css` 공통 간격/버튼 정렬 기준 추가
+
+### 수정
+- 5개 영어 콘텐츠 HTML에 공통 스타일 링크 추가
+- 씬 여백, 콘텐츠 래퍼 간격, 주요 패널 패딩 정렬 통일
+
+---
+
+## Present Perfect vs Past UI/UX 개선
+
+### 수정
+- `edu-content/20260126-present-perfect-vs-past/index.html`
+  - 섹션 타이틀/리드 텍스트 클래스 추가
+  - Hook SVG 카드/포탈 도형 정돈
+- `edu-content/20260126-present-perfect-vs-past/style.css`
+  - 타이포그래피 스케일 정리 및 텍스트 대비 개선
+  - 카드/패널 라운드 및 표면 스타일 정렬
+  - 드롭존/퀴즈 요소 텍스트 가독성 개선
+
+---
+
+## Passive Voice UI/UX 개선
+
+### 수정
+- `edu-content/20260126-passive-voice/index.html`
+  - 섹션 타이틀/리드 텍스트 클래스 추가
+  - Hook SVG 도형 간격/두께 정돈
+- `edu-content/20260126-passive-voice/style.css`
+  - 타이포그래피 스케일 및 텍스트 대비 개선
+  - 카드/패널 라운드 및 표면 색상 정렬
+  - 단어 카드/퀴즈 버튼 가독성 개선
