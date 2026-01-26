@@ -1,0 +1,844 @@
+/* Greetings Module - Custom Styles */
+
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --accent-color: #FF9800;
+    --text-color: #333;
+    --bg-color: #FAFAFA;
+    --error-color: #F44336;
+    --success-color: #4CAF50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.english-text {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+/* Progress Bar */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    width: 14.28%;
+    transition: width 0.5s ease;
+}
+
+/* Scene Base */
+.scene {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.scene.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-wrapper {
+    max-width: 700px;
+    width: 100%;
+    background: white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Hook Scene */
+.question-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-title {
+    font-size: 2.2rem;
+    color: #4CAF50;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.sub-text {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.7;
+}
+
+.visual-area {
+    margin: 30px 0;
+}
+
+.hook-svg {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    color: white;
+    border: none;
+    min-height: 56px;
+    padding: 16px 40px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-primary:disabled {
+    background: #BDBDBD;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: white;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+    min-height: 56px;
+    padding: 14px 35px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.btn-secondary:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Anchor Scene */
+.anchor-content {
+    text-align: center;
+}
+
+.anchor-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.anchor-content p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.anchor-demo {
+    margin: 30px 0;
+}
+
+.anchor-examples {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.anchor-card {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    min-width: 120px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.anchor-card:hover {
+    transform: scale(1.05);
+}
+
+.anchor-card .english-text {
+    display: block;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.anchor-card .korean-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.bridge-question {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid #4CAF50;
+}
+
+.bridge-question p {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.sub-hint {
+    font-size: 1rem !important;
+    color: #666;
+}
+
+/* Story Scene */
+.story-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.character-area {
+    flex-shrink: 0;
+}
+
+.character-svg {
+    width: 100px;
+    height: 120px;
+}
+
+.bounce {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.dialogue-box {
+    flex: 1;
+    background: #F0F4F8;
+    padding: 25px;
+    border-radius: 16px;
+    position: relative;
+}
+
+.dialogue-box::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 30px;
+    border: 10px solid transparent;
+    border-right-color: #F0F4F8;
+}
+
+.character-name {
+    color: #4CAF50;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.dialogue-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Core Scene - Situation Matching Game */
+.instruction-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.instruction-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.instruction-box p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.progress-text {
+    font-size: 1.3rem;
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.game-container {
+    margin: 20px 0;
+}
+
+.situations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.situation-card {
+    background: #F5F5F5;
+    padding: 15px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.situation-icon {
+    width: 100px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.situation-text {
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.drop-zone {
+    min-height: 80px;
+    border: 2px dashed #BDBDBD;
+    border-radius: 12px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.drop-zone.drag-over {
+    background: #E8F5E9;
+    border-color: #4CAF50;
+}
+
+.greetings-pool {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+    background: #FAFAFA;
+    border-radius: 16px;
+}
+
+.greeting-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: move;
+    transition: all 0.3s ease;
+    border: 2px solid #E0E0E0;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.greeting-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.greeting-card.placed {
+    cursor: default;
+    opacity: 0.95;
+    border-color: #4CAF50;
+}
+
+.greeting-card .english-text {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.greeting-card .korean-text {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Visualize Scene */
+.visualize-content {
+    text-align: center;
+}
+
+.visualize-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.visualize-content > p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.timeline-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.timeline-item {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item.special-item {
+    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+}
+
+.time-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+}
+
+.time-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.time-text {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.morning-badge {
+    color: #FFC107;
+}
+
+.afternoon-badge {
+    color: #FF9800;
+}
+
+.evening-badge {
+    color: #673AB7;
+}
+
+.goodbye-badge {
+    color: #E91E63;
+}
+
+.greeting-info {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.greeting-info .english-text {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.greeting-info .korean-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.speak-small {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    min-height: 36px;
+    transition: all 0.3s ease;
+}
+
+.speak-small:hover {
+    background: #388E3C;
+    transform: scale(1.05);
+}
+
+.key-point {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.key-point p {
+    font-size: 1.15rem;
+    color: #333;
+}
+
+/* Quiz Scene */
+.quiz-container {
+    margin: 20px 0;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quiz-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.quiz-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.quiz-progress {
+    font-size: 1.2rem;
+    color: #4CAF50;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.quiz-question {
+    animation: fadeIn 0.5s ease;
+}
+
+.question-text {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.quiz-image {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 20px auto;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.quiz-option {
+    padding: 18px 25px;
+    border: 2px solid #E0E0E0;
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    min-height: 56px;
+    transition: all 0.3s ease;
+}
+
+.quiz-option:hover {
+    border-color: #4CAF50;
+    background: #E8F5E9;
+    transform: scale(1.05);
+}
+
+.quiz-option:disabled {
+    pointer-events: none;
+}
+
+.feedback {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Wrap Scene */
+.wrap-content {
+    text-align: center;
+}
+
+.celebration {
+    margin-bottom: 30px;
+}
+
+.reward-badge {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.celebration-title {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.celebration-text {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.summary-box {
+    background: #F5F5F5;
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.summary-box h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.summary-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.summary-item {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.summary-item strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    margin-bottom: 8px;
+}
+
+.summary-item p {
+    font-size: 1.05rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.real-life-usage {
+    margin-bottom: 25px;
+}
+
+.real-life-usage h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.usage-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.usage-card {
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.usage-card:hover {
+    transform: scale(1.02);
+}
+
+.usage-card .english-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.usage-card .korean-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.speak-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-height: 48px;
+    transition: all 0.3s ease;
+}
+
+.speak-btn:hover {
+    background: #388E3C;
+    transform: scale(1.05);
+}
+
+.next-steps {
+    margin-top: 20px;
+}
+
+.next-steps p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+    }
+
+    .content-wrapper {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+    }
+
+    .sub-text {
+        font-size: 1.05rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        font-size: 16px;
+        min-height: 52px;
+    }
+
+    .story-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dialogue-box::before {
+        display: none;
+    }
+
+    .anchor-examples {
+        gap: 10px;
+    }
+
+    .anchor-card {
+        min-width: 100px;
+        padding: 15px;
+    }
+
+    .situations {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .greetings-pool {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 15px;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .greeting-info {
+        text-align: center;
+    }
+
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-option {
+        width: 100%;
+    }
+}
+
+/* Touch devices - minimum 48px touch targets */
+@media (hover: none) and (pointer: coarse) {
+    .btn-primary,
+    .btn-secondary,
+    .quiz-option,
+    .speak-btn,
+    .speak-small,
+    .greeting-card {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}

@@ -125,8 +125,8 @@
 - [x] 브라우저 테스트
 
 ### Task 5: Module 4 - Greetings (인사 표현)
-- [ ] `edu-content/20260126-greetings/` 디렉토리 생성
-- [ ] `index.html` 7씬 구조 작성
+- [x] `edu-content/20260126-greetings/` 디렉토리 생성
+- [x] `index.html` 7씬 구조 작성
   - Hook: 새 친구 만났을 때 첫 마디?
   - Anchor: Hello 복습 + 시간대별 인사 소개
   - Story: Emma가 새 이웃에게 인사
@@ -134,8 +134,8 @@
   - Visualize: 시간대 타임라인 차트
   - Quiz: 상황별 인사 선택
   - Wrap: 악수 배지 보상
-- [ ] `script.js`, `style.css` 구현
-- [ ] 브라우저 테스트
+- [x] `script.js`, `style.css` 구현
+- [x] 브라우저 테스트
 
 ### Task 6: Module 5 - Feelings (감정 표현)
 - [ ] `edu-content/20260126-feelings/` 디렉토리 생성

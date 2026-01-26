@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인사하기 - Greetings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- 1. Hook Scene -->
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <div class="question-box">
+                    <h1 class="main-title english-text">Hello! Good Morning!</h1>
+                    <p class="sub-text">새 친구를 만났을 때, 첫 마디는 무엇일까요?<br>시간대에 따라 다른 인사를 배워봅시다!</p>
+                </div>
+                <div class="visual-area">
+                    <svg viewBox="0 0 400 220" class="hook-svg">
+                        <!-- 태양 -->
+                        <circle cx="80" cy="60" r="30" fill="#FFC107"/>
+                        <line x1="80" y1="20" x2="80" y2="10" stroke="#FFC107" stroke-width="3"/>
+                        <line x1="80" y1="100" x2="80" y2="110" stroke="#FFC107" stroke-width="3"/>
+                        <line x1="40" y1="60" x2="30" y2="60" stroke="#FFC107" stroke-width="3"/>
+                        <line x1="120" y1="60" x2="130" y2="60" stroke="#FFC107" stroke-width="3"/>
+                        <!-- Emma 캐릭터 -->
+                        <circle cx="200" cy="130" r="25" fill="#FFE0B2"/>
+                        <circle cx="193" cy="125" r="3" fill="#333"/>
+                        <circle cx="207" cy="125" r="3" fill="#333"/>
+                        <path d="M 193 135 Q 200 140 207 135" stroke="#333" stroke-width="2" fill="none"/>
+                        <path d="M 180 110 Q 200 100 220 110" fill="#8D6E63"/>
+                        <rect x="180" y="152" width="40" height="35" rx="8" fill="#E91E63"/>
+                        <!-- 말풍선 -->
+                        <rect x="240" y="90" width="140" height="60" rx="8" fill="#FFF" stroke="#666" stroke-width="2"/>
+                        <polygon points="240,120 230,125 240,130" fill="#FFF" stroke="#666" stroke-width="2"/>
+                        <text x="310" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#2196F3">Good Morning!</text>
+                        <text x="310" y="132" text-anchor="middle" font-size="11" fill="#666">좋은 아침이에요!</text>
+                    </svg>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">학습 시작하기</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Anchor Scene -->
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="anchor-content">
+                    <h2>이미 아는 인사 복습하기</h2>
+                    <p>우리가 이미 알고 있는 간단한 인사말을 복습해볼까요?</p>
+                    <div class="anchor-demo">
+                        <div class="anchor-examples">
+                            <div class="anchor-card" onclick="ContentApp.speak('Hello')">
+                                <svg viewBox="0 0 60 60" style="width: 60px; height: 60px; margin-bottom: 8px;">
+                                    <circle cx="30" cy="25" r="12" fill="#FFE0B2"/>
+                                    <circle cx="26" cy="23" r="2" fill="#333"/>
+                                    <circle cx="34" cy="23" r="2" fill="#333"/>
+                                    <path d="M 25 28 Q 30 31 35 28" stroke="#333" stroke-width="2" fill="none"/>
+                                    <rect x="20" y="35" width="20" height="15" rx="3" fill="#2196F3"/>
+                                </svg>
+                                <span class="english-text">Hello</span>
+                                <span class="korean-text">안녕</span>
+                            </div>
+                            <div class="anchor-card" onclick="ContentApp.speak('Hi')">
+                                <svg viewBox="0 0 60 60" style="width: 60px; height: 60px; margin-bottom: 8px;">
+                                    <circle cx="30" cy="25" r="12" fill="#FFE0B2"/>
+                                    <circle cx="26" cy="23" r="2" fill="#333"/>
+                                    <circle cx="34" cy="23" r="2" fill="#333"/>
+                                    <path d="M 25 28 Q 30 32 35 28" stroke="#333" stroke-width="2" fill="none"/>
+                                    <rect x="20" y="35" width="20" height="15" rx="3" fill="#E91E63"/>
+                                    <path d="M 18 42 Q 14 38 12 42" stroke="#FFE0B2" stroke-width="2" fill="none"/>
+                                </svg>
+                                <span class="english-text">Hi</span>
+                                <span class="korean-text">안녕</span>
+                            </div>
+                        </div>
+                        <div class="bridge-question">
+                            <p>그런데... 시간대에 따라 다른 인사말이 있어요!</p>
+                            <p class="sub-hint">아침, 오후, 저녁에 어떻게 인사하는지 배워봅시다</p>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">다음으로</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Story Scene -->
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="story-card">
+                    <div class="character-area">
+                        <!-- Emma 캐릭터 -->
+                        <svg viewBox="0 0 100 120" class="character-svg bounce">
+                            <!-- 얼굴 -->
+                            <circle cx="50" cy="50" r="28" fill="#FFE0B2"/>
+                            <!-- 눈 -->
+                            <circle cx="42" cy="45" r="3" fill="#333"/>
+                            <circle cx="58" cy="45" r="3" fill="#333"/>
+                            <!-- 미소 -->
+                            <path d="M 40 55 Q 50 60 60 55" stroke="#333" stroke-width="2" fill="none"/>
+                            <!-- 머리 -->
+                            <path d="M 25 35 Q 30 20 50 20 Q 70 20 75 35" fill="#8D6E63"/>
+                            <circle cx="25" cy="40" r="8" fill="#8D6E63"/>
+                            <circle cx="75" cy="40" r="8" fill="#8D6E63"/>
+                            <!-- 몸 -->
+                            <rect x="30" y="75" width="40" height="35" rx="8" fill="#E91E63"/>
+                            <!-- 팔 -->
+                            <path d="M 30 80 Q 20 85 18 95" stroke="#FFE0B2" stroke-width="5" fill="none"/>
+                            <path d="M 70 80 Q 80 85 82 95" stroke="#FFE0B2" stroke-width="5" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="dialogue-box">
+                        <p class="character-name">Emma</p>
+                        <div class="dialogue-text" id="story-text"></div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">다음으로</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Core Scene: 상황-인사 매칭 게임 -->
+        <section id="core-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="instruction-box">
+                    <h2>알맞은 인사말을 선택하세요!</h2>
+                    <p>상황에 맞는 인사를 드래그해서 매칭해주세요</p>
+                    <div class="progress-text">
+                        <span id="matched-count">0</span> / 6 완료
+                    </div>
+                </div>
+                <div class="game-container">
+                    <!-- 상황 카드들 -->
+                    <div class="situations">
+                        <div class="situation-card" data-situation="morning">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="30" cy="30" r="18" fill="#FFC107"/>
+                                <line x1="30" y1="5" x2="30" y2="1" stroke="#FFC107" stroke-width="2"/>
+                                <line x1="30" y1="55" x2="30" y2="59" stroke="#FFC107" stroke-width="2"/>
+                                <line x1="8" y1="30" x2="4" y2="30" stroke="#FFC107" stroke-width="2"/>
+                                <line x1="52" y1="30" x2="56" y2="30" stroke="#FFC107" stroke-width="2"/>
+                                <text x="70" y="45" font-size="12" fill="#666">오전 9시</text>
+                            </svg>
+                            <p class="situation-text">아침에 만났어요</p>
+                            <div class="drop-zone" data-answer="good-morning"></div>
+                        </div>
+
+                        <div class="situation-card" data-situation="afternoon">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="30" cy="20" r="15" fill="#FF9800"/>
+                                <line x1="30" y1="1" x2="30" y2="5" stroke="#FF9800" stroke-width="2"/>
+                                <line x1="52" y1="20" x2="56" y2="20" stroke="#FF9800" stroke-width="2"/>
+                                <text x="70" y="40" font-size="12" fill="#666">오후 2시</text>
+                            </svg>
+                            <p class="situation-text">오후에 만났어요</p>
+                            <div class="drop-zone" data-answer="good-afternoon"></div>
+                        </div>
+
+                        <div class="situation-card" data-situation="evening">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="30" cy="30" r="12" fill="#9C27B0" opacity="0.7"/>
+                                <circle cx="25" cy="25" r="12" fill="#673AB7"/>
+                                <path d="M 26 20 L 28 18 L 26 16" stroke="#FFF" stroke-width="1" fill="none"/>
+                                <text x="70" y="40" font-size="12" fill="#666">저녁 7시</text>
+                            </svg>
+                            <p class="situation-text">저녁에 만났어요</p>
+                            <div class="drop-zone" data-answer="good-evening"></div>
+                        </div>
+
+                        <div class="situation-card" data-situation="meet">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="25" cy="30" r="10" fill="#FFE0B2"/>
+                                <circle cx="22" cy="28" r="1.5" fill="#333"/>
+                                <circle cx="28" cy="28" r="1.5" fill="#333"/>
+                                <circle cx="45" cy="30" r="10" fill="#FFE0B2"/>
+                                <circle cx="42" cy="28" r="1.5" fill="#333"/>
+                                <circle cx="48" cy="28" r="1.5" fill="#333"/>
+                                <text x="70" y="40" font-size="11" fill="#666">처음 만남</text>
+                            </svg>
+                            <p class="situation-text">처음 만난 친구</p>
+                            <div class="drop-zone" data-answer="nice-to-meet"></div>
+                        </div>
+
+                        <div class="situation-card" data-situation="fine">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="30" cy="30" r="15" fill="#FFE0B2"/>
+                                <circle cx="25" cy="28" r="2" fill="#333"/>
+                                <circle cx="35" cy="28" r="2" fill="#333"/>
+                                <path d="M 23 35 Q 30 40 37 35" stroke="#333" stroke-width="2" fill="none"/>
+                                <text x="55" y="40" font-size="10" fill="#666">How are you?</text>
+                            </svg>
+                            <p class="situation-text">기분이 좋아요</p>
+                            <div class="drop-zone" data-answer="im-fine"></div>
+                        </div>
+
+                        <div class="situation-card" data-situation="goodbye">
+                            <svg viewBox="0 0 100 80" class="situation-icon">
+                                <circle cx="30" cy="30" r="10" fill="#FFE0B2"/>
+                                <path d="M 40 30 Q 50 25 60 30" stroke="#FFE0B2" stroke-width="5" fill="none"/>
+                                <path d="M 42 28 Q 48 24 54 26" stroke="#FFE0B2" stroke-width="2" fill="none"/>
+                                <text x="70" y="40" font-size="11" fill="#666">헤어짐</text>
+                            </svg>
+                            <p class="situation-text">헤어질 때</p>
+                            <div class="drop-zone" data-answer="goodbye"></div>
+                        </div>
+                    </div>
+
+                    <!-- 인사말 카드들 -->
+                    <div class="greetings-pool" id="greetings-pool">
+                        <div class="greeting-card" draggable="true" data-greeting="good-morning">
+                            <span class="english-text">Good morning</span>
+                            <span class="korean-text">좋은 아침</span>
+                        </div>
+                        <div class="greeting-card" draggable="true" data-greeting="good-afternoon">
+                            <span class="english-text">Good afternoon</span>
+                            <span class="korean-text">좋은 오후</span>
+                        </div>
+                        <div class="greeting-card" draggable="true" data-greeting="good-evening">
+                            <span class="english-text">Good evening</span>
+                            <span class="korean-text">좋은 저녁</span>
+                        </div>
+                        <div class="greeting-card" draggable="true" data-greeting="nice-to-meet">
+                            <span class="english-text">Nice to meet you</span>
+                            <span class="korean-text">만나서 반가워</span>
+                        </div>
+                        <div class="greeting-card" draggable="true" data-greeting="im-fine">
+                            <span class="english-text">I'm fine</span>
+                            <span class="korean-text">나는 괜찮아</span>
+                        </div>
+                        <div class="greeting-card" draggable="true" data-greeting="goodbye">
+                            <span class="english-text">Goodbye</span>
+                            <span class="korean-text">안녕히 가세요</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" id="core-next-btn" onclick="ContentApp.nextScene()" disabled>다음으로</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Visualize Scene -->
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="visualize-content">
+                    <h2>시간대별 인사 타임라인</h2>
+                    <p>하루 동안 사용하는 인사말을 정리해봅시다!</p>
+                    <div class="timeline-chart">
+                        <div class="timeline-item" onclick="ContentApp.speak('Good morning')">
+                            <div class="time-badge morning-badge">
+                                <svg viewBox="0 0 60 60" class="time-icon">
+                                    <circle cx="30" cy="30" r="15" fill="#FFC107"/>
+                                    <line x1="30" y1="10" x2="30" y2="15" stroke="#FFC107" stroke-width="2"/>
+                                    <line x1="50" y1="30" x2="45" y2="30" stroke="#FFC107" stroke-width="2"/>
+                                </svg>
+                                <span class="time-text">오전 (AM)</span>
+                            </div>
+                            <div class="greeting-info">
+                                <span class="english-text">Good morning</span>
+                                <span class="korean-text">좋은 아침이에요</span>
+                                <button class="speak-small" onclick="event.stopPropagation(); ContentApp.speak('Good morning')">🔊</button>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" onclick="ContentApp.speak('Good afternoon')">
+                            <div class="time-badge afternoon-badge">
+                                <svg viewBox="0 0 60 60" class="time-icon">
+                                    <circle cx="30" cy="30" r="12" fill="#FF9800"/>
+                                    <line x1="30" y1="14" x2="30" y2="18" stroke="#FF9800" stroke-width="2"/>
+                                </svg>
+                                <span class="time-text">오후 (PM)</span>
+                            </div>
+                            <div class="greeting-info">
+                                <span class="english-text">Good afternoon</span>
+                                <span class="korean-text">좋은 오후에요</span>
+                                <button class="speak-small" onclick="event.stopPropagation(); ContentApp.speak('Good afternoon')">🔊</button>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" onclick="ContentApp.speak('Good evening')">
+                            <div class="time-badge evening-badge">
+                                <svg viewBox="0 0 60 60" class="time-icon">
+                                    <circle cx="30" cy="30" r="10" fill="#9C27B0" opacity="0.7"/>
+                                    <circle cx="26" cy="26" r="10" fill="#673AB7"/>
+                                    <path d="M 27 22 L 29 20 L 27 18" stroke="#FFF" stroke-width="1" fill="none"/>
+                                </svg>
+                                <span class="time-text">저녁 (Evening)</span>
+                            </div>
+                            <div class="greeting-info">
+                                <span class="english-text">Good evening</span>
+                                <span class="korean-text">좋은 저녁이에요</span>
+                                <button class="speak-small" onclick="event.stopPropagation(); ContentApp.speak('Good evening')">🔊</button>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item special-item" onclick="ContentApp.speak('Goodbye')">
+                            <div class="time-badge goodbye-badge">
+                                <svg viewBox="0 0 60 60" class="time-icon">
+                                    <circle cx="30" cy="30" r="10" fill="#FFE0B2"/>
+                                    <path d="M 40 30 Q 48 26 56 30" stroke="#FFE0B2" stroke-width="4" fill="none"/>
+                                </svg>
+                                <span class="time-text">헤어질 때</span>
+                            </div>
+                            <div class="greeting-info">
+                                <span class="english-text">Goodbye / Bye / See you</span>
+                                <span class="korean-text">안녕히 가세요</span>
+                                <button class="speak-small" onclick="event.stopPropagation(); ContentApp.speak('Goodbye')">🔊</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <p><strong>핵심 포인트:</strong> 시간대에 따라 다른 인사를 사용해요!</p>
+                        <p class="sub-hint">Good morning은 오전, Good afternoon은 오후, Good evening은 저녁에 사용합니다</p>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">퀴즈 풀기</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Quiz Scene -->
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <h2>인사 퀴즈</h2>
+                        <p>배운 내용을 확인해봅시다!</p>
+                        <div class="quiz-progress">
+                            문제 <span id="current-quiz">1</span> / 4
+                        </div>
+                    </div>
+
+                    <!-- Quiz 1 -->
+                    <div class="quiz-question" id="quiz-1" style="display: block;">
+                        <p class="question-text">오전 9시에 친구를 만났어요. 어떻게 인사해야 할까요?</p>
+                        <svg viewBox="0 0 100 100" class="quiz-image">
+                            <circle cx="50" cy="40" r="20" fill="#FFC107"/>
+                            <line x1="50" y1="10" x2="50" y2="20" stroke="#FFC107" stroke-width="3"/>
+                            <line x1="80" y1="40" x2="70" y2="40" stroke="#FFC107" stroke-width="3"/>
+                            <text x="50" y="80" text-anchor="middle" font-size="14" fill="#666">오전 9시</text>
+                        </svg>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(1, 'good-morning')">Good morning</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(1, 'good-afternoon')">Good afternoon</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(1, 'good-evening')">Good evening</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(1, 'goodbye')">Goodbye</button>
+                        </div>
+                        <div class="feedback" id="feedback-1"></div>
+                    </div>
+
+                    <!-- Quiz 2 -->
+                    <div class="quiz-question" id="quiz-2" style="display: none;">
+                        <p class="question-text">처음 만난 친구에게 하는 인사는?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(2, 'nice-to-meet')">Nice to meet you</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(2, 'goodbye')">Goodbye</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(2, 'im-fine')">I'm fine</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(2, 'good-morning')">Good morning</button>
+                        </div>
+                        <div class="feedback" id="feedback-2"></div>
+                    </div>
+
+                    <!-- Quiz 3 -->
+                    <div class="quiz-question" id="quiz-3" style="display: none;">
+                        <p class="question-text">친구가 "How are you?"라고 물어봤어요. 기분이 좋을 때 어떻게 대답할까요?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(3, 'im-fine')">I'm fine</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(3, 'hello')">Hello</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(3, 'goodbye')">Goodbye</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(3, 'nice-to-meet')">Nice to meet you</button>
+                        </div>
+                        <div class="feedback" id="feedback-3"></div>
+                    </div>
+
+                    <!-- Quiz 4 -->
+                    <div class="quiz-question" id="quiz-4" style="display: none;">
+                        <p class="question-text">저녁 7시에 선생님을 만났어요. 어떻게 인사해야 할까요?</p>
+                        <svg viewBox="0 0 100 100" class="quiz-image">
+                            <circle cx="50" cy="40" r="15" fill="#9C27B0" opacity="0.7"/>
+                            <circle cx="45" cy="35" r="15" fill="#673AB7"/>
+                            <path d="M 46 30 L 48 28 L 46 26" stroke="#FFF" stroke-width="1.5" fill="none"/>
+                            <text x="50" y="75" text-anchor="middle" font-size="14" fill="#666">저녁 7시</text>
+                        </svg>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(4, 'good-evening')">Good evening</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(4, 'good-morning')">Good morning</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(4, 'good-afternoon')">Good afternoon</button>
+                            <button class="quiz-option" onclick="ContentApp.checkAnswer(4, 'goodbye')">Goodbye</button>
+                        </div>
+                        <div class="feedback" id="feedback-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Wrap Scene -->
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="wrap-content">
+                    <div class="celebration">
+                        <svg viewBox="0 0 200 200" class="reward-badge pulse">
+                            <circle cx="100" cy="100" r="80" fill="#4CAF50"/>
+                            <circle cx="100" cy="100" r="70" fill="#81C784"/>
+                            <text x="100" y="95" text-anchor="middle" font-size="50" fill="#FFF">🤝</text>
+                            <text x="100" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFF">Handshake</text>
+                            <text x="100" y="140" text-anchor="middle" font-size="12" fill="#FFF">Badge</text>
+                        </svg>
+                        <h2 class="celebration-title">축하합니다! 🎉</h2>
+                        <p class="celebration-text">시간대별 인사를 모두 마스터했어요!</p>
+                    </div>
+                    <div class="summary-box">
+                        <h3>오늘 배운 내용</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <strong>시간대별 인사</strong>
+                                <p>Good morning (오전)</p>
+                                <p>Good afternoon (오후)</p>
+                                <p>Good evening (저녁)</p>
+                            </div>
+                            <div class="summary-item">
+                                <strong>상황별 인사</strong>
+                                <p>Nice to meet you (처음 만남)</p>
+                                <p>I'm fine (기분 좋음)</p>
+                                <p>Goodbye / See you (헤어짐)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="real-life-usage">
+                        <h3>실생활에서 이렇게 사용해요</h3>
+                        <div class="usage-examples">
+                            <div class="usage-card" onclick="ContentApp.speak('Good morning! How are you?')">
+                                <p class="english-text">"Good morning! How are you?"</p>
+                                <p class="korean-text">좋은 아침! 어떻게 지내?</p>
+                                <button class="speak-btn">🔊 발음 듣기</button>
+                            </div>
+                            <div class="usage-card" onclick="ContentApp.speak('Nice to meet you!')">
+                                <p class="english-text">"Nice to meet you!"</p>
+                                <p class="korean-text">만나서 반가워요!</p>
+                                <button class="speak-btn">🔊 발음 듣기</button>
+                            </div>
+                            <div class="usage-card" onclick="ContentApp.speak('See you tomorrow!')">
+                                <p class="english-text">"See you tomorrow!"</p>
+                                <p class="korean-text">내일 봐!</p>
+                                <button class="speak-btn">🔊 발음 듣기</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next-steps">
+                        <p>다음에는 감정을 표현하는 영어를 배워봐요! 😊</p>
+                        <button class="btn-primary" onclick="ContentApp.restart()">처음부터 다시하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
