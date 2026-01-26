@@ -112,8 +112,8 @@
 - [x] 브라우저 테스트
 
 ### Task 4: Module 3 - School Items (학용품 어휘)
-- [ ] `edu-content/20260126-school-items/` 디렉토리 생성
-- [ ] `index.html` 7씬 구조 작성
+- [x] `edu-content/20260126-school-items/` 디렉토리 생성
+- [x] `index.html` 7씬 구조 작성
   - Hook: "Can I borrow a pencil?" 미국 친구 질문
   - Anchor: pencil, book 복습
   - Story: Bobby 교환학생 책상 정리 도움
@@ -121,8 +121,8 @@
   - Visualize: 정돈된 책상 다이어그램
   - Quiz: 학용품 식별
   - Wrap: 골드 스타 보상
-- [ ] `script.js`, `style.css` 구현
-- [ ] 브라우저 테스트
+- [x] `script.js`, `style.css` 구현
+- [x] 브라우저 테스트
 
 ### Task 5: Module 4 - Greetings (인사 표현)
 - [ ] `edu-content/20260126-greetings/` 디렉토리 생성
