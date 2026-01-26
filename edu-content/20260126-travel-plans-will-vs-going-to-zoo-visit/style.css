@@ -23,7 +23,9 @@
 
 body {
     font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: url('../../backgrounds/bg-edu-travel-gradient-20260126.png') no-repeat center center fixed;
+    /* Fixed: Replaced external background with CSS gradient for portability */
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    background-attachment: fixed;
     background-size: cover;
     color: var(--text-color);
     min-height: 100vh;
@@ -54,6 +56,7 @@ body {
     width: 80%;
     height: auto;
     object-fit: contain;
+} /* Fixed: Added missing closing brace */
 
 /* Scene Management */
 .scene {
@@ -195,24 +198,10 @@ body {
     margin: 0 auto 10px;
     background: #ddd;
     position: relative;
+    display: block; /* Ensure it behaves like an image */
 }
 
-#minho-char {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    position: relative;
-    background-image: url('../../illustrations/illust-boy-face.svg');
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-#sarah-char {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    background-image: url('../../illustrations/illust-girl-face.svg');
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+/* Removed external background images for characters as they are now inline SVGs */
 
 .bubble-text {
     font-size: 1.2em;
@@ -294,13 +283,6 @@ body {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     border-radius: 16px;
     height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
     display: flex;
     align-items: center;
     justify-content: center;
