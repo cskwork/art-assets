@@ -8,6 +8,7 @@ import { getLlmProvider } from './llm/provider';
 import { streamZaiChat, ZaiChatMessage } from './llm/zai-client';
 import { parseZaiOutput, GeneratedFile, parseZaiFiles } from './llm/zai-output';
 import { buildFixMessages, buildReviewMessages, evaluateDeterministicReview, parseReviewOutput } from './llm/review';
+import { enableLogging, log, logSize } from './logger';
 
 const DEFAULT_FILES = ['index.html', 'script.js', 'style.css'];
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
@@ -186,6 +187,10 @@ function isAutoFixEnabled(value: string | undefined) {
   return parseBooleanEnv(value, true);
 }
 
+function isLoggingEnabled(value: string | undefined) {
+  return parseBooleanEnv(value, false);
+}
+
 function getAutoFixMaxAttempts(value: string | undefined) {
   const parsed = Number.parseInt(value || '', 10);
   if (!Number.isFinite(parsed) || parsed <= 0) {
@@ -356,16 +361,25 @@ async function generateContentWithZai(
     throw new Error('ZAI_API_KEY가 필요합니다.');
   }
 
+  log('GEN', `Z.ai 콘텐츠 생성 시작...`);
+  logSize('프롬프트', prompt);
+
   const messages = buildZaiMessages(prompt, moduleId);
   const apiUrl = process.env.ZAI_API_URL?.trim();
   const model = process.env.ZAI_MODEL?.trim();
   const content = await streamZaiChat(messages, {
     apiKey,
     apiUrl: apiUrl || undefined,
-    model: model || undefined
+    model: model || undefined,
+    label: 'GEN'
   });
   const files = parseZaiOutput(content, moduleId);
   await writeGeneratedFiles(rootDir, files);
+
+  files.forEach((file) => {
+    log('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);
+  });
+  log('GEN', `콘텐츠 생성 완료 (${files.length}개 파일)`);
 }
 
 async function runContentReview(
@@ -384,16 +398,36 @@ async function runContentReview(
   }
 
   const files = await loadReviewFiles(rootDir, moduleId);
+  logSize('index.html', files.indexHtml);
+  logSize('script.js', files.scriptJs);
+  logSize('style.css', files.styleCss);
+
   const deterministic = evaluateDeterministicReview(files.indexHtml);
+  log('REVIEW', `결정론적: ${deterministic.pass ? '통과' : '실패'} (씬 ${deterministic.sceneCount}개)`);
+  if (!deterministic.pass) {
+    deterministic.issues.forEach((issue, i) => {
+      log('ISSUE', `[결정] ${i + 1}. ${issue.message}`);
+    });
+  }
+
   const reviewMessages = buildReviewMessages(prompt, files, deterministic);
   const apiUrl = process.env.ZAI_REVIEW_API_URL?.trim() || process.env.ZAI_API_URL?.trim();
   const model = process.env.ZAI_REVIEW_MODEL?.trim() || process.env.ZAI_MODEL?.trim();
   const reviewText = await streamZaiChat(reviewMessages, {
     apiKey,
     apiUrl: apiUrl || undefined,
-    model: model || undefined
+    model: model || undefined,
+    label: 'REVIEW'
   });
   const review = parseReviewOutput(reviewText);
+
+  log('REVIEW', `LLM 결과: ${review.pass ? '통과' : '실패'}, 점수: ${review.score}, 이슈: ${review.issues.length}개`);
+  if (review.issues.length > 0) {
+    review.issues.forEach((issue, i) => {
+      log('ISSUE', `[LLM] ${i + 1}. [${issue.severity}] ${issue.location}: ${issue.message}`);
+    });
+  }
+
   const mergedIssues = [...deterministic.issues, ...review.issues];
   const mergedReview: ReviewResult = {
     ...review,
@@ -403,6 +437,7 @@ async function runContentReview(
     sceneCount: deterministic.sceneCount
   };
   const reviewPass = review.pass && deterministic.pass;
+  log('REVIEW', `최종 판정: ${reviewPass ? '통과' : '실패'}`);
 
   return { review: mergedReview, reviewPass, deterministic };
 }
@@ -424,6 +459,7 @@ async function runContentFix(
     throw new Error('ZAI_API_KEY가 필요합니다.');
   }
 
+  log('FIX', `수정 시작 (이슈 ${review.issues.length}개)...`);
   const files = await loadReviewFiles(rootDir, moduleId);
   const fixMessages = buildFixMessages(prompt, files, review, deterministic);
   const apiUrl = process.env.ZAI_REVIEW_API_URL?.trim() || process.env.ZAI_API_URL?.trim();
@@ -431,10 +467,16 @@ async function runContentFix(
   const fixText = await streamZaiChat(fixMessages, {
     apiKey,
     apiUrl: apiUrl || undefined,
-    model: model || undefined
+    model: model || undefined,
+    label: 'FIX'
   });
   const updatedFiles = parseZaiFiles(fixText, { moduleId, requireAll: false });
   await writeGeneratedFiles(rootDir, updatedFiles);
+
+  updatedFiles.forEach((file) => {
+    log('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);
+  });
+  log('FIX', `${updatedFiles.length}개 파일 적용 완료`);
 }
 
 export async function generateContentForJob(
@@ -448,6 +490,10 @@ export async function generateContentForJob(
   const blockOnReviewFail = shouldBlockOnReviewFail(process.env.LLM_REVIEW_BLOCK_ON_FAIL);
   const autoFixEnabled = isAutoFixEnabled(process.env.LLM_REVIEW_AUTO_FIX_ENABLED);
   const autoFixMaxAttempts = getAutoFixMaxAttempts(process.env.LLM_REVIEW_AUTO_FIX_MAX_ATTEMPTS);
+  const loggingEnabled = isLoggingEnabled(process.env.LLM_LOGGING_ENABLED);
+
+  enableLogging(loggingEnabled);
+  log('INIT', `모듈: ${moduleId}, 리뷰: ${reviewEnabled}, 자동수정: ${autoFixEnabled} (최대 ${autoFixMaxAttempts}회)`);
 
   updateJob(jobId, {
     status: 'processing',
@@ -476,6 +522,7 @@ export async function generateContentForJob(
         let needsFix = !reviewPass || review.issues.length > 0;
         if (needsFix && autoFixEnabled) {
           for (let attempt = 1; attempt <= autoFixMaxAttempts; attempt++) {
+            log('REVIEW', `=== 자동 수정 시도 ${attempt}/${autoFixMaxAttempts} ===`);
             updateJob(jobId, { reviewStatus: 'pending' });
             await runContentFix(prompt, rootDir, moduleId, review, deterministic);
             const next = await runContentReview(prompt, rootDir, moduleId);
@@ -488,8 +535,12 @@ export async function generateContentForJob(
             });
             needsFix = !reviewPass || review.issues.length > 0;
             if (!needsFix) {
+              log('DONE', `자동 수정 성공 (시도 ${attempt}회)`);
               break;
             }
+          }
+          if (needsFix) {
+            log('ERROR', `자동 수정 실패 (최대 ${autoFixMaxAttempts}회 시도)`);
           }
         }
 
