@@ -10,7 +10,8 @@
       "Bash(do echo \"=== $dir ===\" grep -o '\\\\.\\\\./\\\\.\\\\./[^\"\"'''']*' \"edu-content/$dir/index.html\")",
       "Bash(done)",
       "Bash(for dir in edu-content/20260126-*)",
-      "Bash(unzip:*)"
+      "Bash(unzip:*)",
+      "Bash(node scripts/archive.js:*)"
     ]
   }
 }

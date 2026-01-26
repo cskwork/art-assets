@@ -6,36 +6,30 @@
 
 ### 2026-01-26
 
-**Art Asset Search Skill 구현**
+**Art Asset Archive 기능 구현**
+- `scripts/archive.js` CLI 도구: 에셋 아카이브/복원 명령어
+- `assets-source.json`에 `archived` 배열 추가
+- 갤러리에 Archive/Restore 버튼 및 Archived 탭 추가
+- `archive/` 폴더 구조 생성 (각 카테고리별 하위 폴더)
 
+**Art Asset Search Skill 구현**
 - `~/.claude/skills/art-asset-search/` 스킬 디렉토리 생성
   - `SKILL.md`: 한국 교육용 아트 에셋 검색 스킬 정의
   - `references/tag-reference.md`: 전체 태그 목록 및 카테고리 분류
 - 기능: `assets-index.json` 기반 경량 검색, 카테고리/태그/설명 필터링
 - 트리거 키워드: "에셋 찾기", "아이콘 검색", "교육용 이미지", "수학 다이어그램", "3D 모델 찾기", "콘텐츠 내보내기", "교육 콘텐츠 복사"
 
-**초등 수학 인터랙티브 콘텐츠 구현 (4개 모듈)**
+**초등 수학 인터랙티브 콘텐츠 5개 모듈 완성**
+- 소수의 곱셈 (초등 5학년): Three.js 3D 동전, SVG 격자 시각화, 터치 드래그 퀴즈
+- 분수의 나눗셈 (초등 5학년): GLTFLoader/OrbitControls 3D 모델, 비모듈 스크립트 (`file://` 호환)
+- 직육면체 부피 (초등 6학년): CSS 3D transform 큐브, 층별 쌓기 인터랙션, 큐브 카운터
+- 원의 넓이 (초등 6학년): SVG 부채꼴 분할, MathJax 공식, 슬라이더 조절
+- 비와 비율 (초등 6학년): 슬라이더 인원수 조절, 막대 그래프 실시간 업데이트, 비례식 시각화
 
-- `edu-content/20260126-box-volume/`: 직육면체 부피 (초등 6학년)
-  - CSS 3D transform 기반 큐브 시각화, 층별 쌓기 인터랙션
-  - 7개 씬 구조: Hook > Anchor > Story > Core > Visualize > Quiz > Wrap
-
-- `edu-content/20260126-circle-area/`: 원의 넓이 (초등 6학년)
-  - 부채꼴 분할/직사각형 펼침 애니메이션, MathJax 공식 표현
-  - SVG 부채꼴 렌더링, 슬라이더로 조각 수 조절
-
-- `edu-content/20260126-decimal-multiplication/`: 소수의 곱셈 (초등 5학년)
-  - Three.js GLB 3D 동전 모델, SVG 격자 곱셈 시각화
-  - 터치/드래그 퀴즈 인터랙션, 탑재 폴백 처리 (`file://` 환경 호환)
-
-- `edu-content/20260126-fraction-division/`: 분수의 나눗셈 (초등 5학년)
-  - Three.js GLTFLoader/OrbitControls 기반 3D 시각화
-  - 로드 실패 가드 추가, 비모듈 스크립트 로딩
-
-**모듈 공통 특징**
-- Noto Sans KR 폰트, 반응형/터치 지원
-- 프로그레스 바 표시, 타자 효과 스토리 연출
-- 에셋 참조: 아이콘, 다이어그램, 배경, 3D 모델
+**공통 기술 스택**
+- 7씬 표준 구조: Hook > Anchor > Story > Core > Visualize > Quiz > Wrap
+- ContentApp 싱글톤 패턴, Noto Sans KR, 반응형/터치
+- 프로그레스 바, 타자 효과, 에셋 참조 (아이콘/다이어그램/배경/3D)
 
 ## 폴더 구조
 
@@ -47,6 +41,7 @@ art-assets/
 ├── assets-index.json     # LLM 검색용 경량 인덱스
 ├── scripts/
 │   ├── build-assets.js   # 소스 -> assets.json + index 빌드
+│   ├── archive.js        # 에셋 아카이브/복원 CLI
 │   └── migrate-to-compact.js  # 1회성 마이그레이션
 ├── build-gallery.js      # gallery.html 빌드
 ├── gallery.html          # 에셋 갤러리 (빌드 산출물)
@@ -56,6 +51,7 @@ art-assets/
 ├── diagrams/             # 다이어그램, 차트 (SVG/PNG)
 ├── photos/               # 사진 (JPG)
 ├── 3d/                   # 3D 모델/씬 (Three.js GLB/GLTF)
+├── archive/              # 아카이브된 에셋 (카테고리별 하위 폴더)
 └── edu-content/          # 교육용 인터랙티브 콘텐츠
     ├── 20260126-box-volume/        # 직육면체 부피 (초등 6학년)
     ├── 20260126-circle-area/       # 원의 넓이 (초등 6학년)
@@ -92,7 +88,7 @@ art-assets/
 ```json
 {
   "v": "2.0.0",
-  "updated": "2026-01-25",
+  "updated": "2026-01-26",
   "categories": {
     "icons": { "d": "아이콘 (SVG 권장)", "f": "svg" },
     "3d": { "d": "3D 모델", "f": "glb" }
@@ -100,13 +96,19 @@ art-assets/
   "assets": [
     ["icon-checkmark-green-20260124", "icons", ["checkmark","success"], "녹색 체크마크 아이콘"],
     ["3d-sphere-red-20260125", "3d", ["geometry","math"], "빨간 구 3D 모델", "glb", [100,100]]
+  ],
+  "archived": [
+    ["old-asset-id", "icons", ["tag"], "설명", null, null, "2026-01-26"]
   ]
 }
 ```
 
-**배열 형식**: `[id, category, tags[], description, format?, dimensions?]`
+**assets 배열 형식**: `[id, category, tags[], description, format?, dimensions?]`
 - `format`: 기본값과 다를 경우만 추가 (icons=svg, 3d=glb 등)
 - `dimensions`: `[width, height]` 또는 `[w, h, d]` (있을 경우만)
+
+**archived 배열 형식**: `[id, category, tags[], description, format?, dimensions?, archivedDate]`
+- `archivedDate`: 아카이브된 날짜 (YYYY-MM-DD)
 
 ### assets.json (빌드 산출물, 기존 호환)
 
@@ -159,6 +161,15 @@ node build-gallery.js
 
 # assets만 빌드
 node scripts/build-assets.js
+
+# 에셋 아카이브
+node scripts/archive.js --archive "asset-id"
+
+# 아카이브된 에셋 복원
+node scripts/archive.js --restore "asset-id"
+
+# 아카이브 목록 확인
+node scripts/archive.js --list
 ```
 
 ## LLM 사용 가이드
@@ -234,6 +245,75 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | diagrams | SVG, PNG | svg |
 | photos | JPG | jpg |
 | 3d | GLB, GLTF | glb |
+
+## Edu-Content 모듈 구조
+
+### 모듈 위치
+- `edu-content/{YYYYMMDD}-{module-name}/`
+  - `index.html`: 7씬 인터랙티브 콘텐츠 메인 파일
+  - `script.js`: 씬 네비게이션, 인터랙션 로직
+  - `style.css`: 반응형/터치 지원, 색상 테마
+
+### 사용 가능한 모듈
+| 폴더 | 주제 | 학년 | 파일 |
+|------|------|------|------|
+| 20260126-box-volume | 직육면체 부피 | 초등 6학년 | `/edu-content/20260126-box-volume/` |
+| 20260126-circle-area | 원의 넓이 | 초등 6학년 | `/edu-content/20260126-circle-area/` |
+| 20260126-decimal-multiplication | 소수의 곱셈 | 초등 5학년 | `/edu-content/20260126-decimal-multiplication/` |
+| 20260126-fraction-division | 분수의 나눗셈 | 초등 5학년 | `/edu-content/20260126-fraction-division/` |
+| 20260126-ratio-proportion | 비와 비율 | 초등 6학년 | `/edu-content/20260126-ratio-proportion/` |
+
+### 7씬 표준 구조
+1. **Hook**: 흥미로운 문제 제시 및 3D 시각화
+2. **Anchor**: 선행학습 개념 복습
+3. **Story**: 캐릭터 스토리 (타자 효과)
+4. **Core**: 인터랙티브 핵심 학습 (3D/슬라이더/드래그)
+5. **Visualize**: 공식 도출 및 개념 설명
+6. **Quiz**: 객관식 문제 풀이
+7. **Wrap**: 학습 요약 및 보상 화면
+
+### 모듈 복사 절차
+1. 모듈 폴더 전체 복사
+2. 대상 프로젝트에 `edu-content/` 디렉토리 생성
+3. 모듈 폴더 붙여넣기
+4. `index.html`에서 에셋 경로 확인 (상대 경로: `../../icons/`, `../../diagrams/` 등)
+5. 브라우저에서 `index.html` 열기 (로컬 서버 권장)
+
+### 기술 스택
+- **HTML**: 시맨틱 마크업, Noto Sans KR 폰트
+- **CSS**: 3D transform, 반응형 그리드, 터치 친화적 버튼
+- **JavaScript**: 순수 JS (프레임워크 불필요), ContentApp 싱글톤 패턴
+- **3D**: Three.js GLB/GLTF 로더 (비모듈 로딩)
+- **수식**: MathJax 3 (인라인 수식 렌더링)
+- **SVG**: 동적 도형 생성 (부채꼴, 격자, 캐릭터)
+
+### 주의사항
+- 에셋 경로는 모듈 위치 기준 상대 경로 사용
+- Three.js는 전역 `window.THREE` 변수로 접근
+- `file://` 프로토콜 환경에서 CORS 이슈 해결: 비모듈 스크립트 로딩
+- 모바일 환경 테스트 필수 (터치 드래그, 반응형 레이아웃)
+
+## 개발 패턴
+
+### ContentApp 싱글톤 패턴
+모든 모듈은 전역 `ContentApp` 객체로 상태와 메서드 관리:
+- `currentScene`: 현재 씬 인덱스
+- `scenes`: 씬 ID 배열
+- `nextScene()`: 씬 전환
+- `init()`: 초기화
+- `checkAnswer()`: 퀴즈 검증
+
+### 3D 모델 로딩 (비모듈, `file://` 호환)
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+```
+- 로드 가드: `if (!THREE || !THREE.GLTFLoader || !THREE.OrbitControls) { }`
+- 접근: `THREE.GLTFLoader()`, `THREE.OrbitControls`
+
+### MathJax 수식 렌더링
+- 인라인 설정: `$...$` 구분자
+- 씬 전환 후 재렌더링: `window.MathJax.typesetPromise([sceneEl])`
 
 ## 주의사항
 

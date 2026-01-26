@@ -1,5 +1,46 @@
 # Changelog - 2026-01-26
 
+## Art Asset Archive 기능 구현
+
+### 추가
+- `scripts/archive.js` CLI 도구 생성
+  - `--archive "asset-id"`: 에셋 아카이브 (파일을 archive/ 폴더로 이동)
+  - `--restore "asset-id"`: 아카이브된 에셋 복원
+  - `--list`: 아카이브된 에셋 목록 표시
+  - 자동 빌드 실행 (`node build-gallery.js`)
+
+- `assets-source.json` 스키마 확장
+  - `archived` 배열 추가 (아카이브된 에셋 저장)
+  - 형식: `[id, category, tags[], description, format?, dimensions?, archivedDate]`
+
+- `archive/` 폴더 구조 생성
+  - icons, illustrations, diagrams, backgrounds, photos, 3d 하위 폴더
+  - .gitkeep 파일로 빈 폴더 유지
+
+### 수정
+- `scripts/build-assets.js`: 아카이브 통계 출력 추가
+
+- `build-gallery.js` 갤러리 UI 업데이트
+  - Archive 버튼 추가 (활성 에셋 카드에)
+  - Restore 버튼 추가 (아카이브 에셋 카드에)
+  - Archived 탭 추가 (탭 네비게이션에)
+  - 명령어 안내 모달 추가 (Archive/Restore 버튼 클릭 시)
+  - 아카이브된 에셋 "Archived" 뱃지 표시
+
+### 사용법
+```bash
+# 에셋 아카이브
+node scripts/archive.js --archive "icon-home-cute-20260124"
+
+# 아카이브된 에셋 복원
+node scripts/archive.js --restore "icon-home-cute-20260124"
+
+# 아카이브 목록 확인
+node scripts/archive.js --list
+```
+
+---
+
 ## Art Asset Search Skill 구현
 
 ### 추가
@@ -119,6 +160,13 @@
 - `edu-content/20260126-decimal-multiplication/script.js`: 전역 THREE 사용 및 로드 실패 가드 추가
 - `edu-content/20260126-fraction-division/index.html`: Three.js 비모듈 스크립트 로딩으로 `file://` 환경 호환
 - `edu-content/20260126-fraction-division/script.js`: 전역 THREE/GLTFLoader/OrbitControls 사용 및 로드 실패 가드 추가
+
+## 분수 나눗셈 콘텐츠 Three.js CDN 오류 수정
+
+### 수정
+- `edu-content/20260126-fraction-division/index.html`: Three.js 버전 0.160.0 -> 0.147.0 다운그레이드
+  - 원인: Three.js 0.160.0에서 `examples/js/` 레거시 빌드 제거로 GLTFLoader.js, OrbitControls.js 404 오류
+  - 해결: 레거시 빌드가 존재하는 0.147.0 버전 사용
 
 ## Art Asset Search Skill - edu-content 내보내기 기능 추가
 

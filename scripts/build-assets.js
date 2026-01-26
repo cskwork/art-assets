@@ -149,6 +149,9 @@ const indexOutput = {
 
 fs.writeFileSync(indexPath, JSON.stringify(indexOutput), 'utf8');
 
+// 아카이브 통계
+const archivedCount = source.archived ? source.archived.length : 0;
+
 // 통계 출력
 const sourceSize = fs.statSync(sourcePath).size;
 const assetsSize = fs.statSync(assetsPath).size;
@@ -164,3 +167,6 @@ for (const [cat, count] of Object.entries(stats)) {
   console.log(`  ${cat}: ${count}개`);
 }
 console.log(`  총: ${fullAssets.length}개`);
+if (archivedCount > 0) {
+  console.log(`  아카이브: ${archivedCount}개`);
+}

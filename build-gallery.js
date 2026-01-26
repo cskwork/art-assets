@@ -23,6 +23,51 @@ console.log('=== gallery.html 생성 ===');
 const assetsPath = path.join(__dirname, 'assets.json');
 const assets = JSON.parse(fs.readFileSync(assetsPath, 'utf8'));
 
+// assets-source.json 로드 (아카이브 데이터용)
+const sourcePath = path.join(__dirname, 'assets-source.json');
+const source = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
+
+// 카테고리별 기본 포맷
+const defaultFormats = {
+  icons: 'svg',
+  illustrations: 'svg',
+  diagrams: 'svg',
+  backgrounds: 'png',
+  photos: 'jpg',
+  '3d': 'glb'
+};
+
+// 아카이브 에셋을 full 형식으로 변환
+function expandArchivedAsset(compact) {
+  const [id, category, tags, description, format, dimensions, archivedDate] = compact;
+  const assetFormat = format || defaultFormats[category] || 'svg';
+  const assetPath = `archive/${category}/${id}.${assetFormat}`;
+
+  const asset = {
+    id,
+    path: assetPath,
+    category,
+    tags,
+    description,
+    format: assetFormat,
+    archivedDate: archivedDate || 'N/A',
+    isArchived: true
+  };
+
+  if (dimensions && Array.isArray(dimensions)) {
+    if (dimensions.length === 2) {
+      asset.dimensions = { width: dimensions[0], height: dimensions[1] };
+    } else if (dimensions.length === 3) {
+      asset.dimensions = { width: dimensions[0], height: dimensions[1], depth: dimensions[2] };
+    }
+  }
+
+  return asset;
+}
+
+// 아카이브된 에셋
+const archivedAssets = (source.archived || []).map(expandArchivedAsset);
+
 // 카테고리별 에셋 분류
 const categoryMap = {};
 assets.assets.forEach(asset => {
@@ -38,6 +83,7 @@ const categoryOrder = ['icons', 'illustrations', 'diagrams', 'backgrounds', 'pho
 // HTML 생성
 function generateHTML() {
   const totalCount = assets.assets.length;
+  const archivedCount = archivedAssets.length;
 
   return `<!DOCTYPE html>
 <html lang="ko">
@@ -306,6 +352,165 @@ function generateHTML() {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: scale(0.9);
+      transition: transform 0.2s;
+    }
+
+    .modal-overlay.show .modal {
+      transform: scale(1);
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .modal-command {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .modal-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .modal-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .modal-btn.primary {
+      background: #4a90d9;
+      border-color: #4a90d9;
+      color: #fff;
+    }
+
+    .modal-btn.primary:hover {
+      background: #3a7bc8;
+    }
+
+    .modal-btn.primary.copied {
+      background: #4caf50;
+      border-color: #4caf50;
+    }
+
+    /* Archive button styles */
+    .btn-archive {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #f0a000;
+      background: #fff8e0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #a07000;
+      transition: all 0.2s;
+    }
+
+    .btn-archive:hover {
+      background: #f0a000;
+      color: #fff;
+    }
+
+    .btn-restore {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #4caf50;
+      background: #e8f5e9;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      transition: all 0.2s;
+    }
+
+    .btn-restore:hover {
+      background: #4caf50;
+      color: #fff;
+    }
+
+    /* Archived badge */
+    .archived-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #f0a000;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 500;
+    }
+
+    .card-preview {
+      position: relative;
+    }
+
+    /* Archived tab style */
+    .tab[data-category="archived"] .count {
+      background: #fff8e0;
+      color: #a07000;
+    }
+
+    .tab.active[data-category="archived"] .count {
+      background: #f0a000;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -326,12 +531,16 @@ function generateHTML() {
 ${categoryOrder.filter(cat => categoryMap[cat]).map(cat => `      <button class="tab" data-category="${cat}">
         ${getCategoryLabel(cat)} <span class="count">${categoryMap[cat].length}</span>
       </button>`).join('\n')}
+      <button class="tab" data-category="archived">
+        Archived <span class="count">${archivedCount}</span>
+      </button>
     </div>
   </nav>
 
   <main class="container">
     <div class="grid" id="gallery">
-${assets.assets.map(asset => generateCard(asset)).join('\n')}
+${assets.assets.map(asset => generateCard(asset, false)).join('\n')}
+${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
       <div class="no-results" id="no-results" style="display: none;">
         검색 결과가 없습니다.
       </div>
@@ -339,6 +548,19 @@ ${assets.assets.map(asset => generateCard(asset)).join('\n')}
   </main>
 
   <div class="toast" id="toast">경로가 복사되었습니다</div>
+
+  <!-- Archive/Restore Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-title" id="modal-title">에셋 아카이브</div>
+      <div class="modal-desc">다음 명령어를 터미널에서 실행하세요:</div>
+      <div class="modal-command" id="modal-command"></div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="modal-copy-btn" onclick="copyCommand()">명령어 복사</button>
+        <button class="modal-btn" onclick="closeModal()">닫기</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // 탭 필터링
@@ -348,8 +570,15 @@ ${assets.assets.map(asset => generateCard(asset)).join('\n')}
     const noResults = document.getElementById('no-results');
     const toast = document.getElementById('toast');
 
+    // Modal elements
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCommand = document.getElementById('modal-command');
+    const modalCopyBtn = document.getElementById('modal-copy-btn');
+
     let currentCategory = 'all';
     let currentSearch = '';
+    let currentCommand = '';
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -371,11 +600,20 @@ ${assets.assets.map(asset => generateCard(asset)).join('\n')}
 
       cards.forEach(card => {
         const category = card.dataset.category;
+        const isArchived = card.dataset.archived === 'true';
         const tags = card.dataset.tags.toLowerCase();
         const desc = card.dataset.desc.toLowerCase();
         const name = card.dataset.name.toLowerCase();
 
-        const categoryMatch = currentCategory === 'all' || category === currentCategory;
+        let categoryMatch = false;
+        if (currentCategory === 'all') {
+          categoryMatch = !isArchived;
+        } else if (currentCategory === 'archived') {
+          categoryMatch = isArchived;
+        } else {
+          categoryMatch = category === currentCategory && !isArchived;
+        }
+
         const searchMatch = !currentSearch ||
           tags.includes(currentSearch) ||
           desc.includes(currentSearch) ||
@@ -405,13 +643,60 @@ ${assets.assets.map(asset => generateCard(asset)).join('\n')}
       });
     }
 
-    function showToast(path) {
-      toast.textContent = path + ' 복사됨';
+    function showToast(msg) {
+      toast.textContent = msg + ' 복사됨';
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
       }, 2000);
     }
+
+    // Archive/Restore Modal
+    function showArchiveCommand(assetId) {
+      currentCommand = 'node scripts/archive.js --archive "' + assetId + '"';
+      modalTitle.textContent = '에셋 아카이브';
+      modalCommand.textContent = currentCommand;
+      modalCopyBtn.textContent = '명령어 복사';
+      modalCopyBtn.classList.remove('copied');
+      modalOverlay.classList.add('show');
+    }
+
+    function showRestoreCommand(assetId) {
+      currentCommand = 'node scripts/archive.js --restore "' + assetId + '"';
+      modalTitle.textContent = '에셋 복원';
+      modalCommand.textContent = currentCommand;
+      modalCopyBtn.textContent = '명령어 복사';
+      modalCopyBtn.classList.remove('copied');
+      modalOverlay.classList.add('show');
+    }
+
+    function copyCommand() {
+      navigator.clipboard.writeText(currentCommand).then(() => {
+        modalCopyBtn.textContent = '복사됨!';
+        modalCopyBtn.classList.add('copied');
+        setTimeout(() => {
+          closeModal();
+        }, 1000);
+      });
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('show');
+    }
+
+    // Close modal when clicking overlay
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>`;
@@ -429,7 +714,7 @@ function getCategoryLabel(category) {
   return labels[category] || category;
 }
 
-function generateCard(asset) {
+function generateCard(asset, isArchived = false) {
   const isBackground = asset.category === 'backgrounds';
   const is3D = asset.category === '3d';
   const previewClass = isBackground ? 'card-preview bg-preview' : 'card-preview';
@@ -442,16 +727,31 @@ function generateCard(asset) {
     previewContent = `<img src="${asset.path}" alt="${asset.description}" loading="lazy" />`;
   }
 
-  return `      <div class="card" data-category="${asset.category}" data-tags="${asset.tags.join(' ')}" data-desc="${asset.description}" data-name="${asset.id}">
+  // Archived badge
+  const archivedBadge = isArchived ? `<span class="archived-badge">Archived</span>` : '';
+
+  // Action buttons
+  let actionButtons;
+  if (isArchived) {
+    actionButtons = `
+            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
+            <button class="btn-restore" onclick="showRestoreCommand('${asset.id}')">Restore</button>`;
+  } else {
+    actionButtons = `
+            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('${asset.id}')">Archive</button>`;
+  }
+
+  return `      <div class="card" data-category="${asset.category}" data-tags="${asset.tags.join(' ')}" data-desc="${asset.description}" data-name="${asset.id}" data-archived="${isArchived}">
         <div class="${previewClass}">
+          ${archivedBadge}
           ${previewContent}
         </div>
         <div class="card-info">
           <div class="card-name">${asset.id}</div>
           <div class="card-desc">${asset.description}</div>
           <div class="card-tags">${tags}</div>
-          <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
+          <div class="card-actions">${actionButtons}
           </div>
         </div>
       </div>`;

@@ -265,6 +265,165 @@
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: scale(0.9);
+      transition: transform 0.2s;
+    }
+
+    .modal-overlay.show .modal {
+      transform: scale(1);
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .modal-command {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .modal-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .modal-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .modal-btn.primary {
+      background: #4a90d9;
+      border-color: #4a90d9;
+      color: #fff;
+    }
+
+    .modal-btn.primary:hover {
+      background: #3a7bc8;
+    }
+
+    .modal-btn.primary.copied {
+      background: #4caf50;
+      border-color: #4caf50;
+    }
+
+    /* Archive button styles */
+    .btn-archive {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #f0a000;
+      background: #fff8e0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #a07000;
+      transition: all 0.2s;
+    }
+
+    .btn-archive:hover {
+      background: #f0a000;
+      color: #fff;
+    }
+
+    .btn-restore {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #4caf50;
+      background: #e8f5e9;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      transition: all 0.2s;
+    }
+
+    .btn-restore:hover {
+      background: #4caf50;
+      color: #fff;
+    }
+
+    /* Archived badge */
+    .archived-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #f0a000;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 500;
+    }
+
+    .card-preview {
+      position: relative;
+    }
+
+    /* Archived tab style */
+    .tab[data-category="archived"] .count {
+      background: #fff8e0;
+      color: #a07000;
+    }
+
+    .tab.active[data-category="archived"] .count {
+      background: #f0a000;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -297,13 +456,17 @@
       <button class="tab" data-category="3d">
         3D Models <span class="count">25</span>
       </button>
+      <button class="tab" data-category="archived">
+        Archived <span class="count">0</span>
+      </button>
     </div>
   </nav>
 
   <main class="container">
     <div class="grid" id="gallery">
-      <div class="card" data-category="icons" data-tags="arithmetic math elementary plus minus" data-desc="기초 산수 연산자 아이콘" data-name="icon-arithmetic-basic-color-20260124">
+      <div class="card" data-category="icons" data-tags="arithmetic math elementary plus minus" data-desc="기초 산수 연산자 아이콘" data-name="icon-arithmetic-basic-color-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-arithmetic-basic-color-20260124.svg" alt="기초 산수 연산자 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -312,11 +475,13 @@
           <div class="card-tags"><span class="tag">arithmetic</span><span class="tag">math</span><span class="tag">elementary</span><span class="tag">plus</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-arithmetic-basic-color-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-arithmetic-basic-color-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="numbers 123 elementary fun" data-desc="재미있는 숫자 1-2-3 스타일" data-name="illust-numbers-fun-flat-20260124">
+      <div class="card" data-category="illustrations" data-tags="numbers 123 elementary fun" data-desc="재미있는 숫자 1-2-3 스타일" data-name="illust-numbers-fun-flat-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-numbers-fun-flat-20260124.svg" alt="재미있는 숫자 1-2-3 스타일" loading="lazy" />
         </div>
         <div class="card-info">
@@ -325,11 +490,13 @@
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">123</span><span class="tag">elementary</span><span class="tag">fun</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-numbers-fun-flat-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-numbers-fun-flat-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="shapes geometry elementary basic" data-desc="기본 기하학 도형 아이콘" data-name="icon-shapes-primary-bold-20260124">
+      <div class="card" data-category="icons" data-tags="shapes geometry elementary basic" data-desc="기본 기하학 도형 아이콘" data-name="icon-shapes-primary-bold-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-shapes-primary-bold-20260124.svg" alt="기본 기하학 도형 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -338,11 +505,13 @@
           <div class="card-tags"><span class="tag">shapes</span><span class="tag">geometry</span><span class="tag">elementary</span><span class="tag">basic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-shapes-primary-bold-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-shapes-primary-bold-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="counting apples elementary math" data-desc="사과 세기 일러스트" data-name="illust-counting-apples-modern-20260124">
+      <div class="card" data-category="illustrations" data-tags="counting apples elementary math" data-desc="사과 세기 일러스트" data-name="illust-counting-apples-modern-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-counting-apples-modern-20260124.svg" alt="사과 세기 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -351,11 +520,13 @@
           <div class="card-tags"><span class="tag">counting</span><span class="tag">apples</span><span class="tag">elementary</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-counting-apples-modern-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-counting-apples-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="clock time elementary learning" data-desc="시간 학습용 간단한 아날로그 시계" data-name="illust-clock-learning-simple-20260124">
+      <div class="card" data-category="illustrations" data-tags="clock time elementary learning" data-desc="시간 학습용 간단한 아날로그 시계" data-name="illust-clock-learning-simple-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-clock-learning-simple-20260124.svg" alt="시간 학습용 간단한 아날로그 시계" loading="lazy" />
         </div>
         <div class="card-info">
@@ -364,11 +535,13 @@
           <div class="card-tags"><span class="tag">clock</span><span class="tag">time</span><span class="tag">elementary</span><span class="tag">learning</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-clock-learning-simple-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-clock-learning-simple-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="fraction pie middle-school math" data-desc="3등분 분수 파이 차트" data-name="diagram-fraction-pie-thirds-20260124">
+      <div class="card" data-category="diagrams" data-tags="fraction pie middle-school math" data-desc="3등분 분수 파이 차트" data-name="diagram-fraction-pie-thirds-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-fraction-pie-thirds-20260124.svg" alt="3등분 분수 파이 차트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -377,11 +550,13 @@
           <div class="card-tags"><span class="tag">fraction</span><span class="tag">pie</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-fraction-pie-thirds-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-fraction-pie-thirds-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="coordinate plane xy-axis middle-school" data-desc="깔끔한 좌표평면 그리드" data-name="diagram-coordinate-plane-clean-20260124">
+      <div class="card" data-category="diagrams" data-tags="coordinate plane xy-axis middle-school" data-desc="깔끔한 좌표평면 그리드" data-name="diagram-coordinate-plane-clean-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-coordinate-plane-clean-20260124.svg" alt="깔끔한 좌표평면 그리드" loading="lazy" />
         </div>
         <div class="card-info">
@@ -390,11 +565,13 @@
           <div class="card-tags"><span class="tag">coordinate</span><span class="tag">plane</span><span class="tag">xy-axis</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-coordinate-plane-clean-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-coordinate-plane-clean-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="angles geometry middle-school math" data-desc="기하학 각도 종류 아이콘" data-name="icon-angles-geometry-blue-20260124">
+      <div class="card" data-category="icons" data-tags="angles geometry middle-school math" data-desc="기하학 각도 종류 아이콘" data-name="icon-angles-geometry-blue-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-angles-geometry-blue-20260124.svg" alt="기하학 각도 종류 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -403,11 +580,13 @@
           <div class="card-tags"><span class="tag">angles</span><span class="tag">geometry</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-angles-geometry-blue-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-angles-geometry-blue-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="triangle area geometry middle-school" data-desc="높이와 밑변이 표시된 삼각형" data-name="diagram-triangle-area-labeled-20260124">
+      <div class="card" data-category="diagrams" data-tags="triangle area geometry middle-school" data-desc="높이와 밑변이 표시된 삼각형" data-name="diagram-triangle-area-labeled-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-triangle-area-labeled-20260124.svg" alt="높이와 밑변이 표시된 삼각형" loading="lazy" />
         </div>
         <div class="card-info">
@@ -416,11 +595,13 @@
           <div class="card-tags"><span class="tag">triangle</span><span class="tag">area</span><span class="tag">geometry</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-triangle-area-labeled-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-triangle-area-labeled-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="probability dice middle-school math" data-desc="확률 학습용 주사위 쌍" data-name="illust-probability-dice-pair-20260124">
+      <div class="card" data-category="illustrations" data-tags="probability dice middle-school math" data-desc="확률 학습용 주사위 쌍" data-name="illust-probability-dice-pair-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-probability-dice-pair-20260124.svg" alt="확률 학습용 주사위 쌍" loading="lazy" />
         </div>
         <div class="card-info">
@@ -429,11 +610,13 @@
           <div class="card-tags"><span class="tag">probability</span><span class="tag">dice</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-probability-dice-pair-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-probability-dice-pair-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="parabola function high-school algebra" data-desc="포물선 그래프 다이어그램" data-name="diagram-parabola-graph-gradient-20260124">
+      <div class="card" data-category="diagrams" data-tags="parabola function high-school algebra" data-desc="포물선 그래프 다이어그램" data-name="diagram-parabola-graph-gradient-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-parabola-graph-gradient-20260124.svg" alt="포물선 그래프 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -442,11 +625,13 @@
           <div class="card-tags"><span class="tag">parabola</span><span class="tag">function</span><span class="tag">high-school</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-parabola-graph-gradient-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-parabola-graph-gradient-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="unit-circle trigonometry high-school math" data-desc="단위 원 삼각함수 다이어그램" data-name="diagram-unit-circle-trig-dark-20260124">
+      <div class="card" data-category="diagrams" data-tags="unit-circle trigonometry high-school math" data-desc="단위 원 삼각함수 다이어그램" data-name="diagram-unit-circle-trig-dark-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-unit-circle-trig-dark-20260124.svg" alt="단위 원 삼각함수 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -455,11 +640,13 @@
           <div class="card-tags"><span class="tag">unit-circle</span><span class="tag">trigonometry</span><span class="tag">high-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-unit-circle-trig-dark-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-unit-circle-trig-dark-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="sigma summation math symbol" data-desc="세련된 시그마 합계 기호" data-name="icon-sigma-summation-sleek-20260124">
+      <div class="card" data-category="icons" data-tags="sigma summation math symbol" data-desc="세련된 시그마 합계 기호" data-name="icon-sigma-summation-sleek-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-sigma-summation-sleek-20260124.svg" alt="세련된 시그마 합계 기호" loading="lazy" />
         </div>
         <div class="card-info">
@@ -468,11 +655,13 @@
           <div class="card-tags"><span class="tag">sigma</span><span class="tag">summation</span><span class="tag">math</span><span class="tag">symbol</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-sigma-summation-sleek-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-sigma-summation-sleek-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="solid 3d geometry high-school" data-desc="와이어프레임 3D 입체 도형" data-name="illust-solid-shapes-3d-20260124">
+      <div class="card" data-category="illustrations" data-tags="solid 3d geometry high-school" data-desc="와이어프레임 3D 입체 도형" data-name="illust-solid-shapes-3d-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-solid-shapes-3d-20260124.svg" alt="와이어프레임 3D 입체 도형" loading="lazy" />
         </div>
         <div class="card-info">
@@ -481,11 +670,13 @@
           <div class="card-tags"><span class="tag">solid</span><span class="tag">3d</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-solid-shapes-3d-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-solid-shapes-3d-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="integral calculus high-school area" data-desc="곡선 아래 적분 넓이 다이어그램" data-name="diagram-integral-curve-filled-20260124">
+      <div class="card" data-category="diagrams" data-tags="integral calculus high-school area" data-desc="곡선 아래 적분 넓이 다이어그램" data-name="diagram-integral-curve-filled-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-integral-curve-filled-20260124.svg" alt="곡선 아래 적분 넓이 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -494,11 +685,13 @@
           <div class="card-tags"><span class="tag">integral</span><span class="tag">calculus</span><span class="tag">high-school</span><span class="tag">area</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-integral-curve-filled-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-integral-curve-filled-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="grid paper texture background" data-desc="파란색 질감 모눈종이 배경" data-name="bg-grid-paper-blue-textured-20260124">
+      <div class="card" data-category="backgrounds" data-tags="grid paper texture background" data-desc="파란색 질감 모눈종이 배경" data-name="bg-grid-paper-blue-textured-20260124" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-grid-paper-blue-textured-20260124.png" alt="파란색 질감 모눈종이 배경" loading="lazy" />
         </div>
         <div class="card-info">
@@ -507,11 +700,13 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">texture</span><span class="tag">background</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-blue-textured-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-blue-textured-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="formulas math overlay background" data-desc="은은한 수학 공식 오버레이 배경" data-name="bg-math-formulas-overlay-20260124">
+      <div class="card" data-category="backgrounds" data-tags="formulas math overlay background" data-desc="은은한 수학 공식 오버레이 배경" data-name="bg-math-formulas-overlay-20260124" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-math-formulas-overlay-20260124.png" alt="은은한 수학 공식 오버레이 배경" loading="lazy" />
         </div>
         <div class="card-info">
@@ -520,11 +715,13 @@
           <div class="card-tags"><span class="tag">formulas</span><span class="tag">math</span><span class="tag">overlay</span><span class="tag">background</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-math-formulas-overlay-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-math-formulas-overlay-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="calculator scientific tool math" data-desc="공학용 계산기 일러스트" data-name="illust-calculator-scientific-20260124">
+      <div class="card" data-category="illustrations" data-tags="calculator scientific tool math" data-desc="공학용 계산기 일러스트" data-name="illust-calculator-scientific-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-calculator-scientific-20260124.png" alt="공학용 계산기 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -533,11 +730,13 @@
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">scientific</span><span class="tag">tool</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-scientific-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-calculator-scientific-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="geometry tools ruler compass" data-desc="클래식 기하학 도구 세트" data-name="illust-geometry-set-classic-20260124">
+      <div class="card" data-category="illustrations" data-tags="geometry tools ruler compass" data-desc="클래식 기하학 도구 세트" data-name="illust-geometry-set-classic-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-geometry-set-classic-20260124.png" alt="클래식 기하학 도구 세트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -546,11 +745,13 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">tools</span><span class="tag">ruler</span><span class="tag">compass</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-geometry-set-classic-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-geometry-set-classic-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="symbols math collection art" data-desc="예술적인 수학 기호 모음" data-name="illust-math-symbols-collection-20260124">
+      <div class="card" data-category="illustrations" data-tags="symbols math collection art" data-desc="예술적인 수학 기호 모음" data-name="illust-math-symbols-collection-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-math-symbols-collection-20260124.png" alt="예술적인 수학 기호 모음" loading="lazy" />
         </div>
         <div class="card-info">
@@ -559,11 +760,13 @@
           <div class="card-tags"><span class="tag">symbols</span><span class="tag">math</span><span class="tag">collection</span><span class="tag">art</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-math-symbols-collection-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-math-symbols-collection-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="statistics normal-distribution bell-curve" data-desc="정규 분포 종모양 곡선 다이어그램" data-name="diagram-normal-distribution-curve-20260124">
+      <div class="card" data-category="diagrams" data-tags="statistics normal-distribution bell-curve" data-desc="정규 분포 종모양 곡선 다이어그램" data-name="diagram-normal-distribution-curve-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-normal-distribution-curve-20260124.png" alt="정규 분포 종모양 곡선 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -572,11 +775,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">normal-distribution</span><span class="tag">bell-curve</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-normal-distribution-curve-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-normal-distribution-curve-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="statistics box-plot chart" data-desc="상자 수염 그림 다이어그램" data-name="diagram-box-whisker-plot-20260124">
+      <div class="card" data-category="diagrams" data-tags="statistics box-plot chart" data-desc="상자 수염 그림 다이어그램" data-name="diagram-box-whisker-plot-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-box-whisker-plot-20260124.png" alt="상자 수염 그림 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -585,11 +790,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">box-plot</span><span class="tag">chart</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-box-whisker-plot-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-box-whisker-plot-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="statistics scatter-plot trendline" data-desc="추세선이 있는 산점도" data-name="diagram-scatter-plot-trendline-20260124">
+      <div class="card" data-category="diagrams" data-tags="statistics scatter-plot trendline" data-desc="추세선이 있는 산점도" data-name="diagram-scatter-plot-trendline-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-scatter-plot-trendline-20260124.png" alt="추세선이 있는 산점도" loading="lazy" />
         </div>
         <div class="card-info">
@@ -598,11 +805,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">scatter-plot</span><span class="tag">trendline</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-scatter-plot-trendline-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-scatter-plot-trendline-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="statistics histogram bar-chart" data-desc="히스토그램 도수 분포 차트" data-name="diagram-histogram-frequency-20260124">
+      <div class="card" data-category="diagrams" data-tags="statistics histogram bar-chart" data-desc="히스토그램 도수 분포 차트" data-name="diagram-histogram-frequency-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-histogram-frequency-20260124.png" alt="히스토그램 도수 분포 차트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -611,11 +820,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">histogram</span><span class="tag">bar-chart</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-histogram-frequency-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-histogram-frequency-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="statistics venn-diagram set-theory" data-desc="벤 다이어그램 교집합" data-name="diagram-venn-diagram-intersection-20260124">
+      <div class="card" data-category="diagrams" data-tags="statistics venn-diagram set-theory" data-desc="벤 다이어그램 교집합" data-name="diagram-venn-diagram-intersection-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-venn-diagram-intersection-20260124.png" alt="벤 다이어그램 교집합" loading="lazy" />
         </div>
         <div class="card-info">
@@ -624,11 +835,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">venn-diagram</span><span class="tag">set-theory</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-diagram-intersection-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-venn-diagram-intersection-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="matrix advanced algebra" data-desc="행렬 변환 그리드" data-name="diagram-matrix-grid-20260124">
+      <div class="card" data-category="diagrams" data-tags="matrix advanced algebra" data-desc="행렬 변환 그리드" data-name="diagram-matrix-grid-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-matrix-grid-20260124.png" alt="행렬 변환 그리드" loading="lazy" />
         </div>
         <div class="card-info">
@@ -637,11 +850,13 @@
           <div class="card-tags"><span class="tag">matrix</span><span class="tag">advanced</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-matrix-grid-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-matrix-grid-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="complex-numbers argand advanced" data-desc="복소 평면 아르강 다이어그램" data-name="diagram-complex-plane-argand-20260124">
+      <div class="card" data-category="diagrams" data-tags="complex-numbers argand advanced" data-desc="복소 평면 아르강 다이어그램" data-name="diagram-complex-plane-argand-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-complex-plane-argand-20260124.png" alt="복소 평면 아르강 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -650,11 +865,13 @@
           <div class="card-tags"><span class="tag">complex-numbers</span><span class="tag">argand</span><span class="tag">advanced</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-complex-plane-argand-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-complex-plane-argand-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="벡터장 흐름 다이어그램" data-name="diagram-vector-field-flow-20260124">
+      <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="벡터장 흐름 다이어그램" data-name="diagram-vector-field-flow-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-vector-field-flow-20260124.png" alt="벡터장 흐름 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -663,11 +880,13 @@
           <div class="card-tags"><span class="tag">vector</span><span class="tag">field</span><span class="tag">physics</span><span class="tag">advanced</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-vector-field-flow-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-vector-field-flow-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="calculus limit function advanced" data-desc="미적분 극한 개념 다이어그램" data-name="diagram-limit-function-20260124">
+      <div class="card" data-category="diagrams" data-tags="calculus limit function advanced" data-desc="미적분 극한 개념 다이어그램" data-name="diagram-limit-function-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-limit-function-20260124.png" alt="미적분 극한 개념 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -676,11 +895,13 @@
           <div class="card-tags"><span class="tag">calculus</span><span class="tag">limit</span><span class="tag">function</span><span class="tag">advanced</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-limit-function-20260124.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-limit-function-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="home house navigation ui cute elementary" data-desc="귀여운 홈 버튼 아이콘" data-name="icon-home-cute-20260124">
+      <div class="card" data-category="icons" data-tags="home house navigation ui cute elementary" data-desc="귀여운 홈 버튼 아이콘" data-name="icon-home-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-home-cute-20260124.svg" alt="귀여운 홈 버튼 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -689,11 +910,13 @@
           <div class="card-tags"><span class="tag">home</span><span class="tag">house</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-home-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-home-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="back arrow navigation ui cute elementary" data-desc="귀여운 뒤로가기 화살표 아이콘" data-name="icon-back-arrow-cute-20260124">
+      <div class="card" data-category="icons" data-tags="back arrow navigation ui cute elementary" data-desc="귀여운 뒤로가기 화살표 아이콘" data-name="icon-back-arrow-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-back-arrow-cute-20260124.svg" alt="귀여운 뒤로가기 화살표 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -702,11 +925,13 @@
           <div class="card-tags"><span class="tag">back</span><span class="tag">arrow</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-back-arrow-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-back-arrow-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="star reward achievement ui cute elementary" data-desc="귀여운 별 보상 아이콘" data-name="icon-star-reward-cute-20260124">
+      <div class="card" data-category="icons" data-tags="star reward achievement ui cute elementary" data-desc="귀여운 별 보상 아이콘" data-name="icon-star-reward-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-star-reward-cute-20260124.svg" alt="귀여운 별 보상 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -715,11 +940,13 @@
           <div class="card-tags"><span class="tag">star</span><span class="tag">reward</span><span class="tag">achievement</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-star-reward-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-star-reward-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="trophy achievement winner ui cute elementary" data-desc="귀여운 트로피 성취 아이콘" data-name="icon-trophy-achievement-cute-20260124">
+      <div class="card" data-category="icons" data-tags="trophy achievement winner ui cute elementary" data-desc="귀여운 트로피 성취 아이콘" data-name="icon-trophy-achievement-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-trophy-achievement-cute-20260124.svg" alt="귀여운 트로피 성취 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -728,11 +955,13 @@
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">achievement</span><span class="tag">winner</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-trophy-achievement-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-trophy-achievement-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="book reading learning ui cute elementary" data-desc="귀여운 펼친 책 학습 아이콘" data-name="icon-book-open-cute-20260124">
+      <div class="card" data-category="icons" data-tags="book reading learning ui cute elementary" data-desc="귀여운 펼친 책 학습 아이콘" data-name="icon-book-open-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-book-open-cute-20260124.svg" alt="귀여운 펼친 책 학습 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -741,11 +970,13 @@
           <div class="card-tags"><span class="tag">book</span><span class="tag">reading</span><span class="tag">learning</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-book-open-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-book-open-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="pencil write edit ui cute elementary" data-desc="귀여운 연필 쓰기 아이콘" data-name="icon-pencil-write-cute-20260124">
+      <div class="card" data-category="icons" data-tags="pencil write edit ui cute elementary" data-desc="귀여운 연필 쓰기 아이콘" data-name="icon-pencil-write-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-pencil-write-cute-20260124.svg" alt="귀여운 연필 쓰기 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -754,11 +985,13 @@
           <div class="card-tags"><span class="tag">pencil</span><span class="tag">write</span><span class="tag">edit</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-pencil-write-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-pencil-write-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="bell notification alert ui cute elementary" data-desc="귀여운 알림 종 아이콘" data-name="icon-bell-notification-cute-20260124">
+      <div class="card" data-category="icons" data-tags="bell notification alert ui cute elementary" data-desc="귀여운 알림 종 아이콘" data-name="icon-bell-notification-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-bell-notification-cute-20260124.svg" alt="귀여운 알림 종 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -767,11 +1000,13 @@
           <div class="card-tags"><span class="tag">bell</span><span class="tag">notification</span><span class="tag">alert</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-bell-notification-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-bell-notification-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="help question support ui cute elementary" data-desc="귀여운 도움말 물음표 아이콘" data-name="icon-help-question-cute-20260124">
+      <div class="card" data-category="icons" data-tags="help question support ui cute elementary" data-desc="귀여운 도움말 물음표 아이콘" data-name="icon-help-question-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-help-question-cute-20260124.svg" alt="귀여운 도움말 물음표 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -780,11 +1015,13 @@
           <div class="card-tags"><span class="tag">help</span><span class="tag">question</span><span class="tag">support</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-help-question-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-help-question-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="heart favorite like ui cute elementary" data-desc="귀여운 하트 즐겨찾기 아이콘" data-name="icon-heart-favorite-cute-20260124">
+      <div class="card" data-category="icons" data-tags="heart favorite like ui cute elementary" data-desc="귀여운 하트 즐겨찾기 아이콘" data-name="icon-heart-favorite-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-heart-favorite-cute-20260124.svg" alt="귀여운 하트 즐겨찾기 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -793,11 +1030,13 @@
           <div class="card-tags"><span class="tag">heart</span><span class="tag">favorite</span><span class="tag">like</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-heart-favorite-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-heart-favorite-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="play start begin ui cute elementary" data-desc="귀여운 재생 시작 아이콘" data-name="icon-play-start-cute-20260124">
+      <div class="card" data-category="icons" data-tags="play start begin ui cute elementary" data-desc="귀여운 재생 시작 아이콘" data-name="icon-play-start-cute-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-play-start-cute-20260124.svg" alt="귀여운 재생 시작 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -806,11 +1045,13 @@
           <div class="card-tags"><span class="tag">play</span><span class="tag">start</span><span class="tag">begin</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-play-start-cute-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-play-start-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="flowchart algorithm logic process decision" data-desc="기본 순서도 다이어그램 (시작, 처리, 조건, 종료)" data-name="diagram-flowchart-basic-20260124">
+      <div class="card" data-category="diagrams" data-tags="flowchart algorithm logic process decision" data-desc="기본 순서도 다이어그램 (시작, 처리, 조건, 종료)" data-name="diagram-flowchart-basic-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-flowchart-basic-20260124.svg" alt="기본 순서도 다이어그램 (시작, 처리, 조건, 종료)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -819,11 +1060,13 @@
           <div class="card-tags"><span class="tag">flowchart</span><span class="tag">algorithm</span><span class="tag">logic</span><span class="tag">process</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-flowchart-basic-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-flowchart-basic-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="cycle pdca process continuous improvement" data-desc="PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)" data-name="diagram-cycle-process-20260124">
+      <div class="card" data-category="diagrams" data-tags="cycle pdca process continuous improvement" data-desc="PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)" data-name="diagram-cycle-process-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-cycle-process-20260124.svg" alt="PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -832,11 +1075,13 @@
           <div class="card-tags"><span class="tag">cycle</span><span class="tag">pdca</span><span class="tag">process</span><span class="tag">continuous</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cycle-process-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-cycle-process-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="timeline schedule milestone project horizontal" data-desc="수평 타임라인 다이어그램 (프로젝트 일정 표현)" data-name="diagram-timeline-horizontal-20260124">
+      <div class="card" data-category="diagrams" data-tags="timeline schedule milestone project horizontal" data-desc="수평 타임라인 다이어그램 (프로젝트 일정 표현)" data-name="diagram-timeline-horizontal-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-timeline-horizontal-20260124.svg" alt="수평 타임라인 다이어그램 (프로젝트 일정 표현)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -845,11 +1090,13 @@
           <div class="card-tags"><span class="tag">timeline</span><span class="tag">schedule</span><span class="tag">milestone</span><span class="tag">project</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-timeline-horizontal-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-timeline-horizontal-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="hierarchy tree organization structure levels" data-desc="계층 트리 구조 다이어그램 (조직도, 분류 체계)" data-name="diagram-hierarchy-tree-20260124">
+      <div class="card" data-category="diagrams" data-tags="hierarchy tree organization structure levels" data-desc="계층 트리 구조 다이어그램 (조직도, 분류 체계)" data-name="diagram-hierarchy-tree-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-hierarchy-tree-20260124.svg" alt="계층 트리 구조 다이어그램 (조직도, 분류 체계)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -858,11 +1105,13 @@
           <div class="card-tags"><span class="tag">hierarchy</span><span class="tag">tree</span><span class="tag">organization</span><span class="tag">structure</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-hierarchy-tree-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-hierarchy-tree-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="comparison table chart versus analysis" data-desc="비교 차트 다이어그램 (옵션 비교 테이블)" data-name="diagram-comparison-chart-20260124">
+      <div class="card" data-category="diagrams" data-tags="comparison table chart versus analysis" data-desc="비교 차트 다이어그램 (옵션 비교 테이블)" data-name="diagram-comparison-chart-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-comparison-chart-20260124.svg" alt="비교 차트 다이어그램 (옵션 비교 테이블)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -871,11 +1120,13 @@
           <div class="card-tags"><span class="tag">comparison</span><span class="tag">table</span><span class="tag">chart</span><span class="tag">versus</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-comparison-chart-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-comparison-chart-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="mind-map brainstorm ideas central radial" data-desc="중심형 마인드맵 다이어그램 (아이디어 확장 구조)" data-name="diagram-mind-map-central-20260124">
+      <div class="card" data-category="diagrams" data-tags="mind-map brainstorm ideas central radial" data-desc="중심형 마인드맵 다이어그램 (아이디어 확장 구조)" data-name="diagram-mind-map-central-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-mind-map-central-20260124.svg" alt="중심형 마인드맵 다이어그램 (아이디어 확장 구조)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -884,11 +1135,13 @@
           <div class="card-tags"><span class="tag">mind-map</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">central</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-mind-map-central-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-mind-map-central-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="pie-chart percentage distribution segments donut" data-desc="파이 차트 다이어그램 (비율 분포 시각화)" data-name="diagram-pie-chart-segments-20260124">
+      <div class="card" data-category="diagrams" data-tags="pie-chart percentage distribution segments donut" data-desc="파이 차트 다이어그램 (비율 분포 시각화)" data-name="diagram-pie-chart-segments-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-pie-chart-segments-20260124.svg" alt="파이 차트 다이어그램 (비율 분포 시각화)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -897,11 +1150,13 @@
           <div class="card-tags"><span class="tag">pie-chart</span><span class="tag">percentage</span><span class="tag">distribution</span><span class="tag">segments</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-pie-chart-segments-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-pie-chart-segments-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="bar-chart vertical statistics data comparison" data-desc="세로 막대 그래프 다이어그램 (데이터 비교 시각화)" data-name="diagram-bar-chart-vertical-20260124">
+      <div class="card" data-category="diagrams" data-tags="bar-chart vertical statistics data comparison" data-desc="세로 막대 그래프 다이어그램 (데이터 비교 시각화)" data-name="diagram-bar-chart-vertical-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-bar-chart-vertical-20260124.svg" alt="세로 막대 그래프 다이어그램 (데이터 비교 시각화)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -910,11 +1165,13 @@
           <div class="card-tags"><span class="tag">bar-chart</span><span class="tag">vertical</span><span class="tag">statistics</span><span class="tag">data</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-bar-chart-vertical-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-bar-chart-vertical-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="number-line math integers real-numbers elementary" data-desc="기본 수직선 다이어그램 (정수와 실수 표현)" data-name="diagram-number-line-basic-20260124">
+      <div class="card" data-category="diagrams" data-tags="number-line math integers real-numbers elementary" data-desc="기본 수직선 다이어그램 (정수와 실수 표현)" data-name="diagram-number-line-basic-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-number-line-basic-20260124.svg" alt="기본 수직선 다이어그램 (정수와 실수 표현)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -923,11 +1180,13 @@
           <div class="card-tags"><span class="tag">number-line</span><span class="tag">math</span><span class="tag">integers</span><span class="tag">real-numbers</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-number-line-basic-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-number-line-basic-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="pythagorean theorem geometry triangle math" data-desc="피타고라스 정리 시각화 다이어그램 (a² + b² = c²)" data-name="diagram-pythagorean-theorem-20260124">
+      <div class="card" data-category="diagrams" data-tags="pythagorean theorem geometry triangle math" data-desc="피타고라스 정리 시각화 다이어그램 (a² + b² = c²)" data-name="diagram-pythagorean-theorem-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-pythagorean-theorem-20260124.svg" alt="피타고라스 정리 시각화 다이어그램 (a² + b² = c²)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -936,11 +1195,13 @@
           <div class="card-tags"><span class="tag">pythagorean</span><span class="tag">theorem</span><span class="tag">geometry</span><span class="tag">triangle</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-pythagorean-theorem-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-pythagorean-theorem-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="settings gear config ui modern" data-desc="모던한 설정 톱니바퀴 아이콘" data-name="icon-settings-gear-modern-20260124">
+      <div class="card" data-category="icons" data-tags="settings gear config ui modern" data-desc="모던한 설정 톱니바퀴 아이콘" data-name="icon-settings-gear-modern-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-settings-gear-modern-20260124.svg" alt="모던한 설정 톱니바퀴 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -949,11 +1210,13 @@
           <div class="card-tags"><span class="tag">settings</span><span class="tag">gear</span><span class="tag">config</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-settings-gear-modern-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-settings-gear-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="search find magnify ui bold" data-desc="대담한 검색 돋보기 아이콘" data-name="icon-search-magnify-bold-20260124">
+      <div class="card" data-category="icons" data-tags="search find magnify ui bold" data-desc="대담한 검색 돋보기 아이콘" data-name="icon-search-magnify-bold-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-search-magnify-bold-20260124.svg" alt="대담한 검색 돋보기 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -962,11 +1225,13 @@
           <div class="card-tags"><span class="tag">search</span><span class="tag">find</span><span class="tag">magnify</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-search-magnify-bold-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-search-magnify-bold-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="menu hamburger nav ui rounded" data-desc="둥근 햄버거 메뉴 아이콘" data-name="icon-menu-hamburger-rounded-20260124">
+      <div class="card" data-category="icons" data-tags="menu hamburger nav ui rounded" data-desc="둥근 햄버거 메뉴 아이콘" data-name="icon-menu-hamburger-rounded-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-menu-hamburger-rounded-20260124.svg" alt="둥근 햄버거 메뉴 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -975,11 +1240,13 @@
           <div class="card-tags"><span class="tag">menu</span><span class="tag">hamburger</span><span class="tag">nav</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-menu-hamburger-rounded-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-menu-hamburger-rounded-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="close x dismiss ui elegant" data-desc="우아한 닫기 X 버튼 아이콘" data-name="icon-close-x-elegant-20260124">
+      <div class="card" data-category="icons" data-tags="close x dismiss ui elegant" data-desc="우아한 닫기 X 버튼 아이콘" data-name="icon-close-x-elegant-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-close-x-elegant-20260124.svg" alt="우아한 닫기 X 버튼 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -988,11 +1255,13 @@
           <div class="card-tags"><span class="tag">close</span><span class="tag">x</span><span class="tag">dismiss</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-close-x-elegant-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-close-x-elegant-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="idea lightbulb think education bright" data-desc="밝은 아이디어 전구 아이콘" data-name="icon-lightbulb-idea-bright-20260124">
+      <div class="card" data-category="icons" data-tags="idea lightbulb think education bright" data-desc="밝은 아이디어 전구 아이콘" data-name="icon-lightbulb-idea-bright-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-lightbulb-idea-bright-20260124.svg" alt="밝은 아이디어 전구 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1001,11 +1270,13 @@
           <div class="card-tags"><span class="tag">idea</span><span class="tag">lightbulb</span><span class="tag">think</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-lightbulb-idea-bright-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-lightbulb-idea-bright-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="graduation cap achievement education proud" data-desc="자랑스러운 졸업모자 아이콘" data-name="icon-graduation-cap-proud-20260124">
+      <div class="card" data-category="icons" data-tags="graduation cap achievement education proud" data-desc="자랑스러운 졸업모자 아이콘" data-name="icon-graduation-cap-proud-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-graduation-cap-proud-20260124.svg" alt="자랑스러운 졸업모자 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1014,11 +1285,13 @@
           <div class="card-tags"><span class="tag">graduation</span><span class="tag">cap</span><span class="tag">achievement</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-graduation-cap-proud-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-graduation-cap-proud-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="puzzle logic problem-solving education" data-desc="맞춰지는 퍼즐 조각 아이콘" data-name="icon-puzzle-piece-fit-20260124">
+      <div class="card" data-category="icons" data-tags="puzzle logic problem-solving education" data-desc="맞춰지는 퍼즐 조각 아이콘" data-name="icon-puzzle-piece-fit-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-puzzle-piece-fit-20260124.svg" alt="맞춰지는 퍼즐 조각 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1027,11 +1300,13 @@
           <div class="card-tags"><span class="tag">puzzle</span><span class="tag">logic</span><span class="tag">problem-solving</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-puzzle-piece-fit-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-puzzle-piece-fit-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="target goal aim achievement bullseye" data-desc="목표 과녁 명중 아이콘" data-name="icon-target-goal-bullseye-20260124">
+      <div class="card" data-category="icons" data-tags="target goal aim achievement bullseye" data-desc="목표 과녁 명중 아이콘" data-name="icon-target-goal-bullseye-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-target-goal-bullseye-20260124.svg" alt="목표 과녁 명중 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1040,11 +1315,13 @@
           <div class="card-tags"><span class="tag">target</span><span class="tag">goal</span><span class="tag">aim</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-target-goal-bullseye-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-target-goal-bullseye-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="clock timer study time education" data-desc="학습 타이머 시계 아이콘" data-name="icon-clock-timer-study-20260124">
+      <div class="card" data-category="icons" data-tags="clock timer study time education" data-desc="학습 타이머 시계 아이콘" data-name="icon-clock-timer-study-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-clock-timer-study-20260124.svg" alt="학습 타이머 시계 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1053,11 +1330,13 @@
           <div class="card-tags"><span class="tag">clock</span><span class="tag">timer</span><span class="tag">study</span><span class="tag">time</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-clock-timer-study-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-clock-timer-study-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="brain think intelligence education glow" data-desc="빛나는 두뇌 생각 아이콘" data-name="icon-brain-thinking-glow-20260124">
+      <div class="card" data-category="icons" data-tags="brain think intelligence education glow" data-desc="빛나는 두뇌 생각 아이콘" data-name="icon-brain-thinking-glow-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-brain-thinking-glow-20260124.svg" alt="빛나는 두뇌 생각 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1066,11 +1345,13 @@
           <div class="card-tags"><span class="tag">brain</span><span class="tag">think</span><span class="tag">intelligence</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-brain-thinking-glow-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-brain-thinking-glow-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="checklist progress tasks ui education" data-desc="진행률 체크리스트 아이콘" data-name="icon-checklist-progress-20260124">
+      <div class="card" data-category="icons" data-tags="checklist progress tasks ui education" data-desc="진행률 체크리스트 아이콘" data-name="icon-checklist-progress-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-checklist-progress-20260124.svg" alt="진행률 체크리스트 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1079,11 +1360,13 @@
           <div class="card-tags"><span class="tag">checklist</span><span class="tag">progress</span><span class="tag">tasks</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-checklist-progress-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-checklist-progress-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="medal award gold achievement winner" data-desc="금메달 수상 아이콘" data-name="icon-medal-award-gold-20260124">
+      <div class="card" data-category="icons" data-tags="medal award gold achievement winner" data-desc="금메달 수상 아이콘" data-name="icon-medal-award-gold-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-medal-award-gold-20260124.svg" alt="금메달 수상 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1092,11 +1375,13 @@
           <div class="card-tags"><span class="tag">medal</span><span class="tag">award</span><span class="tag">gold</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-medal-award-gold-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-medal-award-gold-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="download arrow save action" data-desc="곡선 다운로드 화살표 아이콘" data-name="icon-download-arrow-curved-20260124">
+      <div class="card" data-category="icons" data-tags="download arrow save action" data-desc="곡선 다운로드 화살표 아이콘" data-name="icon-download-arrow-curved-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-download-arrow-curved-20260124.svg" alt="곡선 다운로드 화살표 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1105,11 +1390,13 @@
           <div class="card-tags"><span class="tag">download</span><span class="tag">arrow</span><span class="tag">save</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-download-arrow-curved-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-download-arrow-curved-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="upload cloud sync action" data-desc="클라우드 업로드 동기화 아이콘" data-name="icon-upload-cloud-sync-20260124">
+      <div class="card" data-category="icons" data-tags="upload cloud sync action" data-desc="클라우드 업로드 동기화 아이콘" data-name="icon-upload-cloud-sync-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-upload-cloud-sync-20260124.svg" alt="클라우드 업로드 동기화 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1118,11 +1405,13 @@
           <div class="card-tags"><span class="tag">upload</span><span class="tag">cloud</span><span class="tag">sync</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-upload-cloud-sync-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-upload-cloud-sync-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="share network connect action" data-desc="네트워크 공유 노드 아이콘" data-name="icon-share-network-nodes-20260124">
+      <div class="card" data-category="icons" data-tags="share network connect action" data-desc="네트워크 공유 노드 아이콘" data-name="icon-share-network-nodes-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-share-network-nodes-20260124.svg" alt="네트워크 공유 노드 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1131,11 +1420,13 @@
           <div class="card-tags"><span class="tag">share</span><span class="tag">network</span><span class="tag">connect</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-share-network-nodes-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-share-network-nodes-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="refresh cycle reload action" data-desc="회전 새로고침 아이콘" data-name="icon-refresh-cycle-spin-20260124">
+      <div class="card" data-category="icons" data-tags="refresh cycle reload action" data-desc="회전 새로고침 아이콘" data-name="icon-refresh-cycle-spin-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-refresh-cycle-spin-20260124.svg" alt="회전 새로고침 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1144,11 +1435,13 @@
           <div class="card-tags"><span class="tag">refresh</span><span class="tag">cycle</span><span class="tag">reload</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-refresh-cycle-spin-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-refresh-cycle-spin-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="chat bubble message communication" data-desc="친근한 채팅 버블 아이콘" data-name="icon-chat-bubble-friendly-20260124">
+      <div class="card" data-category="icons" data-tags="chat bubble message communication" data-desc="친근한 채팅 버블 아이콘" data-name="icon-chat-bubble-friendly-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-chat-bubble-friendly-20260124.svg" alt="친근한 채팅 버블 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1157,11 +1450,13 @@
           <div class="card-tags"><span class="tag">chat</span><span class="tag">bubble</span><span class="tag">message</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-chat-bubble-friendly-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-chat-bubble-friendly-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="mail envelope email communication" data-desc="펼쳐진 메일 봉투 아이콘" data-name="icon-mail-envelope-open-20260124">
+      <div class="card" data-category="icons" data-tags="mail envelope email communication" data-desc="펼쳐진 메일 봉투 아이콘" data-name="icon-mail-envelope-open-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-mail-envelope-open-20260124.svg" alt="펼쳐진 메일 봉투 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1170,11 +1465,13 @@
           <div class="card-tags"><span class="tag">mail</span><span class="tag">envelope</span><span class="tag">email</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-mail-envelope-open-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-mail-envelope-open-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="mic voice audio communication" data-desc="활성화된 마이크 음성 아이콘" data-name="icon-microphone-voice-active-20260124">
+      <div class="card" data-category="icons" data-tags="mic voice audio communication" data-desc="활성화된 마이크 음성 아이콘" data-name="icon-microphone-voice-active-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-microphone-voice-active-20260124.svg" alt="활성화된 마이크 음성 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1183,11 +1480,13 @@
           <div class="card-tags"><span class="tag">mic</span><span class="tag">voice</span><span class="tag">audio</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-microphone-voice-active-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-microphone-voice-active-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="icons" data-tags="camera photo capture communication" data-desc="플래시 카메라 사진 아이콘" data-name="icon-camera-photo-flash-20260124">
+      <div class="card" data-category="icons" data-tags="camera photo capture communication" data-desc="플래시 카메라 사진 아이콘" data-name="icon-camera-photo-flash-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="icons/icon-camera-photo-flash-20260124.svg" alt="플래시 카메라 사진 아이콘" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1196,11 +1495,13 @@
           <div class="card-tags"><span class="tag">camera</span><span class="tag">photo</span><span class="tag">capture</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-camera-photo-flash-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('icon-camera-photo-flash-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="student desk study education learning" data-desc="책상에서 공부하는 학생 일러스트" data-name="illust-student-desk-study-20260124">
+      <div class="card" data-category="illustrations" data-tags="student desk study education learning" data-desc="책상에서 공부하는 학생 일러스트" data-name="illust-student-desk-study-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-student-desk-study-20260124.svg" alt="책상에서 공부하는 학생 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1209,11 +1510,13 @@
           <div class="card-tags"><span class="tag">student</span><span class="tag">desk</span><span class="tag">study</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-student-desk-study-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-student-desk-study-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="classroom school education modern students" data-desc="현대적인 교실 장면 일러스트" data-name="illust-classroom-scene-modern-20260124">
+      <div class="card" data-category="illustrations" data-tags="classroom school education modern students" data-desc="현대적인 교실 장면 일러스트" data-name="illust-classroom-scene-modern-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-classroom-scene-modern-20260124.svg" alt="현대적인 교실 장면 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1222,11 +1525,13 @@
           <div class="card-tags"><span class="tag">classroom</span><span class="tag">school</span><span class="tag">education</span><span class="tag">modern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-classroom-scene-modern-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-classroom-scene-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="backpack school supplies colorful" data-desc="컬러풀한 학교 가방 일러스트" data-name="illust-backpack-school-colorful-20260124">
+      <div class="card" data-category="illustrations" data-tags="backpack school supplies colorful" data-desc="컬러풀한 학교 가방 일러스트" data-name="illust-backpack-school-colorful-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-backpack-school-colorful-20260124.svg" alt="컬러풀한 학교 가방 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1235,11 +1540,13 @@
           <div class="card-tags"><span class="tag">backpack</span><span class="tag">school</span><span class="tag">supplies</span><span class="tag">colorful</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-backpack-school-colorful-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-backpack-school-colorful-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="laptop online e-learning video-call" data-desc="온라인 학습 노트북 일러스트" data-name="illust-laptop-learning-online-20260124">
+      <div class="card" data-category="illustrations" data-tags="laptop online e-learning video-call" data-desc="온라인 학습 노트북 일러스트" data-name="illust-laptop-learning-online-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-laptop-learning-online-20260124.svg" alt="온라인 학습 노트북 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1248,11 +1555,13 @@
           <div class="card-tags"><span class="tag">laptop</span><span class="tag">online</span><span class="tag">e-learning</span><span class="tag">video-call</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-laptop-learning-online-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-laptop-learning-online-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="library books reading cozy" data-desc="아늑한 도서관 책들 일러스트" data-name="illust-library-books-cozy-20260124">
+      <div class="card" data-category="illustrations" data-tags="library books reading cozy" data-desc="아늑한 도서관 책들 일러스트" data-name="illust-library-books-cozy-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-library-books-cozy-20260124.svg" alt="아늑한 도서관 책들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1261,11 +1570,13 @@
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">reading</span><span class="tag">cozy</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-library-books-cozy-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-library-books-cozy-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="rocket launch success achievement space" data-desc="성공 로켓 발사 일러스트" data-name="illust-rocket-launch-success-20260124">
+      <div class="card" data-category="illustrations" data-tags="rocket launch success achievement space" data-desc="성공 로켓 발사 일러스트" data-name="illust-rocket-launch-success-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-rocket-launch-success-20260124.svg" alt="성공 로켓 발사 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1274,11 +1585,13 @@
           <div class="card-tags"><span class="tag">rocket</span><span class="tag">launch</span><span class="tag">success</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-rocket-launch-success-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-rocket-launch-success-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="mountain peak goal climb achievement" data-desc="산 정상 등반 일러스트" data-name="illust-mountain-peak-climb-20260124">
+      <div class="card" data-category="illustrations" data-tags="mountain peak goal climb achievement" data-desc="산 정상 등반 일러스트" data-name="illust-mountain-peak-climb-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-mountain-peak-climb-20260124.svg" alt="산 정상 등반 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1287,11 +1600,13 @@
           <div class="card-tags"><span class="tag">mountain</span><span class="tag">peak</span><span class="tag">goal</span><span class="tag">climb</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-mountain-peak-climb-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-mountain-peak-climb-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="trophy celebration win confetti achievement" data-desc="폭발적인 트로피 축하 일러스트" data-name="illust-trophy-celebration-burst-20260124">
+      <div class="card" data-category="illustrations" data-tags="trophy celebration win confetti achievement" data-desc="폭발적인 트로피 축하 일러스트" data-name="illust-trophy-celebration-burst-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-trophy-celebration-burst-20260124.svg" alt="폭발적인 트로피 축하 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1300,11 +1615,13 @@
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">celebration</span><span class="tag">win</span><span class="tag">confetti</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-trophy-celebration-burst-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-trophy-celebration-burst-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="target arrow bullseye goal achievement" data-desc="과녁 화살 명중 일러스트" data-name="illust-target-arrow-bullseye-20260124">
+      <div class="card" data-category="illustrations" data-tags="target arrow bullseye goal achievement" data-desc="과녁 화살 명중 일러스트" data-name="illust-target-arrow-bullseye-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-target-arrow-bullseye-20260124.svg" alt="과녁 화살 명중 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1313,11 +1630,13 @@
           <div class="card-tags"><span class="tag">target</span><span class="tag">arrow</span><span class="tag">bullseye</span><span class="tag">goal</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-target-arrow-bullseye-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-target-arrow-bullseye-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="medal podium winners award achievement" data-desc="수상대 메달 수상자들 일러스트" data-name="illust-medal-podium-winners-20260124">
+      <div class="card" data-category="illustrations" data-tags="medal podium winners award achievement" data-desc="수상대 메달 수상자들 일러스트" data-name="illust-medal-podium-winners-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-medal-podium-winners-20260124.svg" alt="수상대 메달 수상자들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1326,11 +1645,13 @@
           <div class="card-tags"><span class="tag">medal</span><span class="tag">podium</span><span class="tag">winners</span><span class="tag">award</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-medal-podium-winners-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-medal-podium-winners-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="teamwork hands collaboration together" data-desc="함께하는 팀워크 손들 일러스트" data-name="illust-teamwork-hands-together-20260124">
+      <div class="card" data-category="illustrations" data-tags="teamwork hands collaboration together" data-desc="함께하는 팀워크 손들 일러스트" data-name="illust-teamwork-hands-together-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-teamwork-hands-together-20260124.svg" alt="함께하는 팀워크 손들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1339,11 +1660,13 @@
           <div class="card-tags"><span class="tag">teamwork</span><span class="tag">hands</span><span class="tag">collaboration</span><span class="tag">together</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-teamwork-hands-together-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-teamwork-hands-together-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="group discussion circle students collaboration" data-desc="원형 그룹 토론 학생들 일러스트" data-name="illust-group-discussion-circle-20260124">
+      <div class="card" data-category="illustrations" data-tags="group discussion circle students collaboration" data-desc="원형 그룹 토론 학생들 일러스트" data-name="illust-group-discussion-circle-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-group-discussion-circle-20260124.svg" alt="원형 그룹 토론 학생들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1352,11 +1675,13 @@
           <div class="card-tags"><span class="tag">group</span><span class="tag">discussion</span><span class="tag">circle</span><span class="tag">students</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-group-discussion-circle-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-group-discussion-circle-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="geometry math icosahedron platonic-solid 3d" data-desc="정이십면체 (플라톤 다면체) 3D 모델" data-name="3d-geometry-icosahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="geometry math icosahedron platonic-solid 3d" data-desc="정이십면체 (플라톤 다면체) 3D 모델" data-name="3d-geometry-icosahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-geometry-icosahedron-math-20260125.glb" alt="정이십면체 (플라톤 다면체) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -1365,11 +1690,13 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">icosahedron</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-geometry-icosahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-geometry-icosahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="topology math mobius-strip surface 3d" data-desc="뫼비우스의 띠 위상수학 모델" data-name="3d-topology-mobius-strip-20260125">
+      <div class="card" data-category="3d" data-tags="topology math mobius-strip surface 3d" data-desc="뫼비우스의 띠 위상수학 모델" data-name="3d-topology-mobius-strip-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-topology-mobius-strip-20260125.glb" alt="뫼비우스의 띠 위상수학 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -1378,11 +1705,13 @@
           <div class="card-tags"><span class="tag">topology</span><span class="tag">math</span><span class="tag">mobius-strip</span><span class="tag">surface</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-topology-mobius-strip-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-topology-mobius-strip-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="statistics math normal-distribution gaussian surface 3d" data-desc="정규 분포 곡면 (통계) 3D 모델" data-name="3d-statistics-normal-surface-20260125">
+      <div class="card" data-category="3d" data-tags="statistics math normal-distribution gaussian surface 3d" data-desc="정규 분포 곡면 (통계) 3D 모델" data-name="3d-statistics-normal-surface-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-statistics-normal-surface-20260125.glb" alt="정규 분포 곡면 (통계) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -1391,11 +1720,13 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">math</span><span class="tag">normal-distribution</span><span class="tag">gaussian</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-statistics-normal-surface-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-statistics-normal-surface-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="geometry math torus donut shape 3d" data-desc="토러스 (도넛 모양) 기하학 3D 모델" data-name="3d-geometry-torus-simple-20260125">
+      <div class="card" data-category="3d" data-tags="geometry math torus donut shape 3d" data-desc="토러스 (도넛 모양) 기하학 3D 모델" data-name="3d-geometry-torus-simple-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-geometry-torus-simple-20260125.glb" alt="토러스 (도넛 모양) 기하학 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -1404,11 +1735,13 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">torus</span><span class="tag">donut</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-geometry-torus-simple-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-geometry-torus-simple-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="complex-analysis math riemann-surface spiral 3d" data-desc="리만 곡면 (복소수 해석학) 3D 모델" data-name="3d-complex-riemann-surface-20260125">
+      <div class="card" data-category="3d" data-tags="complex-analysis math riemann-surface spiral 3d" data-desc="리만 곡면 (복소수 해석학) 3D 모델" data-name="3d-complex-riemann-surface-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-complex-riemann-surface-20260125.glb" alt="리만 곡면 (복소수 해석학) 3D 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -1417,11 +1750,13 @@
           <div class="card-tags"><span class="tag">complex-analysis</span><span class="tag">math</span><span class="tag">riemann-surface</span><span class="tag">spiral</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-complex-riemann-surface-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-complex-riemann-surface-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="science chemistry lab beaker experiment" data-desc="과학 실험실 비커 일러스트" data-name="illust-science-lab-beaker-20260125">
+      <div class="card" data-category="illustrations" data-tags="science chemistry lab beaker experiment" data-desc="과학 실험실 비커 일러스트" data-name="illust-science-lab-beaker-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-science-lab-beaker-20260125.svg" alt="과학 실험실 비커 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1430,11 +1765,13 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">chemistry</span><span class="tag">lab</span><span class="tag">beaker</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-science-lab-beaker-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-science-lab-beaker-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="globe geography world earth learning" data-desc="지구본 지리학 학습 일러스트" data-name="illust-world-globe-learning-20260125">
+      <div class="card" data-category="illustrations" data-tags="globe geography world earth learning" data-desc="지구본 지리학 학습 일러스트" data-name="illust-world-globe-learning-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-world-globe-learning-20260125.svg" alt="지구본 지리학 학습 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1443,11 +1780,13 @@
           <div class="card-tags"><span class="tag">globe</span><span class="tag">geography</span><span class="tag">world</span><span class="tag">earth</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-world-globe-learning-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-world-globe-learning-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="music notes melody arts song" data-desc="음표 멜로디 음악 일러스트" data-name="illust-music-notes-melody-20260125">
+      <div class="card" data-category="illustrations" data-tags="music notes melody arts song" data-desc="음표 멜로디 음악 일러스트" data-name="illust-music-notes-melody-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-music-notes-melody-20260125.svg" alt="음표 멜로디 음악 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1456,11 +1795,13 @@
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">melody</span><span class="tag">arts</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-music-notes-melody-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-music-notes-melody-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="art palette brush paint creativity" data-desc="아트 팔레트와 붓 일러스트" data-name="illust-palette-brush-art-20260125">
+      <div class="card" data-category="illustrations" data-tags="art palette brush paint creativity" data-desc="아트 팔레트와 붓 일러스트" data-name="illust-palette-brush-art-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-palette-brush-art-20260125.svg" alt="아트 팔레트와 붓 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1469,11 +1810,13 @@
           <div class="card-tags"><span class="tag">art</span><span class="tag">palette</span><span class="tag">brush</span><span class="tag">paint</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-palette-brush-art-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-palette-brush-art-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="magnifying-glass explore search investigate science" data-desc="탐구용 돋보기 일러스트" data-name="illust-magnifying-glass-explore-20260125">
+      <div class="card" data-category="illustrations" data-tags="magnifying-glass explore search investigate science" data-desc="탐구용 돋보기 일러스트" data-name="illust-magnifying-glass-explore-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-magnifying-glass-explore-20260125.svg" alt="탐구용 돋보기 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1482,11 +1825,13 @@
           <div class="card-tags"><span class="tag">magnifying-glass</span><span class="tag">explore</span><span class="tag">search</span><span class="tag">investigate</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-magnifying-glass-explore-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-magnifying-glass-explore-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="diploma certificate graduation achievement award" data-desc="졸업장 상장 두루마리 일러스트" data-name="illust-diploma-certificate-scroll-20260125">
+      <div class="card" data-category="illustrations" data-tags="diploma certificate graduation achievement award" data-desc="졸업장 상장 두루마리 일러스트" data-name="illust-diploma-certificate-scroll-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-diploma-certificate-scroll-20260125.svg" alt="졸업장 상장 두루마리 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1495,11 +1840,13 @@
           <div class="card-tags"><span class="tag">diploma</span><span class="tag">certificate</span><span class="tag">graduation</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-diploma-certificate-scroll-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-diploma-certificate-scroll-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="bus school transportation journey yellow" data-desc="노란색 스쿨버스 일러스트" data-name="illust-bus-school-journey-20260125">
+      <div class="card" data-category="illustrations" data-tags="bus school transportation journey yellow" data-desc="노란색 스쿨버스 일러스트" data-name="illust-bus-school-journey-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-bus-school-journey-20260125.svg" alt="노란색 스쿨버스 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1508,11 +1855,13 @@
           <div class="card-tags"><span class="tag">bus</span><span class="tag">school</span><span class="tag">transportation</span><span class="tag">journey</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-bus-school-journey-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-bus-school-journey-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="calculator math tool arithmetic simple" data-desc="간단한 수학 계산기 일러스트" data-name="illust-calculator-math-simple-20260125">
+      <div class="card" data-category="illustrations" data-tags="calculator math tool arithmetic simple" data-desc="간단한 수학 계산기 일러스트" data-name="illust-calculator-math-simple-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-calculator-math-simple-20260125.svg" alt="간단한 수학 계산기 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1521,11 +1870,13 @@
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">math</span><span class="tag">tool</span><span class="tag">arithmetic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-math-simple-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-calculator-math-simple-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="notebook pencil write notes study" data-desc="공책과 연필 필기 일러스트" data-name="illust-notebook-pencil-notes-20260125">
+      <div class="card" data-category="illustrations" data-tags="notebook pencil write notes study" data-desc="공책과 연필 필기 일러스트" data-name="illust-notebook-pencil-notes-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-notebook-pencil-notes-20260125.svg" alt="공책과 연필 필기 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1534,11 +1885,13 @@
           <div class="card-tags"><span class="tag">notebook</span><span class="tag">pencil</span><span class="tag">write</span><span class="tag">notes</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-notebook-pencil-notes-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-notebook-pencil-notes-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="microscope biology science lab tool" data-desc="생물학 실험 현미경 일러스트" data-name="illust-microscope-biology-lab-20260125">
+      <div class="card" data-category="illustrations" data-tags="microscope biology science lab tool" data-desc="생물학 실험 현미경 일러스트" data-name="illust-microscope-biology-lab-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-microscope-biology-lab-20260125.svg" alt="생물학 실험 현미경 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1547,11 +1900,13 @@
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">biology</span><span class="tag">science</span><span class="tag">lab</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-biology-lab-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-microscope-biology-lab-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="chat conversation communication bubbles" data-desc="대화 채팅 버블들 일러스트" data-name="illust-chat-conversation-bubbles-20260124">
+      <div class="card" data-category="illustrations" data-tags="chat conversation communication bubbles" data-desc="대화 채팅 버블들 일러스트" data-name="illust-chat-conversation-bubbles-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-chat-conversation-bubbles-20260124.svg" alt="대화 채팅 버블들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1560,11 +1915,13 @@
           <div class="card-tags"><span class="tag">chat</span><span class="tag">conversation</span><span class="tag">communication</span><span class="tag">bubbles</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-chat-conversation-bubbles-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-chat-conversation-bubbles-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="network global connection earth technology" data-desc="글로벌 네트워크 연결 일러스트" data-name="illust-network-connection-global-20260124">
+      <div class="card" data-category="illustrations" data-tags="network global connection earth technology" data-desc="글로벌 네트워크 연결 일러스트" data-name="illust-network-connection-global-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-network-connection-global-20260124.svg" alt="글로벌 네트워크 연결 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1573,11 +1930,13 @@
           <div class="card-tags"><span class="tag">network</span><span class="tag">global</span><span class="tag">connection</span><span class="tag">earth</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-network-connection-global-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-network-connection-global-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="lightbulb brainstorm ideas creativity" data-desc="브레인스토밍 전구들 일러스트" data-name="illust-lightbulbs-brainstorm-20260124">
+      <div class="card" data-category="illustrations" data-tags="lightbulb brainstorm ideas creativity" data-desc="브레인스토밍 전구들 일러스트" data-name="illust-lightbulbs-brainstorm-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-lightbulbs-brainstorm-20260124.svg" alt="브레인스토밍 전구들 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1586,11 +1945,13 @@
           <div class="card-tags"><span class="tag">lightbulb</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">creativity</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-lightbulbs-brainstorm-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-lightbulbs-brainstorm-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="microscope science lab research" data-desc="과학 실험실 현미경 일러스트" data-name="illust-microscope-science-lab-20260124">
+      <div class="card" data-category="illustrations" data-tags="microscope science lab research" data-desc="과학 실험실 현미경 일러스트" data-name="illust-microscope-science-lab-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-microscope-science-lab-20260124.svg" alt="과학 실험실 현미경 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1599,11 +1960,13 @@
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">science</span><span class="tag">lab</span><span class="tag">research</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-science-lab-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-microscope-science-lab-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="atom molecule chemistry science" data-desc="원자 분자 구조 일러스트" data-name="illust-atom-molecule-structure-20260124">
+      <div class="card" data-category="illustrations" data-tags="atom molecule chemistry science" data-desc="원자 분자 구조 일러스트" data-name="illust-atom-molecule-structure-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-atom-molecule-structure-20260124.svg" alt="원자 분자 구조 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1612,11 +1975,13 @@
           <div class="card-tags"><span class="tag">atom</span><span class="tag">molecule</span><span class="tag">chemistry</span><span class="tag">science</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-atom-molecule-structure-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-atom-molecule-structure-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="coding screen developer programming" data-desc="코딩 화면 개발자 일러스트" data-name="illust-coding-screen-developer-20260124">
+      <div class="card" data-category="illustrations" data-tags="coding screen developer programming" data-desc="코딩 화면 개발자 일러스트" data-name="illust-coding-screen-developer-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-coding-screen-developer-20260124.svg" alt="코딩 화면 개발자 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1625,11 +1990,13 @@
           <div class="card-tags"><span class="tag">coding</span><span class="tag">screen</span><span class="tag">developer</span><span class="tag">programming</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-coding-screen-developer-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-coding-screen-developer-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="robot ai friendly technology" data-desc="친근한 AI 로봇 일러스트" data-name="illust-robot-friendly-ai-20260124">
+      <div class="card" data-category="illustrations" data-tags="robot ai friendly technology" data-desc="친근한 AI 로봇 일러스트" data-name="illust-robot-friendly-ai-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-robot-friendly-ai-20260124.svg" alt="친근한 AI 로봇 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1638,11 +2005,13 @@
           <div class="card-tags"><span class="tag">robot</span><span class="tag">ai</span><span class="tag">friendly</span><span class="tag">technology</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-robot-friendly-ai-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-robot-friendly-ai-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="illustrations" data-tags="planet earth ecosystem environment space" data-desc="지구 생태계 행성 일러스트" data-name="illust-planet-earth-ecosystem-20260124">
+      <div class="card" data-category="illustrations" data-tags="planet earth ecosystem environment space" data-desc="지구 생태계 행성 일러스트" data-name="illust-planet-earth-ecosystem-20260124" data-archived="false">
         <div class="card-preview">
+          
           <img src="illustrations/illust-planet-earth-ecosystem-20260124.svg" alt="지구 생태계 행성 일러스트" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1651,11 +2020,13 @@
           <div class="card-tags"><span class="tag">planet</span><span class="tag">earth</span><span class="tag">ecosystem</span><span class="tag">environment</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-planet-earth-ecosystem-20260124.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('illust-planet-earth-ecosystem-20260124')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="gradient blue soft abstract modern" data-desc="Soft blue abstract gradient background" data-name="bg-gradient-soft-blue-20260125">
+      <div class="card" data-category="backgrounds" data-tags="gradient blue soft abstract modern" data-desc="Soft blue abstract gradient background" data-name="bg-gradient-soft-blue-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-gradient-soft-blue-20260125.png" alt="Soft blue abstract gradient background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1664,11 +2035,13 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-soft-blue-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-soft-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="geometric pastel shapes modern abstract" data-desc="Pastel geometric shapes background" data-name="bg-geometric-shapes-pastel-20260125">
+      <div class="card" data-category="backgrounds" data-tags="geometric pastel shapes modern abstract" data-desc="Pastel geometric shapes background" data-name="bg-geometric-shapes-pastel-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-geometric-shapes-pastel-20260125.png" alt="Pastel geometric shapes background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1677,11 +2050,13 @@
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">pastel</span><span class="tag">shapes</span><span class="tag">modern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-pastel-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-geometric-shapes-pastel-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="whiteboard blur clean classroom" data-desc="Clean defocused whiteboard background" data-name="bg-whiteboard-blur-clean-20260125">
+      <div class="card" data-category="backgrounds" data-tags="whiteboard blur clean classroom" data-desc="Clean defocused whiteboard background" data-name="bg-whiteboard-blur-clean-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-whiteboard-blur-clean-20260125.png" alt="Clean defocused whiteboard background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1690,11 +2065,13 @@
           <div class="card-tags"><span class="tag">whiteboard</span><span class="tag">blur</span><span class="tag">clean</span><span class="tag">classroom</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-whiteboard-blur-clean-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-whiteboard-blur-clean-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="grid paper math subtle technical" data-desc="Subtle math grid paper background" data-name="bg-grid-paper-math-subtle-20260125">
+      <div class="card" data-category="backgrounds" data-tags="grid paper math subtle technical" data-desc="Subtle math grid paper background" data-name="bg-grid-paper-math-subtle-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-grid-paper-math-subtle-20260125.png" alt="Subtle math grid paper background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1703,11 +2080,13 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">math</span><span class="tag">subtle</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-math-subtle-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-math-subtle-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="paper texture warm minimalist" data-desc="Warm clean paper texture background" data-name="bg-paper-texture-warm-20260125">
+      <div class="card" data-category="backgrounds" data-tags="paper texture warm minimalist" data-desc="Warm clean paper texture background" data-name="bg-paper-texture-warm-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-paper-texture-warm-20260125.png" alt="Warm clean paper texture background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1716,11 +2095,13 @@
           <div class="card-tags"><span class="tag">paper</span><span class="tag">texture</span><span class="tag">warm</span><span class="tag">minimalist</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-paper-texture-warm-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-paper-texture-warm-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="science molecules pattern chemistry biology" data-desc="Stylized molecular pattern background" data-name="bg-science-molecules-pattern-20260125">
+      <div class="card" data-category="backgrounds" data-tags="science molecules pattern chemistry biology" data-desc="Stylized molecular pattern background" data-name="bg-science-molecules-pattern-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-science-molecules-pattern-20260125.png" alt="Stylized molecular pattern background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1729,11 +2110,13 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">molecules</span><span class="tag">pattern</span><span class="tag">chemistry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-molecules-pattern-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-science-molecules-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="nature leaves green organic fresh" data-desc="Green leaves nature pattern background" data-name="bg-nature-leaves-green-20260125">
+      <div class="card" data-category="backgrounds" data-tags="nature leaves green organic fresh" data-desc="Green leaves nature pattern background" data-name="bg-nature-leaves-green-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-nature-leaves-green-20260125.png" alt="Green leaves nature pattern background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1742,11 +2125,13 @@
           <div class="card-tags"><span class="tag">nature</span><span class="tag">leaves</span><span class="tag">green</span><span class="tag">organic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-nature-leaves-green-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-nature-leaves-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="tech circuit minimal futuristic coding" data-desc="Minimalist tech circuit background" data-name="bg-tech-circuit-minimal-20260125">
+      <div class="card" data-category="backgrounds" data-tags="tech circuit minimal futuristic coding" data-desc="Minimalist tech circuit background" data-name="bg-tech-circuit-minimal-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-tech-circuit-minimal-20260125.png" alt="Minimalist tech circuit background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1755,11 +2140,13 @@
           <div class="card-tags"><span class="tag">tech</span><span class="tag">circuit</span><span class="tag">minimal</span><span class="tag">futuristic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-tech-circuit-minimal-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-tech-circuit-minimal-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="library books defocused cozy education" data-desc="Defocused library bookshelves background" data-name="bg-library-books-defocused-20260125">
+      <div class="card" data-category="backgrounds" data-tags="library books defocused cozy education" data-desc="Defocused library bookshelves background" data-name="bg-library-books-defocused-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-library-books-defocused-20260125.png" alt="Defocused library bookshelves background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1768,11 +2155,13 @@
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">defocused</span><span class="tag">cozy</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-library-books-defocused-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-library-books-defocused-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="space stars dark cosmos astronomy" data-desc="Dark space stars background" data-name="bg-space-stars-dark-20260125">
+      <div class="card" data-category="backgrounds" data-tags="space stars dark cosmos astronomy" data-desc="Dark space stars background" data-name="bg-space-stars-dark-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-space-stars-dark-20260125.png" alt="Dark space stars background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1781,11 +2170,13 @@
           <div class="card-tags"><span class="tag">space</span><span class="tag">stars</span><span class="tag">dark</span><span class="tag">cosmos</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-space-stars-dark-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-space-stars-dark-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="history parchment vintage paper old" data-desc="Vintage parchment paper texture background" data-name="bg-history-parchment-vintage-20260125">
+      <div class="card" data-category="backgrounds" data-tags="history parchment vintage paper old" data-desc="Vintage parchment paper texture background" data-name="bg-history-parchment-vintage-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-history-parchment-vintage-20260125.png" alt="Vintage parchment paper texture background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1794,11 +2185,13 @@
           <div class="card-tags"><span class="tag">history</span><span class="tag">parchment</span><span class="tag">vintage</span><span class="tag">paper</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-history-parchment-vintage-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-history-parchment-vintage-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="music notes sheet clef art" data-desc="Minimalist musical notes sheet background" data-name="bg-music-notes-sheet-20260125">
+      <div class="card" data-category="backgrounds" data-tags="music notes sheet clef art" data-desc="Minimalist musical notes sheet background" data-name="bg-music-notes-sheet-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-music-notes-sheet-20260125.png" alt="Minimalist musical notes sheet background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1807,11 +2200,13 @@
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">sheet</span><span class="tag">clef</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-music-notes-sheet-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-music-notes-sheet-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="art watercolor splash pastel paint" data-desc="Soft pastel watercolor splash background" data-name="bg-art-watercolor-splash-20260125">
+      <div class="card" data-category="backgrounds" data-tags="art watercolor splash pastel paint" data-desc="Soft pastel watercolor splash background" data-name="bg-art-watercolor-splash-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-art-watercolor-splash-20260125.png" alt="Soft pastel watercolor splash background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1820,11 +2215,13 @@
           <div class="card-tags"><span class="tag">art</span><span class="tag">watercolor</span><span class="tag">splash</span><span class="tag">pastel</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-art-watercolor-splash-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-art-watercolor-splash-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="geography map contours topographic lines" data-desc="Topographic map contour lines background" data-name="bg-geography-contours-topo-20260125">
+      <div class="card" data-category="backgrounds" data-tags="geography map contours topographic lines" data-desc="Topographic map contour lines background" data-name="bg-geography-contours-topo-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-geography-contours-topo-20260125.png" alt="Topographic map contour lines background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1833,11 +2230,13 @@
           <div class="card-tags"><span class="tag">geography</span><span class="tag">map</span><span class="tag">contours</span><span class="tag">topographic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geography-contours-topo-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-geography-contours-topo-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="literature letters alphabet floating whimsical" data-desc="Whimsical floating alphabet letters background" data-name="bg-literature-letters-floating-20260125">
+      <div class="card" data-category="backgrounds" data-tags="literature letters alphabet floating whimsical" data-desc="Whimsical floating alphabet letters background" data-name="bg-literature-letters-floating-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-literature-letters-floating-20260125.png" alt="Whimsical floating alphabet letters background" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1846,11 +2245,13 @@
           <div class="card-tags"><span class="tag">literature</span><span class="tag">letters</span><span class="tag">alphabet</span><span class="tag">floating</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-literature-letters-floating-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-literature-letters-floating-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="linear graph slope algebra middle-school" data-desc="기울기와 y절편을 보여주는 일차함수 그래프" data-name="diagram-linear-slope-intercept-20260125">
+      <div class="card" data-category="diagrams" data-tags="linear graph slope algebra middle-school" data-desc="기울기와 y절편을 보여주는 일차함수 그래프" data-name="diagram-linear-slope-intercept-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-linear-slope-intercept-20260125.svg" alt="기울기와 y절편을 보여주는 일차함수 그래프" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1859,11 +2260,13 @@
           <div class="card-tags"><span class="tag">linear</span><span class="tag">graph</span><span class="tag">slope</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-linear-slope-intercept-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-linear-slope-intercept-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="cylinder volume geometry 3d middle-school" data-desc="치수가 표시된 원기둥 부피 다이어그램" data-name="diagram-cylinder-volume-labeled-20260125">
+      <div class="card" data-category="diagrams" data-tags="cylinder volume geometry 3d middle-school" data-desc="치수가 표시된 원기둥 부피 다이어그램" data-name="diagram-cylinder-volume-labeled-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-cylinder-volume-labeled-20260125.svg" alt="치수가 표시된 원기둥 부피 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1872,11 +2275,13 @@
           <div class="card-tags"><span class="tag">cylinder</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cylinder-volume-labeled-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-cylinder-volume-labeled-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="cone volume geometry 3d middle-school" data-desc="치수가 표시된 원뿔 부피 다이어그램" data-name="diagram-cone-volume-labeled-20260125">
+      <div class="card" data-category="diagrams" data-tags="cone volume geometry 3d middle-school" data-desc="치수가 표시된 원뿔 부피 다이어그램" data-name="diagram-cone-volume-labeled-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-cone-volume-labeled-20260125.svg" alt="치수가 표시된 원뿔 부피 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1885,11 +2290,13 @@
           <div class="card-tags"><span class="tag">cone</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cone-volume-labeled-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-cone-volume-labeled-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="prism net geometry surface-area middle-school" data-desc="직육면체 전개도 다이어그램" data-name="diagram-prism-net-unfolded-20260125">
+      <div class="card" data-category="diagrams" data-tags="prism net geometry surface-area middle-school" data-desc="직육면체 전개도 다이어그램" data-name="diagram-prism-net-unfolded-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-prism-net-unfolded-20260125.svg" alt="직육면체 전개도 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1898,11 +2305,13 @@
           <div class="card-tags"><span class="tag">prism</span><span class="tag">net</span><span class="tag">geometry</span><span class="tag">surface-area</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-prism-net-unfolded-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-prism-net-unfolded-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="circle anatomy radius diameter circumference" data-desc="원의 구성 요소(반지름, 지름, 원주) 다이어그램" data-name="diagram-circle-anatomy-parts-20260125">
+      <div class="card" data-category="diagrams" data-tags="circle anatomy radius diameter circumference" data-desc="원의 구성 요소(반지름, 지름, 원주) 다이어그램" data-name="diagram-circle-anatomy-parts-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-circle-anatomy-parts-20260125.svg" alt="원의 구성 요소(반지름, 지름, 원주) 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1911,11 +2320,13 @@
           <div class="card-tags"><span class="tag">circle</span><span class="tag">anatomy</span><span class="tag">radius</span><span class="tag">diameter</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-circle-anatomy-parts-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-circle-anatomy-parts-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="parallel transversal angles geometry middle-school" data-desc="평행선과 횡단선이 만드는 각도 다이어그램" data-name="diagram-parallel-transversal-angles-20260125">
+      <div class="card" data-category="diagrams" data-tags="parallel transversal angles geometry middle-school" data-desc="평행선과 횡단선이 만드는 각도 다이어그램" data-name="diagram-parallel-transversal-angles-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-parallel-transversal-angles-20260125.svg" alt="평행선과 횡단선이 만드는 각도 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1924,11 +2335,13 @@
           <div class="card-tags"><span class="tag">parallel</span><span class="tag">transversal</span><span class="tag">angles</span><span class="tag">geometry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-parallel-transversal-angles-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-parallel-transversal-angles-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="inequality number-line algebra math" data-desc="수직선 위의 부등식 x > 2" data-name="diagram-inequality-number-line-20260125">
+      <div class="card" data-category="diagrams" data-tags="inequality number-line algebra math" data-desc="수직선 위의 부등식 x > 2" data-name="diagram-inequality-number-line-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-inequality-number-line-20260125.svg" alt="수직선 위의 부등식 x > 2" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1937,11 +2350,13 @@
           <div class="card-tags"><span class="tag">inequality</span><span class="tag">number-line</span><span class="tag">algebra</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-inequality-number-line-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-inequality-number-line-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="venn sets intersection logic middle-school" data-desc="두 집합의 교집합을 보여주는 벤 다이어그램" data-name="diagram-venn-sets-overlap-20260125">
+      <div class="card" data-category="diagrams" data-tags="venn sets intersection logic middle-school" data-desc="두 집합의 교집합을 보여주는 벤 다이어그램" data-name="diagram-venn-sets-overlap-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-venn-sets-overlap-20260125.svg" alt="두 집합의 교집합을 보여주는 벤 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1950,11 +2365,13 @@
           <div class="card-tags"><span class="tag">venn</span><span class="tag">sets</span><span class="tag">intersection</span><span class="tag">logic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-sets-overlap-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-venn-sets-overlap-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="ratio proportion blocks math middle-school" data-desc="비율 2:3의 시각적 표현" data-name="diagram-ratio-proportion-blocks-20260125">
+      <div class="card" data-category="diagrams" data-tags="ratio proportion blocks math middle-school" data-desc="비율 2:3의 시각적 표현" data-name="diagram-ratio-proportion-blocks-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-ratio-proportion-blocks-20260125.svg" alt="비율 2:3의 시각적 표현" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1963,11 +2380,13 @@
           <div class="card-tags"><span class="tag">ratio</span><span class="tag">proportion</span><span class="tag">blocks</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-ratio-proportion-blocks-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-ratio-proportion-blocks-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="diagrams" data-tags="angles acute right obtuse geometry" data-desc="각의 종류 비교 (예각, 직각, 둔각)" data-name="diagram-angle-types-comparison-20260125">
+      <div class="card" data-category="diagrams" data-tags="angles acute right obtuse geometry" data-desc="각의 종류 비교 (예각, 직각, 둔각)" data-name="diagram-angle-types-comparison-20260125" data-archived="false">
         <div class="card-preview">
+          
           <img src="diagrams/diagram-angle-types-comparison-20260125.svg" alt="각의 종류 비교 (예각, 직각, 둔각)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1976,11 +2395,13 @@
           <div class="card-tags"><span class="tag">angles</span><span class="tag">acute</span><span class="tag">right</span><span class="tag">obtuse</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-angle-types-comparison-20260125.svg', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('diagram-angle-types-comparison-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="grid paper pattern math background" data-desc="파란색 모눈종이 패턴 배경 (4K)" data-name="bg-grid-paper-20260125">
+      <div class="card" data-category="backgrounds" data-tags="grid paper pattern math background" data-desc="파란색 모눈종이 패턴 배경 (4K)" data-name="bg-grid-paper-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-grid-paper-20260125.png" alt="파란색 모눈종이 패턴 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -1989,11 +2410,13 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">pattern</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="lined paper notebook writing background" data-desc="공책 줄무늬 배경 (마진 포함, 4K)" data-name="bg-lined-paper-20260125">
+      <div class="card" data-category="backgrounds" data-tags="lined paper notebook writing background" data-desc="공책 줄무늬 배경 (마진 포함, 4K)" data-name="bg-lined-paper-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-lined-paper-20260125.png" alt="공책 줄무늬 배경 (마진 포함, 4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2002,11 +2425,13 @@
           <div class="card-tags"><span class="tag">lined</span><span class="tag">paper</span><span class="tag">notebook</span><span class="tag">writing</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-lined-paper-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-lined-paper-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="dot grid pattern design background" data-desc="미니멀한 도트 그리드 배경 (4K)" data-name="bg-dot-grid-20260125">
+      <div class="card" data-category="backgrounds" data-tags="dot grid pattern design background" data-desc="미니멀한 도트 그리드 배경 (4K)" data-name="bg-dot-grid-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-dot-grid-20260125.png" alt="미니멀한 도트 그리드 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2015,11 +2440,13 @@
           <div class="card-tags"><span class="tag">dot</span><span class="tag">grid</span><span class="tag">pattern</span><span class="tag">design</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-dot-grid-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-dot-grid-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="gradient blue soft sky background" data-desc="부드러운 파란색 그라데이션 배경 (4K)" data-name="bg-gradient-blue-20260125">
+      <div class="card" data-category="backgrounds" data-tags="gradient blue soft sky background" data-desc="부드러운 파란색 그라데이션 배경 (4K)" data-name="bg-gradient-blue-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-gradient-blue-20260125.png" alt="부드러운 파란색 그라데이션 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2028,11 +2455,13 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">sky</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-blue-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="gradient green nature fresh background" data-desc="부드러운 녹색 그라데이션 배경 (4K)" data-name="bg-gradient-green-20260125">
+      <div class="card" data-category="backgrounds" data-tags="gradient green nature fresh background" data-desc="부드러운 녹색 그라데이션 배경 (4K)" data-name="bg-gradient-green-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-gradient-green-20260125.png" alt="부드러운 녹색 그라데이션 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2041,11 +2470,13 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">green</span><span class="tag">nature</span><span class="tag">fresh</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-green-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="geometric shapes pattern abstract background" data-desc="기하학적 도형 패턴 배경 (4K)" data-name="bg-geometric-shapes-20260125">
+      <div class="card" data-category="backgrounds" data-tags="geometric shapes pattern abstract background" data-desc="기하학적 도형 패턴 배경 (4K)" data-name="bg-geometric-shapes-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-geometric-shapes-20260125.png" alt="기하학적 도형 패턴 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2054,11 +2485,13 @@
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">shapes</span><span class="tag">pattern</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-geometric-shapes-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="science pattern atom dna chemistry background" data-desc="과학 아이콘 패턴 배경 (4K)" data-name="bg-science-pattern-20260125">
+      <div class="card" data-category="backgrounds" data-tags="science pattern atom dna chemistry background" data-desc="과학 아이콘 패턴 배경 (4K)" data-name="bg-science-pattern-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-science-pattern-20260125.png" alt="과학 아이콘 패턴 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2067,11 +2500,13 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">pattern</span><span class="tag">atom</span><span class="tag">dna</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-pattern-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-science-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="alphabet letters english pattern background" data-desc="알파벳 ABC 패턴 배경 (4K)" data-name="bg-alphabet-pattern-20260125">
+      <div class="card" data-category="backgrounds" data-tags="alphabet letters english pattern background" data-desc="알파벳 ABC 패턴 배경 (4K)" data-name="bg-alphabet-pattern-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-alphabet-pattern-20260125.png" alt="알파벳 ABC 패턴 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2080,11 +2515,13 @@
           <div class="card-tags"><span class="tag">alphabet</span><span class="tag">letters</span><span class="tag">english</span><span class="tag">pattern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-alphabet-pattern-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-alphabet-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="numbers math pattern 123 background" data-desc="숫자 123 패턴 배경 (4K)" data-name="bg-numbers-pattern-20260125">
+      <div class="card" data-category="backgrounds" data-tags="numbers math pattern 123 background" data-desc="숫자 123 패턴 배경 (4K)" data-name="bg-numbers-pattern-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-numbers-pattern-20260125.png" alt="숫자 123 패턴 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2093,11 +2530,13 @@
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">math</span><span class="tag">pattern</span><span class="tag">123</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-numbers-pattern-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-numbers-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="backgrounds" data-tags="map world geography abstract background" data-desc="추상적인 세계 지도 배경 (4K)" data-name="bg-world-map-abstract-20260125">
+      <div class="card" data-category="backgrounds" data-tags="map world geography abstract background" data-desc="추상적인 세계 지도 배경 (4K)" data-name="bg-world-map-abstract-20260125" data-archived="false">
         <div class="card-preview bg-preview">
+          
           <img src="backgrounds/bg-world-map-abstract-20260125.png" alt="추상적인 세계 지도 배경 (4K)" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2106,11 +2545,13 @@
           <div class="card-tags"><span class="tag">map</span><span class="tag">world</span><span class="tag">geography</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-world-map-abstract-20260125.png', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('bg-world-map-abstract-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정사면체" data-desc="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" data-name="3d-tetrahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정사면체" data-desc="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" data-name="3d-tetrahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-tetrahedron-math-20260125.glb" alt="정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2119,11 +2560,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-tetrahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-tetrahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정육면체" data-desc="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" data-name="3d-hexahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정육면체" data-desc="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" data-name="3d-hexahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-hexahedron-math-20260125.glb" alt="정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2132,11 +2575,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-hexahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-hexahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정팔면체" data-desc="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" data-name="3d-octahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정팔면체" data-desc="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" data-name="3d-octahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-octahedron-math-20260125.glb" alt="정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2145,11 +2590,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-octahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-octahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정십이면체" data-desc="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" data-name="3d-dodecahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정십이면체" data-desc="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" data-name="3d-dodecahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-dodecahedron-math-20260125.glb" alt="정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2158,11 +2605,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-dodecahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-dodecahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정이십면체" data-desc="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" data-name="3d-icosahedron-math-20260125">
+      <div class="card" data-category="3d" data-tags="3d platonic-solid geometry high-school math 정이십면체" data-desc="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" data-name="3d-icosahedron-math-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-icosahedron-math-20260125.glb" alt="정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2171,11 +2620,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-icosahedron-math-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-icosahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d sphere geometry elementary math 구 입체도형" data-desc="빨간색 구 - 초등 수학 기본 입체도형" data-name="3d-elementary-sphere-red-20260125">
+      <div class="card" data-category="3d" data-tags="3d sphere geometry elementary math 구 입체도형" data-desc="빨간색 구 - 초등 수학 기본 입체도형" data-name="3d-elementary-sphere-red-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-sphere-red-20260125.glb" alt="빨간색 구 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2184,11 +2635,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">sphere</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-sphere-red-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-sphere-red-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d cylinder geometry elementary math 원기둥 입체도형" data-desc="파란색 원기둥 - 초등 수학 기본 입체도형" data-name="3d-elementary-cylinder-blue-20260125">
+      <div class="card" data-category="3d" data-tags="3d cylinder geometry elementary math 원기둥 입체도형" data-desc="파란색 원기둥 - 초등 수학 기본 입체도형" data-name="3d-elementary-cylinder-blue-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-cylinder-blue-20260125.glb" alt="파란색 원기둥 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2197,11 +2650,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cylinder</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cylinder-blue-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-cylinder-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d cone geometry elementary math 원뿔 입체도형" data-desc="노란색 원뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-cone-yellow-20260125">
+      <div class="card" data-category="3d" data-tags="3d cone geometry elementary math 원뿔 입체도형" data-desc="노란색 원뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-cone-yellow-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-cone-yellow-20260125.glb" alt="노란색 원뿔 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2210,11 +2665,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cone</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cone-yellow-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-cone-yellow-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d box prism geometry elementary math 직육면체 입체도형" data-desc="녹색 직육면체 - 초등 수학 기본 입체도형" data-name="3d-elementary-box-green-20260125">
+      <div class="card" data-category="3d" data-tags="3d box prism geometry elementary math 직육면체 입체도형" data-desc="녹색 직육면체 - 초등 수학 기본 입체도형" data-name="3d-elementary-box-green-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-box-green-20260125.glb" alt="녹색 직육면체 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2223,11 +2680,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">box</span><span class="tag">prism</span><span class="tag">geometry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-box-green-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-box-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d pyramid geometry elementary math 사각뿔 입체도형" data-desc="보라색 사각뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-pyramid-purple-20260125">
+      <div class="card" data-category="3d" data-tags="3d pyramid geometry elementary math 사각뿔 입체도형" data-desc="보라색 사각뿔 - 초등 수학 기본 입체도형" data-name="3d-elementary-pyramid-purple-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-pyramid-purple-20260125.glb" alt="보라색 사각뿔 - 초등 수학 기본 입체도형" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2236,11 +2695,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">pyramid</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-pyramid-purple-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-pyramid-purple-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d dice probability counting elementary math 주사위 확률" data-desc="흰색 주사위 - 초등 수학 확률 및 세기 학습용" data-name="3d-elementary-dice-white-20260125">
+      <div class="card" data-category="3d" data-tags="3d dice probability counting elementary math 주사위 확률" data-desc="흰색 주사위 - 초등 수학 확률 및 세기 학습용" data-name="3d-elementary-dice-white-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-dice-white-20260125.glb" alt="흰색 주사위 - 초등 수학 확률 및 세기 학습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2249,11 +2710,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">dice</span><span class="tag">probability</span><span class="tag">counting</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-dice-white-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-dice-white-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d fraction half pie elementary math 분수 반" data-desc="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" data-name="3d-elementary-fraction-half-orange-20260125">
+      <div class="card" data-category="3d" data-tags="3d fraction half pie elementary math 분수 반" data-desc="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" data-name="3d-elementary-fraction-half-orange-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-fraction-half-orange-20260125.glb" alt="주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2262,11 +2725,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">fraction</span><span class="tag">half</span><span class="tag">pie</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-fraction-half-orange-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-fraction-half-orange-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d coin money counting elementary math 동전 화폐" data-desc="금색 동전 - 초등 수학 화폐 및 세기 학습용" data-name="3d-elementary-coin-gold-20260125">
+      <div class="card" data-category="3d" data-tags="3d coin money counting elementary math 동전 화폐" data-desc="금색 동전 - 초등 수학 화폐 및 세기 학습용" data-name="3d-elementary-coin-gold-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-coin-gold-20260125.glb" alt="금색 동전 - 초등 수학 화폐 및 세기 학습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2275,11 +2740,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">coin</span><span class="tag">money</span><span class="tag">counting</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-coin-gold-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-coin-gold-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d blocks counting addition subtraction elementary math 블록 세기" data-desc="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" data-name="3d-elementary-counting-blocks-rainbow-20260125">
+      <div class="card" data-category="3d" data-tags="3d blocks counting addition subtraction elementary math 블록 세기" data-desc="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" data-name="3d-elementary-counting-blocks-rainbow-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-counting-blocks-rainbow-20260125.glb" alt="무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2288,11 +2755,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">blocks</span><span class="tag">counting</span><span class="tag">addition</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-counting-blocks-rainbow-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-counting-blocks-rainbow-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d apple counting fruit elementary math 사과 세기" data-desc="빨간 사과 - 초등 수학 세기 연습용" data-name="3d-elementary-apple-red-20260125">
+      <div class="card" data-category="3d" data-tags="3d apple counting fruit elementary math 사과 세기" data-desc="빨간 사과 - 초등 수학 세기 연습용" data-name="3d-elementary-apple-red-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-elementary-apple-red-20260125.glb" alt="빨간 사과 - 초등 수학 세기 연습용" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2301,11 +2770,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">apple</span><span class="tag">counting</span><span class="tag">fruit</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-apple-red-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-apple-red-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d math geometry pythagoras theorem proof" data-desc="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" data-name="3d-pythagorean-proof-20260125">
+      <div class="card" data-category="3d" data-tags="3d math geometry pythagoras theorem proof" data-desc="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" data-name="3d-pythagorean-proof-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-pythagorean-proof-20260125.glb" alt="피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2314,11 +2785,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">pythagoras</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-pythagorean-proof-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-pythagorean-proof-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d math geometry archimedes sphere cylinder volume" data-desc="아르키메데스의 구와 원기둥 (부피비 시각화)" data-name="3d-archimedes-sphere-cylinder-20260125">
+      <div class="card" data-category="3d" data-tags="3d math geometry archimedes sphere cylinder volume" data-desc="아르키메데스의 구와 원기둥 (부피비 시각화)" data-name="3d-archimedes-sphere-cylinder-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-archimedes-sphere-cylinder-20260125.glb" alt="아르키메데스의 구와 원기둥 (부피비 시각화)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2327,11 +2800,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">archimedes</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-archimedes-sphere-cylinder-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-archimedes-sphere-cylinder-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d math fractal sierpinski pyramid geometry recursion" data-desc="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" data-name="3d-fractal-sierpinski-pyramid-20260125">
+      <div class="card" data-category="3d" data-tags="3d math fractal sierpinski pyramid geometry recursion" data-desc="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" data-name="3d-fractal-sierpinski-pyramid-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-fractal-sierpinski-pyramid-20260125.glb" alt="시에르핀스키 피라미드 (프랙탈 기하학 Level 4)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2340,11 +2815,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">fractal</span><span class="tag">sierpinski</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-fractal-sierpinski-pyramid-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-fractal-sierpinski-pyramid-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d math complex-analysis euler helix formula" data-desc="오일러 공식 나선 (e^ix 시각화) - 개념 모델" data-name="3d-euler-helix-complex-20260125">
+      <div class="card" data-category="3d" data-tags="3d math complex-analysis euler helix formula" data-desc="오일러 공식 나선 (e^ix 시각화) - 개념 모델" data-name="3d-euler-helix-complex-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-euler-helix-complex-20260125.glb" alt="오일러 공식 나선 (e^ix 시각화) - 개념 모델" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2353,11 +2830,13 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">complex-analysis</span><span class="tag">euler</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-euler-helix-complex-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-euler-helix-complex-20260125')">Archive</button>
           </div>
         </div>
       </div>
-      <div class="card" data-category="3d" data-tags="3d math geometry platonic-solid icosahedron water" data-desc="플라톤의 다면체 - 정이십면체 (Icosahedron)" data-name="3d-platonic-icosahedron-20260125">
+      <div class="card" data-category="3d" data-tags="3d math geometry platonic-solid icosahedron water" data-desc="플라톤의 다면체 - 정이십면체 (Icosahedron)" data-name="3d-platonic-icosahedron-20260125" data-archived="false">
         <div class="card-preview">
+          
           <model-viewer src="3d/3d-platonic-icosahedron-20260125.glb" alt="플라톤의 다면체 - 정이십면체 (Icosahedron)" auto-rotate camera-controls></model-viewer>
         </div>
         <div class="card-info">
@@ -2366,9 +2845,11 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-platonic-icosahedron-20260125.glb', this)">Copy Path</button>
+            <button class="btn-archive" onclick="showArchiveCommand('3d-platonic-icosahedron-20260125')">Archive</button>
           </div>
         </div>
       </div>
+
       <div class="no-results" id="no-results" style="display: none;">
         검색 결과가 없습니다.
       </div>
@@ -2376,6 +2857,19 @@
   </main>
 
   <div class="toast" id="toast">경로가 복사되었습니다</div>
+
+  <!-- Archive/Restore Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-title" id="modal-title">에셋 아카이브</div>
+      <div class="modal-desc">다음 명령어를 터미널에서 실행하세요:</div>
+      <div class="modal-command" id="modal-command"></div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="modal-copy-btn" onclick="copyCommand()">명령어 복사</button>
+        <button class="modal-btn" onclick="closeModal()">닫기</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // 탭 필터링
@@ -2385,8 +2879,15 @@
     const noResults = document.getElementById('no-results');
     const toast = document.getElementById('toast');
 
+    // Modal elements
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCommand = document.getElementById('modal-command');
+    const modalCopyBtn = document.getElementById('modal-copy-btn');
+
     let currentCategory = 'all';
     let currentSearch = '';
+    let currentCommand = '';
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -2408,11 +2909,20 @@
 
       cards.forEach(card => {
         const category = card.dataset.category;
+        const isArchived = card.dataset.archived === 'true';
         const tags = card.dataset.tags.toLowerCase();
         const desc = card.dataset.desc.toLowerCase();
         const name = card.dataset.name.toLowerCase();
 
-        const categoryMatch = currentCategory === 'all' || category === currentCategory;
+        let categoryMatch = false;
+        if (currentCategory === 'all') {
+          categoryMatch = !isArchived;
+        } else if (currentCategory === 'archived') {
+          categoryMatch = isArchived;
+        } else {
+          categoryMatch = category === currentCategory && !isArchived;
+        }
+
         const searchMatch = !currentSearch ||
           tags.includes(currentSearch) ||
           desc.includes(currentSearch) ||
@@ -2442,13 +2952,60 @@
       });
     }
 
-    function showToast(path) {
-      toast.textContent = path + ' 복사됨';
+    function showToast(msg) {
+      toast.textContent = msg + ' 복사됨';
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
       }, 2000);
     }
+
+    // Archive/Restore Modal
+    function showArchiveCommand(assetId) {
+      currentCommand = 'node scripts/archive.js --archive "' + assetId + '"';
+      modalTitle.textContent = '에셋 아카이브';
+      modalCommand.textContent = currentCommand;
+      modalCopyBtn.textContent = '명령어 복사';
+      modalCopyBtn.classList.remove('copied');
+      modalOverlay.classList.add('show');
+    }
+
+    function showRestoreCommand(assetId) {
+      currentCommand = 'node scripts/archive.js --restore "' + assetId + '"';
+      modalTitle.textContent = '에셋 복원';
+      modalCommand.textContent = currentCommand;
+      modalCopyBtn.textContent = '명령어 복사';
+      modalCopyBtn.classList.remove('copied');
+      modalOverlay.classList.add('show');
+    }
+
+    function copyCommand() {
+      navigator.clipboard.writeText(currentCommand).then(() => {
+        modalCopyBtn.textContent = '복사됨!';
+        modalCopyBtn.classList.add('copied');
+        setTimeout(() => {
+          closeModal();
+        }, 1000);
+      });
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('show');
+    }
+
+    // Close modal when clicking overlay
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
