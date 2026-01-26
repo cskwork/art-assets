@@ -8,6 +8,7 @@ export interface GeneratedFile {
 
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
 const REQUIRED_FILES = ['index.html', 'script.js', 'style.css'];
+const DEFAULT_REQUIRED_PATHS = REQUIRED_FILES.map((name) => name);
 
 function normalizeRelativePath(filePath: string) {
   const normalized = path.posix.normalize(filePath).replace(/^(\.\/)+/, '');
@@ -22,7 +23,14 @@ function normalizeRelativePath(filePath: string) {
   return normalized;
 }
 
-export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile[] {
+export interface ParseZaiFilesOptions {
+  moduleId: string;
+  requireAll?: boolean;
+  requiredFiles?: string[];
+}
+
+export function parseZaiFiles(payload: string, options: ParseZaiFilesOptions): GeneratedFile[] {
+  const requiredFiles = options.requiredFiles ?? DEFAULT_REQUIRED_PATHS;
   const normalizedPayload = normalizeJsonPayload(payload);
   let parsed: unknown;
 
@@ -43,7 +51,7 @@ export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile
 
   const normalizedFiles: GeneratedFile[] = [];
   const seen = new Set<string>();
-  const required = new Set(REQUIRED_FILES.map((name) => `edu-content/${moduleId}/${name}`));
+  const required = new Set(requiredFiles.map((name) => `edu-content/${options.moduleId}/${name}`));
 
   for (const entry of record.files) {
     if (!entry || typeof entry !== 'object') {
@@ -60,7 +68,7 @@ export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile
       throw new Error('허용되지 않는 파일 경로입니다.');
     }
 
-    if (!normalizedPath.startsWith(`edu-content/${moduleId}/`)) {
+    if (!normalizedPath.startsWith(`edu-content/${options.moduleId}/`)) {
       throw new Error('edu-content 경로만 허용됩니다.');
     }
 
@@ -78,9 +86,17 @@ export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile
     normalizedFiles.push({ path: normalizedPath, content: fileRecord.content });
   }
 
-  if (required.size > 0) {
+  if (options.requireAll !== false && required.size > 0) {
     throw new Error('필수 파일이 누락되었습니다.');
   }
 
+  if (normalizedFiles.length === 0) {
+    throw new Error('수정할 파일이 필요합니다.');
+  }
+
   return normalizedFiles;
+}
+
+export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile[] {
+  return parseZaiFiles(payload, { moduleId, requireAll: true });
 }

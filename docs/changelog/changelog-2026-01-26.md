@@ -21,6 +21,11 @@
 - `tests/api-review-output.test.js`: 검수 파서/자동 점검 테스트 추가
 - `api/src/content-generator.ts`: 생성 완료 후 Z.ai 리뷰 워크플로 추가
 - `.env.example`: 리뷰 설정 환경 변수 추가
+- `api/src/content-generator.ts`: 리뷰 실패 시 Z.ai 자동 수정 시도 및 재검증 추가
+- `api/src/llm/review.ts`: 리뷰 이슈 기반 수정 메시지 빌더 추가
+- `api/src/llm/zai-output.ts`: 부분 수정 허용 파서 추가
+- `tests/api-zai-fix-output.test.js`: 부분 수정 파서 테스트 추가
+- `.env.example`: 자동 수정 설정 환경 변수 추가
 
 ### 수정
 - `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가

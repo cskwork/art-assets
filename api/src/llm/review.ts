@@ -149,6 +149,71 @@ export function buildReviewMessages(
   ];
 }
 
+export function buildFixMessages(
+  prompt: string,
+  files: ReviewFiles,
+  review: ReviewResult,
+  deterministic: DeterministicReviewResult
+): ZaiChatMessage[] {
+  const issueList = review.issues.length
+    ? review.issues.map((issue, index) => `${index + 1}. [${issue.severity}] ${issue.location} - ${issue.message}`).join('\n')
+    : '이슈 없음';
+
+  const deterministicSummary = [
+    `자동 점검: sevenScenes=${deterministic.requirements.sevenScenes}, scriptReferenced=${deterministic.requirements.scriptReferenced}, styleReferenced=${deterministic.requirements.styleReferenced}, langKo=${deterministic.requirements.langKo}, sceneCount=${deterministic.sceneCount}`
+  ].join('\n');
+
+  const responseSchema = [
+    '{',
+    '  "files": [',
+    '    { "path": "edu-content/모듈ID/index.html", "content": "..." },',
+    '    { "path": "edu-content/모듈ID/script.js", "content": "..." },',
+    '    { "path": "edu-content/모듈ID/style.css", "content": "..." }',
+    '  ]',
+    '}'
+  ].join('\n');
+
+  const userContent = [
+    '다음 콘텐츠의 문제를 수정하세요.',
+    '필요한 파일만 수정하여 JSON만 출력하세요.',
+    'JSON 외의 텍스트는 금지입니다.',
+    '',
+    '이슈 목록:',
+    issueList,
+    '',
+    '요약:',
+    review.summary,
+    '',
+    deterministicSummary,
+    '',
+    '응답 형식 예시:',
+    responseSchema,
+    '',
+    '프롬프트:',
+    prompt,
+    '',
+    'index.html:',
+    files.indexHtml,
+    '',
+    'script.js:',
+    files.scriptJs,
+    '',
+    'style.css:',
+    files.styleCss
+  ].join('\n');
+
+  return [
+    {
+      role: 'system',
+      content: '당신은 교육용 웹 콘텐츠의 수정 담당자입니다.'
+    },
+    {
+      role: 'user',
+      content: userContent
+    }
+  ];
+}
+
 function parseIssue(input: unknown, index: number): ReviewIssue {
   if (!input || typeof input !== 'object') {
     throw new Error(`리뷰 이슈 형식이 올바르지 않습니다: ${index}`);

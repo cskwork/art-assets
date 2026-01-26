@@ -6,8 +6,8 @@ import { updateJob } from './job-manager';
 import { GenerateContentRequest, ReviewResult } from './types';
 import { getLlmProvider } from './llm/provider';
 import { streamZaiChat, ZaiChatMessage } from './llm/zai-client';
-import { parseZaiOutput, GeneratedFile } from './llm/zai-output';
-import { buildReviewMessages, evaluateDeterministicReview, parseReviewOutput } from './llm/review';
+import { parseZaiOutput, GeneratedFile, parseZaiFiles } from './llm/zai-output';
+import { buildFixMessages, buildReviewMessages, evaluateDeterministicReview, parseReviewOutput } from './llm/review';
 
 const DEFAULT_FILES = ['index.html', 'script.js', 'style.css'];
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
@@ -180,6 +180,19 @@ function isReviewEnabled(value: string | undefined) {
 
 function shouldBlockOnReviewFail(value: string | undefined) {
   return parseBooleanEnv(value, true);
+}
+
+function isAutoFixEnabled(value: string | undefined) {
+  return parseBooleanEnv(value, true);
+}
+
+function getAutoFixMaxAttempts(value: string | undefined) {
+  const parsed = Number.parseInt(value || '', 10);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return 1;
+  }
+
+  return Math.min(parsed, 3);
 }
 
 function getReviewProvider(value: string | undefined) {
@@ -359,7 +372,7 @@ async function runContentReview(
   prompt: string,
   rootDir: string,
   moduleId: string
-): Promise<{ review: ReviewResult; reviewPass: boolean }> {
+): Promise<{ review: ReviewResult; reviewPass: boolean; deterministic: ReturnType<typeof evaluateDeterministicReview> }> {
   const provider = getReviewProvider(process.env.LLM_REVIEW_PROVIDER);
   if (provider !== 'zai') {
     throw new Error('리뷰 제공자는 zai만 지원합니다.');
@@ -391,7 +404,37 @@ async function runContentReview(
   };
   const reviewPass = review.pass && deterministic.pass;
 
-  return { review: mergedReview, reviewPass };
+  return { review: mergedReview, reviewPass, deterministic };
+}
+
+async function runContentFix(
+  prompt: string,
+  rootDir: string,
+  moduleId: string,
+  review: ReviewResult,
+  deterministic: ReturnType<typeof evaluateDeterministicReview>
+) {
+  const provider = getReviewProvider(process.env.LLM_REVIEW_PROVIDER);
+  if (provider !== 'zai') {
+    throw new Error('리뷰 제공자는 zai만 지원합니다.');
+  }
+
+  const apiKey = process.env.ZAI_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error('ZAI_API_KEY가 필요합니다.');
+  }
+
+  const files = await loadReviewFiles(rootDir, moduleId);
+  const fixMessages = buildFixMessages(prompt, files, review, deterministic);
+  const apiUrl = process.env.ZAI_REVIEW_API_URL?.trim() || process.env.ZAI_API_URL?.trim();
+  const model = process.env.ZAI_REVIEW_MODEL?.trim() || process.env.ZAI_MODEL?.trim();
+  const fixText = await streamZaiChat(fixMessages, {
+    apiKey,
+    apiUrl: apiUrl || undefined,
+    model: model || undefined
+  });
+  const updatedFiles = parseZaiFiles(fixText, { moduleId, requireAll: false });
+  await writeGeneratedFiles(rootDir, updatedFiles);
 }
 
 export async function generateContentForJob(
@@ -403,6 +446,8 @@ export async function generateContentForJob(
   const modulePath = path.posix.join('edu-content', moduleId);
   const reviewEnabled = isReviewEnabled(process.env.LLM_REVIEW_ENABLED);
   const blockOnReviewFail = shouldBlockOnReviewFail(process.env.LLM_REVIEW_BLOCK_ON_FAIL);
+  const autoFixEnabled = isAutoFixEnabled(process.env.LLM_REVIEW_AUTO_FIX_ENABLED);
+  const autoFixMaxAttempts = getAutoFixMaxAttempts(process.env.LLM_REVIEW_AUTO_FIX_MAX_ATTEMPTS);
 
   updateJob(jobId, {
     status: 'processing',
@@ -422,12 +467,33 @@ export async function generateContentForJob(
     if (reviewEnabled) {
       updateJob(jobId, { reviewStatus: 'pending' });
       try {
-        const { review, reviewPass } = await runContentReview(prompt, rootDir, moduleId);
+        let { review, reviewPass, deterministic } = await runContentReview(prompt, rootDir, moduleId);
         updateJob(jobId, {
           reviewStatus: reviewPass ? 'completed' : 'failed',
           review
         });
-        if (!reviewPass && blockOnReviewFail) {
+
+        let needsFix = !reviewPass || review.issues.length > 0;
+        if (needsFix && autoFixEnabled) {
+          for (let attempt = 1; attempt <= autoFixMaxAttempts; attempt++) {
+            updateJob(jobId, { reviewStatus: 'pending' });
+            await runContentFix(prompt, rootDir, moduleId, review, deterministic);
+            const next = await runContentReview(prompt, rootDir, moduleId);
+            review = next.review;
+            reviewPass = next.reviewPass;
+            deterministic = next.deterministic;
+            updateJob(jobId, {
+              reviewStatus: reviewPass ? 'completed' : 'failed',
+              review
+            });
+            needsFix = !reviewPass || review.issues.length > 0;
+            if (!needsFix) {
+              break;
+            }
+          }
+        }
+
+        if (needsFix && blockOnReviewFail) {
           updateJob(jobId, { status: 'failed', error: '리뷰 검증에 실패했습니다.' });
           return;
         }
