@@ -2,6 +2,41 @@
 
 한국 학생들을 위한 교육용 아트 고유 에셋 저장소. LLM이 에셋을 검색하고 Vue/HTML 프로젝트에 삽입할 수 있도록 구성됨. (For any text that exists should be korean)
 
+## 최근 활동
+
+### 2026-01-26
+
+**Art Asset Search Skill 구현**
+
+- `~/.claude/skills/art-asset-search/` 스킬 디렉토리 생성
+  - `SKILL.md`: 한국 교육용 아트 에셋 검색 스킬 정의
+  - `references/tag-reference.md`: 전체 태그 목록 및 카테고리 분류
+- 기능: `assets-index.json` 기반 경량 검색, 카테고리/태그/설명 필터링
+- 트리거 키워드: "에셋 찾기", "아이콘 검색", "교육용 이미지", "수학 다이어그램", "3D 모델 찾기", "콘텐츠 내보내기", "교육 콘텐츠 복사"
+
+**초등 수학 인터랙티브 콘텐츠 구현 (4개 모듈)**
+
+- `edu-content/20260126-box-volume/`: 직육면체 부피 (초등 6학년)
+  - CSS 3D transform 기반 큐브 시각화, 층별 쌓기 인터랙션
+  - 7개 씬 구조: Hook > Anchor > Story > Core > Visualize > Quiz > Wrap
+
+- `edu-content/20260126-circle-area/`: 원의 넓이 (초등 6학년)
+  - 부채꼴 분할/직사각형 펼침 애니메이션, MathJax 공식 표현
+  - SVG 부채꼴 렌더링, 슬라이더로 조각 수 조절
+
+- `edu-content/20260126-decimal-multiplication/`: 소수의 곱셈 (초등 5학년)
+  - Three.js GLB 3D 동전 모델, SVG 격자 곱셈 시각화
+  - 터치/드래그 퀴즈 인터랙션, 탑재 폴백 처리 (`file://` 환경 호환)
+
+- `edu-content/20260126-fraction-division/`: 분수의 나눗셈 (초등 5학년)
+  - Three.js GLTFLoader/OrbitControls 기반 3D 시각화
+  - 로드 실패 가드 추가, 비모듈 스크립트 로딩
+
+**모듈 공통 특징**
+- Noto Sans KR 폰트, 반응형/터치 지원
+- 프로그레스 바 표시, 타자 효과 스토리 연출
+- 에셋 참조: 아이콘, 다이어그램, 배경, 3D 모델
+
 ## 폴더 구조
 
 ```
@@ -20,7 +55,13 @@ art-assets/
 ├── backgrounds/          # 배경 이미지 (JPG/PNG)
 ├── diagrams/             # 다이어그램, 차트 (SVG/PNG)
 ├── photos/               # 사진 (JPG)
-└── 3d/                   # 3D 모델/씬 (Three.js GLB/GLTF)
+├── 3d/                   # 3D 모델/씬 (Three.js GLB/GLTF)
+└── edu-content/          # 교육용 인터랙티브 콘텐츠
+    ├── 20260126-box-volume/        # 직육면체 부피 (초등 6학년)
+    ├── 20260126-circle-area/       # 원의 넓이 (초등 6학년)
+    ├── 20260126-decimal-multiplication/  # 소수의 곱셈 (초등 5학년)
+    ├── 20260126-fraction-division/       # 분수의 나눗셈 (초등 5학년)
+    └── 20260126-ratio-proportion/        # 비와 비율 (초등 6학년)
 ```
 
 ## 파일 명명 규칙

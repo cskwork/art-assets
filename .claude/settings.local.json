@@ -3,7 +3,14 @@
     "allow": [
       "Bash(powershell -Command \"Get-ChildItem -Path ''./icons'' -Include ''*.svg'' | Measure-Object | Select-Object -ExpandProperty Count\")",
       "Bash(node scripts/generate-platonic-solids.mjs:*)",
-      "Bash(node build-gallery.js:*)"
+      "Bash(node build-gallery.js:*)",
+      "Bash(wc:*)",
+      "Bash(du -sh:*)",
+      "Bash(for dir in 20260126-*)",
+      "Bash(do echo \"=== $dir ===\" grep -o '\\\\.\\\\./\\\\.\\\\./[^\"\"'''']*' \"edu-content/$dir/index.html\")",
+      "Bash(done)",
+      "Bash(for dir in edu-content/20260126-*)",
+      "Bash(unzip:*)"
     ]
   }
 }
