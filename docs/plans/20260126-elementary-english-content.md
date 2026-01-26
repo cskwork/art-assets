@@ -72,14 +72,14 @@
 ## Implementation Steps
 
 ### Task 1: 공통 템플릿 준비
-- [ ] 기존 modal-can 모듈 구조 분석
-- [ ] 3-4학년 적합 조정 사항 정의:
+- [x] 기존 modal-can 모듈 구조 분석
+- [x] 3-4학년 적합 조정 사항 정의:
   - 폰트 크기 증가 (본문 18px 이상)
   - Web Speech API rate=0.8 (느린 발음)
   - 버튼 크기 48px 이상
   - 한국어 설명 비중 증가
-- [ ] 템플릿 HTML/JS/CSS 골격 준비
-- [ ] 브라우저에서 템플릿 확인
+- [x] 템플릿 HTML/JS/CSS 골격 준비
+- [x] 브라우저에서 템플릿 확인
 
 ### Task 2: Module 1 - Animals Vocabulary (동물 어휘)
 - [ ] `edu-content/20260126-animals-vocabulary/` 디렉토리 생성

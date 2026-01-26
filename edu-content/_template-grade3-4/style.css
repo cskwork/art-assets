@@ -1,0 +1,744 @@
+/* 초등 3-4학년용 스타일 템플릿 */
+
+:root {
+    --primary-color: #4A90D9;
+    --secondary-color: #7ED321;
+    --accent-color: #F5A623;
+    --text-color: #333;
+    --bg-color: #FAFAFA;
+    --error-color: #D0021B;
+    --success-color: #7ED321;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* 3-4학년용: 기본 폰트 크기 증가 */
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.english-text {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+/* Progress Bar */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #FFD54F, #FFA000);
+    width: 14.28%;
+    transition: width 0.5s ease;
+}
+
+/* Scene Base */
+.scene {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.scene.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-wrapper {
+    max-width: 700px;
+    width: 100%;
+    background: white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Hook Scene */
+.question-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-title {
+    /* 3-4학년용: 제목 크기 증가 */
+    font-size: 2.2rem;
+    color: #9C27B0;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.sub-text {
+    /* 3-4학년용: 부제목 크기 증가 */
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.7;
+}
+
+.visual-area {
+    margin: 30px 0;
+}
+
+.hook-svg {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Buttons - 3-4학년용: 버튼 크기 증가 */
+.btn-primary {
+    background: linear-gradient(135deg, #9C27B0, #E91E63);
+    color: white;
+    border: none;
+    /* 3-4학년용: 최소 높이 56px */
+    min-height: 56px;
+    padding: 16px 40px;
+    /* 3-4학년용: 폰트 크기 18px */
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+}
+
+.btn-primary.hidden {
+    display: none;
+}
+
+.btn-secondary {
+    background: white;
+    color: #9C27B0;
+    border: 2px solid #9C27B0;
+    min-height: 56px;
+    padding: 14px 35px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.btn-secondary:hover {
+    background: #9C27B0;
+    color: white;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Anchor Scene */
+.anchor-content {
+    text-align: center;
+}
+
+.anchor-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.anchor-content p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.anchor-demo {
+    margin: 30px 0;
+}
+
+.anchor-examples {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.anchor-card {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    min-width: 120px;
+    transition: transform 0.3s ease;
+}
+
+.anchor-card:hover {
+    transform: scale(1.05);
+}
+
+.anchor-card .english-text {
+    display: block;
+    font-size: 1.2rem;
+    color: #9C27B0;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.anchor-card .korean-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.bridge-question {
+    background: linear-gradient(135deg, #F3E5F5, #E1BEE7);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid #9C27B0;
+}
+
+.bridge-question p {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.sub-hint {
+    font-size: 1rem !important;
+    color: #666;
+}
+
+/* Story Scene */
+.story-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.character-area {
+    flex-shrink: 0;
+}
+
+.character-svg {
+    width: 100px;
+    height: 120px;
+}
+
+.bounce {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.dialogue-box {
+    flex: 1;
+    background: #F0F4F8;
+    padding: 25px;
+    border-radius: 16px;
+    position: relative;
+}
+
+.dialogue-box::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 30px;
+    border: 10px solid transparent;
+    border-right-color: #F0F4F8;
+}
+
+.dialogue-box h3 {
+    color: #9C27B0;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.dialogue-box p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.story-context {
+    background: linear-gradient(135deg, #E8EAF6, #C5CAE9);
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.story-context h4 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.story-context p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Core Scene */
+.instruction {
+    text-align: center;
+    font-size: 1.15rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.interaction-area {
+    margin: 30px 0;
+    min-height: 300px;
+}
+
+.placeholder {
+    background: #F5F5F5;
+    border: 2px dashed #E0E0E0;
+    border-radius: 16px;
+    padding: 50px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #999;
+}
+
+.progress-display {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 20px 0;
+    color: #666;
+}
+
+#progress-count, #total-count {
+    color: #9C27B0;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.discovery-moment {
+    margin-top: 20px;
+}
+
+.discovery-moment.hidden {
+    display: none;
+}
+
+.aha-box {
+    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+    padding: 25px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.aha-icon {
+    font-size: 2.5rem;
+}
+
+.aha-box p {
+    font-size: 1.2rem;
+}
+
+/* Visualize Scene */
+.visualize-content {
+    margin: 20px 0;
+}
+
+.rule-chart {
+    margin-bottom: 25px;
+}
+
+.chart-svg {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+}
+
+.key-insight {
+    background: linear-gradient(135deg, #F3E5F5, #E1BEE7);
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.key-insight p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.key-insight .example {
+    color: #9C27B0;
+    font-size: 1.15rem;
+}
+
+/* Quiz Scene */
+.quiz-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quiz-header h3 {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.quiz-container {
+    position: relative;
+}
+
+.quiz-item {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.quiz-item.active {
+    display: block;
+}
+
+.quiz-context {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.context-icon {
+    width: 70px;
+    height: 55px;
+    flex-shrink: 0;
+}
+
+.context-text {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.quiz-sentence {
+    text-align: center;
+    font-size: 1.4rem;
+    margin: 25px 0;
+    line-height: 1.8;
+}
+
+.blank-inline {
+    display: inline-block;
+    min-width: 90px;
+    border-bottom: 3px solid #9C27B0;
+    margin: 0 5px;
+}
+
+.quiz-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+
+/* 3-4학년용: 터치 타겟 확대 */
+.opt-btn {
+    padding: 18px 35px;
+    border: 2px solid #E0E0E0;
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    min-height: 56px;
+    min-width: 120px;
+    transition: all 0.3s ease;
+}
+
+.opt-btn:hover {
+    border-color: #9C27B0;
+    background: #F3E5F5;
+    transform: scale(1.05);
+}
+
+.opt-btn.correct {
+    background: #E8F5E9;
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.opt-btn.incorrect {
+    background: #FFEBEE;
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+.opt-btn:disabled {
+    pointer-events: none;
+}
+
+.quiz-feedback {
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.quiz-feedback.hidden {
+    display: none;
+}
+
+.quiz-feedback.correct {
+    background: #E8F5E9;
+    color: var(--success-color);
+}
+
+.quiz-feedback.incorrect {
+    background: #FFEBEE;
+    color: var(--error-color);
+}
+
+.quiz-progress {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Wrap Scene */
+.reward-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.trophy-svg {
+    width: 120px;
+    height: 120px;
+}
+
+.trophy-anim {
+    animation: trophyBounce 1s ease-in-out;
+}
+
+@keyframes trophyBounce {
+    0% { transform: scale(0) rotate(-180deg); }
+    50% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.reward-area h2 {
+    color: #9C27B0;
+    margin-top: 15px;
+    font-size: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.summary-card {
+    background: #F5F5F5;
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.summary-card h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.6rem;
+}
+
+.summary-card ul {
+    list-style: none;
+}
+
+.summary-card li {
+    padding: 15px 0;
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.summary-card li:last-child {
+    border-bottom: none;
+}
+
+.example-inline {
+    display: block;
+    font-size: 1.05rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.real-life-examples {
+    margin-bottom: 25px;
+}
+
+.real-life-examples h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 1.4rem;
+}
+
+.example-sentences {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.example-item {
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #E8EAF6, #C5CAE9);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.example-item .english-text {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.korean-small {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* 3-4학년용: 듣기 버튼 */
+.speak-btn {
+    align-self: flex-start;
+    background: #9C27B0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-height: 48px;
+    transition: all 0.3s ease;
+}
+
+.speak-btn:hover {
+    background: #7B1FA2;
+    transform: scale(1.05);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Responsive - 모바일 */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+    }
+
+    .content-wrapper {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+    }
+
+    .sub-text {
+        font-size: 1.05rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        font-size: 16px;
+        min-height: 52px;
+    }
+
+    .story-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dialogue-box::before {
+        display: none;
+    }
+
+    .anchor-examples {
+        gap: 10px;
+    }
+
+    .anchor-card {
+        min-width: 100px;
+        padding: 15px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .quiz-options {
+        flex-direction: column;
+    }
+
+    .opt-btn {
+        width: 100%;
+    }
+
+    .quiz-sentence {
+        font-size: 1.2rem;
+    }
+}
+
+/* 터치 디바이스용 - 최소 터치 타겟 48px */
+@media (hover: none) and (pointer: coarse) {
+    .btn-primary,
+    .btn-secondary,
+    .opt-btn,
+    .speak-btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}

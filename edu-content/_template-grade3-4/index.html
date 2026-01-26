@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초등 3-4학년 영어 템플릿</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- 1. Hook Scene -->
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <div class="question-box">
+                    <h1 class="main-title english-text">Hook Title Here</h1>
+                    <p class="sub-text">흥미로운 질문이나 상황 제시<br>영어와 한국어 설명 모두 포함</p>
+                </div>
+                <div class="visual-area">
+                    <!-- SVG 시각화 영역 -->
+                    <svg viewBox="0 0 400 220" class="hook-svg">
+                        <rect x="100" y="80" width="200" height="80" rx="10" fill="#E3F2FD"/>
+                        <text x="200" y="130" text-anchor="middle" font-size="16" fill="#1976D2">시각화 영역</text>
+                    </svg>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">학습 시작하기</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Anchor Scene -->
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="anchor-content">
+                    <h2>이미 아는 것 복습하기</h2>
+                    <p>선행 학습 내용을 간단히 복습합니다</p>
+                    <div class="anchor-demo">
+                        <!-- 기존 학습 내용 복습 -->
+                        <div class="anchor-examples">
+                            <div class="anchor-card">
+                                <span class="english-text">Example 1</span>
+                                <span class="korean-text">예시 1</span>
+                            </div>
+                            <div class="anchor-card">
+                                <span class="english-text">Example 2</span>
+                                <span class="korean-text">예시 2</span>
+                            </div>
+                        </div>
+                        <div class="bridge-question">
+                            <p>그런데... 오늘은 새로운 내용을 배울 거예요!</p>
+                            <p class="sub-hint">새 학습 내용 미리보기</p>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">다음으로</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Story Scene -->
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="story-card">
+                    <div class="character-area">
+                        <!-- 캐릭터 SVG -->
+                        <svg viewBox="0 0 100 120" class="character-svg bounce">
+                            <circle cx="50" cy="40" r="25" fill="#FFE0B2"/>
+                            <circle cx="43" cy="38" r="3" fill="#333"/>
+                            <circle cx="57" cy="38" r="3" fill="#333"/>
+                            <path d="M43 50 Q50 55 57 50" fill="none" stroke="#333" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="dialogue-box">
+                        <h3 class="english-text">캐릭터 이름</h3>
+                        <p id="typewriter-text"></p>
+                    </div>
+                </div>
+                <div class="problem-visual">
+                    <div class="story-context">
+                        <h4>상황 설명</h4>
+                        <p>캐릭터가 도움을 요청하는 상황 설명</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">함께 해결하기</button>
+            </div>
+        </section>
+
+        <!-- 4. Core Scene (Interaction) -->
+        <section id="core-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>핵심 인터랙션</h2>
+                <p class="instruction">드래그, 클릭, 매칭 등 상호작용 영역</p>
+
+                <div class="interaction-area" id="interaction-area">
+                    <!-- 모듈별 커스텀 인터랙션 -->
+                    <div class="placeholder">
+                        여기에 드래그앤드롭, 클릭 게임 등 인터랙션 구현
+                    </div>
+                </div>
+
+                <div class="progress-display">
+                    <span>진행: <span id="progress-count">1</span> / <span id="total-count">10</span></span>
+                </div>
+
+                <div class="discovery-moment hidden" id="discovery">
+                    <div class="aha-box">
+                        <span class="aha-icon">✨</span>
+                        <p><strong>Great!</strong> 학습 포인트 발견!</p>
+                    </div>
+                </div>
+
+                <button id="core-next-btn" class="btn-primary hidden" onclick="ContentApp.nextScene()">규칙 정리하기</button>
+            </div>
+        </section>
+
+        <!-- 5. Visualize Scene -->
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>규칙 정리</h2>
+                <div class="visualize-content">
+                    <div class="rule-chart">
+                        <svg viewBox="0 0 500 320" class="chart-svg">
+                            <rect x="10" y="10" width="480" height="300" rx="15" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="2"/>
+                            <text x="250" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">학습 규칙 차트</text>
+
+                            <!-- 규칙 박스들 -->
+                            <rect x="25" y="60" width="220" height="100" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="135" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">규칙 1</text>
+                            <text x="135" y="110" text-anchor="middle" font-size="12" fill="#333">설명</text>
+
+                            <rect x="255" y="60" width="220" height="100" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+                            <text x="365" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">규칙 2</text>
+                            <text x="365" y="110" text-anchor="middle" font-size="12" fill="#333">설명</text>
+                        </svg>
+                    </div>
+
+                    <div class="key-insight">
+                        <p><strong>핵심 포인트</strong></p>
+                        <p class="english-text example">예시 문장</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">문제 풀어보기</button>
+            </div>
+        </section>
+
+        <!-- 6. Quiz Scene -->
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="quiz-header">
+                    <span class="badge">Quiz</span>
+                    <h3>알맞은 답을 고르세요!</h3>
+                </div>
+
+                <div class="quiz-container" id="quiz-container">
+                    <!-- Quiz 1 -->
+                    <div class="quiz-item active" data-quiz="1">
+                        <div class="quiz-context">
+                            <svg viewBox="0 0 80 60" class="context-icon">
+                                <circle cx="40" cy="30" r="20" fill="#FFE0B2"/>
+                            </svg>
+                            <span class="context-text">문제 맥락 설명</span>
+                        </div>
+                        <p class="quiz-sentence english-text">문장 <span class="blank-inline">______</span> 빈칸.</p>
+                        <div class="quiz-options">
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'option1')">선택 1</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'option2')">선택 2</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'option3')">선택 3</button>
+                        </div>
+                    </div>
+
+                    <!-- 추가 Quiz 문항들 -->
+                </div>
+
+                <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+                <div class="quiz-progress">
+                    <span id="quiz-progress-text">1 / 4</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Wrap Scene -->
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="reward-area">
+                    <svg viewBox="0 0 100 100" class="trophy-svg trophy-anim">
+                        <circle cx="50" cy="55" r="35" fill="#FFD54F" stroke="#FFA000" stroke-width="3"/>
+                        <circle cx="50" cy="55" r="28" fill="#FFC107"/>
+                        <text x="50" y="45" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">SUPER</text>
+                        <text x="50" y="62" text-anchor="middle" font-size="16" font-weight="bold" fill="#E65100">STAR</text>
+                    </svg>
+                    <h2>Super Star!</h2>
+                </div>
+                <div class="summary-card">
+                    <h3>오늘 배운 것</h3>
+                    <ul>
+                        <li><strong>핵심 1</strong>: 설명
+                            <span class="english-text example-inline">"예시"</span>
+                        </li>
+                        <li><strong>핵심 2</strong>: 설명
+                            <span class="english-text example-inline">"예시"</span>
+                        </li>
+                        <li><strong>주의!</strong> 유의사항</li>
+                    </ul>
+                </div>
+                <div class="real-life-examples">
+                    <h4>오늘 바로 써보세요!</h4>
+                    <div class="example-sentences">
+                        <div class="example-item">
+                            <span class="english-text">"실생활 예문"</span>
+                            <span class="korean-small">한국어 해석</span>
+                            <button class="speak-btn" onclick="ContentApp.speak('실생활 예문')">🔊 듣기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="location.reload()">다시 하기</button>
+                    <button class="btn-primary">다음 주제로</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
