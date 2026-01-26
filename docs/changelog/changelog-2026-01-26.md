@@ -1,5 +1,19 @@
 # Changelog - 2026-01-26
 
+## Edu-Content Generation API 구현
+
+### 추가
+- `api/` TypeScript 기반 콘텐츠 생성 API 모듈 추가
+  - Claude Agent SDK 연동, 프롬프트 로더, 파일 기반 Job 관리
+  - `.env` 기반 모델 설정 및 `edu-content/` 경로 제한
+- `tests/` API 검증 테스트 추가
+  - 요청 검증, 프롬프트 구성, Job 저장소 동작 확인
+
+### 수정
+- `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가
+- `package.json`: `node --test`로 테스트 실행 스크립트 갱신
+- `api/src/content-generator.ts`: OAuth 인증 환경 지원 및 결과 오류 메시지 보강
+
 ## 로컬 서버 실행 스크립트 수정
 
 ### 수정
