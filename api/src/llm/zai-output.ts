@@ -8,6 +8,26 @@ export interface GeneratedFile {
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
 const REQUIRED_FILES = ['index.html', 'script.js', 'style.css'];
 
+function normalizeJsonPayload(payload: string) {
+  const trimmed = payload.trim();
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    return trimmed;
+  }
+
+  const fencedMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fencedMatch) {
+    return fencedMatch[1].trim();
+  }
+
+  const firstBrace = trimmed.indexOf('{');
+  const lastBrace = trimmed.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+    return trimmed.slice(firstBrace, lastBrace + 1);
+  }
+
+  return trimmed;
+}
+
 function normalizeRelativePath(filePath: string) {
   const normalized = path.posix.normalize(filePath).replace(/^(\.\/)+/, '');
   if (path.posix.isAbsolute(normalized)) {
@@ -22,10 +42,11 @@ function normalizeRelativePath(filePath: string) {
 }
 
 export function parseZaiOutput(payload: string, moduleId: string): GeneratedFile[] {
+  const normalizedPayload = normalizeJsonPayload(payload);
   let parsed: unknown;
 
   try {
-    parsed = JSON.parse(payload);
+    parsed = JSON.parse(normalizedPayload);
   } catch (error) {
     throw new Error('Z.ai 응답 JSON 파싱에 실패했습니다.');
   }

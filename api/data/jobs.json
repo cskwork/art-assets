@@ -2,23 +2,6 @@
   "version": 1,
   "jobs": [
     {
-      "id": "320aac40-80ce-45b5-974e-55a5965da2ed",
-      "status": "completed",
-      "request": {
-        "subject": "english",
-        "topic": "Healthy habits: should vs should not (exercise)",
-        "gradeLevel": "초등 6학년"
-      },
-      "createdAt": 1769433095621,
-      "moduleId": "20260126-healthy-habits-should-vs-should-not-exercise",
-      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-exercise",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
-    },
-    {
       "id": "a4f0a4c7-25ed-4882-b1d1-4a2858cfbe7b",
       "status": "failed",
       "request": {
@@ -134,6 +117,31 @@
       "moduleId": "20260126-topic-b246acfc",
       "modulePath": "edu-content/20260126-topic-b246acfc",
       "error": "Node.js fetch를 사용할 수 없습니다. 런타임 버전을 확인하세요."
+    },
+    {
+      "id": "43e42d3c-f6ad-41b2-9c6a-2556e53bfe93",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436586022,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
+    },
+    {
+      "id": "9d9973ed-6945-4489-8a34-3dc3c52fa724",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436958462,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
     }
   ]
 }

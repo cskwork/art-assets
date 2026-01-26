@@ -12,6 +12,10 @@
   - SSE 스트림 응답 수집 및 JSON 출력 파싱
 - `tests/` LLM 제공자 선택 및 Z.ai 출력 검증 테스트 추가
 - `.env.example` LLM 제공자 전환과 Z.ai 설정 예시 추가
+- `api/src/llm/zai-client.ts`: Node 16 환경에서도 동작하도록 HTTP 스트림 폴백 추가
+- `tests/api-zai-client.test.js`: SSE 파서 유틸 테스트 추가
+- `api/src/llm/zai-output.ts`: 코드블록/여분 텍스트가 섞인 JSON 응답 정규화 처리
+- `tests/api-zai-output.test.js`: JSON 코드블록 파싱 테스트 추가
 
 ### 수정
 - `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가

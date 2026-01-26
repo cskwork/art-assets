@@ -29,3 +29,6 @@ Use these keywords to ensure consistency across all generated images:
 
 ### Underwater
 > Bright underwater ocean background, light blue water, colorful coral reef at bottom, bubbles, cartoon fish, friendly vibe, open water space for text, wide aspect ratio, high quality 2d vector art style, flat design
+
+### Zoo
+> Fun zoo entrance background, cartoon style, cute animals (giraffe, lion, penguin) visible, ticket booth, colorful flags, sunny day, friendly atmosphere, open space for content, wide aspect ratio, high quality 2d vector art style, flat design
