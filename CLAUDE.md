@@ -6,6 +6,12 @@
 
 ### 2026-01-26
 
+**초등 영어 인터랙티브 콘텐츠 3개 모듈 완성**
+- 비교급 Comparative Adjectives (초등 5-6학년): -er vs more 규칙, 드래그앤드롭 단어 변환, 불규칙 비교급
+- 현재시제 Present Simple vs Continuous (초등 5-6학년): 습관 vs 진행, 문장 분류 게임, 키워드 기반 학습
+- 조동사 Can/Can't (초등 5-6학년): 능력 표현, 긍정/부정/의문문, 능력 카드 게임
+- 공통: 7씬 구조, 커스텀 SVG 캐릭터, Web Speech API 발음, 한국어 설명 + 영어 타겟 언어
+
 **Archive 버튼 직접 실행 기능**
 - `server.js` 생성: Node.js HTTP 서버, 정적 파일 서빙, Archive/Restore API 엔드포인트
   - `POST /api/archive/:assetId`: 에셋 아카이브
@@ -276,6 +282,8 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
   - `style.css`: 반응형/터치 지원, 색상 테마
 
 ### 사용 가능한 모듈
+
+#### 수학 (Math)
 | 폴더 | 주제 | 학년 | 파일 |
 |------|------|------|------|
 | 20260126-box-volume | 직육면체 부피 | 초등 6학년 | `/edu-content/20260126-box-volume/` |
@@ -283,6 +291,13 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | 20260126-decimal-multiplication | 소수의 곱셈 | 초등 5학년 | `/edu-content/20260126-decimal-multiplication/` |
 | 20260126-fraction-division | 분수의 나눗셈 | 초등 5학년 | `/edu-content/20260126-fraction-division/` |
 | 20260126-ratio-proportion | 비와 비율 | 초등 6학년 | `/edu-content/20260126-ratio-proportion/` |
+
+#### 영어 (English)
+| 폴더 | 주제 | 학년 | 파일 |
+|------|------|------|------|
+| 20260126-comparative-adjectives | 비교급 (-er/more) | 초등 5-6학년 | `/edu-content/20260126-comparative-adjectives/` |
+| 20260126-present-tenses | 현재시제 vs 현재진행형 | 초등 5-6학년 | `/edu-content/20260126-present-tenses/` |
+| 20260126-modal-can | 조동사 can/can't | 초등 5-6학년 | `/edu-content/20260126-modal-can/` |
 
 ### 7씬 표준 구조
 1. **Hook**: 흥미로운 문제 제시 및 3D 시각화
