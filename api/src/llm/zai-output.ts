@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { normalizeJsonPayload } from './json-utils';
 
 export interface GeneratedFile {
   path: string;
@@ -7,26 +8,6 @@ export interface GeneratedFile {
 
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
 const REQUIRED_FILES = ['index.html', 'script.js', 'style.css'];
-
-function normalizeJsonPayload(payload: string) {
-  const trimmed = payload.trim();
-  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
-    return trimmed;
-  }
-
-  const fencedMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-  if (fencedMatch) {
-    return fencedMatch[1].trim();
-  }
-
-  const firstBrace = trimmed.indexOf('{');
-  const lastBrace = trimmed.lastIndexOf('}');
-  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-    return trimmed.slice(firstBrace, lastBrace + 1);
-  }
-
-  return trimmed;
-}
 
 function normalizeRelativePath(filePath: string) {
   const normalized = path.posix.normalize(filePath).replace(/^(\.\/)+/, '');

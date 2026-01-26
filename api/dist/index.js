@@ -78,6 +78,9 @@ function getGenerateContentStatus(jobId) {
         moduleId: job.moduleId,
         modulePath: job.modulePath,
         files: job.files || (job.status === 'completed' ? DEFAULT_FILES : undefined),
-        error: job.error
+        error: job.error,
+        reviewStatus: job.reviewStatus,
+        review: job.review,
+        reviewError: job.reviewError
     };
 }

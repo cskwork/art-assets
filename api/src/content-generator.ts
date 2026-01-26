@@ -3,10 +3,11 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { buildPrompt } from './prompt-loader';
 import { updateJob } from './job-manager';
-import { GenerateContentRequest } from './types';
+import { GenerateContentRequest, ReviewResult } from './types';
 import { getLlmProvider } from './llm/provider';
 import { streamZaiChat, ZaiChatMessage } from './llm/zai-client';
 import { parseZaiOutput, GeneratedFile } from './llm/zai-output';
+import { buildReviewMessages, evaluateDeterministicReview, parseReviewOutput } from './llm/review';
 
 const DEFAULT_FILES = ['index.html', 'script.js', 'style.css'];
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
@@ -157,6 +158,43 @@ function sanitizeEnv(env: NodeJS.ProcessEnv) {
   return cleaned;
 }
 
+function parseBooleanEnv(value: string | undefined, defaultValue: boolean) {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  if (['1', 'true', 'yes', 'y', 'on'].includes(normalized)) {
+    return true;
+  }
+  if (['0', 'false', 'no', 'n', 'off'].includes(normalized)) {
+    return false;
+  }
+
+  return defaultValue;
+}
+
+function isReviewEnabled(value: string | undefined) {
+  return parseBooleanEnv(value, true);
+}
+
+function shouldBlockOnReviewFail(value: string | undefined) {
+  return parseBooleanEnv(value, true);
+}
+
+function getReviewProvider(value: string | undefined) {
+  if (!value) {
+    return 'zai';
+  }
+
+  const provider = getLlmProvider(value);
+  if (provider !== 'zai') {
+    throw new Error('리뷰 제공자는 zai만 지원합니다.');
+  }
+
+  return provider;
+}
+
 async function loadClaudeSdk() {
   // ESM 전용 SDK를 CommonJS에서 동적 로딩하기 위한 처리
   const importer = new Function('return import(\"@anthropic-ai/claude-agent-sdk\")');
@@ -194,14 +232,24 @@ async function writeGeneratedFiles(rootDir: string, files: GeneratedFile[]) {
   );
 }
 
+async function loadReviewFiles(rootDir: string, moduleId: string) {
+  const baseDir = path.join(rootDir, 'edu-content', moduleId);
+  const [indexHtml, scriptJs, styleCss] = await Promise.all([
+    fs.readFile(path.join(baseDir, 'index.html'), 'utf8'),
+    fs.readFile(path.join(baseDir, 'script.js'), 'utf8'),
+    fs.readFile(path.join(baseDir, 'style.css'), 'utf8')
+  ]);
+
+  return { indexHtml, scriptJs, styleCss };
+}
+
 async function generateContentWithClaude(
   jobId: string,
   request: GenerateContentRequest,
   moduleId: string,
   rootDir: string,
-  modulePath: string
+  prompt: string
 ) {
-  const prompt = await buildPrompt(request, moduleId);
   const { query } = await loadClaudeSdk();
   const claudeConfigDir = getClaudeConfigDir(rootDir);
   await fs.mkdir(claudeConfigDir, { recursive: true });
@@ -278,21 +326,9 @@ async function generateContentWithClaude(
 
   for await (const message of response) {
     if (message.type === 'result' && message.subtype !== 'success') {
-      const errorMessage = mapResultErrorMessage(message.subtype);
-      updateJob(jobId, {
-        status: 'failed',
-        error: errorMessage
-      });
-      return;
+      throw new Error(mapResultErrorMessage(message.subtype));
     }
   }
-
-  updateJob(jobId, {
-    status: 'completed',
-    moduleId,
-    modulePath,
-    files: DEFAULT_FILES
-  });
 }
 
 async function generateContentWithZai(
@@ -300,14 +336,13 @@ async function generateContentWithZai(
   request: GenerateContentRequest,
   moduleId: string,
   rootDir: string,
-  modulePath: string
+  prompt: string
 ) {
   const apiKey = process.env.ZAI_API_KEY?.trim();
   if (!apiKey) {
     throw new Error('ZAI_API_KEY가 필요합니다.');
   }
 
-  const prompt = await buildPrompt(request, moduleId);
   const messages = buildZaiMessages(prompt, moduleId);
   const apiUrl = process.env.ZAI_API_URL?.trim();
   const model = process.env.ZAI_MODEL?.trim();
@@ -318,13 +353,45 @@ async function generateContentWithZai(
   });
   const files = parseZaiOutput(content, moduleId);
   await writeGeneratedFiles(rootDir, files);
+}
 
-  updateJob(jobId, {
-    status: 'completed',
-    moduleId,
-    modulePath,
-    files: DEFAULT_FILES
+async function runContentReview(
+  prompt: string,
+  rootDir: string,
+  moduleId: string
+): Promise<{ review: ReviewResult; reviewPass: boolean }> {
+  const provider = getReviewProvider(process.env.LLM_REVIEW_PROVIDER);
+  if (provider !== 'zai') {
+    throw new Error('리뷰 제공자는 zai만 지원합니다.');
+  }
+
+  const apiKey = process.env.ZAI_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error('ZAI_API_KEY가 필요합니다.');
+  }
+
+  const files = await loadReviewFiles(rootDir, moduleId);
+  const deterministic = evaluateDeterministicReview(files.indexHtml);
+  const reviewMessages = buildReviewMessages(prompt, files, deterministic);
+  const apiUrl = process.env.ZAI_REVIEW_API_URL?.trim() || process.env.ZAI_API_URL?.trim();
+  const model = process.env.ZAI_REVIEW_MODEL?.trim() || process.env.ZAI_MODEL?.trim();
+  const reviewText = await streamZaiChat(reviewMessages, {
+    apiKey,
+    apiUrl: apiUrl || undefined,
+    model: model || undefined
   });
+  const review = parseReviewOutput(reviewText);
+  const mergedIssues = [...deterministic.issues, ...review.issues];
+  const mergedReview: ReviewResult = {
+    ...review,
+    issues: mergedIssues,
+    deterministic: deterministic.requirements,
+    deterministicPass: deterministic.pass,
+    sceneCount: deterministic.sceneCount
+  };
+  const reviewPass = review.pass && deterministic.pass;
+
+  return { review: mergedReview, reviewPass };
 }
 
 export async function generateContentForJob(
@@ -334,6 +401,8 @@ export async function generateContentForJob(
 ) {
   const rootDir = getProjectRoot();
   const modulePath = path.posix.join('edu-content', moduleId);
+  const reviewEnabled = isReviewEnabled(process.env.LLM_REVIEW_ENABLED);
+  const blockOnReviewFail = shouldBlockOnReviewFail(process.env.LLM_REVIEW_BLOCK_ON_FAIL);
 
   updateJob(jobId, {
     status: 'processing',
@@ -342,13 +411,42 @@ export async function generateContentForJob(
   });
 
   try {
+    const prompt = await buildPrompt(request, moduleId);
     const provider = getLlmProvider(process.env.LLM_PROVIDER);
     if (provider === 'zai') {
-      await generateContentWithZai(jobId, request, moduleId, rootDir, modulePath);
-      return;
+      await generateContentWithZai(jobId, request, moduleId, rootDir, prompt);
+    } else {
+      await generateContentWithClaude(jobId, request, moduleId, rootDir, prompt);
     }
 
-    await generateContentWithClaude(jobId, request, moduleId, rootDir, modulePath);
+    if (reviewEnabled) {
+      updateJob(jobId, { reviewStatus: 'pending' });
+      try {
+        const { review, reviewPass } = await runContentReview(prompt, rootDir, moduleId);
+        updateJob(jobId, {
+          reviewStatus: reviewPass ? 'completed' : 'failed',
+          review
+        });
+        if (!reviewPass && blockOnReviewFail) {
+          updateJob(jobId, { status: 'failed', error: '리뷰 검증에 실패했습니다.' });
+          return;
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : '리뷰 처리 오류';
+        updateJob(jobId, { reviewStatus: 'failed', reviewError: message });
+        if (blockOnReviewFail) {
+          updateJob(jobId, { status: 'failed', error: message });
+          return;
+        }
+      }
+    }
+
+    updateJob(jobId, {
+      status: 'completed',
+      moduleId,
+      modulePath,
+      files: DEFAULT_FILES
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : '알 수 없는 오류';
     updateJob(jobId, { status: 'failed', error: message });

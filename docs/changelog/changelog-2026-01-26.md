@@ -16,6 +16,11 @@
 - `tests/api-zai-client.test.js`: SSE 파서 유틸 테스트 추가
 - `api/src/llm/zai-output.ts`: 코드블록/여분 텍스트가 섞인 JSON 응답 정규화 처리
 - `tests/api-zai-output.test.js`: JSON 코드블록 파싱 테스트 추가
+- `api/src/llm/review.ts`: 생성 결과 자동 검수 로직 및 리뷰 JSON 파싱 추가
+- `api/src/llm/json-utils.ts`: JSON 정규화 유틸 분리
+- `tests/api-review-output.test.js`: 검수 파서/자동 점검 테스트 추가
+- `api/src/content-generator.ts`: 생성 완료 후 Z.ai 리뷰 워크플로 추가
+- `.env.example`: 리뷰 설정 환경 변수 추가
 
 ### 수정
 - `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가
@@ -251,3 +256,26 @@ node scripts/archive.js --list
   - 덮어쓰기 경고 템플릿
   - 출력 형식 템플릿
   - 사용 예시 4개
+
+## 공통 교육 콘텐츠 시스템 프롬프트 생성
+
+### 추가
+- `api/system-prompt/system.md` 생성
+  - `prompts/math.md` 기반 과목 중립적 시스템 프롬프트
+  - 모든 과목(수학, 영어, 과학 등)에서 사용 가능
+
+### 포함 섹션
+- Role Definition: 전문 교육 콘텐츠 디자이너 역할 정의
+- Content Philosophy: Non-Obvious, Vertical Anchoring, Real-World Anchoring
+- Scene Structure: 7씬 구조 (Hook, Anchor, Story, Core, Visualize, Quiz, Wrap)
+- Story Templates by Subject Domain: 과목별 템플릿 구조 및 예시 (수학, 영어)
+- Subject-Specific Anchoring Guidelines: 수학/영어/과학별 앵커링 가이드
+- Output Format: HTML/CSS/JS/SVG 필수 구조
+- Quality Checklist: 콘텐츠/기술/접근성 품질 체크리스트
+- Generation Instructions: 5단계 생성 절차
+
+### 일반화 변경
+- "math content" -> "educational content"
+- 수학 도메인별 템플릿 -> 과목 중립적 템플릿 구조
+- 수학 앵커링 표 -> 과목별 앵커링 가이드라인
+- 수학 예시 -> 과목 매개변수화된 예시 (수학/영어)

@@ -7,6 +7,27 @@ export interface GenerateContentRequest {
 }
 
 export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
+export type ReviewStatus = 'pending' | 'completed' | 'failed';
+
+export type ReviewIssueSeverity = 'high' | 'medium' | 'low';
+
+export interface ReviewIssue {
+  severity: ReviewIssueSeverity;
+  location: string;
+  message: string;
+  fix?: string;
+}
+
+export interface ReviewResult {
+  pass: boolean;
+  score: number;
+  requirements: Record<string, boolean>;
+  issues: ReviewIssue[];
+  summary: string;
+  deterministic?: Record<string, boolean>;
+  deterministicPass?: boolean;
+  sceneCount?: number;
+}
 
 export interface GenerateContentResponse {
   success: true;
@@ -21,6 +42,9 @@ export interface GenerateContentStatusResponse {
   modulePath?: string;
   files?: string[];
   error?: string;
+  reviewStatus?: ReviewStatus;
+  review?: ReviewResult;
+  reviewError?: string;
 }
 
 export type ErrorCode =
@@ -43,5 +67,8 @@ export interface Job {
   modulePath?: string;
   files?: string[];
   error?: string;
+  reviewStatus?: ReviewStatus;
+  review?: ReviewResult;
+  reviewError?: string;
   createdAt: number;
 }
