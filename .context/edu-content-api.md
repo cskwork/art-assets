@@ -1,0 +1,4 @@
+- 콘텐츠 생성 Job은 파일 기반 저장소(api/data/jobs.json)로 유지해 재시작 시에도 상태가 보존됨
+- Claude Agent SDK의 Write 도구는 edu-content/ 하위와 .html/.css/.js/.svg/.png/.jpg 확장자만 허용
+- 동일 주제 요청 시 YYYYMMDD-슬러그-vN 규칙으로 모듈 버전 증가
+- API 키 없이도 Claude Code OAuth 인증을 통해 실행 가능

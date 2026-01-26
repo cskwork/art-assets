@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "25caa1b0-d32d-43f1-b325-b82450a223a0",
+      "status": "processing",
+      "request": {
+        "subject": "english",
+        "topic": "Future plans: will vs going to",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769431838642,
+      "moduleId": "20260126-future-plans-will-vs-going-to",
+      "modulePath": "edu-content/20260126-future-plans-will-vs-going-to"
+    },
+    {
+      "id": "610e0722-d298-4d54-be52-4ed75f879610",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Making plans: will vs going to (travel)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769431875357,
+      "moduleId": "20260126-making-plans-will-vs-going-to-travel",
+      "modulePath": "edu-content/20260126-making-plans-will-vs-going-to-travel",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "9b11e219-47c2-49c8-a899-637bbc6ca976",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Healthy habits: should vs should not (sleep)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769432068428,
+      "moduleId": "20260126-healthy-habits-should-vs-should-not-sleep",
+      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-sleep",
+      "error": "콘텐츠 생성 중 오류가 발생했습니다."
+    },
+    {
+      "id": "320aac40-80ce-45b5-974e-55a5965da2ed",
+      "status": "processing",
+      "request": {
+        "subject": "english",
+        "topic": "Healthy habits: should vs should not (exercise)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433095621,
+      "moduleId": "20260126-healthy-habits-should-vs-should-not-exercise",
+      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-exercise"
+    }
+  ]
+}
