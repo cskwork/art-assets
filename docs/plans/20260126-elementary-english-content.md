@@ -82,8 +82,8 @@
 - [x] 브라우저에서 템플릿 확인
 
 ### Task 2: Module 1 - Animals Vocabulary (동물 어휘)
-- [ ] `edu-content/20260126-animals-vocabulary/` 디렉토리 생성
-- [ ] `index.html` 7씬 구조 작성
+- [x] `edu-content/20260126-animals-vocabulary/` 디렉토리 생성
+- [x] `index.html` 7씬 구조 작성
   - Hook: "QUACK QUACK! What's the animal's NAME?"
   - Anchor: 이미 아는 dog, cat 복습
   - Story: Zoomi 사육사가 동물원 라벨 도움 요청
@@ -91,12 +91,12 @@
   - Visualize: 카테고리별 동물 차트
   - Quiz: 4문항 동물 식별
   - Wrap: 동물 스티커 보상
-- [ ] `script.js` ContentApp 구현
+- [x] `script.js` ContentApp 구현
   - 드래그앤드롭 로직
   - Web Speech API 발음
   - 퀴즈 정답 판정
-- [ ] `style.css` 스타일링
-- [ ] 브라우저 테스트 (7씬 전체, 터치, 발음)
+- [x] `style.css` 스타일링
+- [x] 브라우저 테스트 (7씬 전체, 터치, 발음)
 
 ### Task 3: Module 2 - Food Vocabulary (음식 어휘)
 - [ ] `edu-content/20260126-food-vocabulary/` 디렉토리 생성

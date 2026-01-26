@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동물 친구들 - 초등 3-4학년 영어</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- 1. Hook Scene -->
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <div class="question-box">
+                    <h1 class="main-title english-text">QUACK QUACK!</h1>
+                    <p class="sub-text">이 소리의 주인공은 누구일까요?<br>영어로 동물 이름을 배워봐요!</p>
+                </div>
+                <div class="visual-area">
+                    <svg viewBox="0 0 400 220" class="hook-svg">
+                        <!-- 오리 SVG -->
+                        <ellipse cx="200" cy="140" rx="60" ry="50" fill="#FFD54F"/>
+                        <ellipse cx="185" cy="100" rx="35" ry="40" fill="#FFD54F"/>
+                        <polygon points="160,95 140,100 160,105" fill="#FF9800"/>
+                        <circle cx="175" cy="95" r="5" fill="#333"/>
+                        <ellipse cx="180" cy="185" rx="12" ry="8" fill="#FF9800"/>
+                        <ellipse cx="220" cy="185" rx="12" ry="8" fill="#FF9800"/>
+
+                        <!-- 물결 -->
+                        <path d="M 80 180 Q 100 175 120 180 T 160 180 T 200 180 T 240 180 T 280 180 T 320 180"
+                              stroke="#4FC3F7" stroke-width="3" fill="none"/>
+
+                        <!-- 말풍선 -->
+                        <rect x="250" y="60" width="120" height="50" rx="10" fill="white" stroke="#FFD54F" stroke-width="2"/>
+                        <polygon points="250,90 240,100 250,100" fill="white"/>
+                        <text x="310" y="90" text-anchor="middle" font-size="20" font-weight="bold" fill="#FF6F00">QUACK!</text>
+                    </svg>
+                </div>
+                <div class="controls">
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">학습 시작하기</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Anchor Scene -->
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="anchor-content">
+                    <h2>이미 아는 동물 친구들</h2>
+                    <p>우리는 이미 몇 가지 동물 이름을 알고 있어요!</p>
+                    <div class="anchor-demo">
+                        <div class="anchor-examples">
+                            <div class="anchor-card" onclick="ContentApp.speak('dog')">
+                                <svg viewBox="0 0 80 80" class="animal-icon">
+                                    <ellipse cx="40" cy="50" rx="25" ry="20" fill="#8D6E63"/>
+                                    <ellipse cx="40" cy="35" rx="18" ry="16" fill="#8D6E63"/>
+                                    <ellipse cx="25" cy="25" rx="8" ry="15" fill="#8D6E63"/>
+                                    <ellipse cx="55" cy="25" rx="8" ry="15" fill="#8D6E63"/>
+                                    <circle cx="35" cy="33" r="3" fill="#333"/>
+                                    <circle cx="45" cy="33" r="3" fill="#333"/>
+                                    <circle cx="40" cy="40" r="3" fill="#333"/>
+                                </svg>
+                                <span class="english-text">dog</span>
+                                <span class="korean-text">강아지</span>
+                            </div>
+                            <div class="anchor-card" onclick="ContentApp.speak('cat')">
+                                <svg viewBox="0 0 80 80" class="animal-icon">
+                                    <ellipse cx="40" cy="50" rx="22" ry="18" fill="#FF9800"/>
+                                    <ellipse cx="40" cy="35" rx="16" ry="14" fill="#FF9800"/>
+                                    <polygon points="25,20 30,30 35,22" fill="#FF9800"/>
+                                    <polygon points="55,20 50,30 45,22" fill="#FF9800"/>
+                                    <circle cx="35" cy="33" r="2" fill="#333"/>
+                                    <circle cx="45" cy="33" r="2" fill="#333"/>
+                                    <path d="M 35 38 L 40 42 L 45 38" stroke="#333" stroke-width="1.5" fill="none"/>
+                                </svg>
+                                <span class="english-text">cat</span>
+                                <span class="korean-text">고양이</span>
+                            </div>
+                        </div>
+                        <div class="bridge-question">
+                            <p>그런데... 다른 동물들은 영어로 뭐라고 할까요?</p>
+                            <p class="sub-hint">동물원, 농장, 집에 사는 동물들을 배워봐요!</p>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="ContentApp.nextScene()">다음으로</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Story Scene -->
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="story-card">
+                    <div class="character-area">
+                        <!-- Zoomi 사육사 캐릭터 -->
+                        <svg viewBox="0 0 100 120" class="character-svg bounce">
+                            <ellipse cx="50" cy="75" rx="30" ry="12" fill="#BDBDBD" opacity="0.3"/>
+                            <rect x="30" y="50" width="40" height="35" rx="5" fill="#4CAF50"/>
+                            <circle cx="50" cy="35" r="20" fill="#FFE0B2"/>
+                            <circle cx="43" cy="32" r="3" fill="#333"/>
+                            <circle cx="57" cy="32" r="3" fill="#333"/>
+                            <path d="M43 42 Q50 46 57 42" fill="none" stroke="#333" stroke-width="2"/>
+                            <rect x="40" y="25" width="20" height="8" rx="3" fill="#8D6E63"/>
+                            <circle cx="25" cy="65" r="6" fill="#FFE0B2"/>
+                            <circle cx="75" cy="65" r="6" fill="#FFE0B2"/>
+                            <rect x="35" y="85" width="10" height="20" rx="3" fill="#2196F3"/>
+                            <rect x="55" y="85" width="10" height="20" rx="3" fill="#2196F3"/>
+                        </svg>
+                        <h3 class="character-name">사육사 Zoomi</h3>
+                    </div>
+                    <div class="dialogue-box">
+                        <p id="typewriter-text"></p>
+                    </div>
+                </div>
+                <div class="problem-visual">
+                    <div class="story-context">
+                        <h4>도움이 필요해요!</h4>
+                        <p>동물원의 표지판들이 바람에 날아가버렸어요. Zoomi를 도와 동물들의 이름표를 다시 붙여주세요!</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">함께 해결하기</button>
+            </div>
+        </section>
+
+        <!-- 4. Core Scene (Drag & Drop Matching) -->
+        <section id="core-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>동물 이름 매칭 게임</h2>
+                <p class="instruction">동물 그림을 보고 알맞은 영어 단어를 클릭하세요!</p>
+
+                <div class="matching-area" id="matching-area">
+                    <!-- 동물 카드들이 동적으로 생성됨 -->
+                </div>
+
+                <div class="word-choices" id="word-choices">
+                    <!-- 단어 버튼들이 동적으로 생성됨 -->
+                </div>
+
+                <div class="progress-display">
+                    <span>진행: <span id="progress-count">0</span> / <span id="total-count">12</span></span>
+                </div>
+
+                <div class="discovery-moment hidden" id="discovery">
+                    <div class="aha-box">
+                        <span class="aha-icon">✨</span>
+                        <p><strong>Great!</strong> 모든 동물 친구들을 찾았어요!</p>
+                    </div>
+                </div>
+
+                <button id="core-next-btn" class="btn-primary hidden" onclick="ContentApp.nextScene()">규칙 정리하기</button>
+            </div>
+        </section>
+
+        <!-- 5. Visualize Scene -->
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>동물 친구들 정리</h2>
+                <div class="visualize-content">
+                    <div class="category-chart">
+                        <svg viewBox="0 0 600 380" class="chart-svg">
+                            <rect x="10" y="10" width="580" height="360" rx="15" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="2"/>
+                            <text x="300" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">동물 카테고리</text>
+
+                            <!-- Pet 카테고리 -->
+                            <rect x="25" y="60" width="170" height="280" rx="10" fill="#FFE0B2" stroke="#FF9800" stroke-width="2"/>
+                            <text x="110" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#E65100">Pet (애완동물)</text>
+                            <text x="110" y="110" text-anchor="middle" font-size="13" fill="#333">cat</text>
+                            <text x="110" y="135" text-anchor="middle" font-size="13" fill="#333">dog</text>
+                            <text x="110" y="160" text-anchor="middle" font-size="13" fill="#333">bird</text>
+                            <text x="110" y="185" text-anchor="middle" font-size="13" fill="#333">fish</text>
+
+                            <!-- Zoo 카테고리 -->
+                            <rect x="215" y="60" width="170" height="280" rx="10" fill="#C8E6C9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="300" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#1B5E20">Zoo (동물원)</text>
+                            <text x="300" y="110" text-anchor="middle" font-size="13" fill="#333">lion</text>
+                            <text x="300" y="135" text-anchor="middle" font-size="13" fill="#333">elephant</text>
+                            <text x="300" y="160" text-anchor="middle" font-size="13" fill="#333">monkey</text>
+                            <text x="300" y="185" text-anchor="middle" font-size="13" fill="#333">tiger</text>
+
+                            <!-- Farm 카테고리 -->
+                            <rect x="405" y="60" width="170" height="280" rx="10" fill="#BBDEFB" stroke="#2196F3" stroke-width="2"/>
+                            <text x="490" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#0D47A1">Farm (농장)</text>
+                            <text x="490" y="110" text-anchor="middle" font-size="13" fill="#333">cow</text>
+                            <text x="490" y="135" text-anchor="middle" font-size="13" fill="#333">pig</text>
+                            <text x="490" y="160" text-anchor="middle" font-size="13" fill="#333">chicken</text>
+                            <text x="490" y="185" text-anchor="middle" font-size="13" fill="#333">duck</text>
+                        </svg>
+                    </div>
+
+                    <div class="key-insight">
+                        <p><strong>핵심 포인트</strong></p>
+                        <p>동물들은 사는 곳에 따라 구분할 수 있어요!</p>
+                        <ul>
+                            <li><strong>Pet</strong>: 집에서 기르는 동물</li>
+                            <li><strong>Zoo</strong>: 동물원에서 보는 동물</li>
+                            <li><strong>Farm</strong>: 농장에서 기르는 동물</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">문제 풀어보기</button>
+            </div>
+        </section>
+
+        <!-- 6. Quiz Scene -->
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="quiz-header">
+                    <span class="badge">Quiz</span>
+                    <h3>알맞은 답을 고르세요!</h3>
+                </div>
+
+                <div class="quiz-container" id="quiz-container">
+                    <!-- Quiz 1 -->
+                    <div class="quiz-item active" data-quiz="1">
+                        <div class="quiz-context">
+                            <svg viewBox="0 0 80 60" class="context-icon">
+                                <ellipse cx="40" cy="40" rx="25" ry="18" fill="#FF9800"/>
+                                <ellipse cx="40" cy="28" rx="16" ry="14" fill="#FF9800"/>
+                                <polygon points="25,15 30,25 35,17" fill="#FF9800"/>
+                                <polygon points="55,15 50,25 45,17" fill="#FF9800"/>
+                            </svg>
+                        </div>
+                        <p class="quiz-sentence">집에서 기르는 동물이 아닌 것은?</p>
+                        <div class="quiz-options">
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'dog')">dog</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'lion')">lion</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(1, 'cat')">cat</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz 2 -->
+                    <div class="quiz-item" data-quiz="2">
+                        <div class="quiz-context">
+                            <svg viewBox="0 0 80 60" class="context-icon">
+                                <ellipse cx="40" cy="35" rx="20" ry="15" fill="#FFD54F"/>
+                                <ellipse cx="35" cy="25" rx="12" ry="14" fill="#FFD54F"/>
+                            </svg>
+                        </div>
+                        <p class="quiz-sentence english-text">QUACK QUACK! This is a ______.</p>
+                        <div class="quiz-options">
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(2, 'chicken')">chicken</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(2, 'duck')">duck</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(2, 'bird')">bird</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz 3 -->
+                    <div class="quiz-item" data-quiz="3">
+                        <div class="quiz-context">
+                            <svg viewBox="0 0 80 60" class="context-icon">
+                                <ellipse cx="40" cy="35" rx="28" ry="20" fill="#9E9E9E"/>
+                                <ellipse cx="40" cy="20" rx="18" ry="15" fill="#9E9E9E"/>
+                                <ellipse cx="25" cy="18" rx="10" ry="8" fill="#9E9E9E"/>
+                                <ellipse cx="55" cy="18" rx="10" ry="8" fill="#9E9E9E"/>
+                            </svg>
+                        </div>
+                        <p class="quiz-sentence">코가 가장 긴 동물은?</p>
+                        <div class="quiz-options">
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(3, 'monkey')">monkey</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(3, 'tiger')">tiger</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(3, 'elephant')">elephant</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz 4 -->
+                    <div class="quiz-item" data-quiz="4">
+                        <div class="quiz-context">
+                            <svg viewBox="0 0 80 60" class="context-icon">
+                                <ellipse cx="40" cy="35" rx="22" ry="16" fill="#F8BBD0"/>
+                                <circle cx="40" cy="23" r="12" fill="#F8BBD0"/>
+                                <circle cx="37" cy="22" r="2" fill="#333"/>
+                                <circle cx="43" cy="22" r="2" fill="#333"/>
+                            </svg>
+                        </div>
+                        <p class="quiz-sentence english-text">This animal says "OINK OINK!"</p>
+                        <div class="quiz-options">
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(4, 'cow')">cow</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(4, 'pig')">pig</button>
+                            <button class="opt-btn" onclick="ContentApp.checkAnswer(4, 'chicken')">chicken</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+                <div class="quiz-progress">
+                    <span id="quiz-progress-text">1 / 4</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Wrap Scene -->
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="reward-area">
+                    <svg viewBox="0 0 120 120" class="trophy-svg trophy-anim">
+                        <!-- 스티커북 -->
+                        <rect x="30" y="25" width="60" height="70" rx="5" fill="#FFE0B2" stroke="#FF9800" stroke-width="3"/>
+                        <circle cx="45" cy="45" r="8" fill="#4CAF50"/>
+                        <circle cx="75" cy="45" r="8" fill="#2196F3"/>
+                        <circle cx="45" cy="70" r="8" fill="#FF9800"/>
+                        <circle cx="75" cy="70" r="8" fill="#9C27B0"/>
+                        <text x="60" y="50" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">동물</text>
+                        <text x="60" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">스티커</text>
+                    </svg>
+                    <h2>동물 마스터!</h2>
+                    <p>12개 동물 친구들을 모두 찾았어요!</p>
+                </div>
+                <div class="summary-card">
+                    <h3>오늘 배운 것</h3>
+                    <ul>
+                        <li><strong>Pet (애완동물)</strong>: 집에서 기르는 동물
+                            <span class="english-text example-inline">cat, dog, bird, fish</span>
+                        </li>
+                        <li><strong>Zoo (동물원)</strong>: 동물원에서 보는 동물
+                            <span class="english-text example-inline">lion, elephant, monkey, tiger</span>
+                        </li>
+                        <li><strong>Farm (농장)</strong>: 농장에서 기르는 동물
+                            <span class="english-text example-inline">cow, pig, chicken, duck</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="real-life-examples">
+                    <h4>오늘 바로 써보세요!</h4>
+                    <div class="example-sentences">
+                        <div class="example-item">
+                            <span class="english-text">I have a dog.</span>
+                            <span class="korean-small">나는 강아지를 키워요.</span>
+                            <button class="speak-btn" onclick="ContentApp.speak('I have a dog')">🔊</button>
+                        </div>
+                        <div class="example-item">
+                            <span class="english-text">I saw a lion at the zoo!</span>
+                            <span class="korean-small">동물원에서 사자를 봤어요!</span>
+                            <button class="speak-btn" onclick="ContentApp.speak('I saw a lion at the zoo')">🔊</button>
+                        </div>
+                        <div class="example-item">
+                            <span class="english-text">The cow says MOO!</span>
+                            <span class="korean-small">소는 음메 하고 울어요!</span>
+                            <button class="speak-btn" onclick="ContentApp.speak('The cow says MOO')">🔊</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="location.reload()">다시 하기</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
