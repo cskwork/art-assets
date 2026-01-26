@@ -99,8 +99,8 @@
 - [x] 브라우저 테스트 (7씬 전체, 터치, 발음)
 
 ### Task 3: Module 2 - Food Vocabulary (음식 어휘)
-- [ ] `edu-content/20260126-food-vocabulary/` 디렉토리 생성
-- [ ] `index.html` 7씬 구조 작성
+- [x] `edu-content/20260126-food-vocabulary/` 디렉토리 생성
+- [x] `index.html` 7씬 구조 작성
   - Hook: 해외 레스토랑에서 피자 주문
   - Anchor: apple, banana 복습
   - Story: Chef Mimi 메뉴 작성 도움 요청
@@ -108,8 +108,8 @@
   - Visualize: 음식 카테고리 차트
   - Quiz: 음식 식별 + 간단 주문
   - Wrap: 요리사 자격증 보상
-- [ ] `script.js`, `style.css` 구현
-- [ ] 브라우저 테스트
+- [x] `script.js`, `style.css` 구현
+- [x] 브라우저 테스트
 
 ### Task 4: Module 3 - School Items (학용품 어휘)
 - [ ] `edu-content/20260126-school-items/` 디렉토리 생성
