@@ -330,18 +330,6 @@
       "png"
     ],
     [
-      "diagram-vector-field-flow-20260124",
-      "diagrams",
-      [
-        "vector",
-        "field",
-        "physics",
-        "advanced"
-      ],
-      "벡터장 흐름 다이어그램",
-      "png"
-    ],
-    [
       "diagram-limit-function-20260124",
       "diagrams",
       [
@@ -2344,5 +2332,20 @@
       "플라톤의 다면체 - 정이십면체 (Icosahedron)"
     ]
   ],
-  "archived": []
+  "archived": [
+    [
+      "diagram-vector-field-flow-20260124",
+      "diagrams",
+      [
+        "vector",
+        "field",
+        "physics",
+        "advanced"
+      ],
+      "벡터장 흐름 다이어그램",
+      "png",
+      null,
+      "2026-01-26"
+    ]
+  ]
 }

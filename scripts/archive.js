@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
  * archive.js
- * 에셋 아카이브/복원 CLI 도구
+ * 에셋 아카이브/복원 CLI 도구 및 모듈
  *
- * 사용법:
+ * CLI 사용법:
  *   node scripts/archive.js --archive "asset-id"   # 아카이브
  *   node scripts/archive.js --restore "asset-id"   # 복원
  *   node scripts/archive.js --list                 # 아카이브 목록
+ *
+ * 모듈 사용법:
+ *   const { archiveAsset, restoreAsset } = require('./scripts/archive');
+ *   await archiveAsset('asset-id', { runBuild: false });
  */
 
 const fs = require('fs');
@@ -50,15 +54,17 @@ function getAssetFormat(asset, category) {
   return format || defaultFormats[category] || 'svg';
 }
 
-// 에셋 아카이브
-function archiveAsset(assetId) {
+// 에셋 아카이브 (모듈 + CLI 지원)
+function archiveAsset(assetId, options = {}) {
+  const { runBuild: shouldRunBuild = true } = options;
   const source = loadSource();
 
   // assets 배열에서 찾기
   const assetIndex = source.assets.findIndex(a => a[0] === assetId);
   if (assetIndex === -1) {
-    console.error(`에셋을 찾을 수 없습니다: ${assetId}`);
-    process.exit(1);
+    const error = new Error(`에셋을 찾을 수 없습니다: ${assetId}`);
+    error.code = 'ASSET_NOT_FOUND';
+    throw error;
   }
 
   const asset = source.assets[assetIndex];
@@ -78,15 +84,16 @@ function archiveAsset(assetId) {
   const destFile = path.join(archiveCategoryDir, `${assetId}.${format}`);
 
   // 파일 이동
+  let fileWarning = null;
   if (fs.existsSync(srcFile)) {
     fs.renameSync(srcFile, destFile);
     console.log(`파일 이동: ${category}/${assetId}.${format} -> archive/${category}/${assetId}.${format}`);
   } else {
-    console.warn(`경고: 원본 파일이 없습니다: ${srcFile}`);
+    fileWarning = `경고: 원본 파일이 없습니다: ${srcFile}`;
+    console.warn(fileWarning);
   }
 
   // archived 배열에 추가 (archivedDate 포함)
-  // compact: [id, category, tags[], description, format?, dimensions?, archivedDate]
   const archivedAsset = [...asset];
 
   // format이 없으면 null로 채우기
@@ -112,21 +119,27 @@ function archiveAsset(assetId) {
   saveSource(source);
 
   console.log(`아카이브 완료: ${assetId}`);
-  console.log('');
 
-  // 빌드 실행
-  runBuild();
+  // 빌드 실행 (옵션에 따라)
+  if (shouldRunBuild) {
+    console.log('');
+    runBuild();
+  }
+
+  return { success: true, assetId, warning: fileWarning };
 }
 
-// 에셋 복원
-function restoreAsset(assetId) {
+// 에셋 복원 (모듈 + CLI 지원)
+function restoreAsset(assetId, options = {}) {
+  const { runBuild: shouldRunBuild = true } = options;
   const source = loadSource();
 
   // archived 배열에서 찾기
   const assetIndex = source.archived.findIndex(a => a[0] === assetId);
   if (assetIndex === -1) {
-    console.error(`아카이브된 에셋을 찾을 수 없습니다: ${assetId}`);
-    process.exit(1);
+    const error = new Error(`아카이브된 에셋을 찾을 수 없습니다: ${assetId}`);
+    error.code = 'ARCHIVED_ASSET_NOT_FOUND';
+    throw error;
   }
 
   const asset = source.archived[assetIndex];
@@ -146,15 +159,16 @@ function restoreAsset(assetId) {
   const destFile = path.join(destDir, `${assetId}.${format}`);
 
   // 파일 이동
+  let fileWarning = null;
   if (fs.existsSync(srcFile)) {
     fs.renameSync(srcFile, destFile);
     console.log(`파일 복원: archive/${category}/${assetId}.${format} -> ${category}/${assetId}.${format}`);
   } else {
-    console.warn(`경고: 아카이브 파일이 없습니다: ${srcFile}`);
+    fileWarning = `경고: 아카이브 파일이 없습니다: ${srcFile}`;
+    console.warn(fileWarning);
   }
 
   // archivedDate 제거하고 assets 배열에 추가
-  // compact: [id, category, tags[], description, format?, dimensions?]
   const restoredAsset = asset.slice(0, 6);
 
   // 뒤에서부터 null 제거 (trim)
@@ -174,10 +188,14 @@ function restoreAsset(assetId) {
   saveSource(source);
 
   console.log(`복원 완료: ${assetId}`);
-  console.log('');
 
-  // 빌드 실행
-  runBuild();
+  // 빌드 실행 (옵션에 따라)
+  if (shouldRunBuild) {
+    console.log('');
+    runBuild();
+  }
+
+  return { success: true, assetId, warning: fileWarning };
 }
 
 // 아카이브 목록 표시
@@ -234,30 +252,51 @@ function showHelp() {
 `);
 }
 
-// CLI 파싱
-const args = process.argv.slice(2);
+// 모듈 export
+module.exports = {
+  archiveAsset,
+  restoreAsset,
+  listArchived,
+  loadSource,
+  getAssetFormat
+};
 
-if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
-  showHelp();
-  process.exit(0);
+// CLI 실행 (직접 실행 시에만)
+if (require.main === module) {
+  const args = process.argv.slice(2);
+
+  if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
+    showHelp();
+    process.exit(0);
+  }
+
+  if (args.includes('--list') || args.includes('-l')) {
+    listArchived();
+    process.exit(0);
+  }
+
+  const archiveIndex = args.indexOf('--archive');
+  if (archiveIndex !== -1 && args[archiveIndex + 1]) {
+    try {
+      archiveAsset(args[archiveIndex + 1]);
+      process.exit(0);
+    } catch (error) {
+      console.error(error.message);
+      process.exit(1);
+    }
+  }
+
+  const restoreIndex = args.indexOf('--restore');
+  if (restoreIndex !== -1 && args[restoreIndex + 1]) {
+    try {
+      restoreAsset(args[restoreIndex + 1]);
+      process.exit(0);
+    } catch (error) {
+      console.error(error.message);
+      process.exit(1);
+    }
+  }
+
+  console.error('알 수 없는 명령입니다. --help를 사용하세요.');
+  process.exit(1);
 }
-
-if (args.includes('--list') || args.includes('-l')) {
-  listArchived();
-  process.exit(0);
-}
-
-const archiveIndex = args.indexOf('--archive');
-if (archiveIndex !== -1 && args[archiveIndex + 1]) {
-  archiveAsset(args[archiveIndex + 1]);
-  process.exit(0);
-}
-
-const restoreIndex = args.indexOf('--restore');
-if (restoreIndex !== -1 && args[restoreIndex + 1]) {
-  restoreAsset(args[restoreIndex + 1]);
-  process.exit(0);
-}
-
-console.error('알 수 없는 명령입니다. --help를 사용하세요.');
-process.exit(1);

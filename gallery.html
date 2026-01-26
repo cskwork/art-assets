@@ -316,7 +316,7 @@
       margin-bottom: 1rem;
     }
 
-    .modal-command {
+    .modal-asset-info {
       background: #f5f5f5;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
@@ -325,6 +325,40 @@
       font-size: 0.85rem;
       word-break: break-all;
       margin-bottom: 1rem;
+    }
+
+    .modal-result {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .modal-result.success {
+      display: block;
+      background: #e8f5e9;
+      border: 1px solid #4caf50;
+      color: #2e7d32;
+    }
+
+    .modal-result.error {
+      display: block;
+      background: #ffebee;
+      border: 1px solid #f44336;
+      color: #c62828;
+    }
+
+    .modal-result.loading {
+      display: block;
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      color: #1565c0;
+    }
+
+    .modal-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .modal-actions {
@@ -429,7 +463,7 @@
 <body>
   <header class="header">
     <div class="header-content">
-      <h1>Art Assets Gallery <span>(159개)</span></h1>
+      <h1>Art Assets Gallery <span>(158개)</span></h1>
       <div class="search-box">
         <input type="text" id="search" placeholder="태그 또는 설명으로 검색..." />
       </div>
@@ -439,7 +473,7 @@
   <nav class="tabs">
     <div class="tabs-inner">
       <button class="tab active" data-category="all">
-        전체 <span class="count">159</span>
+        전체 <span class="count">158</span>
       </button>
       <button class="tab" data-category="icons">
         Icons <span class="count">34</span>
@@ -448,7 +482,7 @@
         Illustrations <span class="count">38</span>
       </button>
       <button class="tab" data-category="diagrams">
-        Diagrams <span class="count">35</span>
+        Diagrams <span class="count">34</span>
       </button>
       <button class="tab" data-category="backgrounds">
         Backgrounds <span class="count">27</span>
@@ -457,7 +491,7 @@
         3D Models <span class="count">25</span>
       </button>
       <button class="tab" data-category="archived">
-        Archived <span class="count">0</span>
+        Archived <span class="count">1</span>
       </button>
     </div>
   </nav>
@@ -475,7 +509,7 @@
           <div class="card-tags"><span class="tag">arithmetic</span><span class="tag">math</span><span class="tag">elementary</span><span class="tag">plus</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-arithmetic-basic-color-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-arithmetic-basic-color-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-arithmetic-basic-color-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -490,7 +524,7 @@
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">123</span><span class="tag">elementary</span><span class="tag">fun</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-numbers-fun-flat-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-numbers-fun-flat-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-numbers-fun-flat-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -505,7 +539,7 @@
           <div class="card-tags"><span class="tag">shapes</span><span class="tag">geometry</span><span class="tag">elementary</span><span class="tag">basic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-shapes-primary-bold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-shapes-primary-bold-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-shapes-primary-bold-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -520,7 +554,7 @@
           <div class="card-tags"><span class="tag">counting</span><span class="tag">apples</span><span class="tag">elementary</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-counting-apples-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-counting-apples-modern-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-counting-apples-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -535,7 +569,7 @@
           <div class="card-tags"><span class="tag">clock</span><span class="tag">time</span><span class="tag">elementary</span><span class="tag">learning</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-clock-learning-simple-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-clock-learning-simple-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-clock-learning-simple-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -550,7 +584,7 @@
           <div class="card-tags"><span class="tag">fraction</span><span class="tag">pie</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-fraction-pie-thirds-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-fraction-pie-thirds-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-fraction-pie-thirds-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -565,7 +599,7 @@
           <div class="card-tags"><span class="tag">coordinate</span><span class="tag">plane</span><span class="tag">xy-axis</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-coordinate-plane-clean-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-coordinate-plane-clean-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-coordinate-plane-clean-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -580,7 +614,7 @@
           <div class="card-tags"><span class="tag">angles</span><span class="tag">geometry</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-angles-geometry-blue-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-angles-geometry-blue-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-angles-geometry-blue-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -595,7 +629,7 @@
           <div class="card-tags"><span class="tag">triangle</span><span class="tag">area</span><span class="tag">geometry</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-triangle-area-labeled-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-triangle-area-labeled-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-triangle-area-labeled-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -610,7 +644,7 @@
           <div class="card-tags"><span class="tag">probability</span><span class="tag">dice</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-probability-dice-pair-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-probability-dice-pair-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-probability-dice-pair-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -625,7 +659,7 @@
           <div class="card-tags"><span class="tag">parabola</span><span class="tag">function</span><span class="tag">high-school</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-parabola-graph-gradient-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-parabola-graph-gradient-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-parabola-graph-gradient-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -640,7 +674,7 @@
           <div class="card-tags"><span class="tag">unit-circle</span><span class="tag">trigonometry</span><span class="tag">high-school</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-unit-circle-trig-dark-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-unit-circle-trig-dark-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-unit-circle-trig-dark-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -655,7 +689,7 @@
           <div class="card-tags"><span class="tag">sigma</span><span class="tag">summation</span><span class="tag">math</span><span class="tag">symbol</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-sigma-summation-sleek-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-sigma-summation-sleek-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-sigma-summation-sleek-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -670,7 +704,7 @@
           <div class="card-tags"><span class="tag">solid</span><span class="tag">3d</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-solid-shapes-3d-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-solid-shapes-3d-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-solid-shapes-3d-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -685,7 +719,7 @@
           <div class="card-tags"><span class="tag">integral</span><span class="tag">calculus</span><span class="tag">high-school</span><span class="tag">area</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-integral-curve-filled-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-integral-curve-filled-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-integral-curve-filled-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -700,7 +734,7 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">texture</span><span class="tag">background</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-blue-textured-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-blue-textured-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-blue-textured-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -715,7 +749,7 @@
           <div class="card-tags"><span class="tag">formulas</span><span class="tag">math</span><span class="tag">overlay</span><span class="tag">background</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-math-formulas-overlay-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-math-formulas-overlay-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-math-formulas-overlay-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -730,7 +764,7 @@
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">scientific</span><span class="tag">tool</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-scientific-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-calculator-scientific-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-scientific-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -745,7 +779,7 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">tools</span><span class="tag">ruler</span><span class="tag">compass</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-geometry-set-classic-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-geometry-set-classic-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-geometry-set-classic-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -760,7 +794,7 @@
           <div class="card-tags"><span class="tag">symbols</span><span class="tag">math</span><span class="tag">collection</span><span class="tag">art</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-math-symbols-collection-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-math-symbols-collection-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-math-symbols-collection-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -775,7 +809,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">normal-distribution</span><span class="tag">bell-curve</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-normal-distribution-curve-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-normal-distribution-curve-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-normal-distribution-curve-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -790,7 +824,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">box-plot</span><span class="tag">chart</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-box-whisker-plot-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-box-whisker-plot-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-box-whisker-plot-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -805,7 +839,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">scatter-plot</span><span class="tag">trendline</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-scatter-plot-trendline-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-scatter-plot-trendline-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-scatter-plot-trendline-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -820,7 +854,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">histogram</span><span class="tag">bar-chart</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-histogram-frequency-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-histogram-frequency-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-histogram-frequency-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -835,7 +869,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">venn-diagram</span><span class="tag">set-theory</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-diagram-intersection-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-venn-diagram-intersection-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-diagram-intersection-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -850,7 +884,7 @@
           <div class="card-tags"><span class="tag">matrix</span><span class="tag">advanced</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-matrix-grid-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-matrix-grid-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-matrix-grid-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -865,22 +899,7 @@
           <div class="card-tags"><span class="tag">complex-numbers</span><span class="tag">argand</span><span class="tag">advanced</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-complex-plane-argand-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-complex-plane-argand-20260124')">Archive</button>
-          </div>
-        </div>
-      </div>
-      <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="벡터장 흐름 다이어그램" data-name="diagram-vector-field-flow-20260124" data-archived="false">
-        <div class="card-preview">
-          
-          <img src="diagrams/diagram-vector-field-flow-20260124.png" alt="벡터장 흐름 다이어그램" loading="lazy" />
-        </div>
-        <div class="card-info">
-          <div class="card-name">diagram-vector-field-flow-20260124</div>
-          <div class="card-desc">벡터장 흐름 다이어그램</div>
-          <div class="card-tags"><span class="tag">vector</span><span class="tag">field</span><span class="tag">physics</span><span class="tag">advanced</span></div>
-          <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-vector-field-flow-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-vector-field-flow-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-complex-plane-argand-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -895,7 +914,7 @@
           <div class="card-tags"><span class="tag">calculus</span><span class="tag">limit</span><span class="tag">function</span><span class="tag">advanced</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-limit-function-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-limit-function-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-limit-function-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -910,7 +929,7 @@
           <div class="card-tags"><span class="tag">home</span><span class="tag">house</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-home-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-home-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-home-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -925,7 +944,7 @@
           <div class="card-tags"><span class="tag">back</span><span class="tag">arrow</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-back-arrow-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-back-arrow-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-back-arrow-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -940,7 +959,7 @@
           <div class="card-tags"><span class="tag">star</span><span class="tag">reward</span><span class="tag">achievement</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-star-reward-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-star-reward-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-star-reward-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -955,7 +974,7 @@
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">achievement</span><span class="tag">winner</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-trophy-achievement-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-trophy-achievement-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-trophy-achievement-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -970,7 +989,7 @@
           <div class="card-tags"><span class="tag">book</span><span class="tag">reading</span><span class="tag">learning</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-book-open-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-book-open-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-book-open-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -985,7 +1004,7 @@
           <div class="card-tags"><span class="tag">pencil</span><span class="tag">write</span><span class="tag">edit</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-pencil-write-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-pencil-write-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-pencil-write-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1000,7 +1019,7 @@
           <div class="card-tags"><span class="tag">bell</span><span class="tag">notification</span><span class="tag">alert</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-bell-notification-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-bell-notification-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-bell-notification-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1015,7 +1034,7 @@
           <div class="card-tags"><span class="tag">help</span><span class="tag">question</span><span class="tag">support</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-help-question-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-help-question-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-help-question-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1030,7 +1049,7 @@
           <div class="card-tags"><span class="tag">heart</span><span class="tag">favorite</span><span class="tag">like</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-heart-favorite-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-heart-favorite-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-heart-favorite-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1045,7 +1064,7 @@
           <div class="card-tags"><span class="tag">play</span><span class="tag">start</span><span class="tag">begin</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-play-start-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-play-start-cute-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-play-start-cute-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1060,7 +1079,7 @@
           <div class="card-tags"><span class="tag">flowchart</span><span class="tag">algorithm</span><span class="tag">logic</span><span class="tag">process</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-flowchart-basic-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-flowchart-basic-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-flowchart-basic-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1075,7 +1094,7 @@
           <div class="card-tags"><span class="tag">cycle</span><span class="tag">pdca</span><span class="tag">process</span><span class="tag">continuous</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cycle-process-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-cycle-process-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cycle-process-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1090,7 +1109,7 @@
           <div class="card-tags"><span class="tag">timeline</span><span class="tag">schedule</span><span class="tag">milestone</span><span class="tag">project</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-timeline-horizontal-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-timeline-horizontal-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-timeline-horizontal-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1105,7 +1124,7 @@
           <div class="card-tags"><span class="tag">hierarchy</span><span class="tag">tree</span><span class="tag">organization</span><span class="tag">structure</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-hierarchy-tree-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-hierarchy-tree-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-hierarchy-tree-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1120,7 +1139,7 @@
           <div class="card-tags"><span class="tag">comparison</span><span class="tag">table</span><span class="tag">chart</span><span class="tag">versus</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-comparison-chart-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-comparison-chart-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-comparison-chart-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1135,7 +1154,7 @@
           <div class="card-tags"><span class="tag">mind-map</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">central</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-mind-map-central-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-mind-map-central-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-mind-map-central-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1150,7 +1169,7 @@
           <div class="card-tags"><span class="tag">pie-chart</span><span class="tag">percentage</span><span class="tag">distribution</span><span class="tag">segments</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-pie-chart-segments-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-pie-chart-segments-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-pie-chart-segments-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1165,7 +1184,7 @@
           <div class="card-tags"><span class="tag">bar-chart</span><span class="tag">vertical</span><span class="tag">statistics</span><span class="tag">data</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-bar-chart-vertical-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-bar-chart-vertical-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-bar-chart-vertical-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1180,7 +1199,7 @@
           <div class="card-tags"><span class="tag">number-line</span><span class="tag">math</span><span class="tag">integers</span><span class="tag">real-numbers</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-number-line-basic-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-number-line-basic-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-number-line-basic-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1195,7 +1214,7 @@
           <div class="card-tags"><span class="tag">pythagorean</span><span class="tag">theorem</span><span class="tag">geometry</span><span class="tag">triangle</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-pythagorean-theorem-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-pythagorean-theorem-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-pythagorean-theorem-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1210,7 +1229,7 @@
           <div class="card-tags"><span class="tag">settings</span><span class="tag">gear</span><span class="tag">config</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-settings-gear-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-settings-gear-modern-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-settings-gear-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1225,7 +1244,7 @@
           <div class="card-tags"><span class="tag">search</span><span class="tag">find</span><span class="tag">magnify</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-search-magnify-bold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-search-magnify-bold-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-search-magnify-bold-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1240,7 +1259,7 @@
           <div class="card-tags"><span class="tag">menu</span><span class="tag">hamburger</span><span class="tag">nav</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-menu-hamburger-rounded-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-menu-hamburger-rounded-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-menu-hamburger-rounded-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1255,7 +1274,7 @@
           <div class="card-tags"><span class="tag">close</span><span class="tag">x</span><span class="tag">dismiss</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-close-x-elegant-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-close-x-elegant-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-close-x-elegant-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1270,7 +1289,7 @@
           <div class="card-tags"><span class="tag">idea</span><span class="tag">lightbulb</span><span class="tag">think</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-lightbulb-idea-bright-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-lightbulb-idea-bright-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-lightbulb-idea-bright-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1285,7 +1304,7 @@
           <div class="card-tags"><span class="tag">graduation</span><span class="tag">cap</span><span class="tag">achievement</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-graduation-cap-proud-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-graduation-cap-proud-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-graduation-cap-proud-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1300,7 +1319,7 @@
           <div class="card-tags"><span class="tag">puzzle</span><span class="tag">logic</span><span class="tag">problem-solving</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-puzzle-piece-fit-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-puzzle-piece-fit-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-puzzle-piece-fit-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1315,7 +1334,7 @@
           <div class="card-tags"><span class="tag">target</span><span class="tag">goal</span><span class="tag">aim</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-target-goal-bullseye-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-target-goal-bullseye-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-target-goal-bullseye-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1330,7 +1349,7 @@
           <div class="card-tags"><span class="tag">clock</span><span class="tag">timer</span><span class="tag">study</span><span class="tag">time</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-clock-timer-study-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-clock-timer-study-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-clock-timer-study-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1345,7 +1364,7 @@
           <div class="card-tags"><span class="tag">brain</span><span class="tag">think</span><span class="tag">intelligence</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-brain-thinking-glow-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-brain-thinking-glow-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-brain-thinking-glow-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1360,7 +1379,7 @@
           <div class="card-tags"><span class="tag">checklist</span><span class="tag">progress</span><span class="tag">tasks</span><span class="tag">ui</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-checklist-progress-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-checklist-progress-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-checklist-progress-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1375,7 +1394,7 @@
           <div class="card-tags"><span class="tag">medal</span><span class="tag">award</span><span class="tag">gold</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-medal-award-gold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-medal-award-gold-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-medal-award-gold-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1390,7 +1409,7 @@
           <div class="card-tags"><span class="tag">download</span><span class="tag">arrow</span><span class="tag">save</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-download-arrow-curved-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-download-arrow-curved-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-download-arrow-curved-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1405,7 +1424,7 @@
           <div class="card-tags"><span class="tag">upload</span><span class="tag">cloud</span><span class="tag">sync</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-upload-cloud-sync-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-upload-cloud-sync-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-upload-cloud-sync-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1420,7 +1439,7 @@
           <div class="card-tags"><span class="tag">share</span><span class="tag">network</span><span class="tag">connect</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-share-network-nodes-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-share-network-nodes-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-share-network-nodes-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1435,7 +1454,7 @@
           <div class="card-tags"><span class="tag">refresh</span><span class="tag">cycle</span><span class="tag">reload</span><span class="tag">action</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-refresh-cycle-spin-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-refresh-cycle-spin-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-refresh-cycle-spin-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1450,7 +1469,7 @@
           <div class="card-tags"><span class="tag">chat</span><span class="tag">bubble</span><span class="tag">message</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-chat-bubble-friendly-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-chat-bubble-friendly-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-chat-bubble-friendly-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1465,7 +1484,7 @@
           <div class="card-tags"><span class="tag">mail</span><span class="tag">envelope</span><span class="tag">email</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-mail-envelope-open-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-mail-envelope-open-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-mail-envelope-open-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1480,7 +1499,7 @@
           <div class="card-tags"><span class="tag">mic</span><span class="tag">voice</span><span class="tag">audio</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-microphone-voice-active-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-microphone-voice-active-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-microphone-voice-active-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1495,7 +1514,7 @@
           <div class="card-tags"><span class="tag">camera</span><span class="tag">photo</span><span class="tag">capture</span><span class="tag">communication</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('icons/icon-camera-photo-flash-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('icon-camera-photo-flash-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-camera-photo-flash-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1510,7 +1529,7 @@
           <div class="card-tags"><span class="tag">student</span><span class="tag">desk</span><span class="tag">study</span><span class="tag">education</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-student-desk-study-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-student-desk-study-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-student-desk-study-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1525,7 +1544,7 @@
           <div class="card-tags"><span class="tag">classroom</span><span class="tag">school</span><span class="tag">education</span><span class="tag">modern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-classroom-scene-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-classroom-scene-modern-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-classroom-scene-modern-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1540,7 +1559,7 @@
           <div class="card-tags"><span class="tag">backpack</span><span class="tag">school</span><span class="tag">supplies</span><span class="tag">colorful</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-backpack-school-colorful-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-backpack-school-colorful-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-backpack-school-colorful-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1555,7 +1574,7 @@
           <div class="card-tags"><span class="tag">laptop</span><span class="tag">online</span><span class="tag">e-learning</span><span class="tag">video-call</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-laptop-learning-online-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-laptop-learning-online-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-laptop-learning-online-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1570,7 +1589,7 @@
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">reading</span><span class="tag">cozy</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-library-books-cozy-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-library-books-cozy-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-library-books-cozy-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1585,7 +1604,7 @@
           <div class="card-tags"><span class="tag">rocket</span><span class="tag">launch</span><span class="tag">success</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-rocket-launch-success-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-rocket-launch-success-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-rocket-launch-success-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1600,7 +1619,7 @@
           <div class="card-tags"><span class="tag">mountain</span><span class="tag">peak</span><span class="tag">goal</span><span class="tag">climb</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-mountain-peak-climb-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-mountain-peak-climb-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-mountain-peak-climb-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1615,7 +1634,7 @@
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">celebration</span><span class="tag">win</span><span class="tag">confetti</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-trophy-celebration-burst-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-trophy-celebration-burst-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-trophy-celebration-burst-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1630,7 +1649,7 @@
           <div class="card-tags"><span class="tag">target</span><span class="tag">arrow</span><span class="tag">bullseye</span><span class="tag">goal</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-target-arrow-bullseye-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-target-arrow-bullseye-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-target-arrow-bullseye-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1645,7 +1664,7 @@
           <div class="card-tags"><span class="tag">medal</span><span class="tag">podium</span><span class="tag">winners</span><span class="tag">award</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-medal-podium-winners-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-medal-podium-winners-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-medal-podium-winners-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1660,7 +1679,7 @@
           <div class="card-tags"><span class="tag">teamwork</span><span class="tag">hands</span><span class="tag">collaboration</span><span class="tag">together</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-teamwork-hands-together-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-teamwork-hands-together-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-teamwork-hands-together-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1675,7 +1694,7 @@
           <div class="card-tags"><span class="tag">group</span><span class="tag">discussion</span><span class="tag">circle</span><span class="tag">students</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-group-discussion-circle-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-group-discussion-circle-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-group-discussion-circle-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1690,7 +1709,7 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">icosahedron</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-geometry-icosahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-geometry-icosahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-icosahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1705,7 +1724,7 @@
           <div class="card-tags"><span class="tag">topology</span><span class="tag">math</span><span class="tag">mobius-strip</span><span class="tag">surface</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-topology-mobius-strip-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-topology-mobius-strip-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-topology-mobius-strip-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1720,7 +1739,7 @@
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">math</span><span class="tag">normal-distribution</span><span class="tag">gaussian</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-statistics-normal-surface-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-statistics-normal-surface-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-statistics-normal-surface-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1735,7 +1754,7 @@
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">torus</span><span class="tag">donut</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-geometry-torus-simple-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-geometry-torus-simple-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-torus-simple-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1750,7 +1769,7 @@
           <div class="card-tags"><span class="tag">complex-analysis</span><span class="tag">math</span><span class="tag">riemann-surface</span><span class="tag">spiral</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-complex-riemann-surface-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-complex-riemann-surface-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-complex-riemann-surface-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1765,7 +1784,7 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">chemistry</span><span class="tag">lab</span><span class="tag">beaker</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-science-lab-beaker-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-science-lab-beaker-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-science-lab-beaker-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1780,7 +1799,7 @@
           <div class="card-tags"><span class="tag">globe</span><span class="tag">geography</span><span class="tag">world</span><span class="tag">earth</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-world-globe-learning-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-world-globe-learning-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-world-globe-learning-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1795,7 +1814,7 @@
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">melody</span><span class="tag">arts</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-music-notes-melody-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-music-notes-melody-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-music-notes-melody-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1810,7 +1829,7 @@
           <div class="card-tags"><span class="tag">art</span><span class="tag">palette</span><span class="tag">brush</span><span class="tag">paint</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-palette-brush-art-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-palette-brush-art-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-palette-brush-art-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1825,7 +1844,7 @@
           <div class="card-tags"><span class="tag">magnifying-glass</span><span class="tag">explore</span><span class="tag">search</span><span class="tag">investigate</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-magnifying-glass-explore-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-magnifying-glass-explore-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-magnifying-glass-explore-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1840,7 +1859,7 @@
           <div class="card-tags"><span class="tag">diploma</span><span class="tag">certificate</span><span class="tag">graduation</span><span class="tag">achievement</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-diploma-certificate-scroll-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-diploma-certificate-scroll-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-diploma-certificate-scroll-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1855,7 +1874,7 @@
           <div class="card-tags"><span class="tag">bus</span><span class="tag">school</span><span class="tag">transportation</span><span class="tag">journey</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-bus-school-journey-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-bus-school-journey-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-bus-school-journey-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1870,7 +1889,7 @@
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">math</span><span class="tag">tool</span><span class="tag">arithmetic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-math-simple-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-calculator-math-simple-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-math-simple-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1885,7 +1904,7 @@
           <div class="card-tags"><span class="tag">notebook</span><span class="tag">pencil</span><span class="tag">write</span><span class="tag">notes</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-notebook-pencil-notes-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-notebook-pencil-notes-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-notebook-pencil-notes-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1900,7 +1919,7 @@
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">biology</span><span class="tag">science</span><span class="tag">lab</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-biology-lab-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-microscope-biology-lab-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-biology-lab-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -1915,7 +1934,7 @@
           <div class="card-tags"><span class="tag">chat</span><span class="tag">conversation</span><span class="tag">communication</span><span class="tag">bubbles</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-chat-conversation-bubbles-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-chat-conversation-bubbles-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-chat-conversation-bubbles-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1930,7 +1949,7 @@
           <div class="card-tags"><span class="tag">network</span><span class="tag">global</span><span class="tag">connection</span><span class="tag">earth</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-network-connection-global-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-network-connection-global-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-network-connection-global-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1945,7 +1964,7 @@
           <div class="card-tags"><span class="tag">lightbulb</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">creativity</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-lightbulbs-brainstorm-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-lightbulbs-brainstorm-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-lightbulbs-brainstorm-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1960,7 +1979,7 @@
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">science</span><span class="tag">lab</span><span class="tag">research</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-science-lab-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-microscope-science-lab-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-science-lab-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1975,7 +1994,7 @@
           <div class="card-tags"><span class="tag">atom</span><span class="tag">molecule</span><span class="tag">chemistry</span><span class="tag">science</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-atom-molecule-structure-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-atom-molecule-structure-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-atom-molecule-structure-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -1990,7 +2009,7 @@
           <div class="card-tags"><span class="tag">coding</span><span class="tag">screen</span><span class="tag">developer</span><span class="tag">programming</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-coding-screen-developer-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-coding-screen-developer-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-coding-screen-developer-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -2005,7 +2024,7 @@
           <div class="card-tags"><span class="tag">robot</span><span class="tag">ai</span><span class="tag">friendly</span><span class="tag">technology</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-robot-friendly-ai-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-robot-friendly-ai-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-robot-friendly-ai-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -2020,7 +2039,7 @@
           <div class="card-tags"><span class="tag">planet</span><span class="tag">earth</span><span class="tag">ecosystem</span><span class="tag">environment</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('illustrations/illust-planet-earth-ecosystem-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('illust-planet-earth-ecosystem-20260124')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-planet-earth-ecosystem-20260124')">Archive</button>
           </div>
         </div>
       </div>
@@ -2035,7 +2054,7 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-soft-blue-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-soft-blue-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-soft-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2050,7 +2069,7 @@
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">pastel</span><span class="tag">shapes</span><span class="tag">modern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-pastel-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-geometric-shapes-pastel-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-pastel-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2065,7 +2084,7 @@
           <div class="card-tags"><span class="tag">whiteboard</span><span class="tag">blur</span><span class="tag">clean</span><span class="tag">classroom</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-whiteboard-blur-clean-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-whiteboard-blur-clean-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-whiteboard-blur-clean-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2080,7 +2099,7 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">math</span><span class="tag">subtle</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-math-subtle-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-math-subtle-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-math-subtle-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2095,7 +2114,7 @@
           <div class="card-tags"><span class="tag">paper</span><span class="tag">texture</span><span class="tag">warm</span><span class="tag">minimalist</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-paper-texture-warm-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-paper-texture-warm-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-paper-texture-warm-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2110,7 +2129,7 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">molecules</span><span class="tag">pattern</span><span class="tag">chemistry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-molecules-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-science-molecules-pattern-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-science-molecules-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2125,7 +2144,7 @@
           <div class="card-tags"><span class="tag">nature</span><span class="tag">leaves</span><span class="tag">green</span><span class="tag">organic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-nature-leaves-green-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-nature-leaves-green-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-nature-leaves-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2140,7 +2159,7 @@
           <div class="card-tags"><span class="tag">tech</span><span class="tag">circuit</span><span class="tag">minimal</span><span class="tag">futuristic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-tech-circuit-minimal-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-tech-circuit-minimal-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-tech-circuit-minimal-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2155,7 +2174,7 @@
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">defocused</span><span class="tag">cozy</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-library-books-defocused-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-library-books-defocused-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-library-books-defocused-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2170,7 +2189,7 @@
           <div class="card-tags"><span class="tag">space</span><span class="tag">stars</span><span class="tag">dark</span><span class="tag">cosmos</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-space-stars-dark-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-space-stars-dark-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-space-stars-dark-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2185,7 +2204,7 @@
           <div class="card-tags"><span class="tag">history</span><span class="tag">parchment</span><span class="tag">vintage</span><span class="tag">paper</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-history-parchment-vintage-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-history-parchment-vintage-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-history-parchment-vintage-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2200,7 +2219,7 @@
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">sheet</span><span class="tag">clef</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-music-notes-sheet-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-music-notes-sheet-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-music-notes-sheet-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2215,7 +2234,7 @@
           <div class="card-tags"><span class="tag">art</span><span class="tag">watercolor</span><span class="tag">splash</span><span class="tag">pastel</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-art-watercolor-splash-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-art-watercolor-splash-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-art-watercolor-splash-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2230,7 +2249,7 @@
           <div class="card-tags"><span class="tag">geography</span><span class="tag">map</span><span class="tag">contours</span><span class="tag">topographic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geography-contours-topo-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-geography-contours-topo-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geography-contours-topo-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2245,7 +2264,7 @@
           <div class="card-tags"><span class="tag">literature</span><span class="tag">letters</span><span class="tag">alphabet</span><span class="tag">floating</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-literature-letters-floating-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-literature-letters-floating-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-literature-letters-floating-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2260,7 +2279,7 @@
           <div class="card-tags"><span class="tag">linear</span><span class="tag">graph</span><span class="tag">slope</span><span class="tag">algebra</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-linear-slope-intercept-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-linear-slope-intercept-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-linear-slope-intercept-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2275,7 +2294,7 @@
           <div class="card-tags"><span class="tag">cylinder</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cylinder-volume-labeled-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-cylinder-volume-labeled-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cylinder-volume-labeled-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2290,7 +2309,7 @@
           <div class="card-tags"><span class="tag">cone</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-cone-volume-labeled-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-cone-volume-labeled-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cone-volume-labeled-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2305,7 +2324,7 @@
           <div class="card-tags"><span class="tag">prism</span><span class="tag">net</span><span class="tag">geometry</span><span class="tag">surface-area</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-prism-net-unfolded-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-prism-net-unfolded-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-prism-net-unfolded-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2320,7 +2339,7 @@
           <div class="card-tags"><span class="tag">circle</span><span class="tag">anatomy</span><span class="tag">radius</span><span class="tag">diameter</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-circle-anatomy-parts-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-circle-anatomy-parts-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-circle-anatomy-parts-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2335,7 +2354,7 @@
           <div class="card-tags"><span class="tag">parallel</span><span class="tag">transversal</span><span class="tag">angles</span><span class="tag">geometry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-parallel-transversal-angles-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-parallel-transversal-angles-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-parallel-transversal-angles-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2350,7 +2369,7 @@
           <div class="card-tags"><span class="tag">inequality</span><span class="tag">number-line</span><span class="tag">algebra</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-inequality-number-line-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-inequality-number-line-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-inequality-number-line-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2365,7 +2384,7 @@
           <div class="card-tags"><span class="tag">venn</span><span class="tag">sets</span><span class="tag">intersection</span><span class="tag">logic</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-sets-overlap-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-venn-sets-overlap-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-sets-overlap-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2380,7 +2399,7 @@
           <div class="card-tags"><span class="tag">ratio</span><span class="tag">proportion</span><span class="tag">blocks</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-ratio-proportion-blocks-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-ratio-proportion-blocks-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-ratio-proportion-blocks-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2395,7 +2414,7 @@
           <div class="card-tags"><span class="tag">angles</span><span class="tag">acute</span><span class="tag">right</span><span class="tag">obtuse</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('diagrams/diagram-angle-types-comparison-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('diagram-angle-types-comparison-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-angle-types-comparison-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2410,7 +2429,7 @@
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">pattern</span><span class="tag">math</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-grid-paper-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2425,7 +2444,7 @@
           <div class="card-tags"><span class="tag">lined</span><span class="tag">paper</span><span class="tag">notebook</span><span class="tag">writing</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-lined-paper-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-lined-paper-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-lined-paper-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2440,7 +2459,7 @@
           <div class="card-tags"><span class="tag">dot</span><span class="tag">grid</span><span class="tag">pattern</span><span class="tag">design</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-dot-grid-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-dot-grid-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-dot-grid-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2455,7 +2474,7 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">sky</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-blue-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-blue-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2470,7 +2489,7 @@
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">green</span><span class="tag">nature</span><span class="tag">fresh</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-green-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-gradient-green-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2485,7 +2504,7 @@
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">shapes</span><span class="tag">pattern</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-geometric-shapes-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2500,7 +2519,7 @@
           <div class="card-tags"><span class="tag">science</span><span class="tag">pattern</span><span class="tag">atom</span><span class="tag">dna</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-science-pattern-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-science-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2515,7 +2534,7 @@
           <div class="card-tags"><span class="tag">alphabet</span><span class="tag">letters</span><span class="tag">english</span><span class="tag">pattern</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-alphabet-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-alphabet-pattern-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-alphabet-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2530,7 +2549,7 @@
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">math</span><span class="tag">pattern</span><span class="tag">123</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-numbers-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-numbers-pattern-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-numbers-pattern-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2545,7 +2564,7 @@
           <div class="card-tags"><span class="tag">map</span><span class="tag">world</span><span class="tag">geography</span><span class="tag">abstract</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('backgrounds/bg-world-map-abstract-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('bg-world-map-abstract-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-world-map-abstract-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2560,7 +2579,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-tetrahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-tetrahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-tetrahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2575,7 +2594,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-hexahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-hexahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-hexahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2590,7 +2609,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-octahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-octahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-octahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2605,7 +2624,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-dodecahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-dodecahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-dodecahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2620,7 +2639,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-icosahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-icosahedron-math-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-icosahedron-math-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2635,7 +2654,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">sphere</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-sphere-red-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-sphere-red-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-sphere-red-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2650,7 +2669,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cylinder</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cylinder-blue-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-cylinder-blue-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cylinder-blue-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2665,7 +2684,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cone</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cone-yellow-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-cone-yellow-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cone-yellow-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2680,7 +2699,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">box</span><span class="tag">prism</span><span class="tag">geometry</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-box-green-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-box-green-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-box-green-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2695,7 +2714,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">pyramid</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-pyramid-purple-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-pyramid-purple-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-pyramid-purple-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2710,7 +2729,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">dice</span><span class="tag">probability</span><span class="tag">counting</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-dice-white-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-dice-white-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-dice-white-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2725,7 +2744,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">fraction</span><span class="tag">half</span><span class="tag">pie</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-fraction-half-orange-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-fraction-half-orange-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-fraction-half-orange-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2740,7 +2759,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">coin</span><span class="tag">money</span><span class="tag">counting</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-coin-gold-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-coin-gold-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-coin-gold-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2755,7 +2774,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">blocks</span><span class="tag">counting</span><span class="tag">addition</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-counting-blocks-rainbow-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-counting-blocks-rainbow-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-counting-blocks-rainbow-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2770,7 +2789,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">apple</span><span class="tag">counting</span><span class="tag">fruit</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-elementary-apple-red-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-elementary-apple-red-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-apple-red-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2785,7 +2804,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">pythagoras</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-pythagorean-proof-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-pythagorean-proof-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-pythagorean-proof-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2800,7 +2819,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">archimedes</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-archimedes-sphere-cylinder-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-archimedes-sphere-cylinder-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-archimedes-sphere-cylinder-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2815,7 +2834,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">fractal</span><span class="tag">sierpinski</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-fractal-sierpinski-pyramid-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-fractal-sierpinski-pyramid-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-fractal-sierpinski-pyramid-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2830,7 +2849,7 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">complex-analysis</span><span class="tag">euler</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-euler-helix-complex-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-euler-helix-complex-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-euler-helix-complex-20260125')">Archive</button>
           </div>
         </div>
       </div>
@@ -2845,11 +2864,25 @@
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyPath('3d/3d-platonic-icosahedron-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('3d-platonic-icosahedron-20260125')">Archive</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-platonic-icosahedron-20260125')">Archive</button>
           </div>
         </div>
       </div>
-
+      <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="벡터장 흐름 다이어그램" data-name="diagram-vector-field-flow-20260124" data-archived="true">
+        <div class="card-preview">
+          <span class="archived-badge">Archived</span>
+          <img src="archive/diagrams/diagram-vector-field-flow-20260124.png" alt="벡터장 흐름 다이어그램" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <div class="card-name">diagram-vector-field-flow-20260124</div>
+          <div class="card-desc">벡터장 흐름 다이어그램</div>
+          <div class="card-tags"><span class="tag">vector</span><span class="tag">field</span><span class="tag">physics</span><span class="tag">advanced</span></div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyPath('archive/diagrams/diagram-vector-field-flow-20260124.png', this)">Copy Path</button>
+            <button class="btn-restore" onclick="showRestoreModal('diagram-vector-field-flow-20260124')">Restore</button>
+          </div>
+        </div>
+      </div>
       <div class="no-results" id="no-results" style="display: none;">
         검색 결과가 없습니다.
       </div>
@@ -2862,11 +2895,12 @@
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
       <div class="modal-title" id="modal-title">에셋 아카이브</div>
-      <div class="modal-desc">다음 명령어를 터미널에서 실행하세요:</div>
-      <div class="modal-command" id="modal-command"></div>
-      <div class="modal-actions">
-        <button class="modal-btn primary" id="modal-copy-btn" onclick="copyCommand()">명령어 복사</button>
-        <button class="modal-btn" onclick="closeModal()">닫기</button>
+      <div class="modal-desc" id="modal-desc">이 에셋을 아카이브하시겠습니까?</div>
+      <div class="modal-asset-info" id="modal-asset-info"></div>
+      <div class="modal-result" id="modal-result"></div>
+      <div class="modal-actions" id="modal-actions">
+        <button class="modal-btn" onclick="closeModal()">취소</button>
+        <button class="modal-btn primary" id="modal-execute-btn" onclick="executeAction()">실행</button>
       </div>
     </div>
   </div>
@@ -2882,12 +2916,15 @@
     // Modal elements
     const modalOverlay = document.getElementById('modal-overlay');
     const modalTitle = document.getElementById('modal-title');
-    const modalCommand = document.getElementById('modal-command');
-    const modalCopyBtn = document.getElementById('modal-copy-btn');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalAssetInfo = document.getElementById('modal-asset-info');
+    const modalResult = document.getElementById('modal-result');
+    const modalActions = document.getElementById('modal-actions');
+    const modalExecuteBtn = document.getElementById('modal-execute-btn');
 
     let currentCategory = 'all';
     let currentSearch = '';
-    let currentCommand = '';
+    let currentAction = null; // { type: 'archive' | 'restore', assetId: string }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -2961,36 +2998,74 @@
     }
 
     // Archive/Restore Modal
-    function showArchiveCommand(assetId) {
-      currentCommand = 'node scripts/archive.js --archive "' + assetId + '"';
+    function showArchiveModal(assetId) {
+      currentAction = { type: 'archive', assetId };
       modalTitle.textContent = '에셋 아카이브';
-      modalCommand.textContent = currentCommand;
-      modalCopyBtn.textContent = '명령어 복사';
-      modalCopyBtn.classList.remove('copied');
+      modalDesc.textContent = '이 에셋을 아카이브하시겠습니까?';
+      modalAssetInfo.textContent = assetId;
+      resetModalState();
       modalOverlay.classList.add('show');
     }
 
-    function showRestoreCommand(assetId) {
-      currentCommand = 'node scripts/archive.js --restore "' + assetId + '"';
+    function showRestoreModal(assetId) {
+      currentAction = { type: 'restore', assetId };
       modalTitle.textContent = '에셋 복원';
-      modalCommand.textContent = currentCommand;
-      modalCopyBtn.textContent = '명령어 복사';
-      modalCopyBtn.classList.remove('copied');
+      modalDesc.textContent = '이 에셋을 복원하시겠습니까?';
+      modalAssetInfo.textContent = assetId;
+      resetModalState();
       modalOverlay.classList.add('show');
     }
 
-    function copyCommand() {
-      navigator.clipboard.writeText(currentCommand).then(() => {
-        modalCopyBtn.textContent = '복사됨!';
-        modalCopyBtn.classList.add('copied');
-        setTimeout(() => {
-          closeModal();
-        }, 1000);
-      });
+    function resetModalState() {
+      modalResult.className = 'modal-result';
+      modalResult.textContent = '';
+      modalExecuteBtn.disabled = false;
+      modalExecuteBtn.textContent = '실행';
+      modalActions.style.display = 'flex';
+    }
+
+    function showResult(type, message) {
+      modalResult.className = 'modal-result ' + type;
+      modalResult.textContent = message;
+    }
+
+    async function executeAction() {
+      if (!currentAction) return;
+
+      const { type, assetId } = currentAction;
+      const apiUrl = '/api/' + type + '/' + encodeURIComponent(assetId);
+
+      // 로딩 상태
+      modalExecuteBtn.disabled = true;
+      modalExecuteBtn.textContent = '처리 중...';
+      showResult('loading', '요청을 처리하는 중입니다...');
+
+      try {
+        const response = await fetch(apiUrl, { method: 'POST' });
+        const data = await response.json();
+
+        if (data.success) {
+          showResult('success', data.message + (data.warning ? ' (' + data.warning + ')' : ''));
+          modalActions.style.display = 'none';
+          // 2초 후 페이지 새로고침
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          showResult('error', '오류: ' + data.error);
+          modalExecuteBtn.disabled = false;
+          modalExecuteBtn.textContent = '다시 시도';
+        }
+      } catch (error) {
+        showResult('error', '서버에 연결할 수 없습니다. 서버가 실행 중인지 확인하세요.');
+        modalExecuteBtn.disabled = false;
+        modalExecuteBtn.textContent = '다시 시도';
+      }
     }
 
     function closeModal() {
       modalOverlay.classList.remove('show');
+      currentAction = null;
     }
 
     // Close modal when clicking overlay

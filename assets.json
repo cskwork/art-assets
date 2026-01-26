@@ -401,20 +401,6 @@
       "addedDate": "2026-01-24"
     },
     {
-      "id": "diagram-vector-field-flow-20260124",
-      "path": "diagrams/diagram-vector-field-flow-20260124.png",
-      "category": "diagrams",
-      "tags": [
-        "vector",
-        "field",
-        "physics",
-        "advanced"
-      ],
-      "description": "벡터장 흐름 다이어그램",
-      "format": "png",
-      "addedDate": "2026-01-24"
-    },
-    {
       "id": "diagram-limit-function-20260124",
       "path": "diagrams/diagram-limit-function-20260124.png",
       "category": "diagrams",

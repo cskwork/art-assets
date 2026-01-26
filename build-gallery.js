@@ -403,7 +403,7 @@ function generateHTML() {
       margin-bottom: 1rem;
     }
 
-    .modal-command {
+    .modal-asset-info {
       background: #f5f5f5;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
@@ -412,6 +412,40 @@ function generateHTML() {
       font-size: 0.85rem;
       word-break: break-all;
       margin-bottom: 1rem;
+    }
+
+    .modal-result {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .modal-result.success {
+      display: block;
+      background: #e8f5e9;
+      border: 1px solid #4caf50;
+      color: #2e7d32;
+    }
+
+    .modal-result.error {
+      display: block;
+      background: #ffebee;
+      border: 1px solid #f44336;
+      color: #c62828;
+    }
+
+    .modal-result.loading {
+      display: block;
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      color: #1565c0;
+    }
+
+    .modal-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .modal-actions {
@@ -553,11 +587,12 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
       <div class="modal-title" id="modal-title">에셋 아카이브</div>
-      <div class="modal-desc">다음 명령어를 터미널에서 실행하세요:</div>
-      <div class="modal-command" id="modal-command"></div>
-      <div class="modal-actions">
-        <button class="modal-btn primary" id="modal-copy-btn" onclick="copyCommand()">명령어 복사</button>
-        <button class="modal-btn" onclick="closeModal()">닫기</button>
+      <div class="modal-desc" id="modal-desc">이 에셋을 아카이브하시겠습니까?</div>
+      <div class="modal-asset-info" id="modal-asset-info"></div>
+      <div class="modal-result" id="modal-result"></div>
+      <div class="modal-actions" id="modal-actions">
+        <button class="modal-btn" onclick="closeModal()">취소</button>
+        <button class="modal-btn primary" id="modal-execute-btn" onclick="executeAction()">실행</button>
       </div>
     </div>
   </div>
@@ -573,12 +608,15 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
     // Modal elements
     const modalOverlay = document.getElementById('modal-overlay');
     const modalTitle = document.getElementById('modal-title');
-    const modalCommand = document.getElementById('modal-command');
-    const modalCopyBtn = document.getElementById('modal-copy-btn');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalAssetInfo = document.getElementById('modal-asset-info');
+    const modalResult = document.getElementById('modal-result');
+    const modalActions = document.getElementById('modal-actions');
+    const modalExecuteBtn = document.getElementById('modal-execute-btn');
 
     let currentCategory = 'all';
     let currentSearch = '';
-    let currentCommand = '';
+    let currentAction = null; // { type: 'archive' | 'restore', assetId: string }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -652,36 +690,74 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
     }
 
     // Archive/Restore Modal
-    function showArchiveCommand(assetId) {
-      currentCommand = 'node scripts/archive.js --archive "' + assetId + '"';
+    function showArchiveModal(assetId) {
+      currentAction = { type: 'archive', assetId };
       modalTitle.textContent = '에셋 아카이브';
-      modalCommand.textContent = currentCommand;
-      modalCopyBtn.textContent = '명령어 복사';
-      modalCopyBtn.classList.remove('copied');
+      modalDesc.textContent = '이 에셋을 아카이브하시겠습니까?';
+      modalAssetInfo.textContent = assetId;
+      resetModalState();
       modalOverlay.classList.add('show');
     }
 
-    function showRestoreCommand(assetId) {
-      currentCommand = 'node scripts/archive.js --restore "' + assetId + '"';
+    function showRestoreModal(assetId) {
+      currentAction = { type: 'restore', assetId };
       modalTitle.textContent = '에셋 복원';
-      modalCommand.textContent = currentCommand;
-      modalCopyBtn.textContent = '명령어 복사';
-      modalCopyBtn.classList.remove('copied');
+      modalDesc.textContent = '이 에셋을 복원하시겠습니까?';
+      modalAssetInfo.textContent = assetId;
+      resetModalState();
       modalOverlay.classList.add('show');
     }
 
-    function copyCommand() {
-      navigator.clipboard.writeText(currentCommand).then(() => {
-        modalCopyBtn.textContent = '복사됨!';
-        modalCopyBtn.classList.add('copied');
-        setTimeout(() => {
-          closeModal();
-        }, 1000);
-      });
+    function resetModalState() {
+      modalResult.className = 'modal-result';
+      modalResult.textContent = '';
+      modalExecuteBtn.disabled = false;
+      modalExecuteBtn.textContent = '실행';
+      modalActions.style.display = 'flex';
+    }
+
+    function showResult(type, message) {
+      modalResult.className = 'modal-result ' + type;
+      modalResult.textContent = message;
+    }
+
+    async function executeAction() {
+      if (!currentAction) return;
+
+      const { type, assetId } = currentAction;
+      const apiUrl = '/api/' + type + '/' + encodeURIComponent(assetId);
+
+      // 로딩 상태
+      modalExecuteBtn.disabled = true;
+      modalExecuteBtn.textContent = '처리 중...';
+      showResult('loading', '요청을 처리하는 중입니다...');
+
+      try {
+        const response = await fetch(apiUrl, { method: 'POST' });
+        const data = await response.json();
+
+        if (data.success) {
+          showResult('success', data.message + (data.warning ? ' (' + data.warning + ')' : ''));
+          modalActions.style.display = 'none';
+          // 2초 후 페이지 새로고침
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          showResult('error', '오류: ' + data.error);
+          modalExecuteBtn.disabled = false;
+          modalExecuteBtn.textContent = '다시 시도';
+        }
+      } catch (error) {
+        showResult('error', '서버에 연결할 수 없습니다. 서버가 실행 중인지 확인하세요.');
+        modalExecuteBtn.disabled = false;
+        modalExecuteBtn.textContent = '다시 시도';
+      }
     }
 
     function closeModal() {
       modalOverlay.classList.remove('show');
+      currentAction = null;
     }
 
     // Close modal when clicking overlay
@@ -735,11 +811,11 @@ function generateCard(asset, isArchived = false) {
   if (isArchived) {
     actionButtons = `
             <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
-            <button class="btn-restore" onclick="showRestoreCommand('${asset.id}')">Restore</button>`;
+            <button class="btn-restore" onclick="showRestoreModal('${asset.id}')">Restore</button>`;
   } else {
     actionButtons = `
             <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveCommand('${asset.id}')">Archive</button>`;
+            <button class="btn-archive" onclick="showArchiveModal('${asset.id}')">Archive</button>`;
   }
 
   return `      <div class="card" data-category="${asset.category}" data-tags="${asset.tags.join(' ')}" data-desc="${asset.description}" data-name="${asset.id}" data-archived="${isArchived}">

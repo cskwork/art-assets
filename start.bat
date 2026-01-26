@@ -9,4 +9,4 @@ echo.
 echo Press Ctrl+C to stop the server.
 echo.
 
-npx serve -p 3000
+node server.js

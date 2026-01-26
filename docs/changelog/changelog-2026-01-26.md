@@ -1,5 +1,44 @@
 # Changelog - 2026-01-26
 
+## 로컬 서버 실행 스크립트 수정
+
+### 수정
+- `start.sh`, `start.bat`: `node server.js`로 실행하도록 변경 (아카이브/복원 API 사용 가능)
+
+## Archive 버튼 직접 실행 기능 구현
+
+### 추가
+- `server.js` Node.js HTTP 서버 생성
+  - 갤러리 및 에셋 파일 정적 서빙
+  - `POST /api/archive/:assetId`: 에셋 아카이브 API
+  - `POST /api/restore/:assetId`: 에셋 복원 API
+  - 빌드 자동 실행 후 응답
+
+### 수정
+- `scripts/archive.js` 리팩토링
+  - CLI와 모듈 양쪽 지원 (`require.main === module` 분기)
+  - `archiveAsset()`, `restoreAsset()` 함수 export
+  - `options.runBuild` 파라미터로 빌드 실행 제어
+  - `process.exit(1)` 대신 `throw Error` 사용 (모듈 호환)
+
+- `build-gallery.js` 모달 UI 변경
+  - 명령어 복사 -> 실행 확인 UI로 변경
+  - fetch API로 서버에 요청
+  - 로딩/성공/실패 상태 표시
+  - 성공 시 1.5초 후 페이지 자동 새로고침
+
+### 사용법
+```bash
+# 기존: 정적 파일 열기
+open gallery.html
+
+# 변경: 서버 실행 후 접속
+node server.js
+# http://localhost:3000 접속
+```
+
+---
+
 ## Art Asset Archive 기능 구현
 
 ### 추가

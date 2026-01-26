@@ -6,6 +6,21 @@
 
 ### 2026-01-26
 
+**Archive 버튼 직접 실행 기능**
+- `server.js` 생성: Node.js HTTP 서버, 정적 파일 서빙, Archive/Restore API 엔드포인트
+  - `POST /api/archive/:assetId`: 에셋 아카이브
+  - `POST /api/restore/:assetId`: 에셋 복원
+  - 응답 후 자동 빌드 및 페이지 새로고침
+  - 경로 탐색 공격 방지 (ROOT_DIR 외부 접근 차단)
+- `scripts/archive.js` 리팩토링: CLI + 모듈 양쪽 지원
+  - `archiveAsset()`, `restoreAsset()` 함수 export
+  - `options.runBuild` 파라미터로 빌드 실행 제어
+  - 모듈 호환성 위해 `throw Error` 사용
+- `build-gallery.js` 갤러리 빌드 업데이트
+  - archived 에셋 로드 및 전개
+  - 모달 UI: 로딩/성공/실패 상태 표시
+  - fetch API로 서버에 요청
+
 **Art Asset Archive 기능 구현**
 - `scripts/archive.js` CLI 도구: 에셋 아카이브/복원 명령어
 - `assets-source.json`에 `archived` 배열 추가
@@ -39,9 +54,10 @@ art-assets/
 ├── assets-source.json    # 에셋 소스 (compact 형식, 편집용)
 ├── assets.json           # 빌드 산출물 (기존 호환 형식)
 ├── assets-index.json     # LLM 검색용 경량 인덱스
+├── server.js             # 갤러리 서버 (Archive/Restore API 포함)
 ├── scripts/
 │   ├── build-assets.js   # 소스 -> assets.json + index 빌드
-│   ├── archive.js        # 에셋 아카이브/복원 CLI
+│   ├── archive.js        # 에셋 아카이브/복원 CLI + 모듈
 │   └── migrate-to-compact.js  # 1회성 마이그레이션
 ├── build-gallery.js      # gallery.html 빌드
 ├── gallery.html          # 에셋 갤러리 (빌드 산출물)
@@ -153,7 +169,7 @@ art-assets/
 4. `updated` 날짜 갱신
 5. 빌드 실행: `node build-gallery.js`
 
-## 빌드 명령어
+## 빌드 및 실행 명령어
 
 ```bash
 # 전체 빌드 (assets + gallery)
@@ -162,13 +178,18 @@ node build-gallery.js
 # assets만 빌드
 node scripts/build-assets.js
 
-# 에셋 아카이브
+# 갤러리 서버 실행 (Archive/Restore 버튼 UI 통합)
+node server.js
+# http://localhost:3000 접속
+# Archive/Restore 버튼 클릭 시 fetch API로 요청 -> 자동 빌드 -> 페이지 새로고침
+
+# CLI: 에셋 아카이브
 node scripts/archive.js --archive "asset-id"
 
-# 아카이브된 에셋 복원
+# CLI: 아카이브된 에셋 복원
 node scripts/archive.js --restore "asset-id"
 
-# 아카이브 목록 확인
+# CLI: 아카이브 목록 확인
 node scripts/archive.js --list
 ```
 
