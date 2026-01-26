@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "a4f0a4c7-25ed-4882-b1d1-4a2858cfbe7b",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (summer camp)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433670700,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-summer-camp",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-summer-camp",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "0ad2dd68-3b71-4297-bfdb-f9a2c15a508b",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (museum trip)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433709684,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-museum-trip",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-museum-trip",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "1814c940-e1dc-48b3-91a0-9952ed03d59d",
+      "status": "failed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (science museum)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769433812740,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-science-museum",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-science-museum",
+      "error": "Claude Code process exited with code 1"
+    },
+    {
+      "id": "340427a7-6bae-4326-be7f-f42d23ed7e57",
+      "status": "processing",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (library visit)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769434273139,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-library-visit",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-library-visit"
+    },
+    {
+      "id": "6a3aede7-5164-410f-b977-33ed821e9b82",
+      "status": "completed",
+      "request": {
+        "subject": "english",
+        "topic": "Travel plans: will vs going to (zoo visit)",
+        "gradeLevel": "초등 6학년"
+      },
+      "createdAt": 1769434493454,
+      "moduleId": "20260126-travel-plans-will-vs-going-to-zoo-visit",
+      "modulePath": "edu-content/20260126-travel-plans-will-vs-going-to-zoo-visit",
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
+    },
+    {
+      "id": "7c17ad04-7cdf-4f17-befc-68293a79d440",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436147798,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "42f4c877-54ff-4a17-94ce-0f8e29019266",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436200078,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "5bd33f08-8638-4142-bac9-02ae9e60782a",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436225992,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "9d64a8a7-dc69-4f4b-aa09-32ddd14e62d2",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436314798,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "error": "Node.js fetch를 사용할 수 없습니다. 런타임 버전을 확인하세요."
+    },
+    {
+      "id": "43e42d3c-f6ad-41b2-9c6a-2556e53bfe93",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436586022,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
+    },
+    {
+      "id": "9d9973ed-6945-4489-8a34-3dc3c52fa724",
+      "status": "completed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436958462,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
+    }
+  ]
+}

@@ -87,6 +87,34 @@ function sendJSON(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+// Edu-Content API 모듈 로드
+let eduContentApi = null;
+function getEduContentApi() {
+  if (eduContentApi) {
+    return eduContentApi;
+  }
+
+  try {
+    eduContentApi = require('./api/dist');
+  } catch (error) {
+    console.error('[API] Edu-Content 모듈 로드 실패:', error.message);
+    eduContentApi = null;
+  }
+
+  return eduContentApi;
+}
+
+function sendAPIError(res, errorResponse) {
+  let statusCode = 500;
+  if (errorResponse.code === 'INVALID_REQUEST' || errorResponse.code === 'INVALID_SUBJECT') {
+    statusCode = 400;
+  } else if (errorResponse.code === 'JOB_NOT_FOUND') {
+    statusCode = 404;
+  }
+
+  sendJSON(res, statusCode, errorResponse);
+}
+
 // POST 바디 파싱
 function parseBody(req) {
   return new Promise((resolve, reject) => {
@@ -124,10 +152,51 @@ async function handleAPI(req, res, pathname) {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type'
     });
     res.end();
+    return;
+  }
+
+  // POST /api/generate-content
+  if (pathname === '/api/generate-content' && req.method === 'POST') {
+    const api = getEduContentApi();
+    if (!api) {
+      sendJSON(res, 500, { success: false, error: 'API 모듈 빌드가 필요합니다.' });
+      return;
+    }
+
+    const body = await parseBody(req);
+    const result = await api.createGenerateContentJob(body);
+
+    if (result.success) {
+      sendJSON(res, 200, result);
+      return;
+    }
+
+    sendAPIError(res, result);
+    return;
+  }
+
+  // GET /api/generate-content/status/:jobId
+  const statusMatch = pathname.match(/^\/api\/generate-content\/status\/(.+)$/);
+  if (statusMatch && req.method === 'GET') {
+    const api = getEduContentApi();
+    if (!api) {
+      sendJSON(res, 500, { success: false, error: 'API 모듈 빌드가 필요합니다.' });
+      return;
+    }
+
+    const jobId = statusMatch[1];
+    const result = api.getGenerateContentStatus(jobId);
+
+    if (result.success === false) {
+      sendAPIError(res, result);
+      return;
+    }
+
+    sendJSON(res, 200, result);
     return;
   }
 
@@ -212,6 +281,8 @@ server.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
   console.log('');
   console.log('API 엔드포인트:');
+  console.log(`  POST /api/generate-content - 콘텐츠 생성 요청`);
+  console.log(`  GET /api/generate-content/status/:jobId - 생성 상태 조회`);
   console.log(`  POST /api/archive/:assetId - 에셋 아카이브`);
   console.log(`  POST /api/restore/:assetId - 에셋 복원`);
   console.log('');

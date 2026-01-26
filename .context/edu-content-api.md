@@ -1,0 +1,9 @@
+- 콘텐츠 생성 Job은 파일 기반 저장소(api/data/jobs.json)로 유지해 재시작 시에도 상태가 보존됨
+- Claude Agent SDK의 Write 도구는 edu-content/ 하위와 .html/.css/.js/.svg/.png/.jpg 확장자만 허용
+- 동일 주제 요청 시 YYYYMMDD-슬러그-vN 규칙으로 모듈 버전 증가
+- API 키 없이도 Claude Code OAuth 인증을 통해 실행 가능
+- Z.ai 경로는 JSON 파일 목록을 파싱한 뒤 서버가 직접 저장해야 도구 없이 동작 가능
+- Node 16 환경에서는 fetch가 없어 Z.ai 호출을 HTTP 스트림 폴백으로 처리해야 함
+- Z.ai 응답에 코드블록/부가 텍스트가 섞일 수 있어 JSON 정규화 후 파싱 필요
+- 생성 후 리뷰 워크플로는 자동 점검과 LLM 리뷰를 합산해 실패 시 작업을 차단할 수 있음
+- 리뷰 실패 시 Z.ai 자동 수정 루프를 거쳐 재검증할 수 있으며, 부분 파일 수정도 허용

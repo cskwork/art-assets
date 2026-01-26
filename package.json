@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "build-gallery.js",
   "scripts": {
-    "test": "node tests/run-tests.js"
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",

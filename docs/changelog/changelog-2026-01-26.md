@@ -1,5 +1,43 @@
 # Changelog - 2026-01-26
 
+## Edu-Content Generation API 구현
+
+### 추가
+- `api/` TypeScript 기반 콘텐츠 생성 API 모듈 추가
+  - Claude Agent SDK 연동, 프롬프트 로더, 파일 기반 Job 관리
+  - `.env` 기반 모델 설정 및 `edu-content/` 경로 제한
+- `tests/` API 검증 테스트 추가
+  - 요청 검증, 프롬프트 구성, Job 저장소 동작 확인
+- `api/src/llm/` Z.ai(GLM-4.7) 제공자 연동 모듈 추가
+  - SSE 스트림 응답 수집 및 JSON 출력 파싱
+- `tests/` LLM 제공자 선택 및 Z.ai 출력 검증 테스트 추가
+- `.env.example` LLM 제공자 전환과 Z.ai 설정 예시 추가
+- `api/src/llm/zai-client.ts`: Node 16 환경에서도 동작하도록 HTTP 스트림 폴백 추가
+- `tests/api-zai-client.test.js`: SSE 파서 유틸 테스트 추가
+- `api/src/llm/zai-output.ts`: 코드블록/여분 텍스트가 섞인 JSON 응답 정규화 처리
+- `tests/api-zai-output.test.js`: JSON 코드블록 파싱 테스트 추가
+- `api/src/llm/review.ts`: 생성 결과 자동 검수 로직 및 리뷰 JSON 파싱 추가
+- `api/src/llm/json-utils.ts`: JSON 정규화 유틸 분리
+- `tests/api-review-output.test.js`: 검수 파서/자동 점검 테스트 추가
+- `api/src/content-generator.ts`: 생성 완료 후 Z.ai 리뷰 워크플로 추가
+- `.env.example`: 리뷰 설정 환경 변수 추가
+- `api/src/content-generator.ts`: 리뷰 실패 시 Z.ai 자동 수정 시도 및 재검증 추가
+- `api/src/llm/review.ts`: 리뷰 이슈 기반 수정 메시지 빌더 추가
+- `api/src/llm/zai-output.ts`: 부분 수정 허용 파서 추가
+- `tests/api-zai-fix-output.test.js`: 부분 수정 파서 테스트 추가
+- `.env.example`: 자동 수정 설정 환경 변수 추가
+
+### 수정
+- `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가
+- `package.json`: `node --test`로 테스트 실행 스크립트 갱신
+- `api/src/content-generator.ts`: `.env` 기반 제공자 전환 및 Z.ai JSON 출력 저장 경로 추가
+- `api/src/content-generator.ts`: OAuth 인증 환경 지원 및 결과 오류 메시지 보강
+- `api/src/content-generator.ts`: `CLAUDE_CONFIG_DIR` 로컬 설정 및 실행 노드/권한 모드 환경변수 지원 (`CLAUDE_CODE_NODE_PATH`)
+- `api/src/content-generator.ts`: 빈 `ANTHROPIC_API_KEY`/`ANTHROPIC_AUTH_TOKEN` 제거로 OAuth 인증 실패 방지
+- `api/src/content-generator.ts`: CLI 설정 경로 분리를 위한 `CLAUDE_CODE_CONFIG_DIR` 지원
+- `api/src/content-generator.ts`: `/tmp/edu-content` 경로 쓰기 요청을 `edu-content/`로 자동 치환
+- `api/src/content-generator.ts`: Claude Code 권한 프롬프트 방지를 위해 `/tmp/edu-content`를 추가 허용 경로로 등록
+
 ## 로컬 서버 실행 스크립트 수정
 
 ### 수정
@@ -224,59 +262,25 @@ node scripts/archive.js --list
   - 출력 형식 템플릿
   - 사용 예시 4개
 
----
-
-## 중학교 영어 5종 인터랙티브 콘텐츠 추가
+## 공통 교육 콘텐츠 시스템 프롬프트 생성
 
 ### 추가
-- `edu-content/20260126-present-perfect-vs-past/`
-  - 현재완료 vs 과거시제 비교 (타임라인 분류, 예문 드래그)
-- `edu-content/20260126-passive-voice/`
-  - 수동태 변환 실험실 (단어 순서 조립, 공식 시각화)
-- `edu-content/20260126-prefix-word-formation/`
-  - 접두사 단어 조립 공장 (un-/re-/dis-/mis- 조합)
-- `edu-content/20260126-reading-topic-sentence/`
-  - 주제문 찾기 읽기 훈련 (문단 클릭, 구조 시각화)
-- `edu-content/20260126-speaking-suggestions/`
-  - 제안 표현 말하기 (대화 빈칸 채우기, 톤 비교)
+- `api/system-prompt/system.md` 생성
+  - `prompts/math.md` 기반 과목 중립적 시스템 프롬프트
+  - 모든 과목(수학, 영어, 과학 등)에서 사용 가능
 
-### 구성
-- 각 콘텐츠: `index.html`, `style.css`, `script.js` 7개 씬 구조 적용
-- 중학생 관심 맥락 기반 스토리와 조작형 인터랙션 포함
+### 포함 섹션
+- Role Definition: 전문 교육 콘텐츠 디자이너 역할 정의
+- Content Philosophy: Non-Obvious, Vertical Anchoring, Real-World Anchoring
+- Scene Structure: 7씬 구조 (Hook, Anchor, Story, Core, Visualize, Quiz, Wrap)
+- Story Templates by Subject Domain: 과목별 템플릿 구조 및 예시 (수학, 영어)
+- Subject-Specific Anchoring Guidelines: 수학/영어/과학별 앵커링 가이드
+- Output Format: HTML/CSS/JS/SVG 필수 구조
+- Quality Checklist: 콘텐츠/기술/접근성 품질 체크리스트
+- Generation Instructions: 5단계 생성 절차
 
----
-
-## 영어 콘텐츠 UI/UX 정렬 개선
-
-### 추가
-- `edu-content/common.css` 공통 간격/버튼 정렬 기준 추가
-
-### 수정
-- 5개 영어 콘텐츠 HTML에 공통 스타일 링크 추가
-- 씬 여백, 콘텐츠 래퍼 간격, 주요 패널 패딩 정렬 통일
-
----
-
-## Present Perfect vs Past UI/UX 개선
-
-### 수정
-- `edu-content/20260126-present-perfect-vs-past/index.html`
-  - 섹션 타이틀/리드 텍스트 클래스 추가
-  - Hook SVG 카드/포탈 도형 정돈
-- `edu-content/20260126-present-perfect-vs-past/style.css`
-  - 타이포그래피 스케일 정리 및 텍스트 대비 개선
-  - 카드/패널 라운드 및 표면 스타일 정렬
-  - 드롭존/퀴즈 요소 텍스트 가독성 개선
-
----
-
-## Passive Voice UI/UX 개선
-
-### 수정
-- `edu-content/20260126-passive-voice/index.html`
-  - 섹션 타이틀/리드 텍스트 클래스 추가
-  - Hook SVG 도형 간격/두께 정돈
-- `edu-content/20260126-passive-voice/style.css`
-  - 타이포그래피 스케일 및 텍스트 대비 개선
-  - 카드/패널 라운드 및 표면 색상 정렬
-  - 단어 카드/퀴즈 버튼 가독성 개선
+### 일반화 변경
+- "math content" -> "educational content"
+- 수학 도메인별 템플릿 -> 과목 중립적 템플릿 구조
+- 수학 앵커링 표 -> 과목별 앵커링 가이드라인
+- 수학 예시 -> 과목 매개변수화된 예시 (수학/영어)
