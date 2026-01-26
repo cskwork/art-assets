@@ -8,10 +8,15 @@
   - `.env` 기반 모델 설정 및 `edu-content/` 경로 제한
 - `tests/` API 검증 테스트 추가
   - 요청 검증, 프롬프트 구성, Job 저장소 동작 확인
+- `api/src/llm/` Z.ai(GLM-4.7) 제공자 연동 모듈 추가
+  - SSE 스트림 응답 수집 및 JSON 출력 파싱
+- `tests/` LLM 제공자 선택 및 Z.ai 출력 검증 테스트 추가
+- `.env.example` LLM 제공자 전환과 Z.ai 설정 예시 추가
 
 ### 수정
 - `server.js`: 콘텐츠 생성/상태 조회 API 라우트 추가
 - `package.json`: `node --test`로 테스트 실행 스크립트 갱신
+- `api/src/content-generator.ts`: `.env` 기반 제공자 전환 및 Z.ai JSON 출력 저장 경로 추가
 - `api/src/content-generator.ts`: OAuth 인증 환경 지원 및 결과 오류 메시지 보강
 - `api/src/content-generator.ts`: `CLAUDE_CONFIG_DIR` 로컬 설정 및 실행 노드/권한 모드 환경변수 지원 (`CLAUDE_CODE_NODE_PATH`)
 - `api/src/content-generator.ts`: 빈 `ANTHROPIC_API_KEY`/`ANTHROPIC_AUTH_TOKEN` 제거로 OAuth 인증 실패 방지

@@ -2,3 +2,4 @@
 - Claude Agent SDK의 Write 도구는 edu-content/ 하위와 .html/.css/.js/.svg/.png/.jpg 확장자만 허용
 - 동일 주제 요청 시 YYYYMMDD-슬러그-vN 규칙으로 모듈 버전 증가
 - API 키 없이도 Claude Code OAuth 인증을 통해 실행 가능
+- Z.ai 경로는 JSON 파일 목록을 파싱한 뒤 서버가 직접 저장해야 도구 없이 동작 가능

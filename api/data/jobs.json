@@ -2,44 +2,6 @@
   "version": 1,
   "jobs": [
     {
-      "id": "25caa1b0-d32d-43f1-b325-b82450a223a0",
-      "status": "processing",
-      "request": {
-        "subject": "english",
-        "topic": "Future plans: will vs going to",
-        "gradeLevel": "초등 6학년"
-      },
-      "createdAt": 1769431838642,
-      "moduleId": "20260126-future-plans-will-vs-going-to",
-      "modulePath": "edu-content/20260126-future-plans-will-vs-going-to"
-    },
-    {
-      "id": "610e0722-d298-4d54-be52-4ed75f879610",
-      "status": "failed",
-      "request": {
-        "subject": "english",
-        "topic": "Making plans: will vs going to (travel)",
-        "gradeLevel": "초등 6학년"
-      },
-      "createdAt": 1769431875357,
-      "moduleId": "20260126-making-plans-will-vs-going-to-travel",
-      "modulePath": "edu-content/20260126-making-plans-will-vs-going-to-travel",
-      "error": "Claude Code process exited with code 1"
-    },
-    {
-      "id": "9b11e219-47c2-49c8-a899-637bbc6ca976",
-      "status": "failed",
-      "request": {
-        "subject": "english",
-        "topic": "Healthy habits: should vs should not (sleep)",
-        "gradeLevel": "초등 6학년"
-      },
-      "createdAt": 1769432068428,
-      "moduleId": "20260126-healthy-habits-should-vs-should-not-sleep",
-      "modulePath": "edu-content/20260126-healthy-habits-should-vs-should-not-sleep",
-      "error": "콘텐츠 생성 중 오류가 발생했습니다."
-    },
-    {
       "id": "320aac40-80ce-45b5-974e-55a5965da2ed",
       "status": "completed",
       "request": {
@@ -123,6 +85,55 @@
         "script.js",
         "style.css"
       ]
+    },
+    {
+      "id": "7c17ad04-7cdf-4f17-befc-68293a79d440",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436147798,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "42f4c877-54ff-4a17-94ce-0f8e29019266",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436200078,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "5bd33f08-8638-4142-bac9-02ae9e60782a",
+      "status": "processing",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436225992,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc"
+    },
+    {
+      "id": "9d64a8a7-dc69-4f4b-aa09-32ddd14e62d2",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "초등학교 5학년"
+      },
+      "createdAt": 1769436314798,
+      "moduleId": "20260126-topic-b246acfc",
+      "modulePath": "edu-content/20260126-topic-b246acfc",
+      "error": "Node.js fetch를 사용할 수 없습니다. 런타임 버전을 확인하세요."
     }
   ]
 }

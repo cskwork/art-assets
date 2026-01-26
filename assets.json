@@ -2713,6 +2713,294 @@
       "description": "플라톤의 다면체 - 정이십면체 (Icosahedron)",
       "format": "glb",
       "addedDate": "2026-01-25"
+    },
+    {
+      "id": "bg-edu-travel-gradient-20260126",
+      "path": "backgrounds/bg-edu-travel-gradient-20260126.png",
+      "category": "backgrounds",
+      "tags": ["background", "education", "travel", "gradient", "blue"],
+      "description": "교육용 여행 테마 그라데이션 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-thinking-face",
+      "path": "icons/icon-thinking-face.svg",
+      "category": "icons",
+      "tags": ["icon", "thinking", "face", "emoji"],
+      "description": "생각하는 얼굴 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-link",
+      "path": "icons/icon-link.svg",
+      "category": "icons",
+      "tags": ["icon", "link", "connect"],
+      "description": "연결 링크 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-check",
+      "path": "icons/icon-check.svg",
+      "category": "icons",
+      "tags": ["icon", "check", "success"],
+      "description": "체크 표시 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-new",
+      "path": "icons/icon-new.svg",
+      "category": "icons",
+      "tags": ["icon", "new", "badge"],
+      "description": "NEW 배지 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-calendar",
+      "path": "icons/icon-calendar.svg",
+      "category": "icons",
+      "tags": ["icon", "calendar", "date", "plan"],
+      "description": "달력 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-idea",
+      "path": "icons/icon-idea.svg",
+      "category": "icons",
+      "tags": ["icon", "idea", "lightbulb", "hint"],
+      "description": "아이디어 전구 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-book",
+      "path": "icons/icon-book.svg",
+      "category": "icons",
+      "tags": ["icon", "book", "read", "education"],
+      "description": "책 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-target",
+      "path": "icons/icon-target.svg",
+      "category": "icons",
+      "tags": ["icon", "target", "goal", "mission"],
+      "description": "목표 과녁 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-chart",
+      "path": "icons/icon-chart.svg",
+      "category": "icons",
+      "tags": ["icon", "chart", "graph", "statistics"],
+      "description": "차트 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-game",
+      "path": "icons/icon-game.svg",
+      "category": "icons",
+      "tags": ["icon", "game", "play", "controller"],
+      "description": "게임 컨트롤러 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-party",
+      "path": "icons/icon-party.svg",
+      "category": "icons",
+      "tags": ["icon", "party", "celebration", "popper"],
+      "description": "파티 폭죽 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-note",
+      "path": "icons/icon-note.svg",
+      "category": "icons",
+      "tags": ["icon", "note", "memo", "write"],
+      "description": "노트 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-arrow-next",
+      "path": "icons/icon-arrow-next.svg",
+      "category": "icons",
+      "tags": ["icon", "arrow", "next", "soon"],
+      "description": "다음 단계 화살표 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-refresh",
+      "path": "icons/icon-refresh.svg",
+      "category": "icons",
+      "tags": ["icon", "refresh", "restart", "reload"],
+      "description": "새로고침 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-write",
+      "path": "icons/icon-write.svg",
+      "category": "icons",
+      "tags": ["icon", "write", "pencil", "edit"],
+      "description": "쓰기 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-arrow-right",
+      "path": "icons/icon-arrow-right.svg",
+      "category": "icons",
+      "tags": ["icon", "arrow", "right", "direction"],
+      "description": "오른쪽 화살표 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-star",
+      "path": "icons/icon-star.svg",
+      "category": "icons",
+      "tags": ["icon", "star", "favorite", "rating"],
+      "description": "별 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "icon-lightning",
+      "path": "icons/icon-lightning.svg",
+      "category": "icons",
+      "tags": ["icon", "lightning", "energy", "power"],
+      "description": "번개 아이콘",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "illust-boy-face",
+      "path": "illustrations/illust-boy-face.svg",
+      "category": "illustrations",
+      "tags": ["illustration", "boy", "face", "character"],
+      "description": "소년 얼굴 일러스트",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "illust-girl-face",
+      "path": "illustrations/illust-girl-face.svg",
+      "category": "illustrations",
+      "tags": ["illustration", "girl", "face", "character"],
+      "description": "소녀 얼굴 일러스트",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "illust-zoo-animals",
+      "path": "illustrations/illust-zoo-animals.svg",
+      "category": "illustrations",
+      "tags": ["illustration", "zoo", "animals", "lion", "bear", "giraffe"],
+      "description": "동물원 동물 일러스트",
+      "format": "svg",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-classroom-cartoon-20260126",
+      "path": "backgrounds/bg-classroom-cartoon-20260126.png",
+      "category": "backgrounds",
+      "tags": ["classroom", "school", "education", "cartoon", "playful", "background"],
+      "description": "따뜻하고 매력적인 초등학교 교실 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-playground-sunny-20260126",
+      "path": "backgrounds/bg-playground-sunny-20260126.png",
+      "category": "backgrounds",
+      "tags": ["playground", "school", "outdoor", "fun", "sunny", "background"],
+      "description": "맑은 날 학교 운동장 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-forest-nature-20260126",
+      "path": "backgrounds/bg-forest-nature-20260126.png",
+      "category": "backgrounds",
+      "tags": ["forest", "nature", "trees", "peaceful", "cartoon", "background"],
+      "description": "친근한 숲속 공터 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-space-stars-20260126",
+      "path": "backgrounds/bg-space-stars-20260126.png",
+      "category": "backgrounds",
+      "tags": ["space", "stars", "cosmos", "planets", "dreamy", "background"],
+      "description": "귀여운 우주와 별 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-ocean-underwater-20260126",
+      "path": "backgrounds/bg-ocean-underwater-20260126.png",
+      "category": "backgrounds",
+      "tags": ["ocean", "underwater", "sea", "fish", "marine", "background"],
+      "description": "밝고 즐거운 바닷속 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-library-books-20260126",
+      "path": "backgrounds/bg-library-books-20260126.png",
+      "category": "backgrounds",
+      "tags": ["library", "books", "reading", "study", "quiet", "background"],
+      "description": "아늑한 어린이 도서관 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-city-town-20260126",
+      "path": "backgrounds/bg-city-town-20260126.png",
+      "category": "backgrounds",
+      "tags": ["city", "town", "street", "urban", "community", "background"],
+      "description": "활기찬 만화 도시 거리 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-art-studio-20260126",
+      "path": "backgrounds/bg-art-studio-20260126.png",
+      "category": "backgrounds",
+      "tags": ["art", "studio", "painting", "creative", "messy", "background"],
+      "description": "창의적인 미술실 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-fantasy-castle-20260126",
+      "path": "backgrounds/bg-fantasy-castle-20260126.png",
+      "category": "backgrounds",
+      "tags": ["fantasy", "castle", "magic", "fairytale", "dream", "background"],
+      "description": "마법 같은 판타지 성 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-science-lab-20260126",
+      "path": "backgrounds/bg-science-lab-20260126.png",
+      "category": "backgrounds",
+      "tags": ["science", "lab", "experiment", "chemistry", "school", "background"],
+      "description": "재미있는 과학 실험실 배경",
+      "format": "png",
+      "addedDate": "2026-01-26"
     }
   ]
 }
