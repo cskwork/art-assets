@@ -3412,6 +3412,186 @@
       "description": "신나는 동물원 입구 배경",
       "format": "png",
       "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-celebration-confetti-20260127",
+      "path": "icons/icon-celebration-confetti-20260127.svg",
+      "category": "icons",
+      "tags": ["celebration", "confetti", "success", "reward", "science", "feedback"],
+      "description": "축하 컨페티 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-car-side-20260127",
+      "path": "icons/icon-car-side-20260127.svg",
+      "category": "icons",
+      "tags": ["car", "vehicle", "transport", "context", "science", "quiz"],
+      "description": "자동차 측면 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-rocket-launch-20260127",
+      "path": "icons/icon-rocket-launch-20260127.svg",
+      "category": "icons",
+      "tags": ["rocket", "launch", "space", "physics", "science"],
+      "description": "로켓 발사 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-sun-bright-20260127",
+      "path": "icons/icon-sun-bright-20260127.svg",
+      "category": "icons",
+      "tags": ["sun", "light", "energy", "photosynthesis", "science"],
+      "description": "밝은 태양 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-sprout-leaf-20260127",
+      "path": "icons/icon-sprout-leaf-20260127.svg",
+      "category": "icons",
+      "tags": ["sprout", "plant", "growth", "biology", "science"],
+      "description": "새싹 잎 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-water-drop-20260127",
+      "path": "icons/icon-water-drop-20260127.svg",
+      "category": "icons",
+      "tags": ["water", "drop", "liquid", "science", "chemistry"],
+      "description": "물방울 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-cloud-co2-20260127",
+      "path": "icons/icon-cloud-co2-20260127.svg",
+      "category": "icons",
+      "tags": ["co2", "carbon-dioxide", "cloud", "gas", "science"],
+      "description": "이산화탄소 구름 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-candy-glucose-20260127",
+      "path": "icons/icon-candy-glucose-20260127.svg",
+      "category": "icons",
+      "tags": ["glucose", "sugar", "candy", "photosynthesis", "science"],
+      "description": "포도당 캔디 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-wind-oxygen-20260127",
+      "path": "icons/icon-wind-oxygen-20260127.svg",
+      "category": "icons",
+      "tags": ["oxygen", "wind", "air", "photosynthesis", "science"],
+      "description": "산소 바람 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-tree-forest-20260127",
+      "path": "icons/icon-tree-forest-20260127.svg",
+      "category": "icons",
+      "tags": ["tree", "forest", "nature", "biology", "science"],
+      "description": "숲 나무 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-globe-earth-20260127",
+      "path": "icons/icon-globe-earth-20260127.svg",
+      "category": "icons",
+      "tags": ["earth", "globe", "planet", "geology", "science"],
+      "description": "지구 행성 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-mountain-peak-20260127",
+      "path": "icons/icon-mountain-peak-20260127.svg",
+      "category": "icons",
+      "tags": ["mountain", "peak", "geology", "plate-tectonics", "science"],
+      "description": "산맥 봉우리 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-volcano-eruption-20260127",
+      "path": "icons/icon-volcano-eruption-20260127.svg",
+      "category": "icons",
+      "tags": ["volcano", "eruption", "geology", "plate-tectonics", "science"],
+      "description": "화산 분출 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-explosion-impact-20260127",
+      "path": "icons/icon-explosion-impact-20260127.svg",
+      "category": "icons",
+      "tags": ["explosion", "impact", "collision", "physics", "science"],
+      "description": "충돌 폭발 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-alert-warning-20260127",
+      "path": "icons/icon-alert-warning-20260127.svg",
+      "category": "icons",
+      "tags": ["alert", "warning", "safety", "earthquake", "science"],
+      "description": "경고 알림 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-moon-crescent-20260127",
+      "path": "icons/icon-moon-crescent-20260127.svg",
+      "category": "icons",
+      "tags": ["moon", "crescent", "astronomy", "space", "science"],
+      "description": "초승달 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-moon-full-20260127",
+      "path": "icons/icon-moon-full-20260127.svg",
+      "category": "icons",
+      "tags": ["moon", "full-moon", "astronomy", "space", "science"],
+      "description": "보름달 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "icon-ramen-bowl-20260127",
+      "path": "icons/icon-ramen-bowl-20260127.svg",
+      "category": "icons",
+      "tags": ["ramen", "bowl", "food", "context", "science", "quiz"],
+      "description": "라면 그릇 아이콘",
+      "dimensions": { "width": 64, "height": 64 },
+      "format": "svg",
+      "addedDate": "2026-01-27"
     }
   ]
 }

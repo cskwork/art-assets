@@ -79,6 +79,28 @@ body {
     max-width: 900px;
 }
 
+.science-icon {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.2em;
+}
+
+.science-icon--inline {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.science-inline-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.science-inline-label {
+    display: inline-block;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -431,10 +453,19 @@ body {
     animation: bounceIn 0.5s ease;
 }
 
-.discovery-message p {
+.discovery-text {
     font-size: 1.1rem;
     font-weight: 600;
     color: #2E7D32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.discovery-text .science-icon {
+    width: 1.7rem;
+    height: 1.7rem;
 }
 
 @keyframes bounceIn {
@@ -471,8 +502,17 @@ body {
 }
 
 .equation-item .icon {
-    font-size: 2rem;
-    margin-bottom: 5px;
+    width: 2.6rem;
+    height: 2.6rem;
+    margin: 0 auto 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.equation-item .icon .science-icon {
+    width: 100%;
+    height: 100%;
 }
 
 .equation-item span {
@@ -540,6 +580,9 @@ body {
     font-size: 1rem;
     color: var(--text-light);
     margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .quiz-text {
@@ -622,7 +665,17 @@ body {
 }
 
 .feedback-icon {
-    font-size: 2rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feedback-icon .science-icon {
+    width: 100%;
+    height: 100%;
 }
 
 .feedback-text {
@@ -694,6 +747,15 @@ body {
     font-size: 1rem;
     color: #1565C0;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.impact-box h3 .science-icon {
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 .impact-box p {

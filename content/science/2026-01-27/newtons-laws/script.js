@@ -236,7 +236,7 @@ const ScienceApp = {
             button.classList.add('correct');
             feedback.classList.remove('hidden', 'error');
             feedback.classList.add('success');
-            feedbackIcon.textContent = '🎉';
+            ScienceIcons.setIcon(feedbackIcon, 'celebration', 'science-icon');
             feedbackText.textContent = '정답! 급정거할 때 차는 멈추지만, 우리 몸은 관성 때문에 계속 앞으로 가려고 해요. 안전벨트가 이것을 막아주는 거예요!';
             nextBtn.classList.remove('hidden');
             retryBtn.classList.add('hidden');
@@ -249,7 +249,7 @@ const ScienceApp = {
             });
             feedback.classList.remove('hidden', 'success');
             feedback.classList.add('error');
-            feedbackIcon.textContent = '🤔';
+            ScienceIcons.setIcon(feedbackIcon, 'thinking', 'science-icon');
             feedbackText.textContent = '아쉬워요! 관성의 법칙을 생각해보세요. 다시 한번 도전해볼까요?';
             retryBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');

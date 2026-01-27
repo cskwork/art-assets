@@ -268,7 +268,7 @@ const ScienceApp = {
             button.classList.add('correct');
             feedback.classList.remove('hidden', 'error');
             feedback.classList.add('success');
-            feedbackIcon.textContent = '🎉';
+            ScienceIcons.setIcon(feedbackIcon, 'celebration', 'science-icon');
             feedbackText.textContent = '정답! 뚜껑을 닫으면 열이 빠져나가지 못해서 물 분자들이 더 빨리 움직이게 되고, 그래서 더 빨리 끓어요!';
             nextBtn.classList.remove('hidden');
             retryBtn.classList.add('hidden');
@@ -282,7 +282,7 @@ const ScienceApp = {
             });
             feedback.classList.remove('hidden', 'success');
             feedback.classList.add('error');
-            feedbackIcon.textContent = '🤔';
+            ScienceIcons.setIcon(feedbackIcon, 'thinking', 'science-icon');
             feedbackText.textContent = '아쉬워요! 열이 빠져나가지 못하면 분자들이 더 빨리 움직여서 빨리 끓는 거예요. 다시 한번 생각해볼까요?';
             retryBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');

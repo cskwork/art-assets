@@ -163,7 +163,7 @@
                                 <!-- 빛 -->
                                 <g id="light-input" class="input-group">
                                     <circle cx="200" cy="20" r="25" fill="#FFD700" opacity="0.8"/>
-                                    <text x="200" y="25" text-anchor="middle" font-size="10" fill="#FF8C00">☀️ 빛</text>
+                                    <text x="200" y="25" text-anchor="middle" font-size="10" fill="#FF8C00">빛</text>
                                 </g>
                                 <!-- 물 -->
                                 <g id="water-input" class="input-group">
@@ -269,7 +269,10 @@
                 </div>
                 
                 <div class="discovery-message hidden" id="discovery-message">
-                    <p>🌱 발견! 빛, 물, 이산화탄소가 모두 있어야 광합성이 잘 일어나!</p>
+                    <p class="discovery-text">
+                        <span data-icon="sprout" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                        <span>발견! 빛, 물, 이산화탄소가 모두 있어야 광합성이 잘 일어나!</span>
+                    </p>
                 </div>
                 
                 <button class="next-btn" onclick="ScienceApp.nextScene()">원리 정리하기</button>
@@ -284,17 +287,17 @@
                 <div class="equation-diagram">
                     <div class="equation-side inputs">
                         <div class="equation-item">
-                            <div class="icon sun-icon">☀️</div>
+                            <div class="icon sun-icon" data-icon="sun" data-icon-class="science-icon" aria-hidden="true"></div>
                             <span>빛에너지</span>
                         </div>
                         <span class="plus">+</span>
                         <div class="equation-item">
-                            <div class="icon water-icon">💧</div>
+                            <div class="icon water-icon" data-icon="water" data-icon-class="science-icon" aria-hidden="true"></div>
                             <span>물 (H₂O)</span>
                         </div>
                         <span class="plus">+</span>
                         <div class="equation-item">
-                            <div class="icon co2-icon">🌫️</div>
+                            <div class="icon co2-icon" data-icon="co2" data-icon-class="science-icon" aria-hidden="true"></div>
                             <span>이산화탄소 (CO₂)</span>
                         </div>
                     </div>
@@ -308,12 +311,12 @@
                     
                     <div class="equation-side outputs">
                         <div class="equation-item">
-                            <div class="icon glucose-icon">🍬</div>
+                            <div class="icon glucose-icon" data-icon="glucose" data-icon-class="science-icon" aria-hidden="true"></div>
                             <span>포도당</span>
                         </div>
                         <span class="plus">+</span>
                         <div class="equation-item">
-                            <div class="icon oxygen-icon">💨</div>
+                            <div class="icon oxygen-icon" data-icon="oxygen" data-icon-class="science-icon" aria-hidden="true"></div>
                             <span>산소 (O₂)</span>
                         </div>
                     </div>
@@ -341,7 +344,10 @@
                 
                 <div class="quiz-container" id="quiz-container">
                     <div class="quiz-question">
-                        <p class="quiz-context">🌳 숲 속에서</p>
+                        <p class="quiz-context">
+                            <span data-icon="tree" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                            <span>숲 속에서</span>
+                        </p>
                         <p class="quiz-text">낮에 숲 속 공기가 상쾌한 이유는 무엇일까요?</p>
                     </div>
                     
@@ -362,7 +368,7 @@
                     
                     <div class="quiz-feedback hidden" id="quiz-feedback">
                         <div class="feedback-content">
-                            <span class="feedback-icon"></span>
+                            <span class="feedback-icon" aria-hidden="true"></span>
                             <p class="feedback-text"></p>
                         </div>
                         <button class="retry-btn hidden" id="retry-btn" onclick="ScienceApp.retryQuiz()">다시 풀기</button>
@@ -394,7 +400,10 @@
                 </div>
                 
                 <div class="impact-box">
-                    <h3>🌍 광합성이 중요한 이유</h3>
+                    <h3>
+                        <span data-icon="globe" data-icon-class="science-icon" aria-hidden="true"></span>
+                        <span>광합성이 중요한 이유</span>
+                    </h3>
                     <p>지구의 모든 산소는 식물의 광합성에서 나와요! 식물이 없으면 우리도 숨을 쉴 수 없어요.</p>
                 </div>
                 
@@ -421,6 +430,7 @@
         </section>
     </div>
     
+    <script src="../science-icons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

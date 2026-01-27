@@ -216,7 +216,7 @@ const ScienceApp = {
             button.classList.add('correct');
             feedback.classList.remove('hidden', 'error');
             feedback.classList.add('success');
-            feedbackIcon.textContent = '🎉';
+            ScienceIcons.setIcon(feedbackIcon, 'celebration', 'science-icon');
             feedbackText.textContent = '정답! 식물이 광합성을 통해 산소를 만들어내기 때문에 숲 속 공기가 상쾌해요. 특히 낮에 햇빛을 받으면 광합성이 활발해져서 더 많은 산소가 나와요!';
             nextBtn.classList.remove('hidden');
             retryBtn.classList.add('hidden');
@@ -230,7 +230,7 @@ const ScienceApp = {
             });
             feedback.classList.remove('hidden', 'success');
             feedback.classList.add('error');
-            feedbackIcon.textContent = '🤔';
+            ScienceIcons.setIcon(feedbackIcon, 'thinking', 'science-icon');
             feedbackText.textContent = '아쉬워요! 식물이 광합성으로 산소를 만들어내서 공기가 상쾌한 거예요. 다시 생각해볼까요?';
             retryBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');

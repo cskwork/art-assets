@@ -15,19 +15,19 @@ const ScienceApp = {
 
     boundaryInfo: {
         convergent: {
-            icon: '🏔️',
+            icon: 'mountain',
             title: '수렴형 경계',
             description: '두 판이 충돌하면 산맥이 형성되거나, 한 판이 다른 판 아래로 섭입해요.',
             example: '히말라야 산맥, 일본 해구'
         },
         divergent: {
-            icon: '🌋',
+            icon: 'volcano',
             title: '발산형 경계',
             description: '두 판이 멀어지면서 새로운 지각이 만들어지고 화산이 생겨요.',
             example: '대서양 중앙 해령, 아이슬란드'
         },
         transform: {
-            icon: '⚡',
+            icon: 'lightning',
             title: '변환형 경계',
             description: '두 판이 서로 스쳐 지나가면서 지진이 발생해요.',
             example: '산안드레아스 단층 (미국)'
@@ -83,7 +83,8 @@ const ScienceApp = {
 
         // 결과 패널 업데이트
         const info = this.boundaryInfo[type];
-        document.getElementById('result-icon').textContent = info.icon;
+        const resultIcon = document.getElementById('result-icon');
+        ScienceIcons.setIcon(resultIcon, info.icon, 'science-icon');
         document.getElementById('result-title').textContent = info.title;
         document.getElementById('result-description').textContent = info.description;
         document.getElementById('result-example').textContent = info.example;
@@ -148,7 +149,7 @@ const ScienceApp = {
             button.classList.add('correct');
             feedback.classList.remove('hidden', 'error');
             feedback.classList.add('success');
-            feedbackIcon.textContent = '🎉';
+            ScienceIcons.setIcon(feedbackIcon, 'celebration', 'science-icon');
             feedbackText.textContent = '정답! 태평양 주변은 여러 판의 경계가 모여있어서 "불의 고리(Ring of Fire)"라고 불려요. 전 세계 지진의 90%가 이 지역에서 발생해요!';
             nextBtn.classList.remove('hidden');
             retryBtn.classList.add('hidden');
@@ -161,7 +162,7 @@ const ScienceApp = {
             });
             feedback.classList.remove('hidden', 'success');
             feedback.classList.add('error');
-            feedbackIcon.textContent = '🤔';
+            ScienceIcons.setIcon(feedbackIcon, 'thinking', 'science-icon');
             feedbackText.textContent = '아쉬워요! 판의 경계와 지진/화산의 관계를 다시 생각해보세요.';
             retryBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');

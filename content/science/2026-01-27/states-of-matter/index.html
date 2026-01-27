@@ -83,7 +83,10 @@
                 </div>
                 <div class="bridge-question">
                     <p>물질은 <strong>고체, 액체, 기체</strong> 세 가지 상태가 있어!</p>
-                    <p class="highlight-text">그런데... 왜 같은 물이 상태가 바뀔까? 🤔</p>
+                    <p class="highlight-text">
+                        <span data-icon="thinking" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                        <span>그런데... 왜 같은 물이 상태가 바뀔까?</span>
+                    </p>
                 </div>
                 <button class="next-btn" onclick="ScienceApp.nextScene()">비밀을 알아보자!</button>
             </div>
@@ -164,13 +167,19 @@
                             <span class="value" id="spacing-value">보통</span>
                         </div>
                         <div id="discovery-hint" class="hint hidden">
-                            <p>💡 힌트: 온도가 올라가면 분자가 어떻게 될까?</p>
+                            <p>
+                                <span data-icon="hint" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                                <span>힌트: 온도가 올라가면 분자가 어떻게 될까?</span>
+                            </p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="discovery-message hidden" id="discovery-message">
-                    <p>🎉 발견! 온도가 높아지면 분자가 더 빨리 움직여!</p>
+                    <p class="discovery-text">
+                        <span data-icon="celebration" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                        <span>발견! 온도가 높아지면 분자가 더 빨리 움직여!</span>
+                    </p>
                 </div>
                 
                 <button class="next-btn" onclick="ScienceApp.nextScene()">원리 정리하기</button>
@@ -249,7 +258,10 @@
                 
                 <div class="quiz-container" id="quiz-container">
                     <div class="quiz-question">
-                        <p class="quiz-context">🍜 라면 끓이는 상황</p>
+                        <p class="quiz-context">
+                            <span data-icon="ramen" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                            <span>라면 끓이는 상황</span>
+                        </p>
                         <p class="quiz-text">뚜껑을 닫으면 물이 더 빨리 끓어요. 왜 그럴까요?</p>
                     </div>
                     
@@ -270,7 +282,7 @@
                     
                     <div class="quiz-feedback hidden" id="quiz-feedback">
                         <div class="feedback-content">
-                            <span class="feedback-icon"></span>
+                            <span class="feedback-icon" aria-hidden="true"></span>
                             <p class="feedback-text"></p>
                         </div>
                         <button class="retry-btn hidden" id="retry-btn" onclick="ScienceApp.retryQuiz()">다시 풀기</button>
@@ -324,6 +336,7 @@
         </section>
     </div>
     
+    <script src="../science-icons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

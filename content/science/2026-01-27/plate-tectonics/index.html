@@ -177,7 +177,7 @@
                     
                     <!-- 결과 표시 -->
                     <div class="result-panel">
-                        <div class="result-icon" id="result-icon">🏔️</div>
+                        <div class="result-icon" id="result-icon" data-icon="mountain" data-icon-class="science-icon" aria-hidden="true"></div>
                         <h3 id="result-title">수렴형 경계</h3>
                         <p id="result-description">두 판이 충돌하면 산맥이 형성되거나, 한 판이 다른 판 아래로 섭입해요.</p>
                         <div class="examples">
@@ -188,7 +188,10 @@
                 </div>
                 
                 <div class="discovery-message hidden" id="discovery-message">
-                    <p>🌍 발견! 판들이 움직이면서 지진, 화산, 산맥이 만들어져!</p>
+                    <p class="discovery-text">
+                        <span data-icon="globe" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                        <span>발견! 판들이 움직이면서 지진, 화산, 산맥이 만들어져!</span>
+                    </p>
                 </div>
                 
                 <button class="next-btn" onclick="ScienceApp.nextScene()">원리 정리하기</button>
@@ -202,17 +205,17 @@
                 
                 <div class="visualization-cards">
                     <div class="viz-card">
-                        <div class="viz-icon">🧩</div>
+                        <div class="viz-icon" data-icon="puzzle" data-icon-class="science-icon" aria-hidden="true"></div>
                         <h3>지구는 퍼즐 조각</h3>
                         <p>지각은 여러 개의 <strong>판(plate)</strong>으로 나뉘어 있어</p>
                     </div>
                     <div class="viz-card">
-                        <div class="viz-icon">🔄</div>
+                        <div class="viz-icon" data-icon="cycle" data-icon-class="science-icon" aria-hidden="true"></div>
                         <h3>맨틀 대류</h3>
                         <p>뜨거운 맨틀이 대류하면서 판을 <strong>움직이게</strong> 해</p>
                     </div>
                     <div class="viz-card">
-                        <div class="viz-icon">💥</div>
+                        <div class="viz-icon" data-icon="explosion" data-icon-class="science-icon" aria-hidden="true"></div>
                         <h3>경계에서 활동</h3>
                         <p>판이 만나는 곳에서 <strong>지진, 화산, 산맥</strong>이 생겨</p>
                     </div>
@@ -238,7 +241,10 @@
                 
                 <div class="quiz-container" id="quiz-container">
                     <div class="quiz-question">
-                        <p class="quiz-context">🌋 불의 고리</p>
+                        <p class="quiz-context">
+                            <span data-icon="volcano" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                            <span>불의 고리</span>
+                        </p>
                         <p class="quiz-text">태평양 주변에 화산과 지진이 많은 이유는?</p>
                     </div>
                     
@@ -259,7 +265,7 @@
                     
                     <div class="quiz-feedback hidden" id="quiz-feedback">
                         <div class="feedback-content">
-                            <span class="feedback-icon"></span>
+                            <span class="feedback-icon" aria-hidden="true"></span>
                             <p class="feedback-text"></p>
                         </div>
                         <button class="retry-btn hidden" id="retry-btn" onclick="ScienceApp.retryQuiz()">다시 풀기</button>
@@ -291,7 +297,10 @@
                 </div>
                 
                 <div class="safety-box">
-                    <h3>🚨 지진 대비 안전 수칙</h3>
+                    <h3>
+                        <span data-icon="alert" data-icon-class="science-icon" aria-hidden="true"></span>
+                        <span>지진 대비 안전 수칙</span>
+                    </h3>
                     <ul>
                         <li>테이블 아래로 대피하기</li>
                         <li>머리 보호하기</li>
@@ -312,6 +321,7 @@
         </section>
     </div>
     
+    <script src="../science-icons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

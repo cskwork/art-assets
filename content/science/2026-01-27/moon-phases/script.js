@@ -158,7 +158,7 @@ const ScienceApp = {
             button.classList.add('correct');
             feedback.classList.remove('hidden', 'error');
             feedback.classList.add('success');
-            feedbackIcon.textContent = '🎉';
+            ScienceIcons.setIcon(feedbackIcon, 'celebration', 'science-icon');
             feedbackText.textContent = '정답! 보름달일 때는 태양-지구-달 순서로 일렬이 되어서, 태양빛이 달의 지구 쪽 면 전체를 비추게 돼요!';
             nextBtn.classList.remove('hidden');
             retryBtn.classList.add('hidden');
@@ -171,7 +171,7 @@ const ScienceApp = {
             });
             feedback.classList.remove('hidden', 'success');
             feedback.classList.add('error');
-            feedbackIcon.textContent = '🤔';
+            ScienceIcons.setIcon(feedbackIcon, 'thinking', 'science-icon');
             feedbackText.textContent = '아쉬워요! 보름달이 되려면 달이 지구 반대편에 있어야 해요. 다시 생각해볼까요?';
             retryBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');

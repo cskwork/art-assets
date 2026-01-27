@@ -231,7 +231,10 @@
                 </div>
                 
                 <div class="discovery-message hidden" id="discovery-message">
-                    <p>🎯 발견! 힘이 없으면 움직이던 물체는 계속 움직이려 해 (관성의 법칙)!</p>
+                    <p class="discovery-text">
+                        <span data-icon="target" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                        <span>발견! 힘이 없으면 움직이던 물체는 계속 움직이려 해 (관성의 법칙)!</span>
+                    </p>
                 </div>
                 
                 <button class="next-btn" onclick="ScienceApp.nextScene()">원리 정리하기</button>
@@ -315,7 +318,10 @@
                 
                 <div class="quiz-container" id="quiz-container">
                     <div class="quiz-question">
-                        <p class="quiz-context">🚗 자동차 안에서</p>
+                        <p class="quiz-context">
+                            <span data-icon="car" data-icon-class="science-icon science-icon--inline" aria-hidden="true"></span>
+                            <span>자동차 안에서</span>
+                        </p>
                         <p class="quiz-text">안전벨트는 왜 착용해야 할까요?</p>
                     </div>
                     
@@ -336,7 +342,7 @@
                     
                     <div class="quiz-feedback hidden" id="quiz-feedback">
                         <div class="feedback-content">
-                            <span class="feedback-icon"></span>
+                            <span class="feedback-icon" aria-hidden="true"></span>
                             <p class="feedback-text"></p>
                         </div>
                         <button class="retry-btn hidden" id="retry-btn" onclick="ScienceApp.retryQuiz()">다시 풀기</button>
@@ -368,7 +374,10 @@
                 </div>
                 
                 <div class="impact-box">
-                    <h3>🚀 뉴턴 법칙이 쓰이는 곳</h3>
+                    <h3>
+                        <span data-icon="rocket" data-icon-class="science-icon" aria-hidden="true"></span>
+                        <span>뉴턴 법칙이 쓰이는 곳</span>
+                    </h3>
                     <p>자동차 안전장치, 로켓 발사, 스포츠 역학 등 우리 생활 곳곳에!</p>
                 </div>
                 
@@ -389,6 +398,7 @@
         </section>
     </div>
     
+    <script src="../science-icons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
