@@ -2,19 +2,6 @@
   "version": 1,
   "jobs": [
     {
-      "id": "62cea738-8f6b-48ff-85fc-f3382245ad8d",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "피자",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769473028085,
-      "moduleId": "20260127-topic-7425750e",
-      "modulePath": "edu-content/20260127-topic-7425750e",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    },
-    {
       "id": "9904d783-3d37-431e-a487-bced12bce128",
       "status": "failed",
       "request": {
@@ -152,7 +139,7 @@
     },
     {
       "id": "ed667552-4588-40d0-8d8e-301fdc7290da",
-      "status": "processing",
+      "status": "completed",
       "request": {
         "subject": "math",
         "topic": "우주 탐험",
@@ -160,7 +147,36 @@
       },
       "createdAt": 1769476319771,
       "moduleId": "20260127-topic-f890f5ec",
-      "modulePath": "edu-content/20260127-topic-f890f5ec"
+      "modulePath": "edu-content/20260127-topic-f890f5ec",
+      "reviewStatus": "completed",
+      "review": {
+        "pass": true,
+        "score": 100,
+        "requirements": {
+          "sevenScenes": true,
+          "scriptReferenced": true,
+          "styleReferenced": true,
+          "langKo": true,
+          "koreanOnly": true,
+          "logicalCorrectness": true,
+          "worksInBrowser": true
+        },
+        "issues": [],
+        "summary": "모든 요구사항을 충족하는 완성도 높은 콘텐츠입니다. 7개의 씬 구조가 잘 준수되었으며, 각도를 조절하는 로켓 인터랙션 로직이 SVG 수학 계산과 정확하게 일치합니다. 코드 구조가 안정적이며 브라우저에서 즉시 실행 가능합니다.",
+        "deterministic": {
+          "sevenScenes": true,
+          "scriptReferenced": true,
+          "styleReferenced": true,
+          "langKo": true
+        },
+        "deterministicPass": true,
+        "sceneCount": 7
+      },
+      "files": [
+        "index.html",
+        "script.js",
+        "style.css"
+      ]
     }
   ]
 }

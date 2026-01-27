@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-26",
+  "lastUpdated": "2026-01-27",
   "categories": {
     "icons": {
       "description": "아이콘 (SVG 권장)",
@@ -3277,6 +3277,141 @@
       "description": "즐거운 겨울 눈 배경 (눈사람)",
       "format": "png",
       "addedDate": "2026-01-26"
+    },
+    {
+      "id": "bg-biology-cells-green-20260127",
+      "path": "backgrounds/bg-biology-cells-green-20260127.png",
+      "category": "backgrounds",
+      "tags": ["biology", "cells", "science", "green", "microscope", "pattern"],
+      "description": "현미경으로 본 식물 세포 패턴 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-space-galaxy-dark-20260127",
+      "path": "backgrounds/bg-space-galaxy-dark-20260127.png",
+      "category": "backgrounds",
+      "tags": ["space", "galaxy", "stars", "universe", "science", "astronomy"],
+      "description": "깊은 우주 은하수와 별 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-chemistry-molecules-blue-20260127",
+      "path": "backgrounds/bg-chemistry-molecules-blue-20260127.png",
+      "category": "backgrounds",
+      "tags": ["chemistry", "molecules", "science", "structure", "blue", "tech"],
+      "description": "추상적인 화학 분자 구조 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-physics-waves-gradient-20260127",
+      "path": "backgrounds/bg-physics-waves-gradient-20260127.png",
+      "category": "backgrounds",
+      "tags": ["physics", "waves", "sound", "light", "science", "abstract"],
+      "description": "물리학 파동과 그라데이션 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-tech-circuit-futuristic-20260127",
+      "path": "backgrounds/bg-tech-circuit-futuristic-20260127.png",
+      "category": "backgrounds",
+      "tags": ["technology", "circuit", "computer", "science", "futuristic", "chip"],
+      "description": "미래지향적 디지털 회로 기판 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "illust-dna-double-helix-3d-20260127",
+      "path": "illustrations/illust-dna-double-helix-3d-20260127.png",
+      "category": "illustrations",
+      "tags": ["dna", "biology", "science", "genetics", "helix", "3d"],
+      "description": "3D DNA 이중 나선 구조 일러스트",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "illust-atom-structure-bohr-20260127",
+      "path": "illustrations/illust-atom-structure-bohr-20260127.png",
+      "category": "illustrations",
+      "tags": ["atom", "physics", "chemistry", "science", "nucleus", "electrons"],
+      "description": "원자 구조 모형 일러스트 (보어 모델)",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "illust-solar-system-orbit-flat-20260127",
+      "path": "illustrations/illust-solar-system-orbit-flat-20260127.png",
+      "category": "illustrations",
+      "tags": ["solar-system", "space", "planets", "sun", "science", "astronomy"],
+      "description": "태양계 행성 순서 일러스트",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "illust-microscope-lab-modern-20260127",
+      "path": "illustrations/illust-microscope-lab-modern-20260127.png",
+      "category": "illustrations",
+      "tags": ["microscope", "lab", "science", "biology", "equipment", "research"],
+      "description": "현대적인 실험실 현미경 일러스트",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "illust-lab-glassware-beakers-20260127",
+      "path": "illustrations/illust-lab-glassware-beakers-20260127.png",
+      "category": "illustrations",
+      "tags": ["lab", "glassware", "chemistry", "science", "beaker", "flask"],
+      "description": "화학 실험 기구 세트 일러스트",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-classroom-kid-playful-20260127",
+      "path": "backgrounds/bg-classroom-kid-playful-20260127.png",
+      "category": "backgrounds",
+      "tags": ["classroom", "school", "education", "kid-friendly", "elementary", "playful"],
+      "description": "따뜻하고 즐거운 초등 교실 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-forest-kid-playful-20260127",
+      "path": "backgrounds/bg-forest-kid-playful-20260127.png",
+      "category": "backgrounds",
+      "tags": ["forest", "nature", "trees", "kid-friendly", "cute", "playful"],
+      "description": "평화롭고 귀여운 숲속 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-space-kid-playful-20260127",
+      "path": "backgrounds/bg-space-kid-playful-20260127.png",
+      "category": "backgrounds",
+      "tags": ["space", "universe", "stars", "kid-friendly", "cute", "playful"],
+      "description": "귀엽고 꿈같은 우주 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-underwater-kid-playful-20260127",
+      "path": "backgrounds/bg-underwater-kid-playful-20260127.png",
+      "category": "backgrounds",
+      "tags": ["underwater", "ocean", "sea", "kid-friendly", "cute", "playful"],
+      "description": "밝고 즐거운 바닷속 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
+    },
+    {
+      "id": "bg-zoo-kid-playful-20260127",
+      "path": "backgrounds/bg-zoo-kid-playful-20260127.png",
+      "category": "backgrounds",
+      "tags": ["zoo", "animals", "park", "kid-friendly", "cute", "playful"],
+      "description": "신나는 동물원 입구 배경",
+      "format": "png",
+      "addedDate": "2026-01-27"
     }
   ]
 }
