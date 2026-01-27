@@ -11,7 +11,8 @@
       "Bash(done)",
       "Bash(for dir in edu-content/20260126-*)",
       "Bash(unzip:*)",
-      "Bash(node scripts/archive.js:*)"
+      "Bash(node scripts/archive.js:*)",
+      "mcp__context7__query-docs"
     ]
   }
 }

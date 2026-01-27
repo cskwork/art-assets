@@ -2,58 +2,17 @@
   "version": 1,
   "jobs": [
     {
-      "id": "1fd1f7e5-30e7-491e-a1be-4545d2f0a317",
+      "id": "5c28ff33-f7a5-4c99-a87c-2253843c2ecd",
       "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "축구",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769490903477,
-      "moduleId": "20260127-topic-4529c258",
-      "modulePath": "edu-content/20260127-topic-4529c258",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    },
-    {
-      "id": "9a15ecb8-c860-4e5e-ab40-a23e3ebafb0d",
-      "status": "completed",
-      "request": {
-        "subject": "math",
-        "topic": "우주",
+        "topic": "로봇",
         "gradeLevel": "초등 1학년"
       },
-      "createdAt": 1769490936250,
-      "moduleId": "20260127-topic-5f41ee24",
-      "modulePath": "edu-content/20260127-topic-5f41ee24",
-      "reviewStatus": "completed",
-      "review": {
-        "pass": true,
-        "score": 100,
-        "requirements": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true,
-          "koreanOnly": true,
-          "logicalCorrectness": true,
-          "worksInBrowser": true
-        },
-        "issues": [],
-        "summary": "요청하신 초등 1학년 수학(크기 비교, 숫자 세기) '우주' 주제의 7씬 교육용 콘텐츠가 성공적으로 생성되었습니다. HTML, CSS, JS 파일 구조가 요구사항에 부합하며, 외부 라이브러리 의존성 없이 순수 자바스크립트와 커스텀 SVG로 구현되어 브라우저 호환성이 우수합니다. 훅(Hook)부터 랩(Wrap)까지의 이야기 흐름과 상호작용 로직(크기 비교, 개수 세기, 퀴즈)이 논리적으로 정확하게 설계되었습니다.",
-        "deterministic": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true
-        },
-        "deterministicPass": true,
-        "sceneCount": 14
-      },
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
+      "createdAt": 1769503168930,
+      "moduleId": "20260127-topic-ba46f25d",
+      "modulePath": "edu-content/20260127-topic-ba46f25d",
+      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
     }
   ]
 }

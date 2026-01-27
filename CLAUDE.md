@@ -4,6 +4,27 @@
 
 ## 최근 활동
 
+### 2026-01-27
+
+**Phaser.io 기반 게임형 교육 콘텐츠 생성**
+- 동작 동사 분류 게임 Action Verbs (초등 3-4학년): Phaser 3 아케이드 물리, 드래그 앤 드롭
+  - run/walk/jump (움직임), draw/write/cook (만들기), love/like/hate (감정) 분류
+  - 드래그로 동사를 카테고리에 분류하는 게임 메카닉
+  - 로봇 캐릭터 "Verby"와 함께 학습
+  - 점수 시스템, 3라운드 + 5문제 퀴즈
+- 기술: Phaser 3.80.1 CDN, Tween 애니메이션, Registry 상태 관리
+- 위치: `edu-content/20260127-action-verbs-phaser/`
+- **NEW:** Phaser 스킬 생성 (`~/.claude/skills/Phaser/SKILL.md`)
+
+**Three.js 기반 3D 영어 콘텐츠 생성**
+- 3D 위치 전치사 (초등 3-4학년): Three.js OrbitControls, 실시간 3D 애니메이션
+  - in, on, under, next to, between 전치사 학습
+  - 3D 장면에서 공의 위치가 실시간으로 변화
+  - 로봇 캐릭터 "Rex"와 함께 학습
+  - 5개 퀴즈: 3D 장면을 보고 올바른 전치사 선택
+- 기술: Three.js r128, OrbitControls, Web Speech API
+- 위치: `edu-content/20260127-prepositions-3d/`
+
 ### 2026-01-26
 
 **초등 영어 인터랙티브 콘텐츠 3개 모듈 완성**
@@ -79,7 +100,9 @@ art-assets/
     ├── 20260126-circle-area/       # 원의 넓이 (초등 6학년)
     ├── 20260126-decimal-multiplication/  # 소수의 곱셈 (초등 5학년)
     ├── 20260126-fraction-division/       # 분수의 나눗셈 (초등 5학년)
-    └── 20260126-ratio-proportion/        # 비와 비율 (초등 6학년)
+    ├── 20260126-ratio-proportion/        # 비와 비율 (초등 6학년)
+    ├── 20260127-prepositions-3d/         # 3D 위치 전치사 (초등 3-4학년) - Three.js
+    └── 20260127-action-verbs-phaser/     # 동작 동사 분류 게임 (초등 3-4학년) - Phaser
 ```
 
 ## 파일 명명 규칙
@@ -298,6 +321,8 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | 20260126-comparative-adjectives | 비교급 (-er/more) | 초등 5-6학년 | `/edu-content/20260126-comparative-adjectives/` |
 | 20260126-present-tenses | 현재시제 vs 현재진행형 | 초등 5-6학년 | `/edu-content/20260126-present-tenses/` |
 | 20260126-modal-can | 조동사 can/can't | 초등 5-6학년 | `/edu-content/20260126-modal-can/` |
+| 20260127-prepositions-3d | **3D 위치 전치사 (Three.js)** | 초등 3-4학년 | `/edu-content/20260127-prepositions-3d/` |
+| 20260127-action-verbs-phaser | **동작 동사 분류 게임 (Phaser)** | 초등 3-4학년 | `/edu-content/20260127-action-verbs-phaser/` |
 
 ### 7씬 표준 구조
 1. **Hook**: 흥미로운 문제 제시 및 3D 시각화
@@ -320,6 +345,7 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 - **CSS**: 3D transform, 반응형 그리드, 터치 친화적 버튼
 - **JavaScript**: 순수 JS (프레임워크 불필요), ContentApp 싱글톤 패턴
 - **3D**: Three.js GLB/GLTF 로더 (비모듈 로딩)
+- **2D 게임**: Phaser 3 (아케이드 물리, 드래그앤드롭, 점수 시스템)
 - **수식**: MathJax 3 (인라인 수식 렌더링)
 - **SVG**: 동적 도형 생성 (부채꼴, 격자, 캐릭터)
 
@@ -350,6 +376,18 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 ### MathJax 수식 렌더링
 - 인라인 설정: `$...$` 구분자
 - 씬 전환 후 재렌더링: `window.MathJax.typesetPromise([sceneEl])`
+
+### Phaser 게임 개발 (2D 인터랙티브)
+```html
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+```
+- 씬 클래스 기반: `class GameScene extends Phaser.Scene { }`
+- 드래그앤드롭: `setInteractive({ draggable: true })`
+- 전역 상태: `this.registry.set('score', 0)`
+- 애니메이션: `this.tweens.add({ targets, scale, duration, ease })`
+- Three.js vs Phaser 선택:
+  - 3D 시각화 → Three.js
+  - 게임 메카닉 (점수, 물리, 충돌) → Phaser
 
 ## 주의사항
 
