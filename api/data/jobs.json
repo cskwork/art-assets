@@ -2,152 +2,29 @@
   "version": 1,
   "jobs": [
     {
-      "id": "9904d783-3d37-431e-a487-bced12bce128",
+      "id": "1fd1f7e5-30e7-491e-a1be-4545d2f0a317",
       "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "피자 분수",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769473191436,
-      "moduleId": "20260127-topic-9a7ac608",
-      "modulePath": "edu-content/20260127-topic-9a7ac608",
-      "reviewStatus": "failed",
-      "review": {
-        "pass": false,
-        "score": 80,
-        "requirements": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true,
-          "koreanOnly": true,
-          "logicalCorrectness": false,
-          "worksInBrowser": false
-        },
-        "issues": [
-          {
-            "severity": "high",
-            "location": "script.js",
-            "message": "cutPizza 함수에서 eatenArray 속성이 초기화되지 않았습니다. 이로 인해 피자 조각을 클릭하거나 렌더링할 때 'Cannot read properties of undefined' 오류가 발생합니다.",
-            "fix": "cutPizza 함수 내부에 'this.state.eatenArray = new Array(numSlices).fill(false);' 코드를 추가하여 조각 상태를 추적할 배열을 초기화해야 합니다."
-          }
-        ],
-        "summary": "7장면 구성, 시각적 디자인, 교육적 스토리텔링 등 요구사항을 잘 반영했으나, script.js의 핵심 상호작용 로직인 cutPizza 함수에 배열 초기화 누락 치명적인 버그가 있어 브라우저에서 정상 작동하지 않습니다.",
-        "deterministic": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true
-        },
-        "deterministicPass": true,
-        "sceneCount": 7
-      },
-      "error": "리뷰 검증에 실패했습니다."
-    },
-    {
-      "id": "72c2ddb6-5c36-4314-adf7-a99e9d301d77",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "도형",
-        "gradeLevel": "초등 5학년"
-      },
-      "createdAt": 1769473678099,
-      "moduleId": "20260127-topic-6cd6eeeb",
-      "modulePath": "edu-content/20260127-topic-6cd6eeeb",
-      "error": "Z.ai API 타임아웃 (180초)"
-    },
-    {
-      "id": "190c57e7-c2c1-4f09-8881-ea109b2d1c47",
-      "status": "completed",
-      "request": {
-        "subject": "english",
-        "topic": "인사",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769473964519,
-      "moduleId": "20260127-topic-105b382d",
-      "modulePath": "edu-content/20260127-topic-105b382d",
-      "reviewStatus": "completed",
-      "review": {
-        "pass": true,
-        "score": 100,
-        "requirements": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true,
-          "koreanOnly": true,
-          "logicalCorrectness": true,
-          "worksInBrowser": true
-        },
-        "issues": [],
-        "summary": "초등 3학년 영어 '인사' 주제에 맞춰 7단계 구조의 교육용 웹 콘텐츠가 성공적으로 생성되었습니다. 시간대에 따른 인사 변화를 슬라이더 인터랙션으로 탐색하는 Core Scene과 상황별 문제를 푸는 Quiz Scene이 논리적으로 구현되었으며, 모든 UI 및 설명 텍스트는 한국어로 작성되었습니다. 브라우저에서 바로 실행 가능한 형태입니다.",
-        "deterministic": {
-          "sevenScenes": true,
-          "scriptReferenced": true,
-          "styleReferenced": true,
-          "langKo": true
-        },
-        "deterministicPass": true,
-        "sceneCount": 7
-      },
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
-    },
-    {
-      "id": "7a55ba1b-4911-4068-a935-412c469bbefb",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "공룡",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769475131221,
-      "moduleId": "20260127-topic-6c2d25b3",
-      "modulePath": "edu-content/20260127-topic-6c2d25b3",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    },
-    {
-      "id": "c2f6f366-6d50-44c7-b276-838cfb7d396b",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "공룡",
-        "gradeLevel": "초등 3학년"
-      },
-      "createdAt": 1769475691870,
-      "moduleId": "20260127-topic-6c2d25b3",
-      "modulePath": "edu-content/20260127-topic-6c2d25b3",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    },
-    {
-      "id": "bfb4a059-5fff-433b-9164-0f3a204e68a4",
-      "status": "processing",
       "request": {
         "subject": "math",
         "topic": "축구",
-        "gradeLevel": "초등 5학년"
+        "gradeLevel": "초등 3학년"
       },
-      "createdAt": 1769476046551,
+      "createdAt": 1769490903477,
       "moduleId": "20260127-topic-4529c258",
-      "modulePath": "edu-content/20260127-topic-4529c258"
+      "modulePath": "edu-content/20260127-topic-4529c258",
+      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
     },
     {
-      "id": "ed667552-4588-40d0-8d8e-301fdc7290da",
+      "id": "9a15ecb8-c860-4e5e-ab40-a23e3ebafb0d",
       "status": "completed",
       "request": {
         "subject": "math",
-        "topic": "우주 탐험",
-        "gradeLevel": "초등 4학년"
+        "topic": "우주",
+        "gradeLevel": "초등 1학년"
       },
-      "createdAt": 1769476319771,
-      "moduleId": "20260127-topic-f890f5ec",
-      "modulePath": "edu-content/20260127-topic-f890f5ec",
+      "createdAt": 1769490936250,
+      "moduleId": "20260127-topic-5f41ee24",
+      "modulePath": "edu-content/20260127-topic-5f41ee24",
       "reviewStatus": "completed",
       "review": {
         "pass": true,
@@ -162,7 +39,7 @@
           "worksInBrowser": true
         },
         "issues": [],
-        "summary": "모든 요구사항을 충족하는 완성도 높은 콘텐츠입니다. 7개의 씬 구조가 잘 준수되었으며, 각도를 조절하는 로켓 인터랙션 로직이 SVG 수학 계산과 정확하게 일치합니다. 코드 구조가 안정적이며 브라우저에서 즉시 실행 가능합니다.",
+        "summary": "요청하신 초등 1학년 수학(크기 비교, 숫자 세기) '우주' 주제의 7씬 교육용 콘텐츠가 성공적으로 생성되었습니다. HTML, CSS, JS 파일 구조가 요구사항에 부합하며, 외부 라이브러리 의존성 없이 순수 자바스크립트와 커스텀 SVG로 구현되어 브라우저 호환성이 우수합니다. 훅(Hook)부터 랩(Wrap)까지의 이야기 흐름과 상호작용 로직(크기 비교, 개수 세기, 퀴즈)이 논리적으로 정확하게 설계되었습니다.",
         "deterministic": {
           "sevenScenes": true,
           "scriptReferenced": true,
@@ -170,7 +47,7 @@
           "langKo": true
         },
         "deterministicPass": true,
-        "sceneCount": 7
+        "sceneCount": 14
       },
       "files": [
         "index.html",

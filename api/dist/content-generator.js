@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createModuleId = createModuleId;
 exports.generateContentForJob = generateContentForJob;
+exports.reviewContentForJob = reviewContentForJob;
 const promises_1 = __importDefault(require("node:fs/promises"));
 const node_path_1 = __importDefault(require("node:path"));
 const node_crypto_1 = __importDefault(require("node:crypto"));
@@ -148,13 +149,15 @@ function parseBooleanEnv(value, defaultValue) {
     return defaultValue;
 }
 function isReviewEnabled(value) {
-    return parseBooleanEnv(value, true);
+    // 리뷰는 기본적으로 비활성화하고, 명시적으로 켜야 동작한다.
+    return parseBooleanEnv(value, false);
 }
 function shouldBlockOnReviewFail(value) {
     return parseBooleanEnv(value, true);
 }
 function isAutoFixEnabled(value) {
-    return parseBooleanEnv(value, true);
+    // 자동 수정도 기본 비활성화로 두어 예측 가능성을 높인다.
+    return parseBooleanEnv(value, false);
 }
 function isLoggingEnabled(value) {
     return parseBooleanEnv(value, false);
@@ -387,6 +390,63 @@ async function runContentFix(prompt, rootDir, moduleId, review, deterministic) {
     });
     (0, logger_1.log)('FIX', `${updatedFiles.length}개 파일 적용 완료`);
 }
+function buildFallbackPrompt(moduleId) {
+    return `edu-content/${moduleId} 모듈에 대한 리뷰 요청입니다.`;
+}
+function clampAutoFixMaxAttempts(value) {
+    const parsed = Number.isFinite(value) ? Math.trunc(value) : 1;
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+        return 1;
+    }
+    return Math.min(parsed, 3);
+}
+async function performReviewFlow(jobId, prompt, rootDir, moduleId, options) {
+    (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'pending' });
+    try {
+        let { review, reviewPass, deterministic } = await runContentReview(prompt, rootDir, moduleId);
+        (0, job_manager_1.updateJob)(jobId, {
+            reviewStatus: reviewPass ? 'completed' : 'failed',
+            review
+        });
+        let needsFix = !reviewPass || review.issues.length > 0;
+        if (needsFix && options.autoFixEnabled) {
+            for (let attempt = 1; attempt <= options.autoFixMaxAttempts; attempt++) {
+                (0, logger_1.log)('REVIEW', `=== 자동 수정 시도 ${attempt}/${options.autoFixMaxAttempts} ===`);
+                (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'pending' });
+                await runContentFix(prompt, rootDir, moduleId, review, deterministic);
+                const next = await runContentReview(prompt, rootDir, moduleId);
+                review = next.review;
+                reviewPass = next.reviewPass;
+                deterministic = next.deterministic;
+                (0, job_manager_1.updateJob)(jobId, {
+                    reviewStatus: reviewPass ? 'completed' : 'failed',
+                    review
+                });
+                needsFix = !reviewPass || review.issues.length > 0;
+                if (!needsFix) {
+                    (0, logger_1.log)('DONE', `자동 수정 성공 (시도 ${attempt}회)`);
+                    break;
+                }
+            }
+            if (needsFix) {
+                (0, logger_1.log)('ERROR', `자동 수정 실패 (최대 ${options.autoFixMaxAttempts}회 시도)`);
+            }
+        }
+        if (needsFix && options.blockOnReviewFail) {
+            (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: '리뷰 검증에 실패했습니다.' });
+            return false;
+        }
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : '리뷰 처리 오류';
+        (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'failed', reviewError: message });
+        if (options.blockOnReviewFail) {
+            (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: message });
+            return false;
+        }
+    }
+    return true;
+}
 async function generateContentForJob(jobId, request, moduleId) {
     const rootDir = getProjectRoot();
     const modulePath = node_path_1.default.posix.join('edu-content', moduleId);
@@ -395,6 +455,11 @@ async function generateContentForJob(jobId, request, moduleId) {
     const autoFixEnabled = isAutoFixEnabled(process.env.LLM_REVIEW_AUTO_FIX_ENABLED);
     const autoFixMaxAttempts = getAutoFixMaxAttempts(process.env.LLM_REVIEW_AUTO_FIX_MAX_ATTEMPTS);
     const loggingEnabled = isLoggingEnabled(process.env.LLM_LOGGING_ENABLED);
+    const reviewOptions = {
+        autoFixEnabled,
+        autoFixMaxAttempts,
+        blockOnReviewFail
+    };
     (0, logger_1.enableLogging)(loggingEnabled);
     (0, logger_1.log)('INIT', `모듈: ${moduleId}, 리뷰: ${reviewEnabled}, 자동수정: ${autoFixEnabled} (최대 ${autoFixMaxAttempts}회)`);
     (0, job_manager_1.updateJob)(jobId, {
@@ -412,49 +477,9 @@ async function generateContentForJob(jobId, request, moduleId) {
             await generateContentWithClaude(jobId, request, moduleId, rootDir, prompt);
         }
         if (reviewEnabled) {
-            (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'pending' });
-            try {
-                let { review, reviewPass, deterministic } = await runContentReview(prompt, rootDir, moduleId);
-                (0, job_manager_1.updateJob)(jobId, {
-                    reviewStatus: reviewPass ? 'completed' : 'failed',
-                    review
-                });
-                let needsFix = !reviewPass || review.issues.length > 0;
-                if (needsFix && autoFixEnabled) {
-                    for (let attempt = 1; attempt <= autoFixMaxAttempts; attempt++) {
-                        (0, logger_1.log)('REVIEW', `=== 자동 수정 시도 ${attempt}/${autoFixMaxAttempts} ===`);
-                        (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'pending' });
-                        await runContentFix(prompt, rootDir, moduleId, review, deterministic);
-                        const next = await runContentReview(prompt, rootDir, moduleId);
-                        review = next.review;
-                        reviewPass = next.reviewPass;
-                        deterministic = next.deterministic;
-                        (0, job_manager_1.updateJob)(jobId, {
-                            reviewStatus: reviewPass ? 'completed' : 'failed',
-                            review
-                        });
-                        needsFix = !reviewPass || review.issues.length > 0;
-                        if (!needsFix) {
-                            (0, logger_1.log)('DONE', `자동 수정 성공 (시도 ${attempt}회)`);
-                            break;
-                        }
-                    }
-                    if (needsFix) {
-                        (0, logger_1.log)('ERROR', `자동 수정 실패 (최대 ${autoFixMaxAttempts}회 시도)`);
-                    }
-                }
-                if (needsFix && blockOnReviewFail) {
-                    (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: '리뷰 검증에 실패했습니다.' });
-                    return;
-                }
-            }
-            catch (error) {
-                const message = error instanceof Error ? error.message : '리뷰 처리 오류';
-                (0, job_manager_1.updateJob)(jobId, { reviewStatus: 'failed', reviewError: message });
-                if (blockOnReviewFail) {
-                    (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: message });
-                    return;
-                }
+            const canContinue = await performReviewFlow(jobId, prompt, rootDir, moduleId, reviewOptions);
+            if (!canContinue) {
+                return;
             }
         }
         (0, job_manager_1.updateJob)(jobId, {
@@ -466,6 +491,41 @@ async function generateContentForJob(jobId, request, moduleId) {
     }
     catch (error) {
         const message = error instanceof Error ? error.message : '알 수 없는 오류';
+        (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: message });
+    }
+}
+async function reviewContentForJob(jobId, moduleId, options, sourceRequest) {
+    const rootDir = getProjectRoot();
+    const modulePath = node_path_1.default.posix.join('edu-content', moduleId);
+    const loggingEnabled = isLoggingEnabled(process.env.LLM_LOGGING_ENABLED);
+    (0, logger_1.enableLogging)(loggingEnabled);
+    (0, logger_1.log)('INIT', `리뷰 작업 시작: ${moduleId}, 자동수정: ${options.autoFix}`);
+    (0, job_manager_1.updateJob)(jobId, {
+        status: 'processing',
+        moduleId,
+        modulePath
+    });
+    try {
+        const prompt = sourceRequest
+            ? await (0, prompt_loader_1.buildPrompt)(sourceRequest, moduleId)
+            : buildFallbackPrompt(moduleId);
+        const reviewOptions = {
+            autoFixEnabled: options.autoFix,
+            autoFixMaxAttempts: clampAutoFixMaxAttempts(options.maxAttempts),
+            blockOnReviewFail: true
+        };
+        const completed = await performReviewFlow(jobId, prompt, rootDir, moduleId, reviewOptions);
+        if (!completed) {
+            return;
+        }
+        (0, job_manager_1.updateJob)(jobId, {
+            status: 'completed',
+            moduleId,
+            modulePath
+        });
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : '리뷰 실행 오류';
         (0, job_manager_1.updateJob)(jobId, { status: 'failed', error: message });
     }
 }

@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { GenerateContentRequest, Job } from './types';
+import { GenerateContentRequest, Job, JobType, ReviewContentRequest } from './types';
 
 const JOB_TTL_MS = 60 * 60 * 1000;
 const jobs = new Map<string, Job>();
 let isLoaded = false;
 let cleanupTimer: NodeJS.Timeout | null = null;
+type JobRequest = GenerateContentRequest | ReviewContentRequest;
 
 function getProjectRoot() {
   return process.env.PROJECT_ROOT || process.cwd();
@@ -17,6 +18,14 @@ function getStorePath() {
     process.env.JOB_STORE_PATH ||
     path.join(getProjectRoot(), 'api', 'data', 'jobs.json')
   );
+}
+
+function normalizeJob(job: Job): Job {
+  // 과거 데이터에는 jobType이 없을 수 있어 기본값을 채운다.
+  return {
+    ...job,
+    jobType: job.jobType ?? 'generate'
+  };
 }
 
 function loadJobsFromDisk() {
@@ -34,7 +43,8 @@ function loadJobsFromDisk() {
     }
 
     parsed.jobs.forEach((job: Job) => {
-      jobs.set(job.id, job);
+      const normalized = normalizeJob(job);
+      jobs.set(normalized.id, normalized);
     });
   } catch (error) {
     console.error('[Job] 저장소 로드 실패:', error instanceof Error ? error.message : error);
@@ -47,7 +57,7 @@ function persistJobs() {
 
   const payload = {
     version: 1,
-    jobs: Array.from(jobs.values())
+    jobs: Array.from(jobs.values()).map((job) => normalizeJob(job))
   };
 
   fs.writeFileSync(storePath, JSON.stringify(payload, null, 2), 'utf8');
@@ -96,13 +106,14 @@ export function cleanupExpiredJobs() {
   }
 }
 
-export function createJob(request: GenerateContentRequest): string {
+function createJobWithType(jobType: JobType, request: JobRequest): string {
   ensureLoaded();
   cleanupExpiredJobs();
 
   const jobId = crypto.randomUUID();
   const job: Job = {
     id: jobId,
+    jobType,
     status: 'pending',
     request,
     createdAt: Date.now()
@@ -114,6 +125,15 @@ export function createJob(request: GenerateContentRequest): string {
   return jobId;
 }
 
+export function createJob(request: GenerateContentRequest): string {
+  // 기존 호출부 호환을 위해 생성 잡은 createJob으로 유지한다.
+  return createJobWithType('generate', request);
+}
+
+export function createReviewJob(request: ReviewContentRequest): string {
+  return createJobWithType('review', request);
+}
+
 export function updateJob(jobId: string, updates: Partial<Job>) {
   ensureLoaded();
 
@@ -122,12 +142,45 @@ export function updateJob(jobId: string, updates: Partial<Job>) {
     return;
   }
 
-  jobs.set(jobId, { ...job, ...updates });
+  const next = normalizeJob({ ...job, ...updates } as Job);
+  jobs.set(jobId, next);
   persistJobs();
 }
 
-export function getJob(jobId: string): Job | undefined {
+export function getJob(jobId: string, expectedType?: JobType): Job | undefined {
   ensureLoaded();
   cleanupExpiredJobs();
-  return jobs.get(jobId);
+  const job = jobs.get(jobId);
+  if (!job) {
+    return undefined;
+  }
+
+  const normalized = normalizeJob(job);
+  if (expectedType && normalized.jobType !== expectedType) {
+    return undefined;
+  }
+
+  return normalized;
+}
+
+export function findGenerateJobByModuleId(moduleId: string): Job | undefined {
+  ensureLoaded();
+  cleanupExpiredJobs();
+
+  let latest: Job | undefined;
+  for (const job of jobs.values()) {
+    const normalized = normalizeJob(job);
+    if (normalized.jobType !== 'generate') {
+      continue;
+    }
+    if (normalized.moduleId !== moduleId) {
+      continue;
+    }
+
+    if (!latest || normalized.createdAt >= latest.createdAt) {
+      latest = normalized;
+    }
+  }
+
+  return latest;
 }

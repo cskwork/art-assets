@@ -6,8 +6,15 @@ export interface GenerateContentRequest {
   gradeLevel: string;
 }
 
+export interface ReviewContentRequest {
+  moduleId: string;
+  autoFix?: boolean;
+  maxAttempts?: number;
+}
+
 export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
 export type ReviewStatus = 'pending' | 'completed' | 'failed';
+export type JobType = 'generate' | 'review';
 
 export type ReviewIssueSeverity = 'high' | 'medium' | 'low';
 
@@ -33,11 +40,15 @@ export interface GenerateContentResponse {
   success: true;
   jobId: string;
   message: string;
+  reviewRecommended: boolean;
+  reviewEndpoint: string;
+  reviewStatusEndpoint: string;
 }
 
 export interface GenerateContentStatusResponse {
   jobId: string;
   status: JobStatus;
+  jobType: JobType;
   moduleId?: string;
   modulePath?: string;
   files?: string[];
@@ -47,10 +58,31 @@ export interface GenerateContentStatusResponse {
   reviewError?: string;
 }
 
+export interface ReviewContentResponse {
+  success: true;
+  jobId: string;
+  message: string;
+  moduleId: string;
+  statusEndpoint: string;
+}
+
+export interface ReviewContentStatusResponse {
+  jobId: string;
+  status: JobStatus;
+  jobType: JobType;
+  moduleId?: string;
+  modulePath?: string;
+  reviewStatus?: ReviewStatus;
+  review?: ReviewResult;
+  reviewError?: string;
+  error?: string;
+}
+
 export type ErrorCode =
   | 'INVALID_SUBJECT'
   | 'INVALID_REQUEST'
   | 'JOB_NOT_FOUND'
+  | 'MODULE_NOT_FOUND'
   | 'INTERNAL_ERROR';
 
 export interface ErrorResponse {
@@ -61,8 +93,9 @@ export interface ErrorResponse {
 
 export interface Job {
   id: string;
+  jobType: JobType;
   status: JobStatus;
-  request: GenerateContentRequest;
+  request: GenerateContentRequest | ReviewContentRequest;
   moduleId?: string;
   modulePath?: string;
   files?: string[];

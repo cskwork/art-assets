@@ -108,7 +108,7 @@ function sendAPIError(res, errorResponse) {
   let statusCode = 500;
   if (errorResponse.code === 'INVALID_REQUEST' || errorResponse.code === 'INVALID_SUBJECT') {
     statusCode = 400;
-  } else if (errorResponse.code === 'JOB_NOT_FOUND') {
+  } else if (errorResponse.code === 'JOB_NOT_FOUND' || errorResponse.code === 'MODULE_NOT_FOUND') {
     statusCode = 404;
   }
 
@@ -190,6 +190,47 @@ async function handleAPI(req, res, pathname) {
 
     const jobId = statusMatch[1];
     const result = api.getGenerateContentStatus(jobId);
+
+    if (result.success === false) {
+      sendAPIError(res, result);
+      return;
+    }
+
+    sendJSON(res, 200, result);
+    return;
+  }
+
+  // POST /api/review-content
+  if (pathname === '/api/review-content' && req.method === 'POST') {
+    const api = getEduContentApi();
+    if (!api) {
+      sendJSON(res, 500, { success: false, error: 'API 모듈 빌드가 필요합니다.' });
+      return;
+    }
+
+    const body = await parseBody(req);
+    const result = await api.createReviewContentJob(body);
+
+    if (result.success) {
+      sendJSON(res, 200, result);
+      return;
+    }
+
+    sendAPIError(res, result);
+    return;
+  }
+
+  // GET /api/review-content/status/:jobId
+  const reviewStatusMatch = pathname.match(/^\/api\/review-content\/status\/(.+)$/);
+  if (reviewStatusMatch && req.method === 'GET') {
+    const api = getEduContentApi();
+    if (!api) {
+      sendJSON(res, 500, { success: false, error: 'API 모듈 빌드가 필요합니다.' });
+      return;
+    }
+
+    const jobId = reviewStatusMatch[1];
+    const result = api.getReviewContentStatus(jobId);
 
     if (result.success === false) {
       sendAPIError(res, result);
@@ -283,6 +324,8 @@ server.listen(PORT, () => {
   console.log('API 엔드포인트:');
   console.log(`  POST /api/generate-content - 콘텐츠 생성 요청`);
   console.log(`  GET /api/generate-content/status/:jobId - 생성 상태 조회`);
+  console.log(`  POST /api/review-content - 생성 결과 리뷰 요청`);
+  console.log(`  GET /api/review-content/status/:jobId - 리뷰 상태 조회`);
   console.log(`  POST /api/archive/:assetId - 에셋 아카이브`);
   console.log(`  POST /api/restore/:assetId - 에셋 복원`);
   console.log('');
