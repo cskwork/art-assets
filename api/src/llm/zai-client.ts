@@ -20,7 +20,7 @@ export interface ZaiClientOptions {
 
 const DEFAULT_API_URL = 'https://api.z.ai/api/coding/paas/v4/chat/completions';
 const DEFAULT_MODEL = 'glm-4.7';
-const DEFAULT_TIMEOUT_MS = 180000; // 3분
+const DEFAULT_TIMEOUT_MS = 600000; // 10분
 const PROGRESS_INTERVAL_MS = 5000;
 
 function processSseLines(lines: string[], content: string) {
