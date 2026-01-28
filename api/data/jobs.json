@@ -1,18 +1,4 @@
 {
   "version": 1,
-  "jobs": [
-    {
-      "id": "5c28ff33-f7a5-4c99-a87c-2253843c2ecd",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "로봇",
-        "gradeLevel": "초등 1학년"
-      },
-      "createdAt": 1769503168930,
-      "moduleId": "20260127-topic-ba46f25d",
-      "modulePath": "edu-content/20260127-topic-ba46f25d",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    }
-  ]
+  "jobs": []
 }

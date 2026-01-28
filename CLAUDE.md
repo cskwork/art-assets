@@ -6,6 +6,18 @@
 
 ### 2026-01-27
 
+**Three.js 기반 중학교 수학 3D 콘텐츠 생성**
+- 피타고라스 정리 (중2): 3D 큐브 부피 증명, 슬라이더로 변 조절
+  - a² + b² = c² 시각적 증명
+  - 3개 정사각형 3D 모델, 실시간 수식 업데이트
+  - 6-8-10 퀴즈 (정답: 10)
+- 회전체 (중3): 2D→3D 변환 애니메이션, 도형 선택 + 회전 슬라이더
+  - 직사각형→원기둥, 직각삼각형→원뿔, 반원→구
+  - 0°~360° 점진적 회전 시각화
+  - 부피 공식 카드 (πr²h, ⅓πr²h, ⁴⁄₃πr³)
+- 기술: Three.js r160, ES Modules, OrbitControls, 카메라 애니메이션
+- 위치: `edu-content/20260127-pythagorean-3d/`, `edu-content/20260127-rotation-solid/`
+
 **Phaser.io 기반 게임형 교육 콘텐츠 생성**
 - 동작 동사 분류 게임 Action Verbs (초등 3-4학년): Phaser 3 아케이드 물리, 드래그 앤 드롭
   - run/walk/jump (움직임), draw/write/cook (만들기), love/like/hate (감정) 분류
@@ -102,7 +114,9 @@ art-assets/
     ├── 20260126-fraction-division/       # 분수의 나눗셈 (초등 5학년)
     ├── 20260126-ratio-proportion/        # 비와 비율 (초등 6학년)
     ├── 20260127-prepositions-3d/         # 3D 위치 전치사 (초등 3-4학년) - Three.js
-    └── 20260127-action-verbs-phaser/     # 동작 동사 분류 게임 (초등 3-4학년) - Phaser
+    ├── 20260127-action-verbs-phaser/     # 동작 동사 분류 게임 (초등 3-4학년) - Phaser
+    ├── 20260127-pythagorean-3d/          # 피타고라스 정리 (중2) - Three.js 3D
+    └── 20260127-rotation-solid/          # 회전체 (중3) - Three.js 3D
 ```
 
 ## 파일 명명 규칙
@@ -314,6 +328,8 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | 20260126-decimal-multiplication | 소수의 곱셈 | 초등 5학년 | `/edu-content/20260126-decimal-multiplication/` |
 | 20260126-fraction-division | 분수의 나눗셈 | 초등 5학년 | `/edu-content/20260126-fraction-division/` |
 | 20260126-ratio-proportion | 비와 비율 | 초등 6학년 | `/edu-content/20260126-ratio-proportion/` |
+| 20260127-pythagorean-3d | **피타고라스 정리 (Three.js 3D)** | 중학교 2학년 | `/edu-content/20260127-pythagorean-3d/` |
+| 20260127-rotation-solid | **회전체 (Three.js 3D)** | 중학교 3학년 | `/edu-content/20260127-rotation-solid/` |
 
 #### 영어 (English)
 | 폴더 | 주제 | 학년 | 파일 |
