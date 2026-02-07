@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "build-gallery.js",
   "scripts": {
+    "dev": "concurrently -n tsc,srv -c blue,green \"npm run build:watch --prefix api\" \"node api/dist/admin-server.js\"",
+    "build": "cd api && npm run build && cd .. && node build-gallery.js",
+    "start": "node api/dist/admin-server.js",
     "test": "node --test"
   },
   "keywords": [],

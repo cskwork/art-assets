@@ -23,8 +23,9 @@ import {
 
 dotenv.config();
 
-const PORT = parseInt(process.env.PORT || '3000', 10);
+const PORT = parseInt(process.env.ADMIN_PORT || process.env.PORT || '3000', 10);
 const ROOT_DIR = process.env.PROJECT_ROOT || path.resolve(__dirname, '..', '..');
+const WS_ENABLED = (process.env.WS_ENABLED || 'true').toLowerCase() !== 'false';
 
 // Express 앱 + WebSocket 설정
 const { app, getWss } = expressWs(express());
@@ -65,11 +66,13 @@ function broadcastJobUpdate(data: Record<string, unknown>) {
 }
 
 // WebSocket 엔드포인트
-app.ws('/ws', (ws) => {
-  ws.on('message', () => {
-    // 클라이언트 → 서버 메시지는 무시
+if (WS_ENABLED) {
+  app.ws('/ws', (ws) => {
+    ws.on('message', () => {
+      // 클라이언트 -> 서버 메시지는 무시
+    });
   });
-});
+}
 
 // --- 에러 응답 헬퍼 ---
 function getErrorStatusCode(errorResponse: ErrorResponse): number {
