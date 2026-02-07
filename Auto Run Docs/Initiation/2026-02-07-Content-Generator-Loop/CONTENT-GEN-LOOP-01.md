@@ -99,13 +99,14 @@
   - `.env.example` 업데이트: 새로운 환경변수 문서화 (ADMIN_PORT, WS_ENABLED 등)
   > **완료 (2026-02-07)**: tsconfig.json은 이미 `src/**/*.ts` 포함으로 admin-server.ts 자동 포함 확인. 루트 package.json에 dev/build/start 스크립트 추가: dev는 concurrently로 tsc --watch + admin-server 동시 실행, build는 api 빌드 + gallery 빌드 순차 실행, start는 admin-server 직접 실행. api/package.json에 build:watch 스크립트 추가. admin-server.ts에 ADMIN_PORT(PORT 대비 우선) 및 WS_ENABLED(WebSocket 비활성화 옵션) 환경변수 지원 추가. .env.example에 Admin 서버 설정(ADMIN_PORT, WS_ENABLED, PROJECT_ROOT, JOB_STORE_PATH, BATCH_STORE_PATH, ASYNC_JOBS_ENABLED) 문서화. TypeScript 빌드 성공, 전체 11개 테스트 통과.
 
-- [ ] TypeScript 빌드 및 서버 기동 테스트:
+- [x] TypeScript 빌드 및 서버 기동 테스트:
   - `cd api && npm run build` 실행하여 컴파일 에러가 없는지 확인
   - 컴파일 에러 발생 시 수정 (타입 불일치, import 경로 등)
   - `node api/dist/admin-server.js` 실행하여 서버가 정상 시작되는지 확인
   - `curl http://localhost:3000/api/admin/config` 로 설정 API 응답 확인
   - `curl http://localhost:3000/admin/` 로 Admin UI HTML 로드 확인
   - 서버 종료 후 성공 메시지 출력
+  > **완료 (2026-02-07)**: TypeScript 빌드 에러 없이 성공 (tsc -p tsconfig.json). admin-server.js 서버 기동 정상 (포트 3000, WebSocket /ws 포함). API 엔드포인트 curl 테스트 결과: /api/admin/config -> 3과목(수학/영어/과학), 2콘텐츠유형, 5학년대, 5에셋카테고리 JSON 정상 응답. /admin/ -> HTTP 200, text/html, 3753바이트 정상 로드. /api/admin/jobs -> 빈 배열 정상 응답. /api/admin/prompts -> 6개 프롬프트 파일 목록 정상. /api/admin/assets -> 158개 에셋 인덱스 정상. 기존 테스트 11개 전체 통과 (node --test tests/).
 
 - [ ] Admin UI 통합 테스트 및 최종 검증:
   - 서버를 시작하고 Admin UI가 브라우저에서 정상 렌더링되는지 확인
