@@ -1,4 +1,4 @@
-export type Subject = 'math' | 'english';
+export type Subject = 'math' | 'english' | 'science';
 
 export interface GenerateContentRequest {
   subject: Subject;
@@ -103,5 +103,44 @@ export interface Job {
   reviewStatus?: ReviewStatus;
   review?: ReviewResult;
   reviewError?: string;
+  createdAt: number;
+}
+
+// --- Admin 관련 타입 ---
+
+export type ContentType = 'phaser' | 'threejs';
+
+export interface BatchGenerateRequest {
+  subject: Subject;
+  contentType: ContentType;
+  gradeLevel: string;
+  count: number;
+  useArtAssets?: boolean;
+  topics?: string[];
+}
+
+export interface BatchGenerateResponse {
+  batchId: string;
+  jobs: Array<{
+    jobId: string;
+    topic: string;
+    status: string;
+  }>;
+}
+
+export interface AdminConfig {
+  subjects: Array<{ id: Subject; label: string }>;
+  contentTypes: Array<{ id: ContentType; label: string }>;
+  gradeLevels: Array<{ id: string; label: string }>;
+  artAssetCategories: string[];
+}
+
+export interface JobSummary {
+  jobId: string;
+  jobType: JobType;
+  status: JobStatus;
+  moduleId?: string;
+  modulePath?: string;
+  error?: string;
   createdAt: number;
 }

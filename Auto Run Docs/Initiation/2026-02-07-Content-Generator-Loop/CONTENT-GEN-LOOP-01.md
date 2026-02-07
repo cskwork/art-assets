@@ -34,7 +34,7 @@
   - 포트: 3000 (기존과 동일, `PORT` 환경변수 지원)
   > **완료 (2026-02-07)**: `api/src/admin-server.ts` 생성. Express + express-ws 기반. 기존 server.js 6개 엔드포인트 + 신규 Admin 5개 엔드포인트 + WebSocket 브로드캐스트 구현. job-manager.ts에 `getAllJobs()` 함수 추가. admin-ui/ placeholder 생성. TypeScript 빌드 성공. 서버 기동 테스트 및 API 응답 확인 완료.
 
-- [ ] `api/src/types.ts` 확장 및 타입 정의:
+- [x] `api/src/types.ts` 확장 및 타입 정의:
   - 기존 `api/src/types.ts`를 읽고 현재 타입을 확인한다
   - `Subject` 타입에 'science' 추가: `'math' | 'english' | 'science'`
   - `ContentType` 타입 추가: `'phaser' | 'threejs'`
@@ -42,6 +42,7 @@
   - `BatchGenerateResponse` 인터페이스 추가: `{ batchId, jobs: { jobId, topic, status }[] }`
   - `AdminConfig` 인터페이스 추가: `{ subjects, contentTypes, gradeLevels, artAssetCategories }`
   - `JobSummary` 인터페이스 추가: Job 목록 조회용 경량 타입
+  > **완료 (2026-02-07)**: `types.ts`에 6개 타입 추가/확장. Subject에 'science' 추가, ContentType 신규 타입, BatchGenerateRequest/Response, AdminConfig, JobSummary 인터페이스 정의. `admin-server.ts`에서 새 타입 import 및 /api/admin/config, /api/admin/jobs, /api/admin/batch-generate 엔드포인트에 타입 적용. TypeScript 빌드 성공.
 
 - [ ] Admin UI 프론트엔드 생성 (`admin-ui/`):
   - `admin-ui/index.html` 생성: 단일 페이지 Admin 대시보드

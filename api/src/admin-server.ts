@@ -13,7 +13,13 @@ import {
   getReviewContentStatus
 } from './index';
 import { getAllJobs } from './job-manager';
-import { ErrorResponse } from './types';
+import {
+  ErrorResponse,
+  AdminConfig,
+  BatchGenerateRequest,
+  BatchGenerateResponse,
+  JobSummary
+} from './types';
 
 dotenv.config();
 
@@ -169,7 +175,7 @@ app.post('/api/restore/:assetId', (req, res) => {
 
 // 설정 정보 반환
 app.get('/api/admin/config', (_req, res) => {
-  res.json({
+  const config: AdminConfig = {
     subjects: [
       { id: 'math', label: '수학' },
       { id: 'english', label: '영어' },
@@ -187,13 +193,14 @@ app.get('/api/admin/config', (_req, res) => {
       { id: 'middle-3', label: '중학교 3학년' }
     ],
     artAssetCategories: ['icons', 'illustrations', 'diagrams', 'backgrounds', '3d']
-  });
+  };
+  res.json(config);
 });
 
 // 전체 Job 목록
 app.get('/api/admin/jobs', (_req, res) => {
   const jobs = getAllJobs();
-  const summaries = jobs.map((job) => ({
+  const summaries: JobSummary[] = jobs.map((job) => ({
     jobId: job.id,
     jobType: job.jobType,
     status: job.status,
@@ -207,14 +214,16 @@ app.get('/api/admin/jobs', (_req, res) => {
 
 // 다중 콘텐츠 생성 (배치)
 app.post('/api/admin/batch-generate', async (req, res) => {
-  const { subject, gradeLevel, count } = req.body;
+  const body = req.body as Partial<BatchGenerateRequest>;
+  const { subject, contentType, gradeLevel, count, topics: requestTopics } = body;
 
   if (!subject || !gradeLevel || !count) {
     res.status(400).json({ success: false, error: 'subject, gradeLevel, count는 필수입니다.' });
     return;
   }
 
-  const requestCount = Math.min(Math.max(parseInt(count, 10) || 1, 1), 10);
+  const requestCount = Math.min(Math.max(count || 1, 1), 10);
+  const batchId = `batch-${Date.now()}`;
 
   // 기본 토픽 목록
   const defaultTopics: Record<string, string[]> = {
@@ -223,25 +232,26 @@ app.post('/api/admin/batch-generate', async (req, res) => {
     science: ['물의 상태 변화', '식물의 광합성', '전기 회로', '태양계', '소화 과정', '지구의 자전', '자석의 성질', '소리의 전달', '생태계', '열의 이동']
   };
 
-  const topics = req.body.topics || defaultTopics[subject] || defaultTopics.math;
-  const results: Array<{ jobId?: string; topic: string; status: string; error?: string }> = [];
+  const topics = requestTopics || defaultTopics[subject] || defaultTopics.math;
+  const results: BatchGenerateResponse['jobs'] = [];
 
   for (let i = 0; i < requestCount; i++) {
     const topic = topics[i % topics.length];
     try {
       const result = await createGenerateContentJob({ subject, topic, gradeLevel });
       if ('success' in result && result.success === false) {
-        results.push({ topic, status: 'failed', error: (result as ErrorResponse).error });
+        results.push({ jobId: '', topic, status: 'failed' });
       } else if ('jobId' in result) {
         results.push({ jobId: result.jobId, topic, status: 'created' });
-        broadcastJobUpdate({ type: 'job_created', jobId: result.jobId, topic });
+        broadcastJobUpdate({ type: 'job_created', jobId: result.jobId, topic, contentType });
       }
     } catch (error: any) {
-      results.push({ topic, status: 'failed', error: error.message });
+      results.push({ jobId: '', topic, status: 'failed' });
     }
   }
 
-  res.json({ success: true, batchSize: requestCount, jobs: results });
+  const response: BatchGenerateResponse = { batchId, jobs: results };
+  res.json(response);
 });
 
 // 에셋 목록 (assets-index.json 기반)
