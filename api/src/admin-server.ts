@@ -245,7 +245,7 @@ app.get('/api/admin/config', (_req, res) => {
       { id: 'middle-2', label: '중학교 2학년' },
       { id: 'middle-3', label: '중학교 3학년' }
     ],
-    artAssetCategories: ['icons', 'illustrations', 'diagrams', 'backgrounds', '3d']
+    artAssetCategories: ['icons', 'illustrations', 'diagrams', 'backgrounds', '3d', '8bit']
   };
   res.json(config);
 });

@@ -63,6 +63,7 @@ function validateGenerateContentRequest(input) {
     const subject = record.subject;
     const topic = record.topic;
     const gradeLevel = record.gradeLevel;
+    const useArtAssets = record.useArtAssets;
     if (subject !== 'math' && subject !== 'english' && subject !== 'science') {
         return { ok: false, code: 'INVALID_SUBJECT' };
     }
@@ -73,6 +74,9 @@ function validateGenerateContentRequest(input) {
         return { ok: false, code: 'INVALID_REQUEST' };
     }
     if (topic.length > 200 || gradeLevel.length > 100) {
+        return { ok: false, code: 'INVALID_REQUEST' };
+    }
+    if (useArtAssets !== undefined && typeof useArtAssets !== 'boolean') {
         return { ok: false, code: 'INVALID_REQUEST' };
     }
     return { ok: true };

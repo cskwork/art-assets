@@ -4,6 +4,7 @@ export interface GenerateContentRequest {
   subject: Subject;
   topic: string;
   gradeLevel: string;
+  useArtAssets?: boolean;
 }
 
 export interface ReviewContentRequest {

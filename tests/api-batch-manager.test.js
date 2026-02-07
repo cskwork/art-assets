@@ -119,6 +119,28 @@ test('BatchManager.getBatchStatus는 없는 배치에 undefined를 반환한다'
   assert.equal(status, undefined);
 });
 
+test('BatchManager는 useArtAssets 값을 생성 요청에 전달한다', async () => {
+  const manager = new BatchManager();
+  await manager.startBatch({
+    subject: 'science',
+    contentType: 'phaser',
+    gradeLevel: 'middle-1',
+    count: 1,
+    useArtAssets: true,
+    topics: ['광합성']
+  });
+
+  const jobStorePath = process.env.JOB_STORE_PATH;
+  const raw = fs.readFileSync(jobStorePath, 'utf8');
+  const parsed = JSON.parse(raw);
+  const latestGenerateJob = [...parsed.jobs]
+    .filter((job) => job.jobType === 'generate')
+    .sort((a, b) => b.createdAt - a.createdAt)[0];
+
+  assert.ok(latestGenerateJob);
+  assert.equal(latestGenerateJob.request.useArtAssets, true);
+});
+
 // 테스트 후 정리
 test.after(() => {
   try {

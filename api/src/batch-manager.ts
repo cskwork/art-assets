@@ -103,7 +103,8 @@ export class BatchManager {
         const result = await createGenerateContentJob({
           subject: request.subject,
           topic,
-          gradeLevel: request.gradeLevel
+          gradeLevel: request.gradeLevel,
+          useArtAssets: request.useArtAssets
         });
 
         if ('success' in result && result.success === false) {

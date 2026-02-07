@@ -208,7 +208,7 @@
       })
       .finally(function () {
         $btnGenerate.disabled = false;
-        $btnGenerate.textContent = '생성 시작';
+        $btnGenerate.textContent = '교육 콘텐츠 생성 시작';
       });
   });
 

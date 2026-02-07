@@ -1,5 +1,45 @@
 # Changelog - 2026-02-07
 
+## 8bit 에셋 통합 + Z.ai 기본 경로 정렬 (`8bit-assets/`, `api/src/*`, `admin-ui/*`)
+
+### 문제
+- `/Users/danny/Downloads/8bit-assets` 자산을 프로젝트에서 직접 활용할 경로와 인덱스가 없어 생성 프롬프트에서 재사용이 어려웠음
+- Admin UI의 `아트 에셋 사용` 옵션이 배치 생성 요청에서 실제 콘텐츠 생성 프롬프트까지 전달되지 않았음
+- 코드 레벨 기본 LLM 제공자는 `claude`로 남아 있어, 환경변수 미설정 시 Z.ai 기본 사용 의도와 불일치
+
+### 수정
+- `scripts/import-8bit-assets.js` 추가
+  - 소스 폴더를 `8bit-assets/`로 통합 복사
+  - 런타임 확장자(png/jpg/gif/json/wav/ogg/mp3/pdf/xml/html/js)만 선별
+  - `8bit-assets/index.json` 자동 생성 (총 4,169개 파일 인덱싱)
+  - 인덱스 `id` 중복이 없도록 해시 기반 유니크 보정 추가
+- `package.json`에 `import:8bit` 스크립트 추가
+- `api/src/types.ts`, `api/src/index.ts`, `api/src/batch-manager.ts` 수정
+  - `useArtAssets`를 생성 요청 타입/검증/배치 전달 경로에 반영
+- `api/src/prompt-loader.ts` 확장
+  - `assets.json` + `8bit-assets/index.json` 기반 추천 에셋을 프롬프트에 자동 주입
+  - `useArtAssets: false`일 때는 에셋 지침 섹션 생략
+- `api/src/llm/provider.ts` 기본 제공자를 `zai`로 변경
+- `api/src/admin-server.ts`의 `artAssetCategories`에 `8bit` 추가
+- `admin-ui/index.html`, `admin-ui/app.js` 수정
+  - `아트 에셋 사용` 체크 기본 ON
+  - 생성 버튼 라벨을 `교육 콘텐츠 생성 시작`으로 조정
+
+### 테스트 (TDD)
+- 실패 확인 후 구현:
+  - `tests/api-llm-provider.test.js`
+  - `tests/api-validation.test.js`
+  - `tests/api-prompt-loader.test.js`
+  - `tests/api-batch-manager.test.js`
+- 구현 후 통과:
+  - `node --test tests/api-llm-provider.test.js tests/api-validation.test.js tests/api-prompt-loader.test.js tests/api-batch-manager.test.js`
+
+### 검증
+- `npm run import:8bit` 통과 (4,169개 파일 통합, `8bit-assets/index.json` 생성)
+- `npm run build` 통과
+- `npm test` 통과 (51/51)
+- `npm run lint` 실패 (`package.json`에 `lint` 스크립트 미정의)
+
 ## 3D Viewer WebGL Context Lost 대응 (`3d/viewer.html`, `tests/viewer-ux-refresh.test.js`)
 
 ### 문제

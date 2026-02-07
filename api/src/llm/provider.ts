@@ -5,7 +5,7 @@ const ZAI_ALIASES = new Set(['zai', 'glm', 'glm-4.7', 'glm4.7']);
 
 export function getLlmProvider(value?: string): LlmProvider {
   if (!value) {
-    return 'claude';
+    return 'zai';
   }
 
   const normalized = value.trim().toLowerCase();

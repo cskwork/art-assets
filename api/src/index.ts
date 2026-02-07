@@ -81,6 +81,7 @@ export function validateGenerateContentRequest(input: unknown) {
   const subject = record.subject;
   const topic = record.topic;
   const gradeLevel = record.gradeLevel;
+  const useArtAssets = record.useArtAssets;
 
   if (subject !== 'math' && subject !== 'english' && subject !== 'science') {
     return { ok: false, code: 'INVALID_SUBJECT' as const };
@@ -95,6 +96,10 @@ export function validateGenerateContentRequest(input: unknown) {
   }
 
   if (topic.length > 200 || gradeLevel.length > 100) {
+    return { ok: false, code: 'INVALID_REQUEST' as const };
+  }
+
+  if (useArtAssets !== undefined && typeof useArtAssets !== 'boolean') {
     return { ok: false, code: 'INVALID_REQUEST' as const };
   }
 

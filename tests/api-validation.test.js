@@ -33,3 +33,26 @@ test('validateGenerateContentRequest rejects invalid subject', () => {
   assert.equal(result.ok, false);
   assert.equal(result.code, 'INVALID_SUBJECT');
 });
+
+test('validateGenerateContentRequest allows boolean useArtAssets', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'math',
+    topic: '분수의 덧셈',
+    gradeLevel: '초등 5-6학년',
+    useArtAssets: true
+  });
+
+  assert.equal(result.ok, true);
+});
+
+test('validateGenerateContentRequest rejects non-boolean useArtAssets', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'math',
+    topic: '분수의 덧셈',
+    gradeLevel: '초등 5-6학년',
+    useArtAssets: 'yes'
+  });
+
+  assert.equal(result.ok, false);
+  assert.equal(result.code, 'INVALID_REQUEST');
+});

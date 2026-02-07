@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 
 const { getLlmProvider } = require('../api/dist/llm/provider');
 
-test('getLlmProvider defaults to claude', () => {
-  assert.equal(getLlmProvider(undefined), 'claude');
+test('getLlmProvider defaults to zai', () => {
+  assert.equal(getLlmProvider(undefined), 'zai');
 });
 
 test('getLlmProvider maps glm-4.7 to zai', () => {
