@@ -520,6 +520,52 @@
     let sortMode = 'latest';
     let autoRotateEnabled = true;
     let viewerControllers = [];
+    let isCleaningUp = false;
+    const MAX_ACTIVE_RENDERERS = 8;
+    const rendererPool = [];
+    const pooledRenderers = new Set();
+    let createdRendererCount = 0;
+
+    function acquireRenderer() {
+      if (rendererPool.length > 0) {
+        const renderer = rendererPool.pop();
+        pooledRenderers.delete(renderer);
+        return renderer;
+      }
+
+      if (createdRendererCount >= MAX_ACTIVE_RENDERERS) {
+        return null;
+      }
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      createdRendererCount += 1;
+      return renderer;
+    }
+
+    function releaseRenderer(renderer) {
+      if (!renderer || pooledRenderers.has(renderer)) return;
+
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
+      }
+
+      renderer.setSize(1, 1, false);
+      renderer.clear();
+      renderer.resetState();
+      rendererPool.push(renderer);
+      pooledRenderers.add(renderer);
+    }
+
+    function processVisibleQueue() {
+      if (isCleaningUp) return;
+
+      for (const controller of viewerControllers) {
+        if (!controller.visible || controller.initialized) continue;
+        const activated = controller.activate();
+        if (!activated) break;
+      }
+    }
 
     async function loadAssets() {
       try {
@@ -663,17 +709,62 @@
 
         initViewer(asset);
       });
+
+      processVisibleQueue();
     }
 
     function cleanupViewers() {
-      viewerControllers.forEach((controller) => {
-        controller.resizeObserver.disconnect();
-        controller.visibilityObserver.disconnect();
-        cancelAnimationFrame(controller.frameId);
-        controller.controls.dispose();
-        controller.renderer.dispose();
-      });
+      isCleaningUp = true;
+      viewerControllers.forEach((controller) => controller.dispose());
       viewerControllers = [];
+      isCleaningUp = false;
+    }
+
+    function tuneMaterialForPreview(material) {
+      if (!material) {
+        return new THREE.MeshStandardMaterial({
+          color: 0xc8e3ff,
+          metalness: 0.15,
+          roughness: 0.72,
+          side: THREE.DoubleSide
+        });
+      }
+
+      if ('side' in material) {
+        material.side = THREE.DoubleSide;
+      }
+
+      if (material.isMeshStandardMaterial) {
+        const looksLikeDefaultPbr =
+          material.metalness >= 0.95 &&
+          material.roughness >= 0.95 &&
+          !material.map &&
+          !material.normalMap &&
+          !material.emissiveMap;
+
+        if (looksLikeDefaultPbr) {
+          material.color.setHex(0xc8e3ff);
+          material.metalness = 0.15;
+          material.roughness = 0.72;
+        }
+      }
+
+      material.needsUpdate = true;
+      return material;
+    }
+
+    function prepareMeshForPreview(mesh) {
+      if (!mesh.geometry) return;
+
+      if (!mesh.geometry.attributes.normal) {
+        mesh.geometry.computeVertexNormals();
+      }
+
+      if (Array.isArray(mesh.material)) {
+        mesh.material = mesh.material.map((material) => tuneMaterialForPreview(material));
+      } else {
+        mesh.material = tuneMaterialForPreview(mesh.material);
+      }
     }
 
     function initViewer(asset) {
@@ -682,117 +773,222 @@
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x040b1d);
-
-      const camera = new THREE.PerspectiveCamera(48, container.clientWidth / container.clientHeight, 0.1, 100);
-      camera.position.set(0, 0.8, 3.1);
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
-
       const ambient = new THREE.AmbientLight(0xffffff, 0.68);
       scene.add(ambient);
-
       const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
       keyLight.position.set(4, 5, 3);
       scene.add(keyLight);
-
       const rim = new THREE.DirectionalLight(0x8fc4ff, 0.6);
       rim.position.set(-4, 2, -3);
       scene.add(rim);
 
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.06;
-      controls.autoRotate = autoRotateEnabled;
-      controls.autoRotateSpeed = 1.3;
-
-      renderer.domElement.addEventListener('dblclick', () => {
-        controls.reset();
-      });
-
+      let renderer = null;
+      let camera = null;
+      let controls = null;
+      let resizeObserver = null;
+      let frameId = 0;
+      let visible = false;
+      let isLoading = false;
+      let modelLoaded = false;
+      let modelAdded = false;
       const loader = new GLTFLoader();
       const modelPath = `../${asset.path}`;
+      const setLoading = (text, isError = false) => {
+        const loadingEl = container.querySelector('.loading');
+        if (!loadingEl) return;
+        loadingEl.textContent = text;
+        loadingEl.style.color = isError ? 'var(--danger)' : '';
+      };
 
-      loader.load(
-        modelPath,
-        (gltf) => {
-          const model = gltf.scene;
-          const box = new THREE.Box3().setFromObject(model);
-          const size = box.getSize(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z) || 1;
-          const scale = 1.65 / maxDim;
-          model.scale.setScalar(scale);
+      const clearLoading = () => {
+        const loadingEl = container.querySelector('.loading');
+        if (loadingEl) loadingEl.remove();
+      };
 
-          box.setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          model.position.sub(center);
-
-          model.traverse((child) => {
-            if (child.isMesh && child.geometry) {
-              const edge = new THREE.EdgesGeometry(child.geometry, 16);
-              const edgeMesh = new THREE.LineSegments(
-                edge,
-                new THREE.LineBasicMaterial({ color: 0x1f3f63, transparent: true, opacity: 0.56 })
-              );
-              child.add(edgeMesh);
-            }
-          });
-
-          scene.add(model);
-
-          const loadingEl = container.querySelector('.loading');
-          if (loadingEl) loadingEl.remove();
-        },
-        (progress) => {
-          const loadingEl = container.querySelector('.loading');
-          if (loadingEl && progress.total > 0) {
-            const percent = Math.round((progress.loaded / progress.total) * 100);
-            loadingEl.textContent = `로딩 ${percent}%`;
-          }
-        },
-        () => {
-          const loadingEl = container.querySelector('.loading');
-          if (loadingEl) {
-            loadingEl.textContent = '로드 실패';
-            loadingEl.style.color = 'var(--danger)';
-          }
-        }
-      );
-
-      let visible = true;
-      const visibilityObserver = new IntersectionObserver((entries) => {
-        visible = entries[0] ? entries[0].isIntersecting : true;
-      }, { threshold: 0.12 });
-      visibilityObserver.observe(container);
-
-      const resizeObserver = new ResizeObserver(() => {
-        const width = container.clientWidth || 1;
-        const height = container.clientHeight || 1;
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height);
-      });
-      resizeObserver.observe(container);
-
-      const controller = {
-        controls,
-        renderer,
-        resizeObserver,
-        visibilityObserver,
-        frameId: 0
+      const onDoubleClick = () => {
+        if (controls) controls.reset();
       };
 
       const animate = () => {
-        controller.frameId = requestAnimationFrame(animate);
-        if (!visible) return;
+        frameId = requestAnimationFrame(animate);
+        controller.frameId = frameId;
+        if (!renderer || !camera || !controls || !visible) return;
         controls.autoRotate = autoRotateEnabled;
         controls.update();
         renderer.render(scene, camera);
       };
-      animate();
 
+      const loadModel = () => {
+        if (isLoading || modelLoaded) return;
+        isLoading = true;
+        setLoading('로딩 중...');
+
+        loader.load(
+          modelPath,
+          (gltf) => {
+            modelLoaded = true;
+            isLoading = false;
+
+            if (!modelAdded) {
+              const model = gltf.scene;
+              const box = new THREE.Box3().setFromObject(model);
+              const size = box.getSize(new THREE.Vector3());
+              const maxDim = Math.max(size.x, size.y, size.z) || 1;
+              const scale = 1.65 / maxDim;
+              model.scale.setScalar(scale);
+
+              box.setFromObject(model);
+              const center = box.getCenter(new THREE.Vector3());
+              model.position.sub(center);
+
+              model.traverse((child) => {
+                if (child.isMesh && child.geometry) {
+                  prepareMeshForPreview(child);
+
+                  const edge = new THREE.EdgesGeometry(child.geometry, 16);
+                  const edgeMesh = new THREE.LineSegments(
+                    edge,
+                    new THREE.LineBasicMaterial({ color: 0x6fb5e8, transparent: true, opacity: 0.5 })
+                  );
+                  child.add(edgeMesh);
+                }
+              });
+
+              scene.add(model);
+              modelAdded = true;
+            }
+
+            clearLoading();
+          },
+          (progress) => {
+            if (!isLoading) return;
+            if (progress.total > 0) {
+              const percent = Math.round((progress.loaded / progress.total) * 100);
+              setLoading(`로딩 ${percent}%`);
+            }
+          },
+          (error) => {
+            isLoading = false;
+            setLoading('로드 실패', true);
+            console.error(`3D 모델 로드 실패: ${asset.id}`, error);
+          }
+        );
+      };
+
+      const controller = {
+        visible: false,
+        initialized: false,
+        controls: null,
+        renderer: null,
+        resizeObserver: null,
+        visibilityObserver: null,
+        frameId: 0,
+        activate: () => {
+          if (controller.initialized) return true;
+
+          const acquiredRenderer = acquireRenderer();
+          if (!acquiredRenderer) return false;
+
+          renderer = acquiredRenderer;
+          camera = new THREE.PerspectiveCamera(48, container.clientWidth / container.clientHeight, 0.1, 100);
+          camera.position.set(0, 0.8, 3.1);
+
+          controls = new OrbitControls(camera, renderer.domElement);
+          controls.enableDamping = true;
+          controls.dampingFactor = 0.06;
+          controls.autoRotate = autoRotateEnabled;
+          controls.autoRotateSpeed = 1.3;
+
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          renderer.setSize(container.clientWidth, container.clientHeight);
+          renderer.domElement.addEventListener('dblclick', onDoubleClick);
+          container.appendChild(renderer.domElement);
+
+          resizeObserver = new ResizeObserver(() => {
+            if (!renderer || !camera) return;
+            const width = container.clientWidth || 1;
+            const height = container.clientHeight || 1;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          });
+          resizeObserver.observe(container);
+
+          controller.initialized = true;
+          controller.renderer = renderer;
+          controller.controls = controls;
+          controller.resizeObserver = resizeObserver;
+
+          loadModel();
+          animate();
+          return true;
+        },
+        deactivate: () => {
+          if (!controller.initialized) return;
+
+          cancelAnimationFrame(frameId);
+          frameId = 0;
+          controller.frameId = 0;
+
+          if (resizeObserver) {
+            resizeObserver.disconnect();
+            resizeObserver = null;
+          }
+
+          if (renderer) {
+            renderer.domElement.removeEventListener('dblclick', onDoubleClick);
+          }
+
+          if (controls) {
+            controls.dispose();
+            controls = null;
+          }
+
+          releaseRenderer(renderer);
+          renderer = null;
+          camera = null;
+
+          controller.initialized = false;
+          controller.controls = null;
+          controller.renderer = null;
+          controller.resizeObserver = null;
+
+          if (controller.visible && !modelLoaded) {
+            setLoading('대기 중...');
+          }
+
+          if (!isCleaningUp) {
+            processVisibleQueue();
+          }
+        },
+        dispose: () => {
+          if (controller.visibilityObserver) {
+            controller.visibilityObserver.disconnect();
+            controller.visibilityObserver = null;
+          }
+          controller.deactivate();
+        }
+      };
+
+      const visibilityObserver = new IntersectionObserver((entries) => {
+        visible = entries[0] ? entries[0].isIntersecting : false;
+        controller.visible = visible;
+
+        if (visible) {
+          const activated = controller.activate();
+          if (!activated) {
+            setLoading('대기 중...');
+          }
+          processVisibleQueue();
+          return;
+        }
+
+        controller.deactivate();
+      }, { threshold: 0.12 });
+
+      controller.visibilityObserver = visibilityObserver;
+      visibilityObserver.observe(container);
+      setLoading('대기 중...');
       viewerControllers.push(controller);
     }
 
@@ -822,7 +1018,9 @@
       toggleRotate.setAttribute('aria-pressed', autoRotateEnabled ? 'true' : 'false');
       toggleRotate.textContent = autoRotateEnabled ? '오토 회전: 켜짐' : '오토 회전: 꺼짐';
       viewerControllers.forEach((controller) => {
-        controller.controls.autoRotate = autoRotateEnabled;
+        if (controller.controls) {
+          controller.controls.autoRotate = autoRotateEnabled;
+        }
       });
     });
 

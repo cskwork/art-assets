@@ -21,3 +21,26 @@ test('3D Viewer: 테마 토큰과 상호작용 토글을 포함한다', () => {
   assert.match(html, /id="toggleRotate"/);
   assert.match(html, /오토 회전/);
 });
+
+test('3D Viewer: 노멀/머티리얼 누락 GLB를 위한 렌더 폴백을 포함한다', () => {
+  const filePath = path.join(__dirname, '..', '3d', 'viewer.html');
+  const html = fs.readFileSync(filePath, 'utf8');
+
+  assert.match(html, /computeVertexNormals\(\)/);
+  assert.match(html, /MeshStandardMaterial/);
+  assert.match(html, /DoubleSide/);
+  assert.match(html, /metalness\s*:/);
+  assert.match(html, /roughness\s*:/);
+});
+
+test('3D Viewer: WebGL 컨텍스트 풀과 지연 활성화를 사용한다', () => {
+  const filePath = path.join(__dirname, '..', '3d', 'viewer.html');
+  const html = fs.readFileSync(filePath, 'utf8');
+
+  assert.match(html, /MAX_ACTIVE_RENDERERS/);
+  assert.match(html, /rendererPool/);
+  assert.match(html, /acquireRenderer/);
+  assert.match(html, /releaseRenderer/);
+  assert.match(html, /processVisibleQueue/);
+  assert.match(html, /대기 중/);
+});

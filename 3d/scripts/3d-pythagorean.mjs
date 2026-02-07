@@ -7,10 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const OUTPUT_DIR = path.resolve(__dirname, '..'); 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const dateStamp = process.env.ASSET_DATE || today;
 const io = new NodeIO();
 
-function createPrimitive(doc, vertices, indices, colors = null) {
-    const buffer = doc.createBuffer();
+function createPrimitive(doc, buffer, vertices, indices, colors = null) {
     const position = doc.createAccessor().setArray(vertices).setType('VEC3').setBuffer(buffer);
     const primitive = doc.createPrimitive().setAttribute('POSITION', position);
     primitive.setIndices(doc.createAccessor().setArray(indices).setType('SCALAR').setBuffer(buffer));
@@ -48,27 +48,28 @@ async function run() {
     console.log("Generating Pythagorean...");
     const doc = new Document();
     const scene = doc.createScene();
+    const buffer = doc.createBuffer();
     const unit = 0.5; const depth = 0.2;
     const colorA = [0.2, 0.6, 1.0]; const colorB = [1.0, 0.4, 0.4]; const colorC = [0.6, 0.2, 0.8]; 
 
     const nodeA = doc.createNode().setName('Square_A');
     const meshA = doc.createMesh();
     const dataA = createCubeArrays([0, -3*unit, 0], [3*unit, 0, depth], colorA);
-    meshA.addPrimitive(createPrimitive(doc, dataA.vertices, dataA.indices, dataA.colors));
+    meshA.addPrimitive(createPrimitive(doc, buffer, dataA.vertices, dataA.indices, dataA.colors));
     nodeA.setMesh(meshA);
     scene.addChild(nodeA);
 
     const nodeB = doc.createNode().setName('Square_B');
     const meshB = doc.createMesh();
     const dataB = createCubeArrays([-4*unit, 0, 0], [0, 4*unit, depth], colorB);
-    meshB.addPrimitive(createPrimitive(doc, dataB.vertices, dataB.indices, dataB.colors));
+    meshB.addPrimitive(createPrimitive(doc, buffer, dataB.vertices, dataB.indices, dataB.colors));
     nodeB.setMesh(meshB);
     scene.addChild(nodeB);
 
     const nodeC = doc.createNode().setName('Square_C');
     const meshC = doc.createMesh();
     const dataC = createCubeArrays([0, 0, 0], [5*unit, 5*unit, depth], colorC);
-    meshC.addPrimitive(createPrimitive(doc, dataC.vertices, dataC.indices, dataC.colors));
+    meshC.addPrimitive(createPrimitive(doc, buffer, dataC.vertices, dataC.indices, dataC.colors));
     
     // Manual rotation components to avoid Math.sin possibly crashing? (unlikely)
     // -53.13 deg -> rad = -0.927
@@ -77,8 +78,8 @@ async function run() {
     nodeC.setMesh(meshC).setTranslation([0, 4*unit, 0]).setRotation([0, 0, Math.sin(rotZ/2), Math.cos(rotZ/2)]); 
     scene.addChild(nodeC);
 
-    const buffer = await io.writeBinary(doc);
-    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-pythagorean-proof-${today}.glb`), buffer);
+    const glbBuffer = await io.writeBinary(doc);
+    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-pythagorean-proof-${dateStamp}.glb`), glbBuffer);
     console.log("Done.");
 }
 

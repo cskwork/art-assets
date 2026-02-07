@@ -1,5 +1,87 @@
 # Changelog - 2026-02-07
 
+## 3D Viewer WebGL Context Lost 대응 (`3d/viewer.html`, `tests/viewer-ux-refresh.test.js`)
+
+### 문제
+- `3d/viewer.html`에서 카드 수만큼 `WebGLRenderer`를 즉시 생성하면서 브라우저 컨텍스트 한도를 초과
+- 콘솔에 `THREE.WebGLRenderer: Context Lost.`가 연속 출력되고 일부 카드 렌더링이 불안정해짐
+
+### 수정
+- 렌더러 관리 방식을 컨텍스트 풀 기반으로 변경
+  - `MAX_ACTIVE_RENDERERS` 상수로 동시 활성 렌더러 수를 제한
+  - `acquireRenderer` / `releaseRenderer`로 렌더러 재사용
+  - `processVisibleQueue`로 화면에 보이는 카드만 우선 활성화
+- 카드 생성 시 즉시 렌더러를 만들지 않고, `IntersectionObserver`로 화면 진입 시 활성화/이탈 시 비활성화
+- 정리 중(`cleanupViewers`)에는 재활성화가 발생하지 않도록 보호 플래그 추가
+- 오토회전 토글은 활성 컨트롤러에만 적용되도록 안정화
+
+### 테스트 (TDD)
+- `tests/viewer-ux-refresh.test.js` 확장
+  - `3D Viewer: WebGL 컨텍스트 풀과 지연 활성화를 사용한다` 추가
+- 실패 확인 후 구현 적용, 재실행 통과
+
+### 검증
+- `node --test tests/viewer-ux-refresh.test.js` 통과 (4/4)
+- `npm run build` 통과
+- `npm test` 통과 (45/45)
+- `npm run lint` 실패 (`package.json`에 `lint` 스크립트 미정의)
+
+## 3D 누락 파일(404) 복구 및 생성 스크립트 수정 (`3d/scripts/*.mjs`, `3d/*.glb`, `tests/assets-3d-file-integrity.test.js`)
+
+### 문제
+- `3d/viewer.html`에서 일부 3D 에셋이 404로 로드 실패
+  - `3d-archimedes-sphere-cylinder-20260125.glb`
+  - `3d-euler-helix-complex-20260125.glb`
+  - `3d-pythagorean-proof-20260125.glb`
+- 원인: `assets.json`에 경로가 등록되어 있으나 실제 GLB 파일이 없었고, 생성 스크립트도 GLB 버퍼 규칙 위반으로 실패
+
+### 수정
+- 생성 스크립트 3개 수정
+  - `3d/scripts/3d-archimedes.mjs`
+  - `3d/scripts/3d-euler.mjs`
+  - `3d/scripts/3d-pythagorean.mjs`
+- `createPrimitive`가 매번 버퍼를 새로 만들던 문제를 고쳐 문서당 단일 버퍼를 사용하도록 변경
+- `ASSET_DATE` 환경변수 지원 추가 (`ASSET_DATE=20260125`)로 파일명 날짜를 제어 가능하게 개선
+- 수정된 스크립트로 누락 GLB 3개를 실제 생성하여 `3d/` 경로에 복구
+
+### 테스트 (TDD)
+- 추가: `tests/assets-3d-file-integrity.test.js`
+  - `assets.json`의 `category: "3d"` 항목이 실제 파일을 가리키는지 검증
+- 검증 실행:
+  - `node --test tests/assets-3d-file-integrity.test.js tests/viewer-ux-refresh.test.js` 통과
+  - `npm test` 통과 (44/44)
+
+### 검증
+- `npm run build` 통과
+- `npm test` 통과 (44/44)
+- `npm run lint` 실패 (`package.json`에 `lint` 스크립트 미정의)
+
+## 3D Viewer 렌더 누락 보정 (`3d/viewer.html`, `tests/viewer-ux-refresh.test.js`)
+
+### 문제
+- 일부 GLB(예: `3d-geometry-icosahedron-math-20260125`)가 미리보기에서 보이지 않거나 매우 어둡게 렌더링됨
+- 원인 패턴: 노멀/머티리얼이 없는 단순 GLB가 기본 PBR 설정으로 로드되어 배경 대비가 낮아짐
+
+### 수정
+- `3d/viewer.html`에 메쉬 프리뷰 보정 함수 추가
+  - `prepareMeshForPreview`: 노멀 누락 시 `computeVertexNormals()` 적용
+  - `tuneMaterialForPreview`: 머티리얼 누락 시 `MeshStandardMaterial` 폴백 적용
+  - 기본 PBR(금속도/거칠기 1.0)로 인한 저가시성 상태를 감지해 `metalness`, `roughness`, 색상 보정
+  - 모든 메쉬를 `DoubleSide`로 렌더링해 단면 컬링 이슈를 완화
+- 에지 라인 색상을 밝게 조정해 형태 인지성을 개선
+- GLB 로드 실패 시 콘솔에 에셋 ID 포함 상세 에러를 남기도록 개선
+
+### 테스트 (TDD)
+- 추가: `tests/viewer-ux-refresh.test.js`
+  - `3D Viewer: 노멀/머티리얼 누락 GLB를 위한 렌더 폴백을 포함한다`
+- 실패 확인: `node --test tests/viewer-ux-refresh.test.js` (신규 테스트 1건 실패)
+- 구현 후 통과: `node --test tests/viewer-ux-refresh.test.js` (3/3 통과)
+
+### 검증
+- `npm run build` 통과
+- `npm test` 통과 (43/43)
+- `npm run lint` 실패 (`package.json`에 `lint` 스크립트 미정의)
+
 ## Main/Gallery + 3D Viewer UI/UX 리디자인 (`build-gallery.js`, `gallery.html`, `3d/viewer.html`)
 
 ### 수정

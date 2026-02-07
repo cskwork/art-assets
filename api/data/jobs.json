@@ -2,31 +2,17 @@
   "version": 1,
   "jobs": [
     {
-      "id": "0b426e63-d61e-43e8-b5e9-d6f477d8e88f",
-      "jobType": "generate",
-      "status": "failed",
-      "request": {
-        "subject": "math",
-        "topic": "fraction game",
-        "gradeLevel": "초등 5학년"
-      },
-      "createdAt": 1770464720685,
-      "moduleId": "20260207-fraction-game",
-      "modulePath": "edu-content/20260207-fraction-game",
-      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
-    },
-    {
-      "id": "b2ff2a66-ba84-475c-9749-7676d77f9e71",
+      "id": "001fe112-089a-45a9-a322-b47eef1421cb",
       "jobType": "generate",
       "status": "processing",
       "request": {
         "subject": "math",
-        "topic": "fraction game",
+        "topic": "fraction game retry",
         "gradeLevel": "초등 5학년"
       },
-      "createdAt": 1770465599711,
-      "moduleId": "20260207-fraction-game",
-      "modulePath": "edu-content/20260207-fraction-game"
+      "createdAt": 1770466174049,
+      "moduleId": "20260207-fraction-game-retry",
+      "modulePath": "edu-content/20260207-fraction-game-retry"
     }
   ]
 }

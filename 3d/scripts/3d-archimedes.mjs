@@ -7,10 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const OUTPUT_DIR = path.resolve(__dirname, '..'); 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const dateStamp = process.env.ASSET_DATE || today;
 const io = new NodeIO();
 
-function createPrimitive(doc, vertices, indices, colors = null) {
-    const buffer = doc.createBuffer();
+function createPrimitive(doc, buffer, vertices, indices, colors = null) {
     const position = doc.createAccessor().setArray(vertices).setType('VEC3').setBuffer(buffer);
     const primitive = doc.createPrimitive().setAttribute('POSITION', position);
     primitive.setIndices(doc.createAccessor().setArray(indices).setType('SCALAR').setBuffer(buffer));
@@ -48,6 +48,7 @@ async function run() {
     console.log("Generating Archimedes...");
     const doc = new Document();
     const scene = doc.createScene();
+    const buffer = doc.createBuffer();
     const R = 1.5; const segments = 32;
     const sphereVerts = []; const sphereIndices = []; const colorSphere = [1.0, 0.8, 0.2]; 
 
@@ -74,7 +75,7 @@ async function run() {
     const meshSphere = doc.createMesh();
     const cSphere = new Float32Array(sphereVerts.length).fill(0);
     for(let i=0; i<sphereVerts.length; i+=3) { cSphere[i]=colorSphere[0]; cSphere[i+1]=colorSphere[1]; cSphere[i+2]=colorSphere[2]; }
-    meshSphere.addPrimitive(createPrimitive(doc, new Float32Array(sphereVerts), new Uint16Array(sphereIndices), cSphere));
+    meshSphere.addPrimitive(createPrimitive(doc, buffer, new Float32Array(sphereVerts), new Uint16Array(sphereIndices), cSphere));
     scene.addChild(doc.createNode().setName('Sphere').setMesh(meshSphere));
 
     const cylMesh = doc.createMesh();
@@ -84,12 +85,12 @@ async function run() {
         const z = R * Math.sin(theta);
         const th = 0.05;
         const bar = createCubeArrays([x-th, -R, z-th], [x+th, R, z+th], [0.8, 0.8, 1.0]);
-        cylMesh.addPrimitive(createPrimitive(doc, bar.vertices, bar.indices, bar.colors));
+        cylMesh.addPrimitive(createPrimitive(doc, buffer, bar.vertices, bar.indices, bar.colors));
     }
     scene.addChild(doc.createNode().setName('CylinderFrame').setMesh(cylMesh));
     
-    const buffer = await io.writeBinary(doc);
-    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-archimedes-sphere-cylinder-${today}.glb`), buffer);
+    const glbBuffer = await io.writeBinary(doc);
+    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-archimedes-sphere-cylinder-${dateStamp}.glb`), glbBuffer);
     console.log("Done.");
 }
 

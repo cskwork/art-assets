@@ -7,10 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const OUTPUT_DIR = path.resolve(__dirname, '..'); 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const dateStamp = process.env.ASSET_DATE || today;
 const io = new NodeIO();
 
-function createPrimitive(doc, vertices, indices, colors = null) {
-    const buffer = doc.createBuffer();
+function createPrimitive(doc, buffer, vertices, indices, colors = null) {
     const position = doc.createAccessor().setArray(vertices).setType('VEC3').setBuffer(buffer);
     const primitive = doc.createPrimitive().setAttribute('POSITION', position);
     primitive.setIndices(doc.createAccessor().setArray(indices).setType('SCALAR').setBuffer(buffer));
@@ -48,6 +48,7 @@ async function run() {
     console.log("Generating Euler Helix...");
     const doc = new Document();
     const scene = doc.createScene();
+    const buffer = doc.createBuffer();
     const length = 4 * Math.PI; const segments = 200; const radius = 0.1; 
     const spinePoints = [];
     for(let i=0; i<=segments; i++) {
@@ -75,15 +76,15 @@ async function run() {
         colors[i] = t; colors[i+1] = 1-t; colors[i+2] = 0.5; 
     }
     const mesh = doc.createMesh();
-    mesh.addPrimitive(createPrimitive(doc, new Float32Array(tubeVerts), new Uint16Array(tubeIndices), colors));
+    mesh.addPrimitive(createPrimitive(doc, buffer, new Float32Array(tubeVerts), new Uint16Array(tubeIndices), colors));
     scene.addChild(doc.createNode().setName('EulerHelix').setMesh(mesh));
     const axisMesh = doc.createMesh();
     const ax = createCubeArrays([-length/2, -0.02, -0.02], [length/2, 0.02, 0.02], [0.8, 0.8, 0.8]);
-    axisMesh.addPrimitive(createPrimitive(doc, ax.vertices, ax.indices, ax.colors));
+    axisMesh.addPrimitive(createPrimitive(doc, buffer, ax.vertices, ax.indices, ax.colors));
     scene.addChild(doc.createNode().setName('Axis').setMesh(axisMesh));
     
-    const buffer = await io.writeBinary(doc);
-    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-euler-helix-complex-${today}.glb`), buffer);
+    const glbBuffer = await io.writeBinary(doc);
+    fs.writeFileSync(path.join(OUTPUT_DIR, `3d-euler-helix-complex-${dateStamp}.glb`), glbBuffer);
     console.log("Done.");
 }
 
