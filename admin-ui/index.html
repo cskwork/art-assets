@@ -85,9 +85,11 @@
       <h2>Job 현황</h2>
       <div id="jobContainer">
         <div class="empty-state" id="emptyState">
-          <div class="empty-icon">[ ]</div>
+          <div class="empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
           <div>아직 생성된 Job이 없습니다.</div>
-          <div>왼쪽 패널에서 콘텐츠를 생성하세요.</div>
+          <div style="font-size: 0.78rem;">왼쪽 패널에서 콘텐츠를 생성하세요.</div>
         </div>
         <div class="job-grid" id="jobGrid"></div>
       </div>
@@ -108,7 +110,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="previewTitle">콘텐츠 미리보기</h3>
-        <button class="btn-close-modal" id="btnCloseModal">X</button>
+        <button class="btn-close-modal" id="btnCloseModal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          닫기
+        </button>
       </div>
       <div class="modal-body">
         <iframe id="previewIframe" src="about:blank"></iframe>

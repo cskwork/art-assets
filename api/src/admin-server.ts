@@ -12,7 +12,7 @@ import {
   createReviewContentJob,
   getReviewContentStatus
 } from './index';
-import { getAllJobs } from './job-manager';
+import { getAllJobs, updateJob as updateJobStatus } from './job-manager';
 import { batchManager } from './batch-manager';
 import {
   ErrorResponse,
@@ -315,6 +315,17 @@ app.get('/admin', (_req, res) => {
 // === 서버 시작 ===
 // index.ts import 시 initializeJobStore() + startJobCleanup() 자동 호출됨
 
+// 서버 재시작 시 좀비 Job 정리 (processing 상태로 남은 Job -> failed)
+{
+  const staleJobs = getAllJobs().filter((j) => j.status === 'processing');
+  if (staleJobs.length > 0) {
+    staleJobs.forEach((j) => {
+      updateJobStatus(j.id, { status: 'failed', error: '서버 재시작으로 인해 중단됨' });
+    });
+    console.log(`[Startup] ${staleJobs.length}개 좀비 Job을 failed로 전환`);
+  }
+}
+
 // Job 상태 변경 브로드캐스트 (5초 간격 폴링)
 let previousJobStates: Record<string, string> = {};
 setInterval(() => {
@@ -359,6 +370,11 @@ app.listen(PORT, () => {
   console.log('');
   console.log('종료: Ctrl+C');
   console.log('');
+});
+
+// 비동기 Job에서 발생하는 reject를 잡아 서버 크래시 방지
+process.on('unhandledRejection', (reason) => {
+  console.error('[unhandledRejection]', reason instanceof Error ? reason.message : reason);
 });
 
 // 정상 종료 처리

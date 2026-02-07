@@ -471,9 +471,21 @@ async function generateContentForJob(jobId, request, moduleId) {
         const prompt = await (0, prompt_loader_1.buildPrompt)(request, moduleId);
         const provider = (0, provider_1.getLlmProvider)(process.env.LLM_PROVIDER);
         if (provider === 'zai') {
+            if (!process.env.ZAI_API_KEY?.trim()) {
+                throw new Error('ZAI_API_KEY 환경변수가 설정되지 않았습니다. .env 파일을 확인하세요.');
+            }
             await generateContentWithZai(jobId, request, moduleId, rootDir, prompt);
         }
         else {
+            try {
+                await loadClaudeSdk();
+            }
+            catch {
+                throw new Error('@anthropic-ai/claude-agent-sdk 패키지가 설치되지 않았습니다. npm install @anthropic-ai/claude-agent-sdk 를 실행하거나, LLM_PROVIDER=zai로 설정하세요.');
+            }
+            if (!process.env.ANTHROPIC_API_KEY?.trim() && !process.env.ANTHROPIC_AUTH_TOKEN?.trim()) {
+                throw new Error('ANTHROPIC_API_KEY 또는 ANTHROPIC_AUTH_TOKEN 환경변수가 필요합니다. .env 파일을 확인하세요.');
+            }
             await generateContentWithClaude(jobId, request, moduleId, rootDir, prompt);
         }
         if (reviewEnabled) {

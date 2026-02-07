@@ -1,5 +1,23 @@
 # Changelog - 2026-02-07
 
+## UI/UX 디자인 개선: Gallery + Admin 페이지
+
+### Gallery 메인 페이지 (`build-gallery.js` -> `gallery.html`)
+- Noto Sans KR + JetBrains Mono 폰트 적용
+- CSS Custom Properties 기반 디자인 시스템 도입 (surface, text, accent, shadow 토큰)
+- 헤더: glassmorphism 효과 (backdrop-filter), 검색 아이콘 SVG 내장, 에셋 수 badge 분리
+- 카드: 프리뷰 높이 160px 확대, hover 시 이미지 scale 효과, pill 형태 태그, 부드러운 shadow 전환
+- 모달: backdrop-filter blur 추가, 부드러운 scale+translateY 애니메이션
+- 반응형: 768px/480px 두 단계 브레이크포인트 추가
+
+### Admin UI (`admin-ui/styles.css`, `admin-ui/index.html`)
+- 색상 팔레트 리뉴얼: indigo(#6366f1) accent, 개선된 다크 톤
+- JetBrains Mono 적용 (로그, Job ID)
+- select 커스텀 화살표 SVG, focus-visible 키보드 접근성
+- Job 카드: gradient 상단 바, hover glow 효과, processing pulse-glow 애니메이션
+- empty state SVG 아이콘, 닫기 버튼 SVG+텍스트
+- 통계 카드 hover 효과, tabular-nums 적용
+
 ## Phase 01: Express Admin 서버 구축 및 Admin UI 프로토타입
 
 ### 추가
@@ -33,3 +51,12 @@
   - UI: 19개 필수 DOM ID 존재, styles.css/app.js 참조 확인
 - 서버 기동 테스트: 포트 3000, curl로 전체 엔드포인트 응답 확인
 - batch-generate 실제 요청: math/threejs/elementary-5-6/1 -> Job 생성 (processing 상태 확인)
+
+## 실행 스크립트 개선
+
+### 수정
+- `start.sh`: 메인 서버(`server.js`)와 Admin 서버(`api/dist/admin-server.js`)를 동시에 실행하도록 변경
+  - 기본 포트: 메인 `3000`, Admin `3001` (`PORT`, `ADMIN_PORT` 환경변수로 재정의 가능)
+  - 포트 충돌 방지: `PORT`와 `ADMIN_PORT`가 같으면 Admin 포트를 자동으로 다음 포트로 조정
+  - `api/dist/admin-server.js`가 없으면 자동으로 `npm run build --prefix api` 실행
+  - `Ctrl+C` 종료 시 두 서버 프로세스를 함께 정리하도록 종료 처리 추가
