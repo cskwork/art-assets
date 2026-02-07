@@ -13,11 +13,11 @@ import {
   getReviewContentStatus
 } from './index';
 import { getAllJobs } from './job-manager';
+import { batchManager } from './batch-manager';
 import {
   ErrorResponse,
   AdminConfig,
   BatchGenerateRequest,
-  BatchGenerateResponse,
   JobSummary
 } from './types';
 
@@ -212,46 +212,46 @@ app.get('/api/admin/jobs', (_req, res) => {
   res.json({ jobs: summaries });
 });
 
-// 다중 콘텐츠 생성 (배치)
+// 다중 콘텐츠 생성 (배치) - BatchManager 사용
 app.post('/api/admin/batch-generate', async (req, res) => {
   const body = req.body as Partial<BatchGenerateRequest>;
-  const { subject, contentType, gradeLevel, count, topics: requestTopics } = body;
+  const { subject, gradeLevel, count } = body;
 
   if (!subject || !gradeLevel || !count) {
     res.status(400).json({ success: false, error: 'subject, gradeLevel, count는 필수입니다.' });
     return;
   }
 
-  const requestCount = Math.min(Math.max(count || 1, 1), 10);
-  const batchId = `batch-${Date.now()}`;
+  try {
+    const response = await batchManager.startBatch(body as BatchGenerateRequest);
 
-  // 기본 토픽 목록
-  const defaultTopics: Record<string, string[]> = {
-    math: ['분수의 덧셈', '소수의 곱셈', '비와 비율', '원의 넓이', '직육면체 부피', '각도의 측정', '대칭과 이동', '그래프와 표', '소인수분해', '비례식'],
-    english: ['현재시제', '비교급', '조동사 can', '전치사', '동사 분류', '과거시제', '미래시제', '형용사', '부사', '접속사'],
-    science: ['물의 상태 변화', '식물의 광합성', '전기 회로', '태양계', '소화 과정', '지구의 자전', '자석의 성질', '소리의 전달', '생태계', '열의 이동']
-  };
-
-  const topics = requestTopics || defaultTopics[subject] || defaultTopics.math;
-  const results: BatchGenerateResponse['jobs'] = [];
-
-  for (let i = 0; i < requestCount; i++) {
-    const topic = topics[i % topics.length];
-    try {
-      const result = await createGenerateContentJob({ subject, topic, gradeLevel });
-      if ('success' in result && result.success === false) {
-        results.push({ jobId: '', topic, status: 'failed' });
-      } else if ('jobId' in result) {
-        results.push({ jobId: result.jobId, topic, status: 'created' });
-        broadcastJobUpdate({ type: 'job_created', jobId: result.jobId, topic, contentType });
+    // 생성된 Job들을 WebSocket으로 브로드캐스트
+    response.jobs.forEach((job) => {
+      if (job.jobId) {
+        broadcastJobUpdate({
+          type: 'job_created',
+          jobId: job.jobId,
+          topic: job.topic,
+          batchId: response.batchId,
+          contentType: body.contentType
+        });
       }
-    } catch (error: any) {
-      results.push({ jobId: '', topic, status: 'failed' });
-    }
-  }
+    });
 
-  const response: BatchGenerateResponse = { batchId, jobs: results };
-  res.json(response);
+    res.json(response);
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message || '배치 생성 실패' });
+  }
+});
+
+// 배치 상태 조회
+app.get('/api/admin/batch/:batchId', (req, res) => {
+  const batch = batchManager.getBatchStatus(req.params.batchId);
+  if (!batch) {
+    res.status(404).json({ success: false, error: '배치를 찾을 수 없습니다.' });
+    return;
+  }
+  res.json(batch);
 });
 
 // 에셋 목록 (assets-index.json 기반)

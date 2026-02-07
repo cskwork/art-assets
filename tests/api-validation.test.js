@@ -13,9 +13,19 @@ test('validateGenerateContentRequest allows valid request', () => {
   assert.equal(result.ok, true);
 });
 
-test('validateGenerateContentRequest rejects invalid subject', () => {
+test('validateGenerateContentRequest allows science subject', () => {
   const result = validateGenerateContentRequest({
     subject: 'science',
+    topic: '물의 상태 변화',
+    gradeLevel: '중학교 1학년'
+  });
+
+  assert.equal(result.ok, true);
+});
+
+test('validateGenerateContentRequest rejects invalid subject', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'history',
     topic: '테스트',
     gradeLevel: '중학교 1학년'
   });

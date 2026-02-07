@@ -75,7 +75,7 @@
     - 로그 패널 업데이트 함수
   > **완료 (2026-02-07)**: Admin UI 3개 파일 생성 완료. `index.html`: CSS Grid 기반 3영역 레이아웃 (헤더+사이드바+메인+로그), 미리보기 모달. `styles.css`: 다크 모드 테마 (#0f0f1a/#1a1a2e), Noto Sans KR, 상태별 색상 배지, 처리 중 펄스 애니메이션, 반응형 768px 브레이크포인트. `app.js`: /api/admin/config 로드 -> 드롭다운 바인딩, WebSocket 연결/재연결/메시지 처리, batch-generate POST, 5초 간격 Job 폴링, 상태별 카드 렌더링, iframe 미리보기 모달, 실시간 로그 패널. 서버 기동 후 /admin/ HTML 200, /admin/styles.css 200, /admin/app.js 200, /api/admin/config JSON 응답, /api/admin/jobs 응답 모두 정상 확인.
 
-- [ ] batch-generate 로직 구현 (`api/src/batch-manager.ts`):
+- [x] batch-generate 로직 구현 (`api/src/batch-manager.ts`):
   - 기존 `content-generator.ts`의 `generateContent()` 함수를 재사용한다
   - `BatchManager` 클래스 생성:
     - `startBatch(request: BatchGenerateRequest)`: 요청된 수량만큼 개별 Job 생성, 순차 또는 병렬 실행
@@ -87,6 +87,7 @@
     - 영어: ["현재시제", "비교급", "조동사 can", "전치사", "동사 분류"]
     - 과학: ["물의 상태 변화", "식물의 광합성", "전기 회로", "태양계", "소화 과정"]
   - 배치 상태 persistence: `api/data/batches.json`에 저장
+  > **완료 (2026-02-07)**: `api/src/batch-manager.ts` BatchManager 클래스 생성 (startBatch, getBatchStatus, getAllBatches). `api/src/default-topics.ts` 과목별 기본 토픽 10개씩 정의. admin-server.ts의 batch-generate 엔드포인트를 BatchManager로 교체 + GET /api/admin/batch/:batchId 조회 엔드포인트 추가. batches.json 파일 persistence 구현. index.ts의 subject 검증에 'science' 추가. 기존 validation 테스트 업데이트 + batch-manager 테스트 7개 작성. 전체 테스트 통과, TypeScript 빌드 성공.
 
 - [ ] 서버 시작 스크립트 및 빌드 설정:
   - `api/tsconfig.json`에 `admin-server.ts` 포함 확인 (이미 src/**/*.ts 포함이면 자동)

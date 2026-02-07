@@ -63,7 +63,7 @@ function validateGenerateContentRequest(input) {
     const subject = record.subject;
     const topic = record.topic;
     const gradeLevel = record.gradeLevel;
-    if (subject !== 'math' && subject !== 'english') {
+    if (subject !== 'math' && subject !== 'english' && subject !== 'science') {
         return { ok: false, code: 'INVALID_SUBJECT' };
     }
     if (typeof topic !== 'string' || topic.trim().length === 0) {
@@ -81,7 +81,7 @@ async function createGenerateContentJob(request) {
     const validation = validateGenerateContentRequest(request);
     if (!validation.ok) {
         const message = validation.code === 'INVALID_SUBJECT'
-            ? 'subject는 math 또는 english만 허용됩니다.'
+            ? 'subject는 math, english, science만 허용됩니다.'
             : '요청 값이 올바르지 않습니다.';
         return buildErrorResponse(validation.code, message);
     }
