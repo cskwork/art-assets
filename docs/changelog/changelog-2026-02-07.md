@@ -1,5 +1,32 @@
 # Changelog - 2026-02-07
 
+## Main/Gallery + 3D Viewer UI/UX 리디자인 (`build-gallery.js`, `gallery.html`, `3d/viewer.html`)
+
+### 수정
+- 메인 서버 루트(`/`)와 `gallery.html` 화면을 동일하게 개선하도록 `build-gallery.js` 템플릿을 리디자인
+- 갤러리 시각 방향을 비범한 콘셉트로 변경:
+  - `Black Han Sans + IBM Plex Sans KR + IBM Plex Mono` 타이포 조합 적용
+  - 다층 배경(그라디언트+그리드 텍스처), 카드 스태거 진입 모션, 캡슐형 액션 버튼 스타일 적용
+  - 필터 상태/노출 개수를 보여주는 인사이트 바(`active-filter-label`, `visible-count`) 추가
+  - 카드 액션/카테고리 라벨을 한국어로 통일 (`경로 복사`, `아카이브`, `복원`)
+- `3d/viewer.html` 전면 재구성:
+  - 컨트롤 패널(`control-panel`) 기반 검색(`searchInput`), 정렬(`sortSelect`), 오토 회전 토글(`toggleRotate`) 추가
+  - 필터 칩, 결과 카운트(`resultCount`, `resultCountLine`), 활성 필터 표시를 상단 HUD 형태로 제공
+  - 카드형 3D 프리뷰를 고대비 네온 톤으로 리디자인하고, 뷰어 리소스 정리(`cleanupViewers`) 로직 추가
+  - 모바일 반응형 레이아웃 보강 (900px/560px 구간)
+
+### 테스트 (TDD)
+- 추가: `tests/gallery-ux-refresh.test.js`
+- 추가: `tests/viewer-ux-refresh.test.js`
+- 실패 확인: `node --test tests/gallery-ux-refresh.test.js tests/viewer-ux-refresh.test.js` (초기 3개 실패)
+- 구현 후 통과: `node --test tests/gallery-ux-refresh.test.js tests/viewer-ux-refresh.test.js` (4/4 통과)
+
+### 검증
+- `node build-gallery.js` 통과
+- `npm run build` 통과
+- `npm test` 통과 (42/42)
+- `npm run lint` 실패 (`package.json`에 `lint` 스크립트 미정의)
+
 ## UI/UX 디자인 개선: Gallery + Admin 페이지
 
 ### Gallery 메인 페이지 (`build-gallery.js` -> `gallery.html`)

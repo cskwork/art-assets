@@ -3,157 +3,489 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D 에셋 뷰어 - Art Assets</title>
+  <title>3D 스튜디오 뷰어 - Art Assets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #060a17;
+      --bg-mid: #0c1938;
+      --bg-soft: #14305f;
+      --panel-deep: rgba(9, 16, 36, 0.88);
+      --panel-soft: rgba(255, 255, 255, 0.07);
+      --line-soft: rgba(156, 193, 255, 0.26);
+      --text-primary: #eaf2ff;
+      --text-secondary: #aac1ea;
+      --text-muted: #8096bd;
+      --accent: #54bcff;
+      --accent-strong: #0f8ae8;
+      --warn: #ffbd5c;
+      --danger: #ff7987;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+      --shadow-panel: 0 30px 50px rgba(1, 6, 21, 0.5);
+      --transition: 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      font-family: 'IBM Plex Sans KR', sans-serif;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(84, 188, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 85% 7%, rgba(193, 97, 255, 0.22), transparent 35%),
+        linear-gradient(145deg, var(--bg-deep), #08132a 35%, var(--bg-mid) 70%, var(--bg-soft));
+      color: var(--text-primary);
       min-height: 100vh;
-      color: #fff;
     }
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px;
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(146, 176, 224, 0.08) 1px, transparent 1px) 0 0 / 32px 32px,
+        linear-gradient(0deg, rgba(146, 176, 224, 0.08) 1px, transparent 1px) 0 0 / 32px 32px;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: -1;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 2rem;
-      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .viewer-shell {
+      width: min(1500px, calc(100% - 2rem));
+      margin: 1rem auto 2rem;
+      border: 1px solid var(--line-soft);
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(8, 15, 34, 0.88), rgba(10, 23, 46, 0.84));
+      box-shadow: var(--shadow-panel);
+      overflow: hidden;
     }
-    .subtitle {
-      text-align: center;
-      color: #888;
-      margin-bottom: 20px;
+
+    .hero {
+      padding: 1.3rem 1.6rem 1rem;
+      border-bottom: 1px solid rgba(170, 205, 255, 0.22);
+      background: linear-gradient(120deg, rgba(15, 27, 58, 0.86), rgba(9, 21, 46, 0.7));
     }
-    .controls {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #666;
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: #f5fbff;
+      font-size: 0.82rem;
+      border: 1px solid rgba(173, 225, 255, 0.38);
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      background: rgba(84, 188, 255, 0.15);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 16px rgba(84, 188, 255, 0.2);
+    }
+
+    .guide {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+      opacity: 0.95;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.45rem, 2.7vw, 2.2rem);
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+      text-transform: uppercase;
+      color: #f2f8ff;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      margin-top: 0.36rem;
       font-size: 0.9rem;
     }
-    .filter-bar {
+
+    .hero-stats {
+      margin-top: 1rem;
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .hero-stat {
+      border: 1px solid rgba(149, 193, 255, 0.28);
+      border-radius: 999px;
+      padding: 0.35rem 0.78rem;
+      color: #f3f8ff;
+      background: rgba(255, 255, 255, 0.05);
+      display: inline-flex;
+      gap: 0.46rem;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .hero-stat strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+    }
+
+    .control-panel {
+      display: flex;
+      gap: 0.72rem;
+      padding: 0.95rem 1.6rem;
+      border-bottom: 1px solid rgba(149, 193, 255, 0.2);
+      background: rgba(7, 16, 37, 0.84);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 0.42rem;
+      border: 1px solid rgba(149, 193, 255, 0.2);
+      border-radius: 999px;
+      padding: 0.26rem 0.4rem 0.26rem 0.7rem;
+      background: rgba(255, 255, 255, 0.04);
+      min-height: 42px;
+    }
+
+    .control-group.grow {
+      flex: 1 1 280px;
+      min-width: 220px;
+    }
+
+    .control-group label {
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      white-space: nowrap;
+    }
+
+    .control-group input,
+    .control-group select {
+      border: none;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.85rem;
+      min-width: 0;
+      width: 100%;
+      outline: none;
+      padding: 0.2rem 0.3rem;
+    }
+
+    .control-group select option {
+      color: #0a1734;
+    }
+
+    .toggle-btn {
+      border: 1px solid rgba(160, 201, 255, 0.34);
+      border-radius: 999px;
+      min-height: 42px;
+      padding: 0.4rem 0.9rem;
+      background: linear-gradient(120deg, rgba(84, 188, 255, 0.2), rgba(84, 108, 255, 0.24));
+      color: #edf5ff;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+
+    .toggle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(84, 188, 255, 0.22);
+    }
+
+    .toggle-btn[data-off='true'] {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+
+    .filter-wrap {
+      display: flex;
+      gap: 0.45rem;
+      padding: 0.85rem 1.6rem 0.2rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .filter-btn {
+      border: 1px solid rgba(160, 201, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      padding: 0.36rem 0.72rem;
+      font-size: 0.78rem;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .filter-btn .count {
+      border: 1px solid rgba(171, 208, 255, 0.24);
+      border-radius: 999px;
+      padding: 0.1rem 0.4rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+    }
+
+    .filter-btn.active {
+      color: #f4f9ff;
+      background: linear-gradient(120deg, rgba(84, 188, 255, 0.28), rgba(84, 108, 255, 0.26));
+      border-color: rgba(177, 220, 255, 0.56);
+      box-shadow: 0 12px 20px rgba(84, 188, 255, 0.2);
+    }
+
+    .result-line {
+      padding: 0.7rem 1.6rem 0;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      display: flex;
+      gap: 0.42rem;
+      align-items: center;
       flex-wrap: wrap;
     }
-    .filter-btn {
-      padding: 8px 16px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 0.85rem;
+
+    .result-line strong {
+      font-family: 'IBM Plex Mono', monospace;
+      color: #eef5ff;
+      font-size: 0.82rem;
     }
-    .filter-btn:hover, .filter-btn.active {
-      background: rgba(0,210,255,0.3);
-      border-color: #00d2ff;
+
+    .result-line .focus {
+      color: #ffe8ba;
+      border: 1px solid rgba(255, 212, 140, 0.34);
+      border-radius: 999px;
+      padding: 0.15rem 0.52rem;
+      font-size: 0.72rem;
     }
-    .filter-btn .count {
-      background: rgba(255,255,255,0.2);
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-left: 6px;
-      font-size: 0.75rem;
-    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 1rem 1.6rem 1.8rem;
     }
+
     .card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
+      border: 1px solid rgba(161, 198, 255, 0.22);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(160deg, rgba(11, 23, 46, 0.88), rgba(10, 19, 40, 0.8));
+      box-shadow: 0 16px 26px rgba(1, 6, 21, 0.32);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      min-height: 355px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
+
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 34px rgba(1, 6, 21, 0.4);
+      border-color: rgba(188, 221, 255, 0.42);
     }
+
     .viewer {
-      width: 100%;
-      height: 250px;
-      background: #0f0f1a;
-      cursor: grab;
       position: relative;
+      height: 250px;
+      background:
+        radial-gradient(circle at 20% 14%, rgba(84, 188, 255, 0.15), transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(177, 84, 255, 0.12), transparent 40%),
+        #040b1d;
+      border-bottom: 1px solid rgba(180, 220, 255, 0.2);
+      cursor: grab;
     }
+
     .viewer:active { cursor: grabbing; }
+
     .viewer .loading {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #666;
+      color: var(--text-secondary);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
     }
+
     .info {
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.54rem;
+      padding: 0.9rem 1rem 1rem;
+      flex: 1;
     }
+
     .info h3 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      word-break: break-word;
+      font-size: 0.92rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
+      color: #d9e9ff;
+      word-break: break-all;
+      line-height: 1.45;
     }
-    .info .description {
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
+
+    .description {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      min-height: 2.4em;
     }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 0.38rem;
     }
+
     .tag {
-      background: rgba(255,255,255,0.1);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      color: #888;
+      border: 1px solid rgba(158, 201, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: #cfe2ff;
+      padding: 0.14rem 0.48rem;
+      font-size: 0.72rem;
     }
+
     .meta {
+      margin-top: auto;
+      border-top: 1px solid rgba(158, 201, 255, 0.18);
+      padding-top: 0.62rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
-      color: #666;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 12px;
-      margin-top: 12px;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
     }
-    .meta .format {
-      background: #3a7bd5;
-      color: #fff;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
+
+    .format {
+      border: 1px solid rgba(165, 206, 255, 0.4);
+      border-radius: 999px;
+      padding: 0.13rem 0.5rem;
+      color: #eef6ff;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
       text-transform: uppercase;
+      background: rgba(84, 188, 255, 0.14);
     }
+
     .empty-state {
+      border: 1px solid rgba(176, 211, 255, 0.24);
+      border-radius: var(--radius-md);
+      padding: 2.2rem 1.2rem;
       text-align: center;
-      padding: 60px 20px;
-      color: #666;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+      grid-column: 1 / -1;
     }
-    .empty-state h2 { margin-bottom: 10px; }
+
+    .empty-state h2 {
+      font-size: 1rem;
+      margin-bottom: 0.45rem;
+      color: #f2f8ff;
+    }
+
+    .empty-state p {
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .viewer-shell {
+        width: calc(100% - 1rem);
+        margin: 0.6rem auto 1rem;
+      }
+
+      .hero,
+      .control-panel,
+      .filter-wrap,
+      .result-line,
+      .grid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-top {
+        align-items: flex-start;
+      }
+
+      .control-group,
+      .control-group.grow,
+      .toggle-btn {
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>3D 에셋 뷰어</h1>
-    <p class="subtitle">art-assets/3d/ 폴더의 GLB/GLTF 파일 동적 로드</p>
-    <p class="controls">마우스 드래그: 회전 | 스크롤: 확대/축소 | 더블클릭: 리셋</p>
+  <div class="viewer-shell">
+    <header class="hero">
+      <div class="hero-top">
+        <a href="/gallery.html" class="back-link">갤러리로 돌아가기</a>
+        <p class="guide">드래그 회전 · 스크롤 확대/축소 · 더블클릭 초기화</p>
+      </div>
+      <h1>3D Studio Viewer</h1>
+      <p>태그 필터와 검색으로 모델을 빠르게 찾고, 카드 단위 미리보기로 즉시 확인하세요.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">총 모델 <strong id="totalCount">0</strong></div>
+        <div class="hero-stat">현재 표시 <strong id="resultCount">0</strong></div>
+        <div class="hero-stat">활성 필터 <strong id="activeFilterLabel">전체</strong></div>
+      </div>
+    </header>
 
-    <div class="filter-bar" id="filterBar"></div>
+    <section class="control-panel">
+      <div class="control-group grow">
+        <label for="searchInput">검색</label>
+        <input id="searchInput" type="text" placeholder="파일명, 설명, 태그 검색">
+      </div>
+      <div class="control-group">
+        <label for="sortSelect">정렬</label>
+        <select id="sortSelect">
+          <option value="latest">추가일 최신순</option>
+          <option value="name">이름 오름차순</option>
+        </select>
+      </div>
+      <button id="toggleRotate" class="toggle-btn" aria-pressed="true">오토 회전: 켜짐</button>
+    </section>
+
+    <div class="filter-wrap" id="filterBar"></div>
+
+    <p class="result-line">
+      검색 상태
+      <strong id="resultCountLine">0</strong>
+      <span>개 모델 표시 중</span>
+      <span class="focus" id="searchState">전체 보기</span>
+    </p>
+
     <div class="grid" id="grid"></div>
   </div>
 
@@ -173,97 +505,143 @@
 
     const grid = document.getElementById('grid');
     const filterBar = document.getElementById('filterBar');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const toggleRotate = document.getElementById('toggleRotate');
+    const totalCount = document.getElementById('totalCount');
+    const resultCount = document.getElementById('resultCount');
+    const resultCountLine = document.getElementById('resultCountLine');
+    const activeFilterLabel = document.getElementById('activeFilterLabel');
+    const searchState = document.getElementById('searchState');
 
     let allAssets = [];
     let activeFilter = 'all';
+    let searchKeyword = '';
+    let sortMode = 'latest';
+    let autoRotateEnabled = true;
+    let viewerControllers = [];
 
-    // assets.json에서 3D 에셋 로드
     async function loadAssets() {
       try {
         const response = await fetch('../assets.json');
         const data = await response.json();
 
-        // 3d 카테고리 필터링
         allAssets = data.assets.filter(asset => asset.category === '3d');
+        totalCount.textContent = String(allAssets.length);
 
         if (allAssets.length === 0) {
-          grid.innerHTML = `
-            <div class="empty-state">
-              <h2>3D 에셋이 없습니다</h2>
-              <p>assets.json에 category: "3d" 에셋을 추가하세요</p>
-            </div>
-          `;
+          showEmpty('3D 에셋이 없습니다.', 'assets.json에 category: "3d" 에셋을 추가하세요.');
           return;
         }
 
-        // 태그 기반 필터 버튼 생성
         createFilterButtons();
-
-        // 에셋 렌더링
-        renderAssets(allAssets);
-
+        applyFilters();
       } catch (error) {
-        console.error('Failed to load assets.json:', error);
-        grid.innerHTML = `
-          <div class="empty-state">
-            <h2>assets.json 로드 실패</h2>
-            <p>${error.message}</p>
-          </div>
-        `;
+        console.error('assets.json 로드 실패:', error);
+        showEmpty('assets.json 로드 실패', error.message || '파일을 확인하세요.');
       }
     }
 
-    // 태그 필터 버튼 생성
     function createFilterButtons() {
       const tagCounts = {};
-      allAssets.forEach(asset => {
-        (asset.tags || []).forEach(tag => {
+      allAssets.forEach((asset) => {
+        (asset.tags || []).forEach((tag) => {
           tagCounts[tag] = (tagCounts[tag] || 0) + 1;
         });
       });
 
-      // 가장 많이 사용된 태그 상위 8개
       const topTags = Object.entries(tagCounts)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 8);
+        .slice(0, 10);
 
       filterBar.innerHTML = `
         <button class="filter-btn active" data-filter="all">
-          전체<span class="count">${allAssets.length}</span>
+          전체 <span class="count">${allAssets.length}</span>
         </button>
       `;
 
       topTags.forEach(([tag, count]) => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.dataset.filter = tag;
-        btn.innerHTML = `${tag}<span class="count">${count}</span>`;
-        filterBar.appendChild(btn);
-      });
-
-      // 필터 이벤트
-      filterBar.addEventListener('click', (e) => {
-        const btn = e.target.closest('.filter-btn');
-        if (!btn) return;
-
-        filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        activeFilter = btn.dataset.filter;
-        const filtered = activeFilter === 'all'
-          ? allAssets
-          : allAssets.filter(a => (a.tags || []).includes(activeFilter));
-
-        renderAssets(filtered);
+        const button = document.createElement('button');
+        button.className = 'filter-btn';
+        button.dataset.filter = tag;
+        button.innerHTML = `${tag} <span class="count">${count}</span>`;
+        filterBar.appendChild(button);
       });
     }
 
-    // 에셋 카드 렌더링
+    function applyFilters() {
+      const filtered = allAssets
+        .filter((asset) => {
+          const tagMatch = activeFilter === 'all' || (asset.tags || []).includes(activeFilter);
+          const keyword = searchKeyword.trim().toLowerCase();
+          if (!keyword) return tagMatch;
+
+          const targetText = [
+            asset.id,
+            asset.description || '',
+            ...(asset.tags || [])
+          ].join(' ').toLowerCase();
+
+          return tagMatch && targetText.includes(keyword);
+        })
+        .sort(sortAssets);
+
+      renderAssets(filtered);
+      updateSummary(filtered.length);
+    }
+
+    function sortAssets(a, b) {
+      if (sortMode === 'name') {
+        return a.id.localeCompare(b.id, 'ko');
+      }
+
+      const dateA = Date.parse(a.addedDate || '1970-01-01');
+      const dateB = Date.parse(b.addedDate || '1970-01-01');
+      if (dateA === dateB) {
+        return a.id.localeCompare(b.id, 'ko');
+      }
+      return dateB - dateA;
+    }
+
+    function updateSummary(count) {
+      const activeButton = filterBar.querySelector('.filter-btn.active');
+      const label = activeButton ? activeButton.dataset.filter : 'all';
+      const displayLabel = label === 'all' ? '전체' : label;
+
+      resultCount.textContent = String(count);
+      resultCountLine.textContent = String(count);
+      activeFilterLabel.textContent = displayLabel;
+
+      if (searchKeyword.trim()) {
+        searchState.textContent = `검색어: ${searchKeyword.trim()}`;
+      } else {
+        searchState.textContent = `필터: ${displayLabel}`;
+      }
+    }
+
+    function showEmpty(title, message) {
+      cleanupViewers();
+      grid.innerHTML = `
+        <div class="empty-state">
+          <h2>${title}</h2>
+          <p>${message}</p>
+        </div>
+      `;
+      resultCount.textContent = '0';
+      resultCountLine.textContent = '0';
+    }
+
     function renderAssets(assets) {
+      cleanupViewers();
       grid.innerHTML = '';
 
-      assets.forEach((asset, index) => {
-        const card = document.createElement('div');
+      if (assets.length === 0) {
+        showEmpty('조건에 맞는 모델이 없습니다.', '필터를 바꾸거나 검색어를 지우고 다시 시도하세요.');
+        return;
+      }
+
+      assets.forEach((asset) => {
+        const card = document.createElement('article');
         card.className = 'card';
         card.innerHTML = `
           <div class="viewer" id="viewer-${asset.id}">
@@ -271,67 +649,69 @@
           </div>
           <div class="info">
             <h3>${asset.id}</h3>
-            <p class="description">${asset.description || ''}</p>
+            <p class="description">${asset.description || '설명 없음'}</p>
             <div class="tags">
-              ${(asset.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+              ${(asset.tags || []).slice(0, 6).map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
             <div class="meta">
-              <span>${asset.addedDate || ''}</span>
+              <span>${asset.addedDate || '날짜 없음'}</span>
               <span class="format">${asset.format || 'glb'}</span>
             </div>
           </div>
         `;
         grid.appendChild(card);
 
-        // Three.js 뷰어 초기화
         initViewer(asset);
       });
     }
 
-    // Three.js 뷰어 초기화
+    function cleanupViewers() {
+      viewerControllers.forEach((controller) => {
+        controller.resizeObserver.disconnect();
+        controller.visibilityObserver.disconnect();
+        cancelAnimationFrame(controller.frameId);
+        controller.controls.dispose();
+        controller.renderer.dispose();
+      });
+      viewerControllers = [];
+    }
+
     function initViewer(asset) {
       const container = document.getElementById(`viewer-${asset.id}`);
       if (!container) return;
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(
-        50,
-        container.clientWidth / container.clientHeight,
-        0.1,
-        100
-      );
-      camera.position.z = 3;
+      scene.background = new THREE.Color(0x040b1d);
+
+      const camera = new THREE.PerspectiveCamera(48, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(0, 0.8, 3.1);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(container.clientWidth, container.clientHeight);
       container.appendChild(renderer.domElement);
 
-      // 조명
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
+      const ambient = new THREE.AmbientLight(0xffffff, 0.68);
+      scene.add(ambient);
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(5, 5, 5);
-      scene.add(directionalLight);
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
+      keyLight.position.set(4, 5, 3);
+      scene.add(keyLight);
 
-      const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
-      backLight.position.set(-5, -5, -5);
-      scene.add(backLight);
+      const rim = new THREE.DirectionalLight(0x8fc4ff, 0.6);
+      rim.position.set(-4, 2, -3);
+      scene.add(rim);
 
-      // OrbitControls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
-      controls.dampingFactor = 0.05;
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 1.5;
+      controls.dampingFactor = 0.06;
+      controls.autoRotate = autoRotateEnabled;
+      controls.autoRotateSpeed = 1.3;
 
-      // 더블클릭으로 리셋
       renderer.domElement.addEventListener('dblclick', () => {
         controls.reset();
       });
 
-      // GLB/GLTF 로드
       const loader = new GLTFLoader();
       const modelPath = `../${asset.path}`;
 
@@ -339,73 +719,113 @@
         modelPath,
         (gltf) => {
           const model = gltf.scene;
-
-          // 모델 크기 정규화
           const box = new THREE.Box3().setFromObject(model);
           const size = box.getSize(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 1.5 / maxDim;
+          const maxDim = Math.max(size.x, size.y, size.z) || 1;
+          const scale = 1.65 / maxDim;
           model.scale.setScalar(scale);
 
-          // 중심 맞추기
           box.setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
           model.position.sub(center);
 
-          // 와이어프레임 에지 추가
           model.traverse((child) => {
-            if (child.isMesh) {
-              const edges = new THREE.EdgesGeometry(child.geometry, 15);
-              const line = new THREE.LineSegments(
-                edges,
-                new THREE.LineBasicMaterial({ color: 0x333333 })
+            if (child.isMesh && child.geometry) {
+              const edge = new THREE.EdgesGeometry(child.geometry, 16);
+              const edgeMesh = new THREE.LineSegments(
+                edge,
+                new THREE.LineBasicMaterial({ color: 0x1f3f63, transparent: true, opacity: 0.56 })
               );
-              child.add(line);
+              child.add(edgeMesh);
             }
           });
 
           scene.add(model);
 
-          // 로딩 표시 제거
           const loadingEl = container.querySelector('.loading');
           if (loadingEl) loadingEl.remove();
         },
         (progress) => {
-          // 로딩 진행률
           const loadingEl = container.querySelector('.loading');
           if (loadingEl && progress.total > 0) {
             const percent = Math.round((progress.loaded / progress.total) * 100);
-            loadingEl.textContent = `${percent}%`;
+            loadingEl.textContent = `로딩 ${percent}%`;
           }
         },
-        (error) => {
-          console.error('Error loading:', modelPath, error);
+        () => {
           const loadingEl = container.querySelector('.loading');
           if (loadingEl) {
             loadingEl.textContent = '로드 실패';
-            loadingEl.style.color = '#ff6b6b';
+            loadingEl.style.color = 'var(--danger)';
           }
         }
       );
 
-      // 애니메이션 루프
-      function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      }
-      animate();
+      let visible = true;
+      const visibilityObserver = new IntersectionObserver((entries) => {
+        visible = entries[0] ? entries[0].isIntersecting : true;
+      }, { threshold: 0.12 });
+      visibilityObserver.observe(container);
 
-      // 리사이즈 핸들러 (IntersectionObserver로 가시성 체크)
       const resizeObserver = new ResizeObserver(() => {
-        camera.aspect = container.clientWidth / container.clientHeight;
+        const width = container.clientWidth || 1;
+        const height = container.clientHeight || 1;
+        camera.aspect = width / height;
         camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setSize(width, height);
       });
       resizeObserver.observe(container);
+
+      const controller = {
+        controls,
+        renderer,
+        resizeObserver,
+        visibilityObserver,
+        frameId: 0
+      };
+
+      const animate = () => {
+        controller.frameId = requestAnimationFrame(animate);
+        if (!visible) return;
+        controls.autoRotate = autoRotateEnabled;
+        controls.update();
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      viewerControllers.push(controller);
     }
 
-    // 초기화
+    filterBar.addEventListener('click', (event) => {
+      const button = event.target.closest('.filter-btn');
+      if (!button) return;
+
+      filterBar.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      activeFilter = button.dataset.filter || 'all';
+      applyFilters();
+    });
+
+    searchInput.addEventListener('input', (event) => {
+      searchKeyword = event.target.value;
+      applyFilters();
+    });
+
+    sortSelect.addEventListener('change', (event) => {
+      sortMode = event.target.value;
+      applyFilters();
+    });
+
+    toggleRotate.addEventListener('click', () => {
+      autoRotateEnabled = !autoRotateEnabled;
+      toggleRotate.dataset.off = autoRotateEnabled ? 'false' : 'true';
+      toggleRotate.setAttribute('aria-pressed', autoRotateEnabled ? 'true' : 'false');
+      toggleRotate.textContent = autoRotateEnabled ? '오토 회전: 켜짐' : '오토 회전: 꺼짐';
+      viewerControllers.forEach((controller) => {
+        controller.controls.autoRotate = autoRotateEnabled;
+      });
+    });
+
     loadAssets();
   </script>
 </body>

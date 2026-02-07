@@ -92,7 +92,7 @@ function generateHTML() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Assets Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -640,6 +640,295 @@ function generateHTML() {
       color: #fff;
     }
 
+    /* === Design Refresh === */
+    :root {
+      --surface-0: #eef3e7;
+      --surface-1: rgba(255, 255, 255, 0.88);
+      --surface-2: #e1e8d8;
+      --surface-3: #d4ddca;
+      --border: rgba(23, 33, 52, 0.18);
+      --border-light: rgba(23, 33, 52, 0.1);
+      --text-primary: #172134;
+      --text-secondary: #33415b;
+      --text-muted: #64708b;
+      --accent: #0666d1;
+      --accent-light: #d7e8ff;
+      --accent-hover: #074fa0;
+      --success: #0d7a4f;
+      --success-light: #dbfaec;
+      --warning: #b76e1f;
+      --warning-light: #fff4e3;
+      --danger: #b42330;
+      --danger-light: #fde7ea;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 10px 24px rgba(27, 42, 79, 0.08);
+      --shadow-md: 0 22px 36px rgba(27, 42, 79, 0.14);
+      --shadow-lg: 0 32px 66px rgba(27, 42, 79, 0.2);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans KR', sans-serif;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(74, 170, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 88% 14%, rgba(255, 186, 86, 0.34), transparent 34%),
+        linear-gradient(160deg, #eef3e7 0%, #dde6d2 48%, #d6e2cf 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.35;
+      background:
+        linear-gradient(90deg, rgba(23, 33, 52, 0.07) 1px, transparent 1px) 0 0 / 22px 22px,
+        linear-gradient(0deg, rgba(23, 33, 52, 0.05) 1px, transparent 1px) 0 0 / 22px 22px;
+      pointer-events: none;
+    }
+
+    .header {
+      margin: 1rem 1.4rem 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 26px 26px 0 0;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.76));
+      box-shadow: 0 16px 28px rgba(23, 33, 52, 0.12);
+      padding: 0 1.4rem;
+    }
+
+    .header-content {
+      max-width: 1460px;
+      height: 74px;
+      padding: 0;
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .header h1 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .header-note {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      opacity: 0.92;
+      letter-spacing: 0.03em;
+    }
+
+    .header .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      border: 1px solid rgba(6, 102, 209, 0.28);
+      padding: 0.25rem 0.72rem;
+      background: rgba(240, 247, 255, 0.8);
+    }
+
+    .search-box input {
+      width: 340px;
+      border: 1px solid rgba(23, 33, 52, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+    }
+
+    .search-box input:focus {
+      box-shadow:
+        0 0 0 3px rgba(6, 102, 209, 0.15),
+        0 10px 22px rgba(6, 102, 209, 0.12);
+    }
+
+    .tabs {
+      margin: 0 1.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(245, 249, 240, 0.86));
+      padding: 0 1.4rem;
+    }
+
+    .tabs-inner {
+      gap: 0.42rem;
+      padding: 0.7rem 0 0.8rem;
+    }
+
+    .tab {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      transition: all var(--transition);
+    }
+
+    .tab:hover {
+      border-color: rgba(23, 33, 52, 0.16);
+      background: rgba(255, 255, 255, 0.72);
+      transform: translateY(-1px);
+    }
+
+    .tab.active {
+      border-color: rgba(6, 102, 209, 0.44);
+      background: linear-gradient(120deg, rgba(230, 243, 255, 0.95), rgba(217, 236, 255, 0.88));
+      box-shadow: 0 8px 16px rgba(6, 102, 209, 0.12);
+    }
+
+    .container {
+      max-width: 1460px;
+      padding: 1.15rem 2.8rem 3.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 26px 26px;
+      margin: 0 1.4rem 2rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(242, 247, 237, 0.78));
+      box-shadow: 0 24px 48px rgba(23, 33, 52, 0.16);
+    }
+
+    .insight-bar {
+      margin: 0 1.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      background: linear-gradient(120deg, rgba(23, 33, 52, 0.92), rgba(35, 70, 124, 0.9));
+      padding: 0.8rem 1.4rem 0.9rem;
+    }
+
+    .insight-inner {
+      max-width: 1460px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .insight-chip {
+      border: 1px solid rgba(208, 226, 252, 0.35);
+      background: rgba(228, 240, 255, 0.09);
+      border-radius: 999px;
+      color: #ecf4ff;
+      padding: 0.35rem 0.82rem;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.44rem;
+    }
+
+    .insight-chip strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .insight-label {
+      font-size: 0.72rem;
+      opacity: 0.86;
+      letter-spacing: 0.02em;
+    }
+
+    .insight-link {
+      margin-left: auto;
+      text-decoration: none;
+      color: #fef8ea;
+      border: 1px solid rgba(255, 220, 124, 0.48);
+      border-radius: 999px;
+      padding: 0.42rem 0.95rem;
+      background: linear-gradient(120deg, rgba(254, 178, 45, 0.4), rgba(255, 206, 96, 0.28));
+      transition: transform var(--transition), box-shadow var(--transition);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .insight-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(255, 186, 45, 0.22);
+    }
+
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border: 1px solid rgba(23, 33, 52, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 242, 0.92));
+      box-shadow: 0 10px 22px rgba(23, 33, 52, 0.12);
+      animation: card-enter 0.5s ease both;
+    }
+
+    .card:nth-child(3n) {
+      animation-delay: 0.05s;
+    }
+
+    .card:nth-child(4n) {
+      animation-delay: 0.09s;
+    }
+
+    .card-preview {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(6, 102, 209, 0.14), transparent 50%),
+        linear-gradient(160deg, #eff5ea 0%, #e3ebd9 100%);
+    }
+
+    .card-name {
+      font-family: 'IBM Plex Mono', monospace;
+      color: #3b4a65;
+    }
+
+    .tag {
+      border: 1px solid rgba(23, 33, 52, 0.1);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .btn-copy,
+    .btn-archive,
+    .btn-restore {
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 0.46rem 0.54rem;
+    }
+
+    .btn-copy {
+      border-color: rgba(23, 33, 52, 0.2);
+      background: rgba(255, 255, 255, 0.88);
+      color: #293347;
+    }
+
+    .btn-copy:hover {
+      background: linear-gradient(120deg, #0666d1, #3d9cff);
+      border-color: transparent;
+      box-shadow: 0 10px 18px rgba(6, 102, 209, 0.22);
+    }
+
+    .archived-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      background: linear-gradient(120deg, #b76e1f, #d39a4d);
+      box-shadow: 0 8px 16px rgba(183, 110, 31, 0.26);
+    }
+
+    .toast {
+      background: linear-gradient(120deg, #172134, #224a80);
+      border: 1px solid rgba(213, 230, 255, 0.22);
+    }
+
+    @keyframes card-enter {
+      from {
+        transform: translateY(14px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
     /* === Scrollbar === */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -648,17 +937,25 @@ function generateHTML() {
 
     /* === Responsive === */
     @media (max-width: 768px) {
-      .header-content { padding: 0 1rem; height: 56px; }
-      .tabs { padding: 0 1rem; }
-      .container { padding: 1rem; }
-      .search-box input { width: 180px; }
+      .header { margin: 0.7rem 0.7rem 0; padding: 0 0.85rem; border-radius: 20px 20px 0 0; }
+      .tabs { margin: 0 0.7rem; padding: 0 0.85rem; }
+      .insight-bar { margin: 0 0.7rem; padding: 0.75rem 0.85rem 0.85rem; }
+      .container { margin: 0 0.7rem 1.2rem; padding: 1rem; border-radius: 0 0 20px 20px; }
+      .header-content { height: auto; min-height: 60px; padding: 0.55rem 0; }
+      .search-box input { width: 220px; }
+      .insight-link { margin-left: 0; }
       .grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.75rem; }
       .card-preview { height: 120px; }
     }
 
     @media (max-width: 480px) {
-      .header-content { flex-direction: column; height: auto; padding: 0.75rem 1rem; gap: 0.5rem; }
+      .header-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .header-left { width: 100%; justify-content: space-between; }
+      .search-box { width: 100%; }
       .search-box input { width: 100%; }
+      .insight-inner { align-items: stretch; }
+      .insight-chip { width: 100%; justify-content: space-between; }
+      .insight-link { width: 100%; text-align: center; }
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -667,12 +964,15 @@ function generateHTML() {
   <header class="header">
     <div class="header-content">
       <div class="header-left">
-        <h1>Art Assets Gallery</h1>
+        <div class="title-wrap">
+          <h1>Art Assets Gallery</h1>
+          <p class="header-note">수업 제작용 에셋 라이브러리</p>
+        </div>
         <span class="badge">${totalCount}개</span>
       </div>
       <div class="search-box">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="search" placeholder="태그, 설명, 파일명으로 검색..." />
+        <input type="text" id="search" placeholder="태그, 설명, 파일명 검색" />
       </div>
     </div>
   </header>
@@ -686,10 +986,24 @@ ${categoryOrder.filter(cat => categoryMap[cat]).map(cat => `      <button class=
         ${getCategoryLabel(cat)} <span class="count">${categoryMap[cat].length}</span>
       </button>`).join('\n')}
       <button class="tab" data-category="archived">
-        Archived <span class="count">${archivedCount}</span>
+        아카이브 <span class="count">${archivedCount}</span>
       </button>
     </div>
   </nav>
+
+  <section class="insight-bar">
+    <div class="insight-inner">
+      <div class="insight-chip">
+        <span class="insight-label">현재 필터</span>
+        <strong id="active-filter-label">전체</strong>
+      </div>
+      <div class="insight-chip">
+        <span class="insight-label">노출 에셋</span>
+        <strong><span id="visible-count">${totalCount}</span>개</strong>
+      </div>
+      <a class="insight-link" href="/3d/viewer.html">3D 뷰어 열기</a>
+    </div>
+  </section>
 
   <main class="container">
     <div class="grid" id="gallery">
@@ -724,6 +1038,8 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
     const searchInput = document.getElementById('search');
     const noResults = document.getElementById('no-results');
     const toast = document.getElementById('toast');
+    const visibleCount = document.getElementById('visible-count');
+    const activeFilterLabel = document.getElementById('active-filter-label');
 
     // Modal elements
     const modalOverlay = document.getElementById('modal-overlay');
@@ -753,8 +1069,16 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
       filterCards();
     });
 
+    function updateInsights(count) {
+      const activeTab = document.querySelector('.tab.active');
+      const labelNode = activeTab ? activeTab.childNodes[0] : null;
+      const labelText = labelNode ? labelNode.textContent.trim() : '전체';
+      visibleCount.textContent = String(count);
+      activeFilterLabel.textContent = currentSearch ? labelText + ' · 검색 적용' : labelText;
+    }
+
     function filterCards() {
-      let visibleCount = 0;
+      let matchedCount = 0;
 
       cards.forEach(card => {
         const category = card.dataset.category;
@@ -779,23 +1103,27 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
 
         if (categoryMatch && searchMatch) {
           card.classList.remove('hidden');
-          visibleCount++;
+          matchedCount++;
         } else {
           card.classList.add('hidden');
         }
       });
 
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      noResults.style.display = matchedCount === 0 ? 'block' : 'none';
+      noResults.textContent = currentSearch
+        ? '검색 결과가 없습니다. 다른 태그나 키워드로 시도해보세요.'
+        : '조건에 맞는 에셋이 없습니다.';
+      updateInsights(matchedCount);
     }
 
     // 경로 복사
     function copyPath(path, btn) {
       navigator.clipboard.writeText(path).then(() => {
-        btn.textContent = 'Copied!';
+        btn.textContent = '복사 완료';
         btn.classList.add('copied');
         showToast(path);
         setTimeout(() => {
-          btn.textContent = 'Copy Path';
+          btn.textContent = '경로 복사';
           btn.classList.remove('copied');
         }, 1500);
       });
@@ -893,6 +1221,8 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
         closeModal();
       }
     });
+
+    updateInsights(${totalCount});
   </script>
 </body>
 </html>`;
@@ -900,12 +1230,12 @@ ${archivedAssets.map(asset => generateCard(asset, true)).join('\n')}
 
 function getCategoryLabel(category) {
   const labels = {
-    icons: 'Icons',
-    illustrations: 'Illustrations',
-    diagrams: 'Diagrams',
-    backgrounds: 'Backgrounds',
-    photos: 'Photos',
-    '3d': '3D Models'
+    icons: '아이콘',
+    illustrations: '일러스트',
+    diagrams: '다이어그램',
+    backgrounds: '배경',
+    photos: '사진',
+    '3d': '3D 모델'
   };
   return labels[category] || category;
 }
@@ -924,18 +1254,18 @@ function generateCard(asset, isArchived = false) {
   }
 
   // Archived badge
-  const archivedBadge = isArchived ? `<span class="archived-badge">Archived</span>` : '';
+  const archivedBadge = isArchived ? `<span class="archived-badge">아카이브됨</span>` : '';
 
   // Action buttons
   let actionButtons;
   if (isArchived) {
     actionButtons = `
-            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
-            <button class="btn-restore" onclick="showRestoreModal('${asset.id}')">Restore</button>`;
+            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">경로 복사</button>
+            <button class="btn-restore" onclick="showRestoreModal('${asset.id}')">복원</button>`;
   } else {
     actionButtons = `
-            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('${asset.id}')">Archive</button>`;
+            <button class="btn-copy" onclick="copyPath('${asset.path}', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('${asset.id}')">아카이브</button>`;
   }
 
   return `      <div class="card" data-category="${asset.category}" data-tags="${asset.tags.join(' ')}" data-desc="${asset.description}" data-name="${asset.id}" data-archived="${isArchived}">

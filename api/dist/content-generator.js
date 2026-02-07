@@ -308,7 +308,14 @@ async function generateContentWithZai(jobId, request, moduleId, rootDir, prompt)
         model: model || undefined,
         label: 'GEN'
     });
-    const files = (0, zai_output_1.parseZaiOutput)(content, moduleId);
+    let files;
+    try {
+        files = (0, zai_output_1.parseZaiOutput)(content, moduleId);
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : '알 수 없는 파싱 오류';
+        throw new Error(`생성 결과 파싱 실패: ${message}`);
+    }
     await writeGeneratedFiles(rootDir, files);
     files.forEach((file) => {
         (0, logger_1.log)('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);
@@ -383,7 +390,14 @@ async function runContentFix(prompt, rootDir, moduleId, review, deterministic) {
         model: model || undefined,
         label: 'FIX'
     });
-    const updatedFiles = (0, zai_output_1.parseZaiFiles)(fixText, { moduleId, requireAll: false });
+    let updatedFiles;
+    try {
+        updatedFiles = (0, zai_output_1.parseZaiFiles)(fixText, { moduleId, requireAll: false });
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : '알 수 없는 파싱 오류';
+        throw new Error(`리뷰 자동수정 결과 파싱 실패: ${message}`);
+    }
     await writeGeneratedFiles(rootDir, updatedFiles);
     updatedFiles.forEach((file) => {
         (0, logger_1.log)('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);

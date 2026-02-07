@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Assets Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -553,6 +553,295 @@
       color: #fff;
     }
 
+    /* === Design Refresh === */
+    :root {
+      --surface-0: #eef3e7;
+      --surface-1: rgba(255, 255, 255, 0.88);
+      --surface-2: #e1e8d8;
+      --surface-3: #d4ddca;
+      --border: rgba(23, 33, 52, 0.18);
+      --border-light: rgba(23, 33, 52, 0.1);
+      --text-primary: #172134;
+      --text-secondary: #33415b;
+      --text-muted: #64708b;
+      --accent: #0666d1;
+      --accent-light: #d7e8ff;
+      --accent-hover: #074fa0;
+      --success: #0d7a4f;
+      --success-light: #dbfaec;
+      --warning: #b76e1f;
+      --warning-light: #fff4e3;
+      --danger: #b42330;
+      --danger-light: #fde7ea;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 10px 24px rgba(27, 42, 79, 0.08);
+      --shadow-md: 0 22px 36px rgba(27, 42, 79, 0.14);
+      --shadow-lg: 0 32px 66px rgba(27, 42, 79, 0.2);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans KR', sans-serif;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(74, 170, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 88% 14%, rgba(255, 186, 86, 0.34), transparent 34%),
+        linear-gradient(160deg, #eef3e7 0%, #dde6d2 48%, #d6e2cf 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.35;
+      background:
+        linear-gradient(90deg, rgba(23, 33, 52, 0.07) 1px, transparent 1px) 0 0 / 22px 22px,
+        linear-gradient(0deg, rgba(23, 33, 52, 0.05) 1px, transparent 1px) 0 0 / 22px 22px;
+      pointer-events: none;
+    }
+
+    .header {
+      margin: 1rem 1.4rem 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 26px 26px 0 0;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.76));
+      box-shadow: 0 16px 28px rgba(23, 33, 52, 0.12);
+      padding: 0 1.4rem;
+    }
+
+    .header-content {
+      max-width: 1460px;
+      height: 74px;
+      padding: 0;
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .header h1 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .header-note {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      opacity: 0.92;
+      letter-spacing: 0.03em;
+    }
+
+    .header .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      border: 1px solid rgba(6, 102, 209, 0.28);
+      padding: 0.25rem 0.72rem;
+      background: rgba(240, 247, 255, 0.8);
+    }
+
+    .search-box input {
+      width: 340px;
+      border: 1px solid rgba(23, 33, 52, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+    }
+
+    .search-box input:focus {
+      box-shadow:
+        0 0 0 3px rgba(6, 102, 209, 0.15),
+        0 10px 22px rgba(6, 102, 209, 0.12);
+    }
+
+    .tabs {
+      margin: 0 1.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(245, 249, 240, 0.86));
+      padding: 0 1.4rem;
+    }
+
+    .tabs-inner {
+      gap: 0.42rem;
+      padding: 0.7rem 0 0.8rem;
+    }
+
+    .tab {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      transition: all var(--transition);
+    }
+
+    .tab:hover {
+      border-color: rgba(23, 33, 52, 0.16);
+      background: rgba(255, 255, 255, 0.72);
+      transform: translateY(-1px);
+    }
+
+    .tab.active {
+      border-color: rgba(6, 102, 209, 0.44);
+      background: linear-gradient(120deg, rgba(230, 243, 255, 0.95), rgba(217, 236, 255, 0.88));
+      box-shadow: 0 8px 16px rgba(6, 102, 209, 0.12);
+    }
+
+    .container {
+      max-width: 1460px;
+      padding: 1.15rem 2.8rem 3.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 26px 26px;
+      margin: 0 1.4rem 2rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(242, 247, 237, 0.78));
+      box-shadow: 0 24px 48px rgba(23, 33, 52, 0.16);
+    }
+
+    .insight-bar {
+      margin: 0 1.4rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      background: linear-gradient(120deg, rgba(23, 33, 52, 0.92), rgba(35, 70, 124, 0.9));
+      padding: 0.8rem 1.4rem 0.9rem;
+    }
+
+    .insight-inner {
+      max-width: 1460px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .insight-chip {
+      border: 1px solid rgba(208, 226, 252, 0.35);
+      background: rgba(228, 240, 255, 0.09);
+      border-radius: 999px;
+      color: #ecf4ff;
+      padding: 0.35rem 0.82rem;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.44rem;
+    }
+
+    .insight-chip strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .insight-label {
+      font-size: 0.72rem;
+      opacity: 0.86;
+      letter-spacing: 0.02em;
+    }
+
+    .insight-link {
+      margin-left: auto;
+      text-decoration: none;
+      color: #fef8ea;
+      border: 1px solid rgba(255, 220, 124, 0.48);
+      border-radius: 999px;
+      padding: 0.42rem 0.95rem;
+      background: linear-gradient(120deg, rgba(254, 178, 45, 0.4), rgba(255, 206, 96, 0.28));
+      transition: transform var(--transition), box-shadow var(--transition);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .insight-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(255, 186, 45, 0.22);
+    }
+
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border: 1px solid rgba(23, 33, 52, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 242, 0.92));
+      box-shadow: 0 10px 22px rgba(23, 33, 52, 0.12);
+      animation: card-enter 0.5s ease both;
+    }
+
+    .card:nth-child(3n) {
+      animation-delay: 0.05s;
+    }
+
+    .card:nth-child(4n) {
+      animation-delay: 0.09s;
+    }
+
+    .card-preview {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(6, 102, 209, 0.14), transparent 50%),
+        linear-gradient(160deg, #eff5ea 0%, #e3ebd9 100%);
+    }
+
+    .card-name {
+      font-family: 'IBM Plex Mono', monospace;
+      color: #3b4a65;
+    }
+
+    .tag {
+      border: 1px solid rgba(23, 33, 52, 0.1);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .btn-copy,
+    .btn-archive,
+    .btn-restore {
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 0.46rem 0.54rem;
+    }
+
+    .btn-copy {
+      border-color: rgba(23, 33, 52, 0.2);
+      background: rgba(255, 255, 255, 0.88);
+      color: #293347;
+    }
+
+    .btn-copy:hover {
+      background: linear-gradient(120deg, #0666d1, #3d9cff);
+      border-color: transparent;
+      box-shadow: 0 10px 18px rgba(6, 102, 209, 0.22);
+    }
+
+    .archived-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      background: linear-gradient(120deg, #b76e1f, #d39a4d);
+      box-shadow: 0 8px 16px rgba(183, 110, 31, 0.26);
+    }
+
+    .toast {
+      background: linear-gradient(120deg, #172134, #224a80);
+      border: 1px solid rgba(213, 230, 255, 0.22);
+    }
+
+    @keyframes card-enter {
+      from {
+        transform: translateY(14px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
     /* === Scrollbar === */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -561,17 +850,25 @@
 
     /* === Responsive === */
     @media (max-width: 768px) {
-      .header-content { padding: 0 1rem; height: 56px; }
-      .tabs { padding: 0 1rem; }
-      .container { padding: 1rem; }
-      .search-box input { width: 180px; }
+      .header { margin: 0.7rem 0.7rem 0; padding: 0 0.85rem; border-radius: 20px 20px 0 0; }
+      .tabs { margin: 0 0.7rem; padding: 0 0.85rem; }
+      .insight-bar { margin: 0 0.7rem; padding: 0.75rem 0.85rem 0.85rem; }
+      .container { margin: 0 0.7rem 1.2rem; padding: 1rem; border-radius: 0 0 20px 20px; }
+      .header-content { height: auto; min-height: 60px; padding: 0.55rem 0; }
+      .search-box input { width: 220px; }
+      .insight-link { margin-left: 0; }
       .grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.75rem; }
       .card-preview { height: 120px; }
     }
 
     @media (max-width: 480px) {
-      .header-content { flex-direction: column; height: auto; padding: 0.75rem 1rem; gap: 0.5rem; }
+      .header-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .header-left { width: 100%; justify-content: space-between; }
+      .search-box { width: 100%; }
       .search-box input { width: 100%; }
+      .insight-inner { align-items: stretch; }
+      .insight-chip { width: 100%; justify-content: space-between; }
+      .insight-link { width: 100%; text-align: center; }
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -580,12 +877,15 @@
   <header class="header">
     <div class="header-content">
       <div class="header-left">
-        <h1>Art Assets Gallery</h1>
+        <div class="title-wrap">
+          <h1>Art Assets Gallery</h1>
+          <p class="header-note">수업 제작용 에셋 라이브러리</p>
+        </div>
         <span class="badge">158개</span>
       </div>
       <div class="search-box">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="search" placeholder="태그, 설명, 파일명으로 검색..." />
+        <input type="text" id="search" placeholder="태그, 설명, 파일명 검색" />
       </div>
     </div>
   </header>
@@ -596,25 +896,39 @@
         전체 <span class="count">158</span>
       </button>
       <button class="tab" data-category="icons">
-        Icons <span class="count">34</span>
+        아이콘 <span class="count">34</span>
       </button>
       <button class="tab" data-category="illustrations">
-        Illustrations <span class="count">38</span>
+        일러스트 <span class="count">38</span>
       </button>
       <button class="tab" data-category="diagrams">
-        Diagrams <span class="count">34</span>
+        다이어그램 <span class="count">34</span>
       </button>
       <button class="tab" data-category="backgrounds">
-        Backgrounds <span class="count">27</span>
+        배경 <span class="count">27</span>
       </button>
       <button class="tab" data-category="3d">
-        3D Models <span class="count">25</span>
+        3D 모델 <span class="count">25</span>
       </button>
       <button class="tab" data-category="archived">
-        Archived <span class="count">1</span>
+        아카이브 <span class="count">1</span>
       </button>
     </div>
   </nav>
+
+  <section class="insight-bar">
+    <div class="insight-inner">
+      <div class="insight-chip">
+        <span class="insight-label">현재 필터</span>
+        <strong id="active-filter-label">전체</strong>
+      </div>
+      <div class="insight-chip">
+        <span class="insight-label">노출 에셋</span>
+        <strong><span id="visible-count">158</span>개</strong>
+      </div>
+      <a class="insight-link" href="/3d/viewer.html">3D 뷰어 열기</a>
+    </div>
+  </section>
 
   <main class="container">
     <div class="grid" id="gallery">
@@ -628,8 +942,8 @@
           <div class="card-desc">기초 산수 연산자 아이콘</div>
           <div class="card-tags"><span class="tag">arithmetic</span><span class="tag">math</span><span class="tag">elementary</span><span class="tag">plus</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-arithmetic-basic-color-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-arithmetic-basic-color-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-arithmetic-basic-color-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-arithmetic-basic-color-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -643,8 +957,8 @@
           <div class="card-desc">재미있는 숫자 1-2-3 스타일</div>
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">123</span><span class="tag">elementary</span><span class="tag">fun</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-numbers-fun-flat-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-numbers-fun-flat-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-numbers-fun-flat-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-numbers-fun-flat-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -658,8 +972,8 @@
           <div class="card-desc">기본 기하학 도형 아이콘</div>
           <div class="card-tags"><span class="tag">shapes</span><span class="tag">geometry</span><span class="tag">elementary</span><span class="tag">basic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-shapes-primary-bold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-shapes-primary-bold-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-shapes-primary-bold-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-shapes-primary-bold-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -673,8 +987,8 @@
           <div class="card-desc">사과 세기 일러스트</div>
           <div class="card-tags"><span class="tag">counting</span><span class="tag">apples</span><span class="tag">elementary</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-counting-apples-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-counting-apples-modern-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-counting-apples-modern-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-counting-apples-modern-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -688,8 +1002,8 @@
           <div class="card-desc">시간 학습용 간단한 아날로그 시계</div>
           <div class="card-tags"><span class="tag">clock</span><span class="tag">time</span><span class="tag">elementary</span><span class="tag">learning</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-clock-learning-simple-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-clock-learning-simple-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-clock-learning-simple-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-clock-learning-simple-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -703,8 +1017,8 @@
           <div class="card-desc">3등분 분수 파이 차트</div>
           <div class="card-tags"><span class="tag">fraction</span><span class="tag">pie</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-fraction-pie-thirds-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-fraction-pie-thirds-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-fraction-pie-thirds-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-fraction-pie-thirds-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -718,8 +1032,8 @@
           <div class="card-desc">깔끔한 좌표평면 그리드</div>
           <div class="card-tags"><span class="tag">coordinate</span><span class="tag">plane</span><span class="tag">xy-axis</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-coordinate-plane-clean-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-coordinate-plane-clean-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-coordinate-plane-clean-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-coordinate-plane-clean-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -733,8 +1047,8 @@
           <div class="card-desc">기하학 각도 종류 아이콘</div>
           <div class="card-tags"><span class="tag">angles</span><span class="tag">geometry</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-angles-geometry-blue-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-angles-geometry-blue-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-angles-geometry-blue-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-angles-geometry-blue-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -748,8 +1062,8 @@
           <div class="card-desc">높이와 밑변이 표시된 삼각형</div>
           <div class="card-tags"><span class="tag">triangle</span><span class="tag">area</span><span class="tag">geometry</span><span class="tag">middle-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-triangle-area-labeled-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-triangle-area-labeled-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-triangle-area-labeled-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-triangle-area-labeled-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -763,8 +1077,8 @@
           <div class="card-desc">확률 학습용 주사위 쌍</div>
           <div class="card-tags"><span class="tag">probability</span><span class="tag">dice</span><span class="tag">middle-school</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-probability-dice-pair-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-probability-dice-pair-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-probability-dice-pair-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-probability-dice-pair-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -778,8 +1092,8 @@
           <div class="card-desc">포물선 그래프 다이어그램</div>
           <div class="card-tags"><span class="tag">parabola</span><span class="tag">function</span><span class="tag">high-school</span><span class="tag">algebra</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-parabola-graph-gradient-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-parabola-graph-gradient-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-parabola-graph-gradient-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-parabola-graph-gradient-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -793,8 +1107,8 @@
           <div class="card-desc">단위 원 삼각함수 다이어그램</div>
           <div class="card-tags"><span class="tag">unit-circle</span><span class="tag">trigonometry</span><span class="tag">high-school</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-unit-circle-trig-dark-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-unit-circle-trig-dark-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-unit-circle-trig-dark-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-unit-circle-trig-dark-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -808,8 +1122,8 @@
           <div class="card-desc">세련된 시그마 합계 기호</div>
           <div class="card-tags"><span class="tag">sigma</span><span class="tag">summation</span><span class="tag">math</span><span class="tag">symbol</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-sigma-summation-sleek-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-sigma-summation-sleek-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-sigma-summation-sleek-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-sigma-summation-sleek-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -823,8 +1137,8 @@
           <div class="card-desc">와이어프레임 3D 입체 도형</div>
           <div class="card-tags"><span class="tag">solid</span><span class="tag">3d</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-solid-shapes-3d-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-solid-shapes-3d-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-solid-shapes-3d-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-solid-shapes-3d-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -838,8 +1152,8 @@
           <div class="card-desc">곡선 아래 적분 넓이 다이어그램</div>
           <div class="card-tags"><span class="tag">integral</span><span class="tag">calculus</span><span class="tag">high-school</span><span class="tag">area</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-integral-curve-filled-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-integral-curve-filled-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-integral-curve-filled-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-integral-curve-filled-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -853,8 +1167,8 @@
           <div class="card-desc">파란색 질감 모눈종이 배경</div>
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">texture</span><span class="tag">background</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-blue-textured-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-blue-textured-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-blue-textured-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-blue-textured-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -868,8 +1182,8 @@
           <div class="card-desc">은은한 수학 공식 오버레이 배경</div>
           <div class="card-tags"><span class="tag">formulas</span><span class="tag">math</span><span class="tag">overlay</span><span class="tag">background</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-math-formulas-overlay-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-math-formulas-overlay-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-math-formulas-overlay-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-math-formulas-overlay-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -883,8 +1197,8 @@
           <div class="card-desc">공학용 계산기 일러스트</div>
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">scientific</span><span class="tag">tool</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-scientific-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-scientific-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-scientific-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-scientific-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -898,8 +1212,8 @@
           <div class="card-desc">클래식 기하학 도구 세트</div>
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">tools</span><span class="tag">ruler</span><span class="tag">compass</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-geometry-set-classic-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-geometry-set-classic-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-geometry-set-classic-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-geometry-set-classic-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -913,8 +1227,8 @@
           <div class="card-desc">예술적인 수학 기호 모음</div>
           <div class="card-tags"><span class="tag">symbols</span><span class="tag">math</span><span class="tag">collection</span><span class="tag">art</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-math-symbols-collection-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-math-symbols-collection-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-math-symbols-collection-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-math-symbols-collection-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -928,8 +1242,8 @@
           <div class="card-desc">정규 분포 종모양 곡선 다이어그램</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">normal-distribution</span><span class="tag">bell-curve</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-normal-distribution-curve-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-normal-distribution-curve-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-normal-distribution-curve-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-normal-distribution-curve-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -943,8 +1257,8 @@
           <div class="card-desc">상자 수염 그림 다이어그램</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">box-plot</span><span class="tag">chart</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-box-whisker-plot-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-box-whisker-plot-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-box-whisker-plot-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-box-whisker-plot-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -958,8 +1272,8 @@
           <div class="card-desc">추세선이 있는 산점도</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">scatter-plot</span><span class="tag">trendline</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-scatter-plot-trendline-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-scatter-plot-trendline-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-scatter-plot-trendline-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-scatter-plot-trendline-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -973,8 +1287,8 @@
           <div class="card-desc">히스토그램 도수 분포 차트</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">histogram</span><span class="tag">bar-chart</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-histogram-frequency-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-histogram-frequency-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-histogram-frequency-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-histogram-frequency-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -988,8 +1302,8 @@
           <div class="card-desc">벤 다이어그램 교집합</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">venn-diagram</span><span class="tag">set-theory</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-diagram-intersection-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-diagram-intersection-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-diagram-intersection-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-diagram-intersection-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1003,8 +1317,8 @@
           <div class="card-desc">행렬 변환 그리드</div>
           <div class="card-tags"><span class="tag">matrix</span><span class="tag">advanced</span><span class="tag">algebra</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-matrix-grid-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-matrix-grid-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-matrix-grid-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-matrix-grid-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1018,8 +1332,8 @@
           <div class="card-desc">복소 평면 아르강 다이어그램</div>
           <div class="card-tags"><span class="tag">complex-numbers</span><span class="tag">argand</span><span class="tag">advanced</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-complex-plane-argand-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-complex-plane-argand-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-complex-plane-argand-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-complex-plane-argand-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1033,8 +1347,8 @@
           <div class="card-desc">미적분 극한 개념 다이어그램</div>
           <div class="card-tags"><span class="tag">calculus</span><span class="tag">limit</span><span class="tag">function</span><span class="tag">advanced</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-limit-function-20260124.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-limit-function-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-limit-function-20260124.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-limit-function-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1048,8 +1362,8 @@
           <div class="card-desc">귀여운 홈 버튼 아이콘</div>
           <div class="card-tags"><span class="tag">home</span><span class="tag">house</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-home-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-home-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-home-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-home-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1063,8 +1377,8 @@
           <div class="card-desc">귀여운 뒤로가기 화살표 아이콘</div>
           <div class="card-tags"><span class="tag">back</span><span class="tag">arrow</span><span class="tag">navigation</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-back-arrow-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-back-arrow-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-back-arrow-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-back-arrow-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1078,8 +1392,8 @@
           <div class="card-desc">귀여운 별 보상 아이콘</div>
           <div class="card-tags"><span class="tag">star</span><span class="tag">reward</span><span class="tag">achievement</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-star-reward-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-star-reward-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-star-reward-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-star-reward-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1093,8 +1407,8 @@
           <div class="card-desc">귀여운 트로피 성취 아이콘</div>
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">achievement</span><span class="tag">winner</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-trophy-achievement-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-trophy-achievement-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-trophy-achievement-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-trophy-achievement-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1108,8 +1422,8 @@
           <div class="card-desc">귀여운 펼친 책 학습 아이콘</div>
           <div class="card-tags"><span class="tag">book</span><span class="tag">reading</span><span class="tag">learning</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-book-open-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-book-open-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-book-open-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-book-open-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1123,8 +1437,8 @@
           <div class="card-desc">귀여운 연필 쓰기 아이콘</div>
           <div class="card-tags"><span class="tag">pencil</span><span class="tag">write</span><span class="tag">edit</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-pencil-write-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-pencil-write-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-pencil-write-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-pencil-write-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1138,8 +1452,8 @@
           <div class="card-desc">귀여운 알림 종 아이콘</div>
           <div class="card-tags"><span class="tag">bell</span><span class="tag">notification</span><span class="tag">alert</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-bell-notification-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-bell-notification-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-bell-notification-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-bell-notification-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1153,8 +1467,8 @@
           <div class="card-desc">귀여운 도움말 물음표 아이콘</div>
           <div class="card-tags"><span class="tag">help</span><span class="tag">question</span><span class="tag">support</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-help-question-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-help-question-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-help-question-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-help-question-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1168,8 +1482,8 @@
           <div class="card-desc">귀여운 하트 즐겨찾기 아이콘</div>
           <div class="card-tags"><span class="tag">heart</span><span class="tag">favorite</span><span class="tag">like</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-heart-favorite-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-heart-favorite-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-heart-favorite-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-heart-favorite-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1183,8 +1497,8 @@
           <div class="card-desc">귀여운 재생 시작 아이콘</div>
           <div class="card-tags"><span class="tag">play</span><span class="tag">start</span><span class="tag">begin</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-play-start-cute-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-play-start-cute-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-play-start-cute-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-play-start-cute-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1198,8 +1512,8 @@
           <div class="card-desc">기본 순서도 다이어그램 (시작, 처리, 조건, 종료)</div>
           <div class="card-tags"><span class="tag">flowchart</span><span class="tag">algorithm</span><span class="tag">logic</span><span class="tag">process</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-flowchart-basic-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-flowchart-basic-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-flowchart-basic-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-flowchart-basic-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1213,8 +1527,8 @@
           <div class="card-desc">PDCA 순환 프로세스 다이어그램 (계획-실행-점검-개선)</div>
           <div class="card-tags"><span class="tag">cycle</span><span class="tag">pdca</span><span class="tag">process</span><span class="tag">continuous</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cycle-process-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-cycle-process-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cycle-process-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cycle-process-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1228,8 +1542,8 @@
           <div class="card-desc">수평 타임라인 다이어그램 (프로젝트 일정 표현)</div>
           <div class="card-tags"><span class="tag">timeline</span><span class="tag">schedule</span><span class="tag">milestone</span><span class="tag">project</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-timeline-horizontal-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-timeline-horizontal-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-timeline-horizontal-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-timeline-horizontal-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1243,8 +1557,8 @@
           <div class="card-desc">계층 트리 구조 다이어그램 (조직도, 분류 체계)</div>
           <div class="card-tags"><span class="tag">hierarchy</span><span class="tag">tree</span><span class="tag">organization</span><span class="tag">structure</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-hierarchy-tree-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-hierarchy-tree-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-hierarchy-tree-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-hierarchy-tree-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1258,8 +1572,8 @@
           <div class="card-desc">비교 차트 다이어그램 (옵션 비교 테이블)</div>
           <div class="card-tags"><span class="tag">comparison</span><span class="tag">table</span><span class="tag">chart</span><span class="tag">versus</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-comparison-chart-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-comparison-chart-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-comparison-chart-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-comparison-chart-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1273,8 +1587,8 @@
           <div class="card-desc">중심형 마인드맵 다이어그램 (아이디어 확장 구조)</div>
           <div class="card-tags"><span class="tag">mind-map</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">central</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-mind-map-central-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-mind-map-central-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-mind-map-central-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-mind-map-central-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1288,8 +1602,8 @@
           <div class="card-desc">파이 차트 다이어그램 (비율 분포 시각화)</div>
           <div class="card-tags"><span class="tag">pie-chart</span><span class="tag">percentage</span><span class="tag">distribution</span><span class="tag">segments</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pie-chart-segments-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-pie-chart-segments-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pie-chart-segments-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-pie-chart-segments-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1303,8 +1617,8 @@
           <div class="card-desc">세로 막대 그래프 다이어그램 (데이터 비교 시각화)</div>
           <div class="card-tags"><span class="tag">bar-chart</span><span class="tag">vertical</span><span class="tag">statistics</span><span class="tag">data</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-bar-chart-vertical-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-bar-chart-vertical-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-bar-chart-vertical-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-bar-chart-vertical-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1318,8 +1632,8 @@
           <div class="card-desc">기본 수직선 다이어그램 (정수와 실수 표현)</div>
           <div class="card-tags"><span class="tag">number-line</span><span class="tag">math</span><span class="tag">integers</span><span class="tag">real-numbers</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-number-line-basic-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-number-line-basic-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-number-line-basic-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-number-line-basic-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1333,8 +1647,8 @@
           <div class="card-desc">피타고라스 정리 시각화 다이어그램 (a² + b² = c²)</div>
           <div class="card-tags"><span class="tag">pythagorean</span><span class="tag">theorem</span><span class="tag">geometry</span><span class="tag">triangle</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pythagorean-theorem-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-pythagorean-theorem-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-pythagorean-theorem-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-pythagorean-theorem-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1348,8 +1662,8 @@
           <div class="card-desc">모던한 설정 톱니바퀴 아이콘</div>
           <div class="card-tags"><span class="tag">settings</span><span class="tag">gear</span><span class="tag">config</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-settings-gear-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-settings-gear-modern-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-settings-gear-modern-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-settings-gear-modern-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1363,8 +1677,8 @@
           <div class="card-desc">대담한 검색 돋보기 아이콘</div>
           <div class="card-tags"><span class="tag">search</span><span class="tag">find</span><span class="tag">magnify</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-search-magnify-bold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-search-magnify-bold-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-search-magnify-bold-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-search-magnify-bold-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1378,8 +1692,8 @@
           <div class="card-desc">둥근 햄버거 메뉴 아이콘</div>
           <div class="card-tags"><span class="tag">menu</span><span class="tag">hamburger</span><span class="tag">nav</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-menu-hamburger-rounded-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-menu-hamburger-rounded-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-menu-hamburger-rounded-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-menu-hamburger-rounded-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1393,8 +1707,8 @@
           <div class="card-desc">우아한 닫기 X 버튼 아이콘</div>
           <div class="card-tags"><span class="tag">close</span><span class="tag">x</span><span class="tag">dismiss</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-close-x-elegant-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-close-x-elegant-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-close-x-elegant-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-close-x-elegant-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1408,8 +1722,8 @@
           <div class="card-desc">밝은 아이디어 전구 아이콘</div>
           <div class="card-tags"><span class="tag">idea</span><span class="tag">lightbulb</span><span class="tag">think</span><span class="tag">education</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-lightbulb-idea-bright-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-lightbulb-idea-bright-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-lightbulb-idea-bright-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-lightbulb-idea-bright-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1423,8 +1737,8 @@
           <div class="card-desc">자랑스러운 졸업모자 아이콘</div>
           <div class="card-tags"><span class="tag">graduation</span><span class="tag">cap</span><span class="tag">achievement</span><span class="tag">education</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-graduation-cap-proud-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-graduation-cap-proud-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-graduation-cap-proud-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-graduation-cap-proud-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1438,8 +1752,8 @@
           <div class="card-desc">맞춰지는 퍼즐 조각 아이콘</div>
           <div class="card-tags"><span class="tag">puzzle</span><span class="tag">logic</span><span class="tag">problem-solving</span><span class="tag">education</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-puzzle-piece-fit-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-puzzle-piece-fit-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-puzzle-piece-fit-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-puzzle-piece-fit-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1453,8 +1767,8 @@
           <div class="card-desc">목표 과녁 명중 아이콘</div>
           <div class="card-tags"><span class="tag">target</span><span class="tag">goal</span><span class="tag">aim</span><span class="tag">achievement</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-target-goal-bullseye-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-target-goal-bullseye-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-target-goal-bullseye-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-target-goal-bullseye-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1468,8 +1782,8 @@
           <div class="card-desc">학습 타이머 시계 아이콘</div>
           <div class="card-tags"><span class="tag">clock</span><span class="tag">timer</span><span class="tag">study</span><span class="tag">time</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-clock-timer-study-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-clock-timer-study-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-clock-timer-study-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-clock-timer-study-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1483,8 +1797,8 @@
           <div class="card-desc">빛나는 두뇌 생각 아이콘</div>
           <div class="card-tags"><span class="tag">brain</span><span class="tag">think</span><span class="tag">intelligence</span><span class="tag">education</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-brain-thinking-glow-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-brain-thinking-glow-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-brain-thinking-glow-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-brain-thinking-glow-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1498,8 +1812,8 @@
           <div class="card-desc">진행률 체크리스트 아이콘</div>
           <div class="card-tags"><span class="tag">checklist</span><span class="tag">progress</span><span class="tag">tasks</span><span class="tag">ui</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-checklist-progress-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-checklist-progress-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-checklist-progress-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-checklist-progress-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1513,8 +1827,8 @@
           <div class="card-desc">금메달 수상 아이콘</div>
           <div class="card-tags"><span class="tag">medal</span><span class="tag">award</span><span class="tag">gold</span><span class="tag">achievement</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-medal-award-gold-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-medal-award-gold-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-medal-award-gold-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-medal-award-gold-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1528,8 +1842,8 @@
           <div class="card-desc">곡선 다운로드 화살표 아이콘</div>
           <div class="card-tags"><span class="tag">download</span><span class="tag">arrow</span><span class="tag">save</span><span class="tag">action</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-download-arrow-curved-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-download-arrow-curved-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-download-arrow-curved-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-download-arrow-curved-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1543,8 +1857,8 @@
           <div class="card-desc">클라우드 업로드 동기화 아이콘</div>
           <div class="card-tags"><span class="tag">upload</span><span class="tag">cloud</span><span class="tag">sync</span><span class="tag">action</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-upload-cloud-sync-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-upload-cloud-sync-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-upload-cloud-sync-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-upload-cloud-sync-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1558,8 +1872,8 @@
           <div class="card-desc">네트워크 공유 노드 아이콘</div>
           <div class="card-tags"><span class="tag">share</span><span class="tag">network</span><span class="tag">connect</span><span class="tag">action</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-share-network-nodes-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-share-network-nodes-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-share-network-nodes-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-share-network-nodes-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1573,8 +1887,8 @@
           <div class="card-desc">회전 새로고침 아이콘</div>
           <div class="card-tags"><span class="tag">refresh</span><span class="tag">cycle</span><span class="tag">reload</span><span class="tag">action</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-refresh-cycle-spin-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-refresh-cycle-spin-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-refresh-cycle-spin-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-refresh-cycle-spin-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1588,8 +1902,8 @@
           <div class="card-desc">친근한 채팅 버블 아이콘</div>
           <div class="card-tags"><span class="tag">chat</span><span class="tag">bubble</span><span class="tag">message</span><span class="tag">communication</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-chat-bubble-friendly-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-chat-bubble-friendly-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-chat-bubble-friendly-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-chat-bubble-friendly-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1603,8 +1917,8 @@
           <div class="card-desc">펼쳐진 메일 봉투 아이콘</div>
           <div class="card-tags"><span class="tag">mail</span><span class="tag">envelope</span><span class="tag">email</span><span class="tag">communication</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-mail-envelope-open-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-mail-envelope-open-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-mail-envelope-open-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-mail-envelope-open-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1618,8 +1932,8 @@
           <div class="card-desc">활성화된 마이크 음성 아이콘</div>
           <div class="card-tags"><span class="tag">mic</span><span class="tag">voice</span><span class="tag">audio</span><span class="tag">communication</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-microphone-voice-active-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-microphone-voice-active-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-microphone-voice-active-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-microphone-voice-active-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1633,8 +1947,8 @@
           <div class="card-desc">플래시 카메라 사진 아이콘</div>
           <div class="card-tags"><span class="tag">camera</span><span class="tag">photo</span><span class="tag">capture</span><span class="tag">communication</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('icons/icon-camera-photo-flash-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('icon-camera-photo-flash-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('icons/icon-camera-photo-flash-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('icon-camera-photo-flash-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1648,8 +1962,8 @@
           <div class="card-desc">책상에서 공부하는 학생 일러스트</div>
           <div class="card-tags"><span class="tag">student</span><span class="tag">desk</span><span class="tag">study</span><span class="tag">education</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-student-desk-study-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-student-desk-study-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-student-desk-study-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-student-desk-study-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1663,8 +1977,8 @@
           <div class="card-desc">현대적인 교실 장면 일러스트</div>
           <div class="card-tags"><span class="tag">classroom</span><span class="tag">school</span><span class="tag">education</span><span class="tag">modern</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-classroom-scene-modern-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-classroom-scene-modern-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-classroom-scene-modern-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-classroom-scene-modern-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1678,8 +1992,8 @@
           <div class="card-desc">컬러풀한 학교 가방 일러스트</div>
           <div class="card-tags"><span class="tag">backpack</span><span class="tag">school</span><span class="tag">supplies</span><span class="tag">colorful</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-backpack-school-colorful-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-backpack-school-colorful-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-backpack-school-colorful-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-backpack-school-colorful-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1693,8 +2007,8 @@
           <div class="card-desc">온라인 학습 노트북 일러스트</div>
           <div class="card-tags"><span class="tag">laptop</span><span class="tag">online</span><span class="tag">e-learning</span><span class="tag">video-call</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-laptop-learning-online-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-laptop-learning-online-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-laptop-learning-online-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-laptop-learning-online-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1708,8 +2022,8 @@
           <div class="card-desc">아늑한 도서관 책들 일러스트</div>
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">reading</span><span class="tag">cozy</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-library-books-cozy-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-library-books-cozy-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-library-books-cozy-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-library-books-cozy-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1723,8 +2037,8 @@
           <div class="card-desc">성공 로켓 발사 일러스트</div>
           <div class="card-tags"><span class="tag">rocket</span><span class="tag">launch</span><span class="tag">success</span><span class="tag">achievement</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-rocket-launch-success-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-rocket-launch-success-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-rocket-launch-success-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-rocket-launch-success-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1738,8 +2052,8 @@
           <div class="card-desc">산 정상 등반 일러스트</div>
           <div class="card-tags"><span class="tag">mountain</span><span class="tag">peak</span><span class="tag">goal</span><span class="tag">climb</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-mountain-peak-climb-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-mountain-peak-climb-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-mountain-peak-climb-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-mountain-peak-climb-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1753,8 +2067,8 @@
           <div class="card-desc">폭발적인 트로피 축하 일러스트</div>
           <div class="card-tags"><span class="tag">trophy</span><span class="tag">celebration</span><span class="tag">win</span><span class="tag">confetti</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-trophy-celebration-burst-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-trophy-celebration-burst-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-trophy-celebration-burst-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-trophy-celebration-burst-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1768,8 +2082,8 @@
           <div class="card-desc">과녁 화살 명중 일러스트</div>
           <div class="card-tags"><span class="tag">target</span><span class="tag">arrow</span><span class="tag">bullseye</span><span class="tag">goal</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-target-arrow-bullseye-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-target-arrow-bullseye-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-target-arrow-bullseye-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-target-arrow-bullseye-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1783,8 +2097,8 @@
           <div class="card-desc">수상대 메달 수상자들 일러스트</div>
           <div class="card-tags"><span class="tag">medal</span><span class="tag">podium</span><span class="tag">winners</span><span class="tag">award</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-medal-podium-winners-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-medal-podium-winners-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-medal-podium-winners-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-medal-podium-winners-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1798,8 +2112,8 @@
           <div class="card-desc">함께하는 팀워크 손들 일러스트</div>
           <div class="card-tags"><span class="tag">teamwork</span><span class="tag">hands</span><span class="tag">collaboration</span><span class="tag">together</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-teamwork-hands-together-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-teamwork-hands-together-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-teamwork-hands-together-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-teamwork-hands-together-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1813,8 +2127,8 @@
           <div class="card-desc">원형 그룹 토론 학생들 일러스트</div>
           <div class="card-tags"><span class="tag">group</span><span class="tag">discussion</span><span class="tag">circle</span><span class="tag">students</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-group-discussion-circle-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-group-discussion-circle-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-group-discussion-circle-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-group-discussion-circle-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1828,8 +2142,8 @@
           <div class="card-desc">정이십면체 (플라톤 다면체) 3D 모델</div>
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">icosahedron</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-geometry-icosahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-icosahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-geometry-icosahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-icosahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1843,8 +2157,8 @@
           <div class="card-desc">뫼비우스의 띠 위상수학 모델</div>
           <div class="card-tags"><span class="tag">topology</span><span class="tag">math</span><span class="tag">mobius-strip</span><span class="tag">surface</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-topology-mobius-strip-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-topology-mobius-strip-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-topology-mobius-strip-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-topology-mobius-strip-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1858,8 +2172,8 @@
           <div class="card-desc">정규 분포 곡면 (통계) 3D 모델</div>
           <div class="card-tags"><span class="tag">statistics</span><span class="tag">math</span><span class="tag">normal-distribution</span><span class="tag">gaussian</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-statistics-normal-surface-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-statistics-normal-surface-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-statistics-normal-surface-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-statistics-normal-surface-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1873,8 +2187,8 @@
           <div class="card-desc">토러스 (도넛 모양) 기하학 3D 모델</div>
           <div class="card-tags"><span class="tag">geometry</span><span class="tag">math</span><span class="tag">torus</span><span class="tag">donut</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-geometry-torus-simple-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-torus-simple-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-geometry-torus-simple-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-geometry-torus-simple-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1888,8 +2202,8 @@
           <div class="card-desc">리만 곡면 (복소수 해석학) 3D 모델</div>
           <div class="card-tags"><span class="tag">complex-analysis</span><span class="tag">math</span><span class="tag">riemann-surface</span><span class="tag">spiral</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-complex-riemann-surface-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-complex-riemann-surface-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-complex-riemann-surface-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-complex-riemann-surface-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1903,8 +2217,8 @@
           <div class="card-desc">과학 실험실 비커 일러스트</div>
           <div class="card-tags"><span class="tag">science</span><span class="tag">chemistry</span><span class="tag">lab</span><span class="tag">beaker</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-science-lab-beaker-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-science-lab-beaker-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-science-lab-beaker-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-science-lab-beaker-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1918,8 +2232,8 @@
           <div class="card-desc">지구본 지리학 학습 일러스트</div>
           <div class="card-tags"><span class="tag">globe</span><span class="tag">geography</span><span class="tag">world</span><span class="tag">earth</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-world-globe-learning-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-world-globe-learning-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-world-globe-learning-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-world-globe-learning-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1933,8 +2247,8 @@
           <div class="card-desc">음표 멜로디 음악 일러스트</div>
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">melody</span><span class="tag">arts</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-music-notes-melody-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-music-notes-melody-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-music-notes-melody-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-music-notes-melody-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1948,8 +2262,8 @@
           <div class="card-desc">아트 팔레트와 붓 일러스트</div>
           <div class="card-tags"><span class="tag">art</span><span class="tag">palette</span><span class="tag">brush</span><span class="tag">paint</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-palette-brush-art-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-palette-brush-art-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-palette-brush-art-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-palette-brush-art-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1963,8 +2277,8 @@
           <div class="card-desc">탐구용 돋보기 일러스트</div>
           <div class="card-tags"><span class="tag">magnifying-glass</span><span class="tag">explore</span><span class="tag">search</span><span class="tag">investigate</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-magnifying-glass-explore-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-magnifying-glass-explore-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-magnifying-glass-explore-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-magnifying-glass-explore-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1978,8 +2292,8 @@
           <div class="card-desc">졸업장 상장 두루마리 일러스트</div>
           <div class="card-tags"><span class="tag">diploma</span><span class="tag">certificate</span><span class="tag">graduation</span><span class="tag">achievement</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-diploma-certificate-scroll-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-diploma-certificate-scroll-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-diploma-certificate-scroll-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-diploma-certificate-scroll-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -1993,8 +2307,8 @@
           <div class="card-desc">노란색 스쿨버스 일러스트</div>
           <div class="card-tags"><span class="tag">bus</span><span class="tag">school</span><span class="tag">transportation</span><span class="tag">journey</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-bus-school-journey-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-bus-school-journey-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-bus-school-journey-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-bus-school-journey-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2008,8 +2322,8 @@
           <div class="card-desc">간단한 수학 계산기 일러스트</div>
           <div class="card-tags"><span class="tag">calculator</span><span class="tag">math</span><span class="tag">tool</span><span class="tag">arithmetic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-math-simple-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-math-simple-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-calculator-math-simple-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-calculator-math-simple-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2023,8 +2337,8 @@
           <div class="card-desc">공책과 연필 필기 일러스트</div>
           <div class="card-tags"><span class="tag">notebook</span><span class="tag">pencil</span><span class="tag">write</span><span class="tag">notes</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-notebook-pencil-notes-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-notebook-pencil-notes-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-notebook-pencil-notes-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-notebook-pencil-notes-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2038,8 +2352,8 @@
           <div class="card-desc">생물학 실험 현미경 일러스트</div>
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">biology</span><span class="tag">science</span><span class="tag">lab</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-biology-lab-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-biology-lab-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-biology-lab-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-biology-lab-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2053,8 +2367,8 @@
           <div class="card-desc">대화 채팅 버블들 일러스트</div>
           <div class="card-tags"><span class="tag">chat</span><span class="tag">conversation</span><span class="tag">communication</span><span class="tag">bubbles</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-chat-conversation-bubbles-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-chat-conversation-bubbles-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-chat-conversation-bubbles-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-chat-conversation-bubbles-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2068,8 +2382,8 @@
           <div class="card-desc">글로벌 네트워크 연결 일러스트</div>
           <div class="card-tags"><span class="tag">network</span><span class="tag">global</span><span class="tag">connection</span><span class="tag">earth</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-network-connection-global-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-network-connection-global-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-network-connection-global-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-network-connection-global-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2083,8 +2397,8 @@
           <div class="card-desc">브레인스토밍 전구들 일러스트</div>
           <div class="card-tags"><span class="tag">lightbulb</span><span class="tag">brainstorm</span><span class="tag">ideas</span><span class="tag">creativity</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-lightbulbs-brainstorm-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-lightbulbs-brainstorm-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-lightbulbs-brainstorm-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-lightbulbs-brainstorm-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2098,8 +2412,8 @@
           <div class="card-desc">과학 실험실 현미경 일러스트</div>
           <div class="card-tags"><span class="tag">microscope</span><span class="tag">science</span><span class="tag">lab</span><span class="tag">research</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-science-lab-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-science-lab-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-microscope-science-lab-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-microscope-science-lab-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2113,8 +2427,8 @@
           <div class="card-desc">원자 분자 구조 일러스트</div>
           <div class="card-tags"><span class="tag">atom</span><span class="tag">molecule</span><span class="tag">chemistry</span><span class="tag">science</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-atom-molecule-structure-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-atom-molecule-structure-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-atom-molecule-structure-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-atom-molecule-structure-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2128,8 +2442,8 @@
           <div class="card-desc">코딩 화면 개발자 일러스트</div>
           <div class="card-tags"><span class="tag">coding</span><span class="tag">screen</span><span class="tag">developer</span><span class="tag">programming</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-coding-screen-developer-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-coding-screen-developer-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-coding-screen-developer-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-coding-screen-developer-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2143,8 +2457,8 @@
           <div class="card-desc">친근한 AI 로봇 일러스트</div>
           <div class="card-tags"><span class="tag">robot</span><span class="tag">ai</span><span class="tag">friendly</span><span class="tag">technology</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-robot-friendly-ai-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-robot-friendly-ai-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-robot-friendly-ai-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-robot-friendly-ai-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2158,8 +2472,8 @@
           <div class="card-desc">지구 생태계 행성 일러스트</div>
           <div class="card-tags"><span class="tag">planet</span><span class="tag">earth</span><span class="tag">ecosystem</span><span class="tag">environment</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('illustrations/illust-planet-earth-ecosystem-20260124.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('illust-planet-earth-ecosystem-20260124')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('illustrations/illust-planet-earth-ecosystem-20260124.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('illust-planet-earth-ecosystem-20260124')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2173,8 +2487,8 @@
           <div class="card-desc">Soft blue abstract gradient background</div>
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">abstract</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-soft-blue-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-soft-blue-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-soft-blue-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-soft-blue-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2188,8 +2502,8 @@
           <div class="card-desc">Pastel geometric shapes background</div>
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">pastel</span><span class="tag">shapes</span><span class="tag">modern</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-pastel-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-pastel-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-pastel-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-pastel-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2203,8 +2517,8 @@
           <div class="card-desc">Clean defocused whiteboard background</div>
           <div class="card-tags"><span class="tag">whiteboard</span><span class="tag">blur</span><span class="tag">clean</span><span class="tag">classroom</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-whiteboard-blur-clean-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-whiteboard-blur-clean-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-whiteboard-blur-clean-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-whiteboard-blur-clean-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2218,8 +2532,8 @@
           <div class="card-desc">Subtle math grid paper background</div>
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">math</span><span class="tag">subtle</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-math-subtle-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-math-subtle-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-math-subtle-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-math-subtle-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2233,8 +2547,8 @@
           <div class="card-desc">Warm clean paper texture background</div>
           <div class="card-tags"><span class="tag">paper</span><span class="tag">texture</span><span class="tag">warm</span><span class="tag">minimalist</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-paper-texture-warm-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-paper-texture-warm-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-paper-texture-warm-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-paper-texture-warm-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2248,8 +2562,8 @@
           <div class="card-desc">Stylized molecular pattern background</div>
           <div class="card-tags"><span class="tag">science</span><span class="tag">molecules</span><span class="tag">pattern</span><span class="tag">chemistry</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-molecules-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-science-molecules-pattern-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-molecules-pattern-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-science-molecules-pattern-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2263,8 +2577,8 @@
           <div class="card-desc">Green leaves nature pattern background</div>
           <div class="card-tags"><span class="tag">nature</span><span class="tag">leaves</span><span class="tag">green</span><span class="tag">organic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-nature-leaves-green-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-nature-leaves-green-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-nature-leaves-green-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-nature-leaves-green-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2278,8 +2592,8 @@
           <div class="card-desc">Minimalist tech circuit background</div>
           <div class="card-tags"><span class="tag">tech</span><span class="tag">circuit</span><span class="tag">minimal</span><span class="tag">futuristic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-tech-circuit-minimal-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-tech-circuit-minimal-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-tech-circuit-minimal-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-tech-circuit-minimal-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2293,8 +2607,8 @@
           <div class="card-desc">Defocused library bookshelves background</div>
           <div class="card-tags"><span class="tag">library</span><span class="tag">books</span><span class="tag">defocused</span><span class="tag">cozy</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-library-books-defocused-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-library-books-defocused-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-library-books-defocused-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-library-books-defocused-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2308,8 +2622,8 @@
           <div class="card-desc">Dark space stars background</div>
           <div class="card-tags"><span class="tag">space</span><span class="tag">stars</span><span class="tag">dark</span><span class="tag">cosmos</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-space-stars-dark-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-space-stars-dark-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-space-stars-dark-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-space-stars-dark-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2323,8 +2637,8 @@
           <div class="card-desc">Vintage parchment paper texture background</div>
           <div class="card-tags"><span class="tag">history</span><span class="tag">parchment</span><span class="tag">vintage</span><span class="tag">paper</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-history-parchment-vintage-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-history-parchment-vintage-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-history-parchment-vintage-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-history-parchment-vintage-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2338,8 +2652,8 @@
           <div class="card-desc">Minimalist musical notes sheet background</div>
           <div class="card-tags"><span class="tag">music</span><span class="tag">notes</span><span class="tag">sheet</span><span class="tag">clef</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-music-notes-sheet-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-music-notes-sheet-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-music-notes-sheet-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-music-notes-sheet-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2353,8 +2667,8 @@
           <div class="card-desc">Soft pastel watercolor splash background</div>
           <div class="card-tags"><span class="tag">art</span><span class="tag">watercolor</span><span class="tag">splash</span><span class="tag">pastel</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-art-watercolor-splash-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-art-watercolor-splash-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-art-watercolor-splash-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-art-watercolor-splash-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2368,8 +2682,8 @@
           <div class="card-desc">Topographic map contour lines background</div>
           <div class="card-tags"><span class="tag">geography</span><span class="tag">map</span><span class="tag">contours</span><span class="tag">topographic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geography-contours-topo-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-geography-contours-topo-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geography-contours-topo-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geography-contours-topo-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2383,8 +2697,8 @@
           <div class="card-desc">Whimsical floating alphabet letters background</div>
           <div class="card-tags"><span class="tag">literature</span><span class="tag">letters</span><span class="tag">alphabet</span><span class="tag">floating</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-literature-letters-floating-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-literature-letters-floating-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-literature-letters-floating-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-literature-letters-floating-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2398,8 +2712,8 @@
           <div class="card-desc">기울기와 y절편을 보여주는 일차함수 그래프</div>
           <div class="card-tags"><span class="tag">linear</span><span class="tag">graph</span><span class="tag">slope</span><span class="tag">algebra</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-linear-slope-intercept-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-linear-slope-intercept-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-linear-slope-intercept-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-linear-slope-intercept-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2413,8 +2727,8 @@
           <div class="card-desc">치수가 표시된 원기둥 부피 다이어그램</div>
           <div class="card-tags"><span class="tag">cylinder</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cylinder-volume-labeled-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-cylinder-volume-labeled-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cylinder-volume-labeled-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cylinder-volume-labeled-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2428,8 +2742,8 @@
           <div class="card-desc">치수가 표시된 원뿔 부피 다이어그램</div>
           <div class="card-tags"><span class="tag">cone</span><span class="tag">volume</span><span class="tag">geometry</span><span class="tag">3d</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cone-volume-labeled-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-cone-volume-labeled-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-cone-volume-labeled-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-cone-volume-labeled-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2443,8 +2757,8 @@
           <div class="card-desc">직육면체 전개도 다이어그램</div>
           <div class="card-tags"><span class="tag">prism</span><span class="tag">net</span><span class="tag">geometry</span><span class="tag">surface-area</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-prism-net-unfolded-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-prism-net-unfolded-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-prism-net-unfolded-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-prism-net-unfolded-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2458,8 +2772,8 @@
           <div class="card-desc">원의 구성 요소(반지름, 지름, 원주) 다이어그램</div>
           <div class="card-tags"><span class="tag">circle</span><span class="tag">anatomy</span><span class="tag">radius</span><span class="tag">diameter</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-circle-anatomy-parts-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-circle-anatomy-parts-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-circle-anatomy-parts-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-circle-anatomy-parts-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2473,8 +2787,8 @@
           <div class="card-desc">평행선과 횡단선이 만드는 각도 다이어그램</div>
           <div class="card-tags"><span class="tag">parallel</span><span class="tag">transversal</span><span class="tag">angles</span><span class="tag">geometry</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-parallel-transversal-angles-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-parallel-transversal-angles-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-parallel-transversal-angles-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-parallel-transversal-angles-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2488,8 +2802,8 @@
           <div class="card-desc">수직선 위의 부등식 x > 2</div>
           <div class="card-tags"><span class="tag">inequality</span><span class="tag">number-line</span><span class="tag">algebra</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-inequality-number-line-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-inequality-number-line-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-inequality-number-line-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-inequality-number-line-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2503,8 +2817,8 @@
           <div class="card-desc">두 집합의 교집합을 보여주는 벤 다이어그램</div>
           <div class="card-tags"><span class="tag">venn</span><span class="tag">sets</span><span class="tag">intersection</span><span class="tag">logic</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-sets-overlap-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-sets-overlap-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-venn-sets-overlap-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-venn-sets-overlap-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2518,8 +2832,8 @@
           <div class="card-desc">비율 2:3의 시각적 표현</div>
           <div class="card-tags"><span class="tag">ratio</span><span class="tag">proportion</span><span class="tag">blocks</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-ratio-proportion-blocks-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-ratio-proportion-blocks-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-ratio-proportion-blocks-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-ratio-proportion-blocks-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2533,8 +2847,8 @@
           <div class="card-desc">각의 종류 비교 (예각, 직각, 둔각)</div>
           <div class="card-tags"><span class="tag">angles</span><span class="tag">acute</span><span class="tag">right</span><span class="tag">obtuse</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('diagrams/diagram-angle-types-comparison-20260125.svg', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('diagram-angle-types-comparison-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('diagrams/diagram-angle-types-comparison-20260125.svg', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('diagram-angle-types-comparison-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2548,8 +2862,8 @@
           <div class="card-desc">파란색 모눈종이 패턴 배경 (4K)</div>
           <div class="card-tags"><span class="tag">grid</span><span class="tag">paper</span><span class="tag">pattern</span><span class="tag">math</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-grid-paper-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-grid-paper-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2563,8 +2877,8 @@
           <div class="card-desc">공책 줄무늬 배경 (마진 포함, 4K)</div>
           <div class="card-tags"><span class="tag">lined</span><span class="tag">paper</span><span class="tag">notebook</span><span class="tag">writing</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-lined-paper-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-lined-paper-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-lined-paper-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-lined-paper-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2578,8 +2892,8 @@
           <div class="card-desc">미니멀한 도트 그리드 배경 (4K)</div>
           <div class="card-tags"><span class="tag">dot</span><span class="tag">grid</span><span class="tag">pattern</span><span class="tag">design</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-dot-grid-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-dot-grid-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-dot-grid-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-dot-grid-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2593,8 +2907,8 @@
           <div class="card-desc">부드러운 파란색 그라데이션 배경 (4K)</div>
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">blue</span><span class="tag">soft</span><span class="tag">sky</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-blue-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-blue-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-blue-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-blue-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2608,8 +2922,8 @@
           <div class="card-desc">부드러운 녹색 그라데이션 배경 (4K)</div>
           <div class="card-tags"><span class="tag">gradient</span><span class="tag">green</span><span class="tag">nature</span><span class="tag">fresh</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-green-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-green-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-gradient-green-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-gradient-green-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2623,8 +2937,8 @@
           <div class="card-desc">기하학적 도형 패턴 배경 (4K)</div>
           <div class="card-tags"><span class="tag">geometric</span><span class="tag">shapes</span><span class="tag">pattern</span><span class="tag">abstract</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-geometric-shapes-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-geometric-shapes-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2638,8 +2952,8 @@
           <div class="card-desc">과학 아이콘 패턴 배경 (4K)</div>
           <div class="card-tags"><span class="tag">science</span><span class="tag">pattern</span><span class="tag">atom</span><span class="tag">dna</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-science-pattern-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-science-pattern-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-science-pattern-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2653,8 +2967,8 @@
           <div class="card-desc">알파벳 ABC 패턴 배경 (4K)</div>
           <div class="card-tags"><span class="tag">alphabet</span><span class="tag">letters</span><span class="tag">english</span><span class="tag">pattern</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-alphabet-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-alphabet-pattern-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-alphabet-pattern-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-alphabet-pattern-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2668,8 +2982,8 @@
           <div class="card-desc">숫자 123 패턴 배경 (4K)</div>
           <div class="card-tags"><span class="tag">numbers</span><span class="tag">math</span><span class="tag">pattern</span><span class="tag">123</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-numbers-pattern-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-numbers-pattern-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-numbers-pattern-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-numbers-pattern-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2683,8 +2997,8 @@
           <div class="card-desc">추상적인 세계 지도 배경 (4K)</div>
           <div class="card-tags"><span class="tag">map</span><span class="tag">world</span><span class="tag">geography</span><span class="tag">abstract</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('backgrounds/bg-world-map-abstract-20260125.png', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('bg-world-map-abstract-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('backgrounds/bg-world-map-abstract-20260125.png', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('bg-world-map-abstract-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2698,8 +3012,8 @@
           <div class="card-desc">정사면체 3D 모델 (면: 4, 꼭짓점: 4, 모서리: 6)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-tetrahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-tetrahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-tetrahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-tetrahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2713,8 +3027,8 @@
           <div class="card-desc">정육면체 3D 모델 (면: 6, 꼭짓점: 8, 모서리: 12)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-hexahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-hexahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-hexahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-hexahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2728,8 +3042,8 @@
           <div class="card-desc">정팔면체 3D 모델 (면: 8, 꼭짓점: 6, 모서리: 12)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-octahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-octahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-octahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-octahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2743,8 +3057,8 @@
           <div class="card-desc">정십이면체 3D 모델 (면: 12, 꼭짓점: 20, 모서리: 30)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-dodecahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-dodecahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-dodecahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-dodecahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2758,8 +3072,8 @@
           <div class="card-desc">정이십면체 3D 모델 (면: 20, 꼭짓점: 12, 모서리: 30)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">platonic-solid</span><span class="tag">geometry</span><span class="tag">high-school</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-icosahedron-math-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-icosahedron-math-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-icosahedron-math-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-icosahedron-math-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2773,8 +3087,8 @@
           <div class="card-desc">빨간색 구 - 초등 수학 기본 입체도형</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">sphere</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-sphere-red-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-sphere-red-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-sphere-red-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-sphere-red-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2788,8 +3102,8 @@
           <div class="card-desc">파란색 원기둥 - 초등 수학 기본 입체도형</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cylinder</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cylinder-blue-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cylinder-blue-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cylinder-blue-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cylinder-blue-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2803,8 +3117,8 @@
           <div class="card-desc">노란색 원뿔 - 초등 수학 기본 입체도형</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">cone</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cone-yellow-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cone-yellow-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-cone-yellow-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-cone-yellow-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2818,8 +3132,8 @@
           <div class="card-desc">녹색 직육면체 - 초등 수학 기본 입체도형</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">box</span><span class="tag">prism</span><span class="tag">geometry</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-box-green-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-box-green-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-box-green-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-box-green-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2833,8 +3147,8 @@
           <div class="card-desc">보라색 사각뿔 - 초등 수학 기본 입체도형</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">pyramid</span><span class="tag">geometry</span><span class="tag">elementary</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-pyramid-purple-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-pyramid-purple-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-pyramid-purple-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-pyramid-purple-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2848,8 +3162,8 @@
           <div class="card-desc">흰색 주사위 - 초등 수학 확률 및 세기 학습용</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">dice</span><span class="tag">probability</span><span class="tag">counting</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-dice-white-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-dice-white-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-dice-white-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-dice-white-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2863,8 +3177,8 @@
           <div class="card-desc">주황색 반쪽 파이 - 초등 수학 분수(1/2) 시각화</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">fraction</span><span class="tag">half</span><span class="tag">pie</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-fraction-half-orange-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-fraction-half-orange-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-fraction-half-orange-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-fraction-half-orange-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2878,8 +3192,8 @@
           <div class="card-desc">금색 동전 - 초등 수학 화폐 및 세기 학습용</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">coin</span><span class="tag">money</span><span class="tag">counting</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-coin-gold-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-coin-gold-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-coin-gold-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-coin-gold-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2893,8 +3207,8 @@
           <div class="card-desc">무지개색 세기 블록 5개 - 초등 수학 덧셈/뺄셈 시각화</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">blocks</span><span class="tag">counting</span><span class="tag">addition</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-counting-blocks-rainbow-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-counting-blocks-rainbow-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-counting-blocks-rainbow-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-counting-blocks-rainbow-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2908,8 +3222,8 @@
           <div class="card-desc">빨간 사과 - 초등 수학 세기 연습용</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">apple</span><span class="tag">counting</span><span class="tag">fruit</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-apple-red-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-apple-red-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-elementary-apple-red-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-elementary-apple-red-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2923,8 +3237,8 @@
           <div class="card-desc">피타고라스 정리 시각화 (a² + b² = c²) - 개념 모델</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">pythagoras</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-pythagorean-proof-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-pythagorean-proof-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-pythagorean-proof-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-pythagorean-proof-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2938,8 +3252,8 @@
           <div class="card-desc">아르키메데스의 구와 원기둥 (부피비 시각화)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">archimedes</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-archimedes-sphere-cylinder-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-archimedes-sphere-cylinder-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-archimedes-sphere-cylinder-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-archimedes-sphere-cylinder-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2953,8 +3267,8 @@
           <div class="card-desc">시에르핀스키 피라미드 (프랙탈 기하학 Level 4)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">fractal</span><span class="tag">sierpinski</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-fractal-sierpinski-pyramid-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-fractal-sierpinski-pyramid-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-fractal-sierpinski-pyramid-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-fractal-sierpinski-pyramid-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2968,8 +3282,8 @@
           <div class="card-desc">오일러 공식 나선 (e^ix 시각화) - 개념 모델</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">complex-analysis</span><span class="tag">euler</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-euler-helix-complex-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-euler-helix-complex-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-euler-helix-complex-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-euler-helix-complex-20260125')">아카이브</button>
           </div>
         </div>
       </div>
@@ -2983,14 +3297,14 @@
           <div class="card-desc">플라톤의 다면체 - 정이십면체 (Icosahedron)</div>
           <div class="card-tags"><span class="tag">3d</span><span class="tag">math</span><span class="tag">geometry</span><span class="tag">platonic-solid</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('3d/3d-platonic-icosahedron-20260125.glb', this)">Copy Path</button>
-            <button class="btn-archive" onclick="showArchiveModal('3d-platonic-icosahedron-20260125')">Archive</button>
+            <button class="btn-copy" onclick="copyPath('3d/3d-platonic-icosahedron-20260125.glb', this)">경로 복사</button>
+            <button class="btn-archive" onclick="showArchiveModal('3d-platonic-icosahedron-20260125')">아카이브</button>
           </div>
         </div>
       </div>
       <div class="card" data-category="diagrams" data-tags="vector field physics advanced" data-desc="벡터장 흐름 다이어그램" data-name="diagram-vector-field-flow-20260124" data-archived="true">
         <div class="card-preview">
-          <span class="archived-badge">Archived</span>
+          <span class="archived-badge">아카이브됨</span>
           <img src="archive/diagrams/diagram-vector-field-flow-20260124.png" alt="벡터장 흐름 다이어그램" loading="lazy" />
         </div>
         <div class="card-info">
@@ -2998,8 +3312,8 @@
           <div class="card-desc">벡터장 흐름 다이어그램</div>
           <div class="card-tags"><span class="tag">vector</span><span class="tag">field</span><span class="tag">physics</span><span class="tag">advanced</span></div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyPath('archive/diagrams/diagram-vector-field-flow-20260124.png', this)">Copy Path</button>
-            <button class="btn-restore" onclick="showRestoreModal('diagram-vector-field-flow-20260124')">Restore</button>
+            <button class="btn-copy" onclick="copyPath('archive/diagrams/diagram-vector-field-flow-20260124.png', this)">경로 복사</button>
+            <button class="btn-restore" onclick="showRestoreModal('diagram-vector-field-flow-20260124')">복원</button>
           </div>
         </div>
       </div>
@@ -3032,6 +3346,8 @@
     const searchInput = document.getElementById('search');
     const noResults = document.getElementById('no-results');
     const toast = document.getElementById('toast');
+    const visibleCount = document.getElementById('visible-count');
+    const activeFilterLabel = document.getElementById('active-filter-label');
 
     // Modal elements
     const modalOverlay = document.getElementById('modal-overlay');
@@ -3061,8 +3377,16 @@
       filterCards();
     });
 
+    function updateInsights(count) {
+      const activeTab = document.querySelector('.tab.active');
+      const labelNode = activeTab ? activeTab.childNodes[0] : null;
+      const labelText = labelNode ? labelNode.textContent.trim() : '전체';
+      visibleCount.textContent = String(count);
+      activeFilterLabel.textContent = currentSearch ? labelText + ' · 검색 적용' : labelText;
+    }
+
     function filterCards() {
-      let visibleCount = 0;
+      let matchedCount = 0;
 
       cards.forEach(card => {
         const category = card.dataset.category;
@@ -3087,23 +3411,27 @@
 
         if (categoryMatch && searchMatch) {
           card.classList.remove('hidden');
-          visibleCount++;
+          matchedCount++;
         } else {
           card.classList.add('hidden');
         }
       });
 
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      noResults.style.display = matchedCount === 0 ? 'block' : 'none';
+      noResults.textContent = currentSearch
+        ? '검색 결과가 없습니다. 다른 태그나 키워드로 시도해보세요.'
+        : '조건에 맞는 에셋이 없습니다.';
+      updateInsights(matchedCount);
     }
 
     // 경로 복사
     function copyPath(path, btn) {
       navigator.clipboard.writeText(path).then(() => {
-        btn.textContent = 'Copied!';
+        btn.textContent = '복사 완료';
         btn.classList.add('copied');
         showToast(path);
         setTimeout(() => {
-          btn.textContent = 'Copy Path';
+          btn.textContent = '경로 복사';
           btn.classList.remove('copied');
         }, 1500);
       });
@@ -3201,6 +3529,8 @@
         closeModal();
       }
     });
+
+    updateInsights(158);
   </script>
 </body>
 </html>
