@@ -113,3 +113,40 @@
 - `npm test` 통과 (35/35)
 - `npm run build` 통과
 - `npm run lint` 실패 (루트 `package.json`에 `lint` 스크립트 미정의)
+
+## Admin 미리보기 개선: 기존 생성 컨텐츠 자동 노출 (`api/src/admin-server.ts`, `tests/admin-integration.test.js`)
+
+### 수정
+- `GET /api/admin/jobs`에서 기존 Job 저장소 결과와 `edu-content/*/index.html` 스캔 결과를 병합하도록 변경
+- Job 저장소에 없는 모듈은 `existing-{moduleId}` 형식의 가상 Job으로 반환
+- 기존 모듈 가상 Job은 `status: completed`, `jobType: generate`, `modulePath: edu-content/{moduleId}`로 제공하여 Admin 미리보기 버튼이 즉시 활성화되도록 개선
+- 응답 목록을 `createdAt` 내림차순으로 정렬하여 최신 항목 우선 노출
+
+### 테스트
+- TDD로 통합 테스트 추가: `GET /api/admin/jobs: 기존 edu-content 미리보기 항목 포함`
+- 실패 재현 후 구현 적용 및 재실행 통과
+- `node tests/admin-integration.test.js` 통과 (14/14)
+- `npm test` 통과 (35/35)
+- `npm run build --prefix api` 통과
+- `npm run build` 통과
+
+## Job 보존/복구 강화: TTL 확장 + 백필 스크립트 (`api/src/job-manager.ts`, `scripts/backfill-jobs.js`)
+
+### 수정
+- Job 만료 시간을 `JOB_TTL_MS` 환경변수로 제어하도록 변경
+  - 기본값: `604800000` (7일)
+  - `0` 이하 설정 시 만료 정리 비활성화
+- `.env.example`에 `JOB_TTL_MS` 설정 예시를 추가
+- `scripts/backfill-jobs.js` 추가:
+  - `edu-content/*/index.html`를 스캔해 누락된 `completed` Job을 `jobs.json`에 백필
+  - 이미 `modulePath`가 존재하는 항목은 중복 생성하지 않음
+- 루트 `package.json`에 `backfill:jobs` 스크립트 추가
+
+### 테스트
+- `tests/api-job-manager-ttl.test.js` 추가: `JOB_TTL_MS=0`일 때 만료 삭제 비활성화 검증
+- `tests/backfill-jobs.test.js` 추가: 백필 생성 및 중복 방지 검증
+- `tests/api-job-manager.test.js`에서 TTL 테스트 안정화를 위해 `JOB_TTL_MS=3600000` 고정
+- `npm test` 통과 (37/37)
+- `npm run build --prefix api` 통과
+- `npm run build` 통과
+- `npm run lint` 실패 (루트 `package.json`에 `lint` 스크립트 미정의)

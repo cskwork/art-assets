@@ -6,6 +6,7 @@ const os = require('node:os');
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'edu-content-api-'));
 process.env.JOB_STORE_PATH = path.join(tempDir, 'jobs.json');
+process.env.JOB_TTL_MS = String(60 * 60 * 1000);
 
 const {
   initializeJobStore,

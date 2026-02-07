@@ -1,4 +1,19 @@
 {
   "version": 1,
-  "jobs": []
+  "jobs": [
+    {
+      "id": "0b426e63-d61e-43e8-b5e9-d6f477d8e88f",
+      "jobType": "generate",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "fraction game",
+        "gradeLevel": "초등 5학년"
+      },
+      "createdAt": 1770464720685,
+      "moduleId": "20260207-fraction-game",
+      "modulePath": "edu-content/20260207-fraction-game",
+      "error": "Z.ai 응답 JSON 파싱에 실패했습니다."
+    }
+  ]
 }

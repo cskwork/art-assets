@@ -3,11 +3,31 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { GenerateContentRequest, Job, JobType, ReviewContentRequest } from './types';
 
-const JOB_TTL_MS = 60 * 60 * 1000;
+const DEFAULT_JOB_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+const JOB_TTL_MS = resolveJobTtlMs();
 const jobs = new Map<string, Job>();
 let isLoaded = false;
 let cleanupTimer: NodeJS.Timeout | null = null;
 type JobRequest = GenerateContentRequest | ReviewContentRequest;
+
+function resolveJobTtlMs() {
+  const raw = process.env.JOB_TTL_MS;
+  if (!raw) {
+    return DEFAULT_JOB_TTL_MS;
+  }
+
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed)) {
+    return DEFAULT_JOB_TTL_MS;
+  }
+
+  // 0 이하 값은 만료 비활성화로 처리한다.
+  if (parsed <= 0) {
+    return 0;
+  }
+
+  return Math.floor(parsed);
+}
 
 function getProjectRoot() {
   return process.env.PROJECT_ROOT || process.cwd();
@@ -77,6 +97,10 @@ export function initializeJobStore() {
 }
 
 export function startJobCleanup() {
+  if (JOB_TTL_MS === 0) {
+    return;
+  }
+
   if (cleanupTimer) {
     return;
   }
@@ -90,6 +114,10 @@ export function startJobCleanup() {
 
 export function cleanupExpiredJobs() {
   ensureLoaded();
+
+  if (JOB_TTL_MS === 0) {
+    return;
+  }
 
   const now = Date.now();
   let changed = false;

@@ -212,6 +212,52 @@ app.get('/api/admin/jobs', (_req, res) => {
     error: job.error,
     createdAt: job.createdAt
   }));
+
+  const modulePathSet = new Set(
+    summaries
+      .map((summary) => summary.modulePath)
+      .filter((modulePath): modulePath is string => typeof modulePath === 'string' && modulePath.length > 0)
+  );
+
+  const eduRoot = path.join(ROOT_DIR, 'edu-content');
+  if (fs.existsSync(eduRoot)) {
+    const entries = fs.readdirSync(eduRoot, { withFileTypes: true });
+
+    entries.forEach((entry) => {
+      if (!entry.isDirectory()) {
+        return;
+      }
+
+      const moduleId = entry.name;
+      const modulePath = path.posix.join('edu-content', moduleId);
+      if (modulePathSet.has(modulePath)) {
+        return;
+      }
+
+      const indexPath = path.join(eduRoot, moduleId, 'index.html');
+      if (!fs.existsSync(indexPath)) {
+        return;
+      }
+
+      let createdAt = Date.now();
+      try {
+        createdAt = Math.floor(fs.statSync(indexPath).mtimeMs);
+      } catch {
+        createdAt = Date.now();
+      }
+
+      summaries.push({
+        jobId: `existing-${moduleId}`,
+        jobType: 'generate',
+        status: 'completed',
+        moduleId,
+        modulePath,
+        createdAt
+      });
+    });
+  }
+
+  summaries.sort((a, b) => b.createdAt - a.createdAt);
   res.json({ jobs: summaries });
 });
 

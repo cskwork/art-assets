@@ -145,6 +145,25 @@ async function main() {
     assert.ok(Array.isArray(res.body.jobs));
   });
 
+  await runTest('GET /api/admin/jobs: 기존 edu-content 미리보기 항목 포함', async () => {
+    const res = await request('GET', '/api/admin/jobs');
+    assert.equal(res.status, 200);
+    assert.ok(Array.isArray(res.body.jobs));
+
+    const existingJob = res.body.jobs.find((job) => (
+      typeof job.jobId === 'string' &&
+      job.jobId.startsWith('existing-') &&
+      job.status === 'completed' &&
+      typeof job.modulePath === 'string' &&
+      job.modulePath.startsWith('edu-content/')
+    ));
+
+    assert.ok(existingJob, '기존 edu-content 기반 미리보기 항목이 없습니다.');
+
+    const previewRes = await request('GET', `/${existingJob.modulePath}/index.html`);
+    assert.equal(previewRes.status, 200);
+  });
+
   await runTest('POST /api/admin/batch-generate: 유효 요청으로 배치 생성', async () => {
     const res = await request('POST', '/api/admin/batch-generate', {
       subject: 'math', contentType: 'threejs', gradeLevel: 'elementary-5-6', count: 1, useArtAssets: false

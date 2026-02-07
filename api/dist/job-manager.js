@@ -15,10 +15,26 @@ exports.findGenerateJobByModuleId = findGenerateJobByModuleId;
 const node_fs_1 = __importDefault(require("node:fs"));
 const node_path_1 = __importDefault(require("node:path"));
 const node_crypto_1 = __importDefault(require("node:crypto"));
-const JOB_TTL_MS = 60 * 60 * 1000;
+const DEFAULT_JOB_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+const JOB_TTL_MS = resolveJobTtlMs();
 const jobs = new Map();
 let isLoaded = false;
 let cleanupTimer = null;
+function resolveJobTtlMs() {
+    const raw = process.env.JOB_TTL_MS;
+    if (!raw) {
+        return DEFAULT_JOB_TTL_MS;
+    }
+    const parsed = Number(raw);
+    if (!Number.isFinite(parsed)) {
+        return DEFAULT_JOB_TTL_MS;
+    }
+    // 0 이하 값은 만료 비활성화로 처리한다.
+    if (parsed <= 0) {
+        return 0;
+    }
+    return Math.floor(parsed);
+}
 function getProjectRoot() {
     return process.env.PROJECT_ROOT || process.cwd();
 }
@@ -73,6 +89,9 @@ function initializeJobStore() {
     ensureLoaded();
 }
 function startJobCleanup() {
+    if (JOB_TTL_MS === 0) {
+        return;
+    }
     if (cleanupTimer) {
         return;
     }
@@ -83,6 +102,9 @@ function startJobCleanup() {
 }
 function cleanupExpiredJobs() {
     ensureLoaded();
+    if (JOB_TTL_MS === 0) {
+        return;
+    }
     const now = Date.now();
     let changed = false;
     for (const [jobId, job] of jobs.entries()) {

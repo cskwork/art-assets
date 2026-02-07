@@ -9,6 +9,7 @@ export interface GeneratedFile {
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
 const REQUIRED_FILES = ['index.html', 'script.js', 'style.css'];
 const DEFAULT_REQUIRED_PATHS = REQUIRED_FILES.map((name) => name);
+const FILENAME_PATTERN = /(?:^|[\\/])([a-zA-Z0-9._-]+\.(?:html|css|js|svg|png|jpg))(?:$|[\s"'`)>\]])/;
 
 function normalizeRelativePath(filePath: string) {
   const normalized = path.posix.normalize(filePath).replace(/^(\.\/)+/, '');
@@ -29,6 +30,54 @@ export interface ParseZaiFilesOptions {
   requiredFiles?: string[];
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function extractPathFromText(value: string, moduleId: string): string | null {
+  const modulePattern = new RegExp(
+    `edu-content/${escapeRegExp(moduleId)}/[a-zA-Z0-9._/-]+\\.(?:html|css|js|svg|png|jpg)`,
+    'g'
+  );
+  const fullMatches = [...value.matchAll(modulePattern)];
+  if (fullMatches.length > 0) {
+    return fullMatches[fullMatches.length - 1][0];
+  }
+
+  const fileNameMatch = value.match(FILENAME_PATTERN);
+  if (fileNameMatch?.[1]) {
+    return `edu-content/${moduleId}/${fileNameMatch[1]}`;
+  }
+
+  return null;
+}
+
+function extractFilesFromMarkdown(payload: string, moduleId: string): GeneratedFile[] {
+  const files: GeneratedFile[] = [];
+  const fencePattern = /```([^\n`]*)\n([\s\S]*?)```/g;
+  let match: RegExpExecArray | null = null;
+
+  while ((match = fencePattern.exec(payload)) !== null) {
+    const infoString = match[1] ?? '';
+    const content = match[2] ?? '';
+    const beforeContext = payload.slice(Math.max(0, match.index - 400), match.index);
+    const pathFromInfo = extractPathFromText(infoString, moduleId);
+    const pathFromContext = extractPathFromText(beforeContext, moduleId);
+    const filePath = pathFromInfo || pathFromContext;
+
+    if (!filePath) {
+      continue;
+    }
+
+    files.push({
+      path: filePath,
+      content,
+    });
+  }
+
+  return files;
+}
+
 export function parseZaiFiles(payload: string, options: ParseZaiFilesOptions): GeneratedFile[] {
   const requiredFiles = options.requiredFiles ?? DEFAULT_REQUIRED_PATHS;
   const normalizedPayload = normalizeJsonPayload(payload);
@@ -36,8 +85,12 @@ export function parseZaiFiles(payload: string, options: ParseZaiFilesOptions): G
 
   try {
     parsed = JSON.parse(normalizedPayload);
-  } catch (error) {
-    throw new Error('Z.ai 응답 JSON 파싱에 실패했습니다.');
+  } catch {
+    const markdownFiles = extractFilesFromMarkdown(payload, options.moduleId);
+    if (markdownFiles.length === 0) {
+      throw new Error('Z.ai 응답 JSON 파싱에 실패했습니다.');
+    }
+    parsed = { files: markdownFiles };
   }
 
   if (!parsed || typeof parsed !== 'object') {
