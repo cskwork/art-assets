@@ -44,7 +44,7 @@
   - `JobSummary` 인터페이스 추가: Job 목록 조회용 경량 타입
   > **완료 (2026-02-07)**: `types.ts`에 6개 타입 추가/확장. Subject에 'science' 추가, ContentType 신규 타입, BatchGenerateRequest/Response, AdminConfig, JobSummary 인터페이스 정의. `admin-server.ts`에서 새 타입 import 및 /api/admin/config, /api/admin/jobs, /api/admin/batch-generate 엔드포인트에 타입 적용. TypeScript 빌드 성공.
 
-- [ ] Admin UI 프론트엔드 생성 (`admin-ui/`):
+- [x] Admin UI 프론트엔드 생성 (`admin-ui/`):
   - `admin-ui/index.html` 생성: 단일 페이지 Admin 대시보드
     - 헤더: "AI 교육 콘텐츠 생성기" 타이틀, 로고
     - 좌측 사이드바: 생성 설정 패널
@@ -73,6 +73,7 @@
     - WebSocket 메시지 수신 시 UI 실시간 업데이트
     - 콘텐츠 미리보기 모달: iframe으로 `/edu-content/{moduleId}/index.html` 로드
     - 로그 패널 업데이트 함수
+  > **완료 (2026-02-07)**: Admin UI 3개 파일 생성 완료. `index.html`: CSS Grid 기반 3영역 레이아웃 (헤더+사이드바+메인+로그), 미리보기 모달. `styles.css`: 다크 모드 테마 (#0f0f1a/#1a1a2e), Noto Sans KR, 상태별 색상 배지, 처리 중 펄스 애니메이션, 반응형 768px 브레이크포인트. `app.js`: /api/admin/config 로드 -> 드롭다운 바인딩, WebSocket 연결/재연결/메시지 처리, batch-generate POST, 5초 간격 Job 폴링, 상태별 카드 렌더링, iframe 미리보기 모달, 실시간 로그 패널. 서버 기동 후 /admin/ HTML 200, /admin/styles.css 200, /admin/app.js 200, /api/admin/config JSON 응답, /api/admin/jobs 응답 모두 정상 확인.
 
 - [ ] batch-generate 로직 구현 (`api/src/batch-manager.ts`):
   - 기존 `content-generator.ts`의 `generateContent()` 함수를 재사용한다

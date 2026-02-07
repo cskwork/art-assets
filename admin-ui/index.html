@@ -4,18 +4,118 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 교육 콘텐츠 생성기 - Admin</title>
-  <style>
-    body { font-family: 'Noto Sans KR', sans-serif; background: #1a1a2e; color: #e0e0e0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    .placeholder { text-align: center; }
-    h1 { font-size: 1.5rem; }
-    p { color: #888; }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="placeholder">
-    <h1>AI 교육 콘텐츠 생성기</h1>
-    <p>Admin UI는 다음 단계에서 구현됩니다.</p>
-    <p><a href="/api/admin/config" style="color:#4fc3f7;">GET /api/admin/config</a></p>
+  <div class="app-layout">
+    <!-- 헤더 -->
+    <header class="app-header">
+      <h1>AI 교육 콘텐츠 생성기</h1>
+      <div class="header-status">
+        <div class="ws-indicator" id="wsIndicator"></div>
+        <span id="wsStatusText">연결 대기</span>
+      </div>
+    </header>
+
+    <!-- 좌측 사이드바: 생성 설정 -->
+    <aside class="sidebar">
+      <h2>콘텐츠 생성</h2>
+
+      <div class="form-group">
+        <label for="subjectSelect">과목</label>
+        <select id="subjectSelect">
+          <option value="">로딩 중...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="contentTypeSelect">콘텐츠 유형</label>
+        <select id="contentTypeSelect">
+          <option value="">로딩 중...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="gradeLevelSelect">학년</label>
+        <select id="gradeLevelSelect">
+          <option value="">로딩 중...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>생성 수량</label>
+        <div class="count-row">
+          <input type="range" id="countSlider" min="1" max="10" value="1">
+          <span class="count-display" id="countDisplay">1</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-group">
+          <input type="checkbox" id="useArtAssets">
+          아트 에셋 사용
+        </label>
+      </div>
+
+      <button class="btn-generate" id="btnGenerate" disabled>생성 시작</button>
+
+      <!-- 통계 -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-value pending" id="statPending">0</div>
+          <div class="stat-label">대기</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value processing" id="statProcessing">0</div>
+          <div class="stat-label">진행</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value completed" id="statCompleted">0</div>
+          <div class="stat-label">완료</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value failed" id="statFailed">0</div>
+          <div class="stat-label">실패</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 메인: Job 대시보드 -->
+    <main class="main-area">
+      <h2>Job 현황</h2>
+      <div id="jobContainer">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">[ ]</div>
+          <div>아직 생성된 Job이 없습니다.</div>
+          <div>왼쪽 패널에서 콘텐츠를 생성하세요.</div>
+        </div>
+        <div class="job-grid" id="jobGrid"></div>
+      </div>
+    </main>
+
+    <!-- 하단: 실시간 로그 -->
+    <section class="log-panel">
+      <div class="log-header">
+        <span>실시간 로그</span>
+        <button class="btn-clear-log" id="btnClearLog">지우기</button>
+      </div>
+      <div class="log-content" id="logContent"></div>
+    </section>
   </div>
+
+  <!-- 미리보기 모달 -->
+  <div class="modal-overlay" id="previewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="previewTitle">콘텐츠 미리보기</h3>
+        <button class="btn-close-modal" id="btnCloseModal">X</button>
+      </div>
+      <div class="modal-body">
+        <iframe id="previewIframe" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
