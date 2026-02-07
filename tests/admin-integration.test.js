@@ -213,7 +213,8 @@ async function main() {
       'countSlider', 'countDisplay', 'useArtAssets', 'btnGenerate',
       'jobGrid', 'emptyState', 'logContent', 'btnClearLog',
       'wsIndicator', 'wsStatusText', 'previewModal', 'previewIframe',
-      'btnCloseModal', 'statPending', 'statProcessing', 'statCompleted', 'statFailed'
+      'btnCloseModal', 'statPending', 'statProcessing', 'statCompleted', 'statFailed',
+      'themeToggle'
     ];
     ids.forEach((id) => {
       assert.ok(html.includes(`id="${id}"`), `DOM #${id} 누락`);

@@ -24,6 +24,9 @@
   const $statProcessing = document.getElementById('statProcessing');
   const $statCompleted = document.getElementById('statCompleted');
   const $statFailed = document.getElementById('statFailed');
+  const $themeToggle = document.getElementById('themeToggle');
+
+  const THEME_STORAGE_KEY = 'ADMIN_UI_THEME';
 
   // --- 상태 ---
   let config = null;
@@ -31,6 +34,25 @@
   let ws = null;
   let wsReconnectTimer = null;
   let jobPollTimer = null;
+
+  // --- 테마 ---
+  function applyTheme(theme) {
+    var nextTheme = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+
+    if ($themeToggle) {
+      $themeToggle.textContent = nextTheme === 'dark' ? '라이트 모드' : '다크 모드';
+      $themeToggle.setAttribute('aria-pressed', nextTheme === 'dark' ? 'true' : 'false');
+    }
+  }
+
+  function initTheme() {
+    var savedTheme = 'light';
+    try {
+      savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'light';
+    } catch (_err) {}
+    applyTheme(savedTheme);
+  }
 
   // --- 유틸 ---
   function formatTime(ts) {
@@ -103,6 +125,18 @@
   $countSlider.addEventListener('input', function () {
     $countDisplay.textContent = this.value;
   });
+
+  if ($themeToggle) {
+    $themeToggle.addEventListener('click', function () {
+      var currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      var nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      } catch (_err) {}
+      addLog('테마 변경: ' + (nextTheme === 'dark' ? '다크' : '라이트'), 'info');
+    });
+  }
 
   // --- 생성 요청 ---
   $btnGenerate.addEventListener('click', function () {
@@ -362,6 +396,7 @@
 
   // --- 초기화 ---
   function init() {
+    initTheme();
     addLog('Admin 대시보드 초기화', 'info');
     loadConfig();
     fetchJobs();

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 도형의 부피 찾기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- HookScene -->
+        <section id="hook-scene" class="scene active">
+            <div class="scene-content">
+                <h1 class="hook-question">🤔 정육면체와 직육면체의 부피를 어떻게 구할까요?</h1>
+                <div class="hook-visual">
+                    <div class="floating-cube"></div>
+                    <div class="floating-rect"></div>
+                </div>
+                <button class="cta-button" onclick="ContentApp.nextScene()">탐험 시작하기 →</button>
+            </div>
+        </section>
+
+        <!-- AnchorScene -->
+        <section id="anchor-scene" class="scene">
+            <div class="scene-content">
+                <h2>이미 알고 있는 것</h2>
+                <div class="anchor-content">
+                    <div class="concept-box">
+                        <h3>정사각형의 넓이</h3>
+                        <p>가로 × 세로 = 넓이</p>
+                        <div class="square-demo"></div>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="concept-box">
+                        <h3>그렇다면 3D 도형은?</h3>
+                        <p>가로 × 세로 × 높이 = 부피</p>
+                        <div class="cube-demo"></div>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="ContentApp.nextScene()">계속하기 →</button>
+            </div>
+        </section>
+
+        <!-- StoryScene -->
+        <section id="story-scene" class="scene">
+            <div class="scene-content">
+                <h2>📦 상자가 필요해요!</h2>
+                <div class="story-container">
+                    <div class="character">
+                        <svg viewBox="0 0 100 100" class="character-svg">
+                            <circle cx="50" cy="30" r="20" fill="#FFB6C1"/>
+                            <rect x="30" y="50" width="40" height="40" fill="#4A90D9" rx="5"/>
+                            <circle cx="43" cy="25" r="3" fill="#333"/>
+                            <circle cx="57" cy="25" r="3" fill="#333"/>
+                            <path d="M 40 35 Q 50 42 60 35" stroke="#333" fill="none" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="story-text">
+                        <p>안녕! 나는 <strong>미나</strong>야.</p>
+                        <p>장난감을 담을 상자를 만들고 싶은데,</p>
+                        <p>얼마나 많이 들어갈지 모르겠어...</p>
+                        <p><strong>도와줄 수 있어?</strong></p>
+                    </div>
+                </div>
+                <div class="story-problem">
+                    <p>상자의 크기: 가로 3cm × 세로 4cm × 높이 5cm</p>
+                    <p class="question">이 상자에는 몇 cm³의 장난감을 넣을 수 있을까요?</p>
+                </div>
+                <button class="cta-button" onclick="ContentApp.nextScene()">함께 찾아봐요 →</button>
+            </div>
+        </section>
+
+        <!-- CoreScene -->
+        <section id="core-scene" class="scene">
+            <div class="scene-content">
+                <h2>직접 조작해보세요!</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label>가로: <span id="width-value">3</span>cm</label>
+                        <input type="range" id="width-slider" min="1" max="10" value="3">
+                    </div>
+                    <div class="control-group">
+                        <label>세로: <span id="depth-value">4</span>cm</label>
+                        <input type="range" id="depth-slider" min="1" max="10" value="4">
+                    </div>
+                    <div class="control-group">
+                        <label>높이: <span id="height-value">5</span>cm</label>
+                        <input type="range" id="height-slider" min="1" max="10" value="5">
+                    </div>
+                </div>
+                <div id="three-container" class="three-container"></div>
+                <div class="result-box">
+                    <p>부피 = <span id="volume-result">60</span> cm³</p>
+                    <p class="formula">공식: 가로 × 세로 × 높이</p>
+                    <p class="calculation"><span id="calculation">3 × 4 × 5 = 60</span></p>
+                </div>
+                <div class="discovery-hint">
+                    <p>💡 힌트: 1cm³ 작은 정육면체가 몇 개 들어가는지 세어보세요!</p>
+                </div>
+                <button class="cta-button" onclick="ContentApp.nextScene()">발견 완료! →</button>
+            </div>
+        </section>
+
+        <!-- VisualizeScene -->
+        <section id="visualize-scene" class="scene">
+            <div class="scene-content">
+                <h2>부피의 원리</h2>
+                <div class="visualization">
+                    <div class="formula-card">
+                        <h3>부피 공식</h3>
+                        <div class="formula-large">
+                            V = 가로 × 세로 × 높이
+                        </div>
+                        <div class="formula-large">
+                            V = W × D × H
+                        </div>
+                    </div>
+                    <div class="visual-demo">
+                        <div class="unit-cubes">
+                            <p>작은 정육면체 개수 세기</p>
+                            <div class="unit-cubes-grid"></div>
+                        </div>
+                    </div>
+                    <div class="key-insight">
+                        <p>🔑 핵심 통찰</p>
+                        <p>부피는 작은 단위 정육면체가 몇 개 들어가는지를 나타냅니다!</p>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="ContentApp.nextScene()">이해했어요! →</button>
+            </div>
+        </section>
+
+        <!-- QuizScene -->
+        <section id="quiz-scene" class="scene">
+            <div class="scene-content">
+                <h2>🎯 퀴즈 시간!</h2>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <p><strong>문제 1:</strong> 가로 2cm, 세로 3cm, 높이 4cm인 직육면체의 부피는?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false" onclick="ContentApp.checkAnswer(this, false)">12 cm³</button>
+                            <button class="quiz-option" data-correct="true" onclick="ContentApp.checkAnswer(this, true)">24 cm³</button>
+                            <button class="quiz-option" data-correct="false" onclick="ContentApp.checkAnswer(this, false)">9 cm³</button>
+                        </div>
+                        <p class="quiz-feedback"></p>
+                    </div>
+                    <div class="quiz-question" id="quiz-2" style="display:none;">
+                        <p><strong>문제 2:</strong> 정육면체의 한 변의 길이가 5cm일 때, 부피는?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false" onclick="ContentApp.checkAnswer2(this, false)">15 cm³</button>
+                            <button class="quiz-option" data-correct="true" onclick="ContentApp.checkAnswer2(this, true)">125 cm³</button>
+                            <button class="quiz-option" data-correct="false" onclick="ContentApp.checkAnswer2(this, false)">25 cm³</button>
+                        </div>
+                        <p class="quiz-feedback"></p>
+                    </div>
+                </div>
+                <button class="cta-button" id="next-quiz-btn" style="display:none;" onclick="ContentApp.nextQuestion()">다음 문제 →</button>
+                <button class="cta-button" id="finish-quiz-btn" style="display:none;" onclick="ContentApp.nextScene()">완료! →</button>
+            </div>
+        </section>
+
+        <!-- WrapScene -->
+        <section id="wrap-scene" class="scene">
+            <div class="scene-content">
+                <h2>🎉 축하합니다!</h2>
+                <div class="summary">
+                    <h3>오늘 배운 것</h3>
+                    <ul>
+                        <li>✅ 부피는 3D 공간의 크기</li>
+                        <li>✅ 부피 공식: 가로 × 세로 × 높이</li>
+                        <li>✅ 직접 조작하면서 원리 발견!</li>
+                    </ul>
+                </div>
+                <div class="next-topic">
+                    <p>📚 다음 배울 내용</p>
+                    <p>원기둥과 구의 부피</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="secondary-button" onclick="ContentApp.restart()">다시 탐험하기</button>
+                    <button class="cta-button" onclick="ContentApp.nextScene()">자유 탐험 모드</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FreeExploreScene -->
+        <section id="free-explore-scene" class="scene">
+            <div class="scene-content">
+                <h2>🎨 자유 탐험 모드</h2>
+                <div class="free-explore-controls">
+                    <div class="control-group">
+                        <label>도형 선택:</label>
+                        <select id="shape-selector">
+                            <option value="cube">정육면체</option>
+                            <option value="rectangular">직육면체</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>가로: <span id="free-width-value">3</span>cm</label>
+                        <input type="range" id="free-width-slider" min="1" max="10" value="3">
+                    </div>
+                    <div class="control-group">
+                        <label>세로: <span id="free-depth-value">3</span>cm</label>
+                        <input type="range" id="free-depth-slider" min="1" max="10" value="3">
+                    </div>
+                    <div class="control-group">
+                        <label>높이: <span id="free-height-value">3</span>cm</label>
+                        <input type="range" id="free-height-slider" min="1" max="10" value="3">
+                    </div>
+                </div>
+                <div id="free-explore-container" class="three-container"></div>
+                <div class="free-result-box">
+                    <p>부피 = <span id="free-volume-result">27</span> cm³</p>
+                </div>
+                <button class="secondary-button" onclick="ContentApp.restart()">처음으로 돌아가기</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

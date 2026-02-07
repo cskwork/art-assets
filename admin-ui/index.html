@@ -4,20 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 교육 콘텐츠 생성기 - Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app-layout">
-    <!-- 헤더 -->
     <header class="app-header">
-      <h1>AI 교육 콘텐츠 생성기</h1>
-      <div class="header-status">
-        <div class="ws-indicator" id="wsIndicator"></div>
-        <span id="wsStatusText">연결 대기</span>
+      <div class="header-title-wrap">
+        <p class="header-kicker">EDU CONTENT OPS</p>
+        <h1>AI 교육 콘텐츠 생성기</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn-theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">다크 모드</button>
+        <div class="header-status" aria-live="polite">
+          <div class="ws-indicator" id="wsIndicator"></div>
+          <span id="wsStatusText">연결 대기</span>
+        </div>
       </div>
     </header>
 
-    <!-- 좌측 사이드바: 생성 설정 -->
     <aside class="sidebar">
       <h2>콘텐츠 생성</h2>
 
@@ -43,7 +49,7 @@
       </div>
 
       <div class="form-group">
-        <label>생성 수량</label>
+        <label for="countSlider">생성 수량</label>
         <div class="count-row">
           <input type="range" id="countSlider" min="1" max="10" value="1">
           <span class="count-display" id="countDisplay">1</span>
@@ -51,7 +57,7 @@
       </div>
 
       <div class="form-group">
-        <label class="checkbox-group">
+        <label class="checkbox-group" for="useArtAssets">
           <input type="checkbox" id="useArtAssets">
           아트 에셋 사용
         </label>
@@ -59,7 +65,6 @@
 
       <button class="btn-generate" id="btnGenerate" disabled>생성 시작</button>
 
-      <!-- 통계 -->
       <div class="stats-bar">
         <div class="stat-item">
           <div class="stat-value pending" id="statPending">0</div>
@@ -80,23 +85,24 @@
       </div>
     </aside>
 
-    <!-- 메인: Job 대시보드 -->
     <main class="main-area">
-      <h2>Job 현황</h2>
+      <div class="main-headline">
+        <h2>Job 현황</h2>
+        <p>실시간 파이프라인 상태를 확인하고 결과물을 즉시 미리볼 수 있습니다.</p>
+      </div>
       <div id="jobContainer">
         <div class="empty-state" id="emptyState">
           <div class="empty-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </div>
           <div>아직 생성된 Job이 없습니다.</div>
-          <div style="font-size: 0.78rem;">왼쪽 패널에서 콘텐츠를 생성하세요.</div>
+          <div class="empty-caption">왼쪽 패널에서 생성 조건을 선택한 뒤 시작해 주세요.</div>
         </div>
         <div class="job-grid" id="jobGrid"></div>
       </div>
     </main>
 
-    <!-- 하단: 실시간 로그 -->
-    <section class="log-panel">
+    <section class="log-panel" aria-label="실시간 로그 영역">
       <div class="log-header">
         <span>실시간 로그</span>
         <button class="btn-clear-log" id="btnClearLog">지우기</button>
@@ -105,9 +111,8 @@
     </section>
   </div>
 
-  <!-- 미리보기 모달 -->
   <div class="modal-overlay" id="previewModal">
-    <div class="modal-content">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
       <div class="modal-header">
         <h3 id="previewTitle">콘텐츠 미리보기</h3>
         <button class="btn-close-modal" id="btnCloseModal">

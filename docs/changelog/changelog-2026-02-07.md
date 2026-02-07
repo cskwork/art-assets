@@ -60,3 +60,35 @@
   - 포트 충돌 방지: `PORT`와 `ADMIN_PORT`가 같으면 Admin 포트를 자동으로 다음 포트로 조정
   - `api/dist/admin-server.js`가 없으면 자동으로 `npm run build --prefix api` 실행
   - `Ctrl+C` 종료 시 두 서버 프로세스를 함께 정리하도록 종료 처리 추가
+
+## Admin UI 라이트 테마 리디자인 (`admin-ui/index.html`, `admin-ui/styles.css`)
+
+### 수정
+- 다크 톤 제거 및 라이트 테마 고정 (`color-scheme: light`), 밝은 그라디언트 배경/카드형 레이아웃 적용
+- 헤더를 운영 대시보드 톤으로 재구성: kicker 텍스트, 상태 pill, 진입 애니메이션 추가
+- 사이드바 폼/슬라이더/통계 카드 스타일 전면 개선 (명확한 대비, 포커스 링, hover 피드백)
+- Job 카드 시각 체계 개선: 상태별 상단 스트립, 배지/태그 컬러 분리, 처리 중 pulse 애니메이션 유지
+- 로그 패널과 미리보기 모달을 라이트 UI로 통일하고 모바일(980px/620px) 반응형 보강
+- 빈 상태 안내 문구를 class 기반으로 정리하여 인라인 스타일 제거
+
+### 테스트
+- `tests/admin-ui-theme.test.js` 추가: 라이트 테마 토큰/다크모드 미사용 회귀 검증
+- `node --test tests/admin-ui-theme.test.js` 통과
+- `node --test tests/admin-integration.test.js` 통과
+- `npm run build` 통과
+
+## Admin UI 테마 옵션 추가 (`admin-ui/app.js`, `admin-ui/index.html`, `admin-ui/styles.css`)
+
+### 수정
+- 기본 테마를 라이트로 유지하면서 헤더에 테마 전환 버튼(`themeToggle`) 추가
+- `localStorage`(`ADMIN_UI_THEME`)에 사용자 선택 테마를 저장/복원하도록 프론트 로직 추가
+- CSS에 `[data-theme='dark']` 변수/컴포넌트 오버라이드 추가로 다크 테마 선택 가능하게 확장
+
+### 테스트
+- `tests/admin-ui-theme.test.js` 확장: 라이트 기본 + 다크 옵션 + 토글/저장 키 검증
+- `tests/admin-integration.test.js` 보강: 필수 DOM ID 목록에 `themeToggle` 검증 추가
+- `node --test tests/admin-ui-theme.test.js` 통과
+- `node --test tests/admin-integration.test.js` 통과
+- `npm test` 통과 (33/33)
+- `npm run build` 통과
+- `npm run lint` 실패 (루트 `package.json`에 lint 스크립트 미정의)
