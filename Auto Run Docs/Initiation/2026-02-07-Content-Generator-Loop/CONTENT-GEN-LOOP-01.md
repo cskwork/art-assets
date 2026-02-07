@@ -13,7 +13,7 @@
   - `api/` 디렉토리에서 TypeScript 빌드 확인: `cd api && npm run build`
   > **완료 (2026-02-07)**: 프로젝트 구조 분석 완료. api/src/ 내 11개 TS 파일 (types.ts, index.ts, job-manager.ts, content-generator.ts, prompt-loader.ts, logger.ts, llm/provider.ts, llm/zai-client.ts, llm/zai-output.ts, llm/review.ts, llm/json-utils.ts) 파악. prompts/ 내 6개 파일 확인. 루트에 express@4, cors, express-ws, concurrently 설치. api/에 express@4, cors, express-ws + @types 설치. Node.js 16 호환을 위해 Express 4 사용. TypeScript 빌드 성공.
 
-- [ ] Express 기반 Admin 서버 생성 (`admin-server.ts`):
+- [x] Express 기반 Admin 서버 생성 (`admin-server.ts`):
   - `api/src/admin-server.ts` 파일 생성 (기존 server.js를 대체하지 않고 별도로 구축)
   - Express 앱 설정: CORS 활성화, JSON body parser, 정적 파일 서빙
   - 기존 `server.js`의 API 엔드포인트를 Express 라우터로 이관:
@@ -32,6 +32,7 @@
   - WebSocket 엔드포인트: `ws://localhost:3000/ws` -> Job 상태 변경 시 실시간 브로드캐스트
   - 정적 파일 서빙: `/admin` -> `admin-ui/` 폴더, `/` -> 기존 gallery.html, `/edu-content` -> edu-content/ 폴더
   - 포트: 3000 (기존과 동일, `PORT` 환경변수 지원)
+  > **완료 (2026-02-07)**: `api/src/admin-server.ts` 생성. Express + express-ws 기반. 기존 server.js 6개 엔드포인트 + 신규 Admin 5개 엔드포인트 + WebSocket 브로드캐스트 구현. job-manager.ts에 `getAllJobs()` 함수 추가. admin-ui/ placeholder 생성. TypeScript 빌드 성공. 서버 기동 테스트 및 API 응답 확인 완료.
 
 - [ ] `api/src/types.ts` 확장 및 타입 정의:
   - 기존 `api/src/types.ts`를 읽고 현재 타입을 확인한다

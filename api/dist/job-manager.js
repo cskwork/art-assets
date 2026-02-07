@@ -10,6 +10,7 @@ exports.createJob = createJob;
 exports.createReviewJob = createReviewJob;
 exports.updateJob = updateJob;
 exports.getJob = getJob;
+exports.getAllJobs = getAllJobs;
 exports.findGenerateJobByModuleId = findGenerateJobByModuleId;
 const node_fs_1 = __importDefault(require("node:fs"));
 const node_path_1 = __importDefault(require("node:path"));
@@ -138,6 +139,11 @@ function getJob(jobId, expectedType) {
         return undefined;
     }
     return normalized;
+}
+function getAllJobs() {
+    ensureLoaded();
+    cleanupExpiredJobs();
+    return Array.from(jobs.values()).map(normalizeJob);
 }
 function findGenerateJobByModuleId(moduleId) {
     ensureLoaded();

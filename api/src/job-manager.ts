@@ -163,6 +163,12 @@ export function getJob(jobId: string, expectedType?: JobType): Job | undefined {
   return normalized;
 }
 
+export function getAllJobs(): Job[] {
+  ensureLoaded();
+  cleanupExpiredJobs();
+  return Array.from(jobs.values()).map(normalizeJob);
+}
+
 export function findGenerateJobByModuleId(moduleId: string): Job | undefined {
   ensureLoaded();
   cleanupExpiredJobs();
