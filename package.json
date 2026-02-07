@@ -12,7 +12,13 @@
   "dependencies": {
     "@gltf-transform/core": "^4.3.0",
     "@gltf-transform/extensions": "^4.3.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "express-ws": "^5.0.2",
     "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
