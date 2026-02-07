@@ -1,5 +1,47 @@
 # Changelog - 2026-02-07
 
+## 8비트 수학 콘텐츠 생성 프롬프트 추가 (`prompts/math-8bit-quest.md`)
+
+### 문제
+- 8비트 수학 콘텐츠를 같은 품질/구조로 반복 생성할 때 사용할 고정 프롬프트가 없었음
+
+### 수정
+- `prompts/math-8bit-quest.md` 추가
+  - 7개 씬 구조, 코어 전투형 연산 로직, 8bit 에셋 경로, 출력 형식 요구사항을 고정 템플릿화
+  - `ContentApp`, `generateQuestion`, `checkAnswer`, `equation-text`, `enemy-grid`, `hint-button` 등 핵심 식별자 요구 포함
+
+## 8비트 수학 인터랙티브 콘텐츠 추가 (`edu-content/20260207-8bit-math-quest/*`, `tests/edu-content-8bit-math-quest.test.js`)
+
+### 문제
+- 8bit 에셋은 대량 통합되었지만, 이를 실제 수학 학습 인터랙션으로 바로 활용할 수 있는 신규 콘텐츠 모듈이 없었음
+- 수학 프롬프트의 7씬 구조(흥미 유발 → 정리)와 게임형 조작 학습을 동시에 만족하는 샘플이 필요했음
+
+### 수정
+- `edu-content/20260207-8bit-math-quest/index.html` 추가
+  - 수학 프롬프트 기준 7개 씬 구성
+  - `warped-Caves` 8bit 배경/플레이어/적/발사체 에셋 직접 사용
+  - 코어 씬에 문제 HUD, 정답 선택 그리드, 힌트 버튼, 실전 퀴즈 UI 구성
+- `edu-content/20260207-8bit-math-quest/style.css` 추가
+  - 픽셀 아트 방향의 전용 테마 토큰/레이아웃/애니메이션 구성
+  - `image-rendering: pixelated` 기반 스프라이트 렌더링
+  - 모바일 구간(960px, 640px) 반응형 보강
+- `edu-content/20260207-8bit-math-quest/script.js` 추가
+  - 전역 `ContentApp` 객체 기반 씬 전환/게임 상태 관리
+  - `generateQuestion`, `checkAnswer`, 3단계 힌트, 점수/콤보/생명 로직 구현
+  - 전투 결과를 시각화 씬/정리 씬에 연동
+- `tests/edu-content-8bit-math-quest.test.js` 추가
+  - 신규 모듈의 파일/씬 구조, 8bit 에셋 참조, 핵심 인터랙션 식별자 정적 검증
+
+### 테스트 (TDD)
+- 실패 확인:
+  - `node --test tests/edu-content-8bit-math-quest.test.js` (폴더/파일 부재로 실패)
+- 구현 후 통과:
+  - `node --test tests/edu-content-8bit-math-quest.test.js`
+
+### 검증
+- `npm run build` 통과
+- `npm test` 통과 (53/53)
+
 ## 8bit 에셋 통합 + Z.ai 기본 경로 정렬 (`8bit-assets/`, `api/src/*`, `admin-ui/*`)
 
 ### 문제
