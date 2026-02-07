@@ -108,7 +108,7 @@
   - 서버 종료 후 성공 메시지 출력
   > **완료 (2026-02-07)**: TypeScript 빌드 에러 없이 성공 (tsc -p tsconfig.json). admin-server.js 서버 기동 정상 (포트 3000, WebSocket /ws 포함). API 엔드포인트 curl 테스트 결과: /api/admin/config -> 3과목(수학/영어/과학), 2콘텐츠유형, 5학년대, 5에셋카테고리 JSON 정상 응답. /admin/ -> HTTP 200, text/html, 3753바이트 정상 로드. /api/admin/jobs -> 빈 배열 정상 응답. /api/admin/prompts -> 6개 프롬프트 파일 목록 정상. /api/admin/assets -> 158개 에셋 인덱스 정상. 기존 테스트 11개 전체 통과 (node --test tests/).
 
-- [ ] Admin UI 통합 테스트 및 최종 검증:
+- [x] Admin UI 통합 테스트 및 최종 검증:
   - 서버를 시작하고 Admin UI가 브라우저에서 정상 렌더링되는지 확인
   - `/api/admin/config` 응답이 UI 드롭다운에 정확히 바인딩되는지 확인
   - `/api/admin/jobs` 응답이 Job 카드 레이아웃으로 표시되는지 확인
@@ -116,3 +116,4 @@
   - Job 생성 확인 및 상태 폴링이 UI에 반영되는지 확인
   - 빌드 에러가 있으면 수정하고 재빌드
   - `docs/changelog/changelog-2026-02-07.md` 파일에 변경 사항 기록 (한국어)
+  > **완료 (2026-02-07)**: TypeScript 빌드 성공, 서버 기동 정상 (포트 3000). API 검증: /api/admin/config -> 3과목/2유형/5학년/5카테고리 JSON 정상, /api/admin/jobs -> 빈 배열 정상, /api/admin/prompts -> 6개 파일 정상, /api/admin/assets -> 에셋 인덱스 정상. batch-generate POST (math/threejs/elementary-5-6/1) -> batchId 생성, Job 1개 "분수의 덧셈" 토픽 created 상태 확인, jobs 재조회 시 processing 상태 반영 확인. 정적 파일: /admin/ HTML 200 (3753B), /admin/styles.css 200 (10523B), /admin/app.js 200 (12334B). Admin UI HTML 구조: 19개 필수 DOM 요소 ID 존재 확인, config 응답의 {id,label} 구조가 populateSelect 함수와 정확히 매칭. `tests/admin-integration.test.js` 통합 테스트 13개 작성 (서버 자식 프로세스 기동 방식). 기존 11개 + 통합 13개 전체 24개 테스트 통과. `docs/changelog/changelog-2026-02-07.md` 변경 사항 기록 완료.
