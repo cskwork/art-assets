@@ -92,3 +92,24 @@
 - `npm test` 통과 (33/33)
 - `npm run build` 통과
 - `npm run lint` 실패 (루트 `package.json`에 lint 스크립트 미정의)
+
+## Admin UI 관제형 인덱스 리디자인 (`admin-ui/index.html`, `admin-ui/styles.css`, `admin-ui/app.js`)
+
+### 수정
+- 헤더를 관제실 콘셉트로 재구성: `hero-signal`, 실시간 시계/날짜(`opsClock`, `opsDate`), 연결 상태, KPI 마퀴(`kpi-marquee`) 추가
+- 배경 레이어를 강화: `orbital-backdrop`, `noise-layer`로 화면 깊이와 분위기 연출
+- 사이드바/메인/로그/모달 전반의 색상, 타이포, 대비, 인터랙션을 일관된 컨트롤룸 스타일로 전면 리디자인
+- Job 카드 처리 중 상태에 스캔 라이트 애니메이션(`processing-scan`)을 추가해 진행 상황 인지성 개선
+- 접근성 보강: `prefers-reduced-motion` 환경에서 마퀴/스캔/진입 애니메이션 비활성화
+- `app.js`에 상단 시계/날짜 갱신 로직 및 상단 KPI 숫자 동기화 로직 추가
+- 통합 테스트 계약 문자열 호환을 위해 제목에 `AI 교육 콘텐츠 생성기` 문구 유지
+
+### 테스트
+- `tests/admin-ui-aesthetic.test.js` 추가 (TDD):
+  - 1차 실행 실패 확인 (`hero-signal`, `opsClock`, `orbital-backdrop`, `marquee-flow` 미존재)
+  - 구현 후 재실행 통과
+- `node --test tests/admin-ui-theme.test.js` 통과
+- `node --test tests/admin-integration.test.js` 통과
+- `npm test` 통과 (35/35)
+- `npm run build` 통과
+- `npm run lint` 실패 (루트 `package.json`에 `lint` 스크립트 미정의)

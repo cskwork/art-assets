@@ -25,6 +25,12 @@
   const $statCompleted = document.getElementById('statCompleted');
   const $statFailed = document.getElementById('statFailed');
   const $themeToggle = document.getElementById('themeToggle');
+  const $opsClock = document.getElementById('opsClock');
+  const $opsDate = document.getElementById('opsDate');
+  const $kpiPending = document.getElementById('kpiPending');
+  const $kpiProcessing = document.getElementById('kpiProcessing');
+  const $kpiCompleted = document.getElementById('kpiCompleted');
+  const $kpiFailed = document.getElementById('kpiFailed');
 
   const THEME_STORAGE_KEY = 'ADMIN_UI_THEME';
 
@@ -34,6 +40,7 @@
   let ws = null;
   let wsReconnectTimer = null;
   let jobPollTimer = null;
+  let clockTimer = null;
 
   // --- 테마 ---
   function applyTheme(theme) {
@@ -70,9 +77,27 @@
     return Math.floor(diff / 3600000) + '시간 전';
   }
 
+  function formatDate(ts) {
+    var d = new Date(ts);
+    var year = d.getFullYear();
+    var month = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+    var weekday = weekdays[d.getDay()];
+    return year + '년 ' + month + '월 ' + day + '일 (' + weekday + ')';
+  }
+
   function statusLabel(status) {
     var map = { pending: '대기', processing: '진행 중', completed: '완료', failed: '실패' };
     return map[status] || status;
+  }
+
+  // 상단 메타 시계 갱신
+  function updateMetaClock() {
+    if (!$opsClock || !$opsDate) return;
+    var now = Date.now();
+    $opsClock.textContent = formatTime(now);
+    $opsDate.textContent = formatDate(now);
   }
 
   // --- 로그 ---
@@ -272,6 +297,11 @@
     $statProcessing.textContent = counts.processing;
     $statCompleted.textContent = counts.completed;
     $statFailed.textContent = counts.failed;
+
+    if ($kpiPending) $kpiPending.textContent = counts.pending;
+    if ($kpiProcessing) $kpiProcessing.textContent = counts.processing;
+    if ($kpiCompleted) $kpiCompleted.textContent = counts.completed;
+    if ($kpiFailed) $kpiFailed.textContent = counts.failed;
   }
 
   // --- Job 상태 업데이트 (단일) ---
@@ -397,6 +427,8 @@
   // --- 초기화 ---
   function init() {
     initTheme();
+    updateMetaClock();
+    clockTimer = setInterval(updateMetaClock, 1000);
     addLog('Admin 대시보드 초기화', 'info');
     loadConfig();
     fetchJobs();
