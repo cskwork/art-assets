@@ -95,3 +95,33 @@ test('parseZaiOutput accepts markdown file blocks', () => {
   assert.match(byPath.get(`edu-content/${moduleId}/script.js`), /console\.log/);
   assert.match(byPath.get(`edu-content/${moduleId}/style.css`), /margin: 0/);
 });
+
+test('parseZaiOutput accepts markdown blocks with filename-only headings', () => {
+  const moduleId = '20260126-sample';
+  const payload = [
+    '아래는 생성된 파일입니다.',
+    '',
+    '### index.html',
+    '```html',
+    '<!doctype html><html><head><title>샘플</title></head><body></body></html>',
+    '```',
+    '',
+    '### script.js',
+    '```js',
+    'console.log("ok");',
+    '```',
+    '',
+    '### style.css',
+    '```css',
+    'body { margin: 0; }',
+    '```'
+  ].join('\n');
+
+  const files = parseZaiOutput(payload, moduleId);
+
+  assert.equal(files.length, 3);
+  const byPath = new Map(files.map((file) => [file.path, file.content]));
+  assert.ok(byPath.has(`edu-content/${moduleId}/index.html`));
+  assert.ok(byPath.has(`edu-content/${moduleId}/script.js`));
+  assert.ok(byPath.has(`edu-content/${moduleId}/style.css`));
+});

@@ -18,7 +18,8 @@ import {
   ErrorResponse,
   AdminConfig,
   BatchGenerateRequest,
-  JobSummary
+  JobSummary,
+  Job
 } from './types';
 
 dotenv.config();
@@ -26,6 +27,55 @@ dotenv.config();
 const PORT = parseInt(process.env.ADMIN_PORT || process.env.PORT || '3000', 10);
 const ROOT_DIR = process.env.PROJECT_ROOT || path.resolve(__dirname, '..', '..');
 const WS_ENABLED = (process.env.WS_ENABLED || 'true').toLowerCase() !== 'false';
+
+function getJobStorePath() {
+  return process.env.JOB_STORE_PATH || path.join(ROOT_DIR, 'api', 'data', 'jobs.json');
+}
+
+function toJobSummary(job: Partial<Job> & { id?: string; createdAt?: number }): JobSummary | null {
+  if (typeof job.id !== 'string' || typeof job.createdAt !== 'number') {
+    return null;
+  }
+
+  return {
+    jobId: job.id,
+    jobType: (job.jobType || 'generate') as JobSummary['jobType'],
+    status: (job.status || 'pending') as JobSummary['status'],
+    moduleId: job.moduleId,
+    modulePath: job.modulePath,
+    error: job.error,
+    createdAt: job.createdAt
+  };
+}
+
+function readPersistedJobSummaries(): JobSummary[] {
+  const storePath = getJobStorePath();
+  if (!fs.existsSync(storePath)) {
+    return [];
+  }
+
+  try {
+    const raw = fs.readFileSync(storePath, 'utf8');
+    const parsed = JSON.parse(raw) as { jobs?: unknown };
+    if (!parsed || !Array.isArray(parsed.jobs)) {
+      return [];
+    }
+
+    const summaries: JobSummary[] = [];
+    for (const entry of parsed.jobs) {
+      if (!entry || typeof entry !== 'object') {
+        continue;
+      }
+      const summary = toJobSummary(entry as Partial<Job> & { id?: string; createdAt?: number });
+      if (summary) {
+        summaries.push(summary);
+      }
+    }
+    return summaries;
+  } catch {
+    return [];
+  }
+}
 
 // Express 앱 + WebSocket 설정
 const { app, getWss } = expressWs(express());
@@ -202,8 +252,7 @@ app.get('/api/admin/config', (_req, res) => {
 
 // 전체 Job 목록
 app.get('/api/admin/jobs', (_req, res) => {
-  const jobs = getAllJobs();
-  const summaries: JobSummary[] = jobs.map((job) => ({
+  const memorySummaries: JobSummary[] = getAllJobs().map((job) => ({
     jobId: job.id,
     jobType: job.jobType,
     status: job.status,
@@ -212,6 +261,17 @@ app.get('/api/admin/jobs', (_req, res) => {
     error: job.error,
     createdAt: job.createdAt
   }));
+  const persistedSummaries = readPersistedJobSummaries();
+  const mergedMap = new Map<string, JobSummary>();
+
+  [...memorySummaries, ...persistedSummaries].forEach((summary) => {
+    const previous = mergedMap.get(summary.jobId);
+    if (!previous || summary.createdAt >= previous.createdAt) {
+      mergedMap.set(summary.jobId, summary);
+    }
+  });
+
+  const summaries = Array.from(mergedMap.values());
 
   const modulePathSet = new Set(
     summaries

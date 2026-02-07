@@ -9,7 +9,7 @@ export interface GeneratedFile {
 const ALLOWED_EXTENSIONS = new Set(['.html', '.css', '.js', '.svg', '.png', '.jpg']);
 const REQUIRED_FILES = ['index.html', 'script.js', 'style.css'];
 const DEFAULT_REQUIRED_PATHS = REQUIRED_FILES.map((name) => name);
-const FILENAME_PATTERN = /(?:^|[\\/])([a-zA-Z0-9._-]+\.(?:html|css|js|svg|png|jpg))(?:$|[\s"'`)>\]])/;
+const FILENAME_PATTERN_SOURCE = '[a-zA-Z0-9._-]+\\.(?:html|css|js|svg|png|jpg)';
 
 function normalizeRelativePath(filePath: string) {
   const normalized = path.posix.normalize(filePath).replace(/^(\.\/)+/, '');
@@ -44,9 +44,11 @@ function extractPathFromText(value: string, moduleId: string): string | null {
     return fullMatches[fullMatches.length - 1][0];
   }
 
-  const fileNameMatch = value.match(FILENAME_PATTERN);
-  if (fileNameMatch?.[1]) {
-    return `edu-content/${moduleId}/${fileNameMatch[1]}`;
+  const fileNamePattern = new RegExp(`(${FILENAME_PATTERN_SOURCE})`, 'g');
+  const fileNameMatches = [...value.matchAll(fileNamePattern)];
+  if (fileNameMatches.length > 0) {
+    const lastMatch = fileNameMatches[fileNameMatches.length - 1][1];
+    return `edu-content/${moduleId}/${lastMatch}`;
   }
 
   return null;

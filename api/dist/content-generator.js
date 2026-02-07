@@ -186,11 +186,23 @@ async function loadClaudeSdk() {
 }
 function buildZaiMessages(prompt, moduleId) {
     const outputGuide = [
-        '응답은 JSON만 출력하세요.',
-        `형식: {\"files\":[{\"path\":\"edu-content/${moduleId}/index.html\",\"content\":\"...\"}]}`,
-        'JSON 외의 텍스트는 출력하지 마세요.',
-        'content는 파일 전체 내용을 담은 문자열이어야 합니다.',
-        '필수 파일: index.html, script.js, style.css'
+        '응답 형식은 아래 두 가지 중 하나로만 출력하세요.',
+        `1) JSON: {"files":[{"path":"edu-content/${moduleId}/index.html","content":"..."}]}`,
+        '2) 마크다운 코드블록:',
+        '### index.html',
+        '```html',
+        '...',
+        '```',
+        '### script.js',
+        '```js',
+        '...',
+        '```',
+        '### style.css',
+        '```css',
+        '...',
+        '```',
+        '필수 파일은 index.html, script.js, style.css 입니다.',
+        '설명 문장 없이 파일 결과만 출력하세요.'
     ].join('\n');
     return [
         {
