@@ -4,6 +4,21 @@
 
 ## 최근 활동
 
+### 2026-02-09
+
+**월드 퀴즈 배틀 - 세계 상식 대전 게임 생성**
+- React UltimateBattleGame 컴포넌트를 순수 HTML/CSS/JS로 분리 변환
+- 탄지로/고죠 사토루 캐릭터 선택 대전 퀴즈 게임
+  - 6개 화면: START, LOADING, SELECT, VS, BATTLE, RESULT
+  - 세계 상식 퀴즈 20문제 중 10문제 랜덤 출제 (4지선다)
+  - Canvas 기반 전투 애니메이션 (파이터, 잔상, 파티클, 충격파)
+  - HP 바 시스템 (데미지 지연 표시), 10초 타이머
+  - 콤보 시스템, 점수 계산 (정답 100점, 오답 -50점, 콤보 보너스 30점)
+  - Web Audio API 사운드 매니저 (BGM, 정답/오답 SFX, 타격 SFX)
+  - CRT 스캔라인 오버레이, 히트 플래시, 화면 흔들림 효과
+- 기술: 순수 JS, Canvas API, Web Audio API, CSS 애니메이션
+- 위치: `edu-content/20260209-world-quiz-battle/`
+
 ### 2026-01-28
 
 **Phaser.io 기반 수학 게임 2개 생성**
@@ -349,6 +364,11 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | 20260127-rotation-solid | **회전체 (Three.js 3D)** | 중학교 3학년 | `/edu-content/20260127-rotation-solid/` |
 | 20260128-multiplication-racing | **구구단 레이싱 (Phaser 게임)** | 초등 2-3학년 | `/edu-content/20260128-multiplication-racing/` |
 | 20260128-coordinate-explorer | **좌표 탐험대 (Phaser 게임)** | 초등 5-6학년 | `/edu-content/20260128-coordinate-explorer/` |
+
+#### 사회/상식 (Social Studies)
+| 폴더 | 주제 | 학년 | 파일 |
+|------|------|------|------|
+| 20260209-world-quiz-battle | **월드 퀴즈 배틀 (Canvas 대전 게임)** | 초등 3-6학년 | `/edu-content/20260209-world-quiz-battle/` |
 
 #### 영어 (English)
 | 폴더 | 주제 | 학년 | 파일 |
