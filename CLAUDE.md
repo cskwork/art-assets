@@ -4,6 +4,23 @@
 
 ## 최근 활동
 
+### 2026-01-28
+
+**Phaser.io 기반 수학 게임 2개 생성**
+- 구구단 레이싱 (초등 2-3학년): 떨어지는 문제 맞추기, 콤보 시스템
+  - 2~9단 문제가 하늘에서 떨어짐
+  - 숫자 키패드로 정답 입력
+  - 연속 정답 시 콤보 보너스 (+5~+25점)
+  - 로봇 캐릭터 "멀티봇"과 함께 학습
+  - 15문제 + 5문제 퀴즈
+- 좌표 탐험대 (초등 5-6학년): 좌표평면 위 보물찾기
+  - (x, y) 좌표 읽고 정확한 위치 클릭
+  - -4~4 범위의 좌표평면
+  - 탐험가 캐릭터 "코디"와 함께 학습
+  - 8개 보물 찾기 + 5문제 퀴즈 (사분면, 원점, 축)
+- 기술: Phaser 3.80.1 CDN, Graphics API 아이콘, Tween 애니메이션
+- 위치: `edu-content/20260128-multiplication-racing/`, `edu-content/20260128-coordinate-explorer/`
+
 ### 2026-01-27
 
 **Three.js 기반 중학교 수학 3D 콘텐츠 생성**
@@ -330,6 +347,8 @@ loader.load(assetPath('3d/3d-molecule-water-20260125.glb'), (gltf) => {
 | 20260126-ratio-proportion | 비와 비율 | 초등 6학년 | `/edu-content/20260126-ratio-proportion/` |
 | 20260127-pythagorean-3d | **피타고라스 정리 (Three.js 3D)** | 중학교 2학년 | `/edu-content/20260127-pythagorean-3d/` |
 | 20260127-rotation-solid | **회전체 (Three.js 3D)** | 중학교 3학년 | `/edu-content/20260127-rotation-solid/` |
+| 20260128-multiplication-racing | **구구단 레이싱 (Phaser 게임)** | 초등 2-3학년 | `/edu-content/20260128-multiplication-racing/` |
+| 20260128-coordinate-explorer | **좌표 탐험대 (Phaser 게임)** | 초등 5-6학년 | `/edu-content/20260128-coordinate-explorer/` |
 
 #### 영어 (English)
 | 폴더 | 주제 | 학년 | 파일 |
