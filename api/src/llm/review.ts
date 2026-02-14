@@ -510,6 +510,31 @@ function parseIssue(input: unknown, index: number): ReviewIssue {
   };
 }
 
+/**
+ * Build a safe fallback ReviewResult when JSON parsing fails.
+ * Marks review as failed so auto-fix can attempt correction.
+ */
+function buildFallbackReview(payload: string): ReviewResult {
+  const requirements: Record<string, boolean> = {};
+  REVIEW_REQUIREMENT_KEYS.forEach((key) => {
+    requirements[key] = false;
+  });
+
+  return {
+    pass: false,
+    score: 0,
+    requirements,
+    issues: [
+      {
+        severity: 'high',
+        location: 'review',
+        message: `리뷰 응답 파싱 실패 - 원본 길이: ${payload.length}자`
+      }
+    ],
+    summary: '리뷰 응답을 파싱할 수 없어 실패로 처리합니다.'
+  };
+}
+
 export function parseReviewOutput(payload: string): ReviewResult {
   const normalizedPayload = normalizeJsonPayload(payload);
   let parsed: unknown;
@@ -517,11 +542,12 @@ export function parseReviewOutput(payload: string): ReviewResult {
   try {
     parsed = JSON.parse(normalizedPayload);
   } catch (error) {
-    throw new Error('리뷰 응답 JSON 파싱에 실패했습니다.');
+    // Instead of throwing, return a fallback review that marks everything as failed
+    return buildFallbackReview(payload);
   }
 
   if (!parsed || typeof parsed !== 'object') {
-    throw new Error('리뷰 응답 형식이 올바르지 않습니다.');
+    return buildFallbackReview(payload);
   }
 
   const record = parsed as {
@@ -533,35 +559,43 @@ export function parseReviewOutput(payload: string): ReviewResult {
   };
 
   if (typeof record.pass !== 'boolean') {
-    throw new Error('리뷰 pass 값이 필요합니다.');
+    return buildFallbackReview(payload);
   }
   if (typeof record.score !== 'number' || !Number.isFinite(record.score)) {
-    throw new Error('리뷰 score 값이 필요합니다.');
+    // Tolerate missing score — default to 0
+    record.score = 0;
   }
   if (!record.requirements || typeof record.requirements !== 'object') {
-    throw new Error('리뷰 requirements 값이 필요합니다.');
+    return buildFallbackReview(payload);
   }
   if (!Array.isArray(record.issues)) {
-    throw new Error('리뷰 issues 배열이 필요합니다.');
+    record.issues = [];
   }
   if (typeof record.summary !== 'string') {
-    throw new Error('리뷰 summary 값이 필요합니다.');
+    record.summary = '';
   }
 
   const requirements = record.requirements as Record<string, unknown>;
   REVIEW_REQUIREMENT_KEYS.forEach((key) => {
     if (typeof requirements[key] !== 'boolean') {
-      throw new Error(`리뷰 requirements.${key} 값이 필요합니다.`);
+      // Tolerate missing requirement keys — default to false
+      requirements[key] = false;
     }
   });
 
-  const issues = record.issues.map((issue, index) => parseIssue(issue, index));
+  const issues = (record.issues as unknown[]).map((issue, index) => {
+    try {
+      return parseIssue(issue, index);
+    } catch {
+      return { severity: 'medium' as const, location: 'unknown', message: `이슈 ${index} 파싱 실패` };
+    }
+  });
 
   return {
     pass: record.pass,
-    score: record.score,
+    score: record.score as number,
     requirements: requirements as Record<string, boolean>,
     issues,
-    summary: record.summary
+    summary: record.summary as string
   };
 }

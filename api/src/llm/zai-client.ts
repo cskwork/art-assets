@@ -22,13 +22,21 @@ export interface ZaiClientOptions {
 
 const DEFAULT_API_URL = 'https://api.z.ai/api/paas/v4/chat/completions';
 const DEFAULT_MODEL = 'glm-4.7';
-const DEFAULT_MAX_TOKENS = 16384;
+const DEFAULT_MAX_TOKENS = 65536;
 const DEFAULT_TEMPERATURE = 1.0;
 const DEFAULT_TIMEOUT_MS = 600000; // 10분
 const PROGRESS_INTERVAL_MS = 5000;
 
 /** Models that support the thinking parameter */
 const THINKING_MODELS = new Set(['glm-5']);
+
+/**
+ * Strip <think>...</think> blocks that some models include in content.
+ * These thinking blocks pollute the JSON/markdown output.
+ */
+function stripThinkingBlocks(content: string): string {
+  return content.replace(/<think>[\s\S]*?<\/think>\s*/gi, '').trimStart();
+}
 
 function needsThinking(model: string) {
   return THINKING_MODELS.has(model);
@@ -66,25 +74,30 @@ function processSseLines(lines: string[], content: string) {
 
     const data = trimmed.slice(5).trim();
     if (data === '[DONE]') {
-      return { content: updated, done: true };
+      return { content: updated, done: true, truncated: false };
     }
 
     try {
       const parsed = JSON.parse(data);
+      // Only capture delta.content, skip reasoning_content (GLM-5 thinking)
       const delta = parsed?.choices?.[0]?.delta?.content;
       if (typeof delta === 'string') {
         updated += delta;
       }
 
-      if (parsed?.choices?.[0]?.finish_reason === 'stop') {
-        return { content: updated, done: true };
+      const finishReason = parsed?.choices?.[0]?.finish_reason;
+      if (finishReason === 'stop') {
+        return { content: updated, done: true, truncated: false };
+      }
+      if (finishReason === 'length') {
+        return { content: updated, done: true, truncated: true };
       }
     } catch {
       continue;
     }
   }
 
-  return { content: updated, done: false };
+  return { content: updated, done: false, truncated: false };
 }
 
 export function collectSseContent(chunks: string[]) {
@@ -103,7 +116,7 @@ export function collectSseContent(chunks: string[]) {
     }
   }
 
-  return content;
+  return stripThinkingBlocks(content);
 }
 
 async function streamWithFetch(
@@ -177,14 +190,18 @@ async function streamWithFetch(
 
       if (result.done) {
         const elapsed = (Date.now() - startTime) / 1000;
-        log(label, `완료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
-        return content;
+        if (result.truncated) {
+          log(label, `응답 잘림! max_tokens 한도 초과 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
+        } else {
+          log(label, `완료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
+        }
+        return stripThinkingBlocks(content);
       }
     }
 
     const elapsed = (Date.now() - startTime) / 1000;
     log(label, `스트림 종료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
-    return content;
+    return stripThinkingBlocks(content);
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
       throw new Error(`Z.ai API 타임아웃 (${timeoutMs / 1000}초)`);
@@ -276,9 +293,13 @@ async function streamWithHttp(
             resolved = true;
             process.stdout.write('\n');
             const elapsed = (Date.now() - startTime) / 1000;
-            log(label, `완료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
+            if (result.truncated) {
+              log(label, `응답 잘림! max_tokens 한도 초과 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
+            } else {
+              log(label, `완료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
+            }
             res.destroy();
-            resolve(content);
+            resolve(stripThinkingBlocks(content));
           }
         });
         res.on('end', () => {
@@ -286,7 +307,7 @@ async function streamWithHttp(
             process.stdout.write('\n');
             const elapsed = (Date.now() - startTime) / 1000;
             log(label, `스트림 종료 (${elapsed.toFixed(1)}초, ${content.length.toLocaleString()}자)`);
-            resolve(content);
+            resolve(stripThinkingBlocks(content));
           }
         });
       }

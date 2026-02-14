@@ -42,16 +42,30 @@ function extractBalancedJson(text: string, start: number): string | null {
   return null;
 }
 
-export function normalizeJsonPayload(payload: string) {
-  const trimmed = payload.trim();
+/**
+ * Strip <think>...</think> blocks that some models include before JSON.
+ */
+function stripThinkingBlocks(text: string): string {
+  return text.replace(/<think>[\s\S]*?<\/think>\s*/gi, '').trim();
+}
 
-  // Fast path: already a clean JSON object
+export function normalizeJsonPayload(payload: string) {
+  // Strip thinking blocks before processing
+  const cleaned = stripThinkingBlocks(payload);
+  const trimmed = cleaned.trim();
+
+  // Fast path: already a clean JSON object — but verify it parses
   if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
-    return trimmed;
+    try {
+      JSON.parse(trimmed);
+      return trimmed;
+    } catch {
+      // Not valid JSON despite matching braces — fall through to extraction
+    }
   }
 
-  // Try extracting from ```json code fence
-  const fencedMatch = trimmed.match(/```(?:json)?\s*\n?([\s\S]*?)\s*```/i);
+  // Try extracting from ```json code fence (use greedy match for large blocks)
+  const fencedMatch = trimmed.match(/```(?:json)?\s*\n?([\s\S]*?)\n\s*```/i);
   if (fencedMatch) {
     const inner = fencedMatch[1].trim();
     if (inner.startsWith('{')) {
@@ -72,6 +86,22 @@ export function normalizeJsonPayload(payload: string) {
   const filesIdx2 = trimmed.indexOf('{ "files"');
   if (filesIdx2 !== -1) {
     const candidate = extractBalancedJson(trimmed, filesIdx2);
+    if (candidate) {
+      return candidate;
+    }
+  }
+
+  // Try {"pass" for review responses
+  const passIdx = trimmed.indexOf('{"pass"');
+  if (passIdx !== -1) {
+    const candidate = extractBalancedJson(trimmed, passIdx);
+    if (candidate) {
+      return candidate;
+    }
+  }
+  const passIdx2 = trimmed.indexOf('{ "pass"');
+  if (passIdx2 !== -1) {
+    const candidate = extractBalancedJson(trimmed, passIdx2);
     if (candidate) {
       return candidate;
     }

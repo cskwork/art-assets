@@ -142,7 +142,7 @@
     {
       "id": "e9ce806a-ad97-49f3-ab03-0869ddfbe196",
       "jobType": "generate",
-      "status": "processing",
+      "status": "failed",
       "request": {
         "subject": "math",
         "topic": "분수의 덧셈",
@@ -152,7 +152,25 @@
       },
       "createdAt": 1771082603925,
       "moduleId": "20260215-topic-b246acfc",
-      "modulePath": "edu-content/20260215-topic-b246acfc"
+      "modulePath": "edu-content/20260215-topic-b246acfc",
+      "error": "서버 재시작으로 인한 작업 중단"
+    },
+    {
+      "id": "a582f9af-563f-44de-b313-6a66699ddd6c",
+      "jobType": "generate",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "basic",
+        "useArtAssets": true
+      },
+      "createdAt": 1771083748752,
+      "moduleId": "20260215-topic-b246acfc",
+      "modulePath": "edu-content/20260215-topic-b246acfc",
+      "error": "서버 재시작으로 인한 작업 중단"
     }
   ]
 }
