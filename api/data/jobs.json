@@ -2,141 +2,157 @@
   "version": 1,
   "jobs": [
     {
-      "id": "001fe112-089a-45a9-a322-b47eef1421cb",
+      "id": "7e828c28-4d20-47f4-8a07-ed710e5b2c4f",
       "jobType": "generate",
       "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "fraction game retry",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "basic",
+        "useArtAssets": true
       },
-      "createdAt": 1770466174049,
-      "moduleId": "20260207-fraction-game-retry",
-      "modulePath": "edu-content/20260207-fraction-game-retry",
+      "createdAt": 1771079716085,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
+      "error": "ZAI_API_KEY 환경변수가 설정되지 않았습니다. .env 파일을 확인하세요."
+    },
+    {
+      "id": "631247f0-eedd-43aa-8257-3c52c2049b6c",
+      "jobType": "generate",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "basic",
+        "useArtAssets": true
+      },
+      "createdAt": 1771079826379,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
+      "error": "ZAI_API_KEY 환경변수가 설정되지 않았습니다. .env 파일을 확인하세요."
+    },
+    {
+      "id": "ad39b1fa-e4a4-4439-88c6-728dd807aba3",
+      "jobType": "generate",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "basic",
+        "useArtAssets": true
+      },
+      "createdAt": 1771079843301,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
+      "reviewStatus": "failed",
+      "reviewError": "리뷰 응답 JSON 파싱에 실패했습니다.",
+      "error": "리뷰 응답 JSON 파싱에 실패했습니다."
+    },
+    {
+      "id": "6756b37a-30bd-47fc-b7dd-cd5546691295",
+      "jobType": "generate",
+      "status": "failed",
+      "request": {
+        "subject": "math",
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "intermediate",
+        "useArtAssets": true
+      },
+      "createdAt": 1771079903146,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
       "error": "생성 결과 파싱 실패: Z.ai 응답 JSON 파싱에 실패했습니다."
     },
     {
-      "id": "3477001c-aae8-45d9-9d8f-c7fec992c5bd",
+      "id": "84d6f0e8-5b96-47df-8dd7-9cd7589832e2",
       "jobType": "generate",
       "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "admin-sync-check",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "advanced",
+        "useArtAssets": true
       },
-      "createdAt": 1770466663733,
-      "moduleId": "20260207-admin-sync-check",
-      "modulePath": "edu-content/20260207-admin-sync-check",
-      "reviewStatus": "pending",
-      "error": "서버 재시작으로 인해 중단됨"
+      "createdAt": 1771079906427,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
+      "reviewStatus": "failed",
+      "reviewError": "Z.ai API 오류: 500 Internal Server Error",
+      "error": "Z.ai API 오류: 500 Internal Server Error"
     },
     {
-      "id": "bf075239-fd38-463f-87d0-6b461ba606ec",
+      "id": "2857254e-dc56-462f-9c08-456a1f08b0bb",
       "jobType": "generate",
-      "status": "completed",
+      "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "fraction game parse-check",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-1-2",
+        "contentType": "phaser",
+        "difficulty": "basic",
+        "useArtAssets": true
       },
-      "createdAt": 1770466961604,
-      "moduleId": "20260207-fraction-game-parse-check",
-      "modulePath": "edu-content/20260207-fraction-game-parse-check",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
+      "createdAt": 1771079908074,
+      "moduleId": "20260214-topic-b246acfc",
+      "modulePath": "edu-content/20260214-topic-b246acfc",
+      "error": "생성 결과 파싱 실패: Z.ai 응답 JSON 파싱에 실패했습니다."
     },
     {
-      "id": "d950f08e-b238-4456-9172-06d6ce67547c",
+      "id": "cb9d36e4-e174-4175-a39a-d94d49a1a600",
       "jobType": "generate",
-      "status": "completed",
+      "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "fraction game precision alpha",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-3-4",
+        "contentType": "canvas-2d",
+        "difficulty": "basic"
       },
-      "createdAt": 1770467242039,
-      "moduleId": "20260207-fraction-game-precision-alpha",
-      "modulePath": "edu-content/20260207-fraction-game-precision-alpha",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
+      "createdAt": 1771081449179,
+      "moduleId": "20260215-topic-b246acfc",
+      "modulePath": "edu-content/20260215-topic-b246acfc",
+      "error": "생성 결과 파싱 실패: Z.ai 응답 JSON 파싱에 실패했습니다."
     },
     {
-      "id": "6a42eb66-bcdc-4aa7-8972-29ce07c5b97f",
+      "id": "6a05f715-7691-408d-9969-6f6b7d89c0ba",
       "jobType": "generate",
-      "status": "completed",
+      "status": "failed",
       "request": {
         "subject": "math",
-        "topic": "fraction game precision beta",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-3-4",
+        "contentType": "canvas-2d",
+        "difficulty": "basic"
       },
-      "createdAt": 1770467242041,
-      "moduleId": "20260207-fraction-game-precision-beta",
-      "modulePath": "edu-content/20260207-fraction-game-precision-beta",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
+      "createdAt": 1771081984673,
+      "moduleId": "20260215-topic-b246acfc",
+      "modulePath": "edu-content/20260215-topic-b246acfc",
+      "error": "Z.ai API 오류: 500 Internal Server Error"
     },
     {
-      "id": "55279aca-e42b-4a52-b8ce-24de806799dc",
+      "id": "e9ce806a-ad97-49f3-ab03-0869ddfbe196",
       "jobType": "generate",
-      "status": "completed",
+      "status": "processing",
       "request": {
         "subject": "math",
-        "topic": "fraction game precision gamma",
-        "gradeLevel": "초등 5학년"
+        "topic": "분수의 덧셈",
+        "gradeLevel": "elementary-3-4",
+        "contentType": "canvas-2d",
+        "difficulty": "basic"
       },
-      "createdAt": 1770467242042,
-      "moduleId": "20260207-fraction-game-precision-gamma",
-      "modulePath": "edu-content/20260207-fraction-game-precision-gamma",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
-    },
-    {
-      "id": "d895c6c0-a83d-4c71-8543-a92034cc07f9",
-      "jobType": "generate",
-      "status": "completed",
-      "request": {
-        "subject": "math",
-        "topic": "fraction game precision delta",
-        "gradeLevel": "초등 5학년"
-      },
-      "createdAt": 1770467242085,
-      "moduleId": "20260207-fraction-game-precision-delta",
-      "modulePath": "edu-content/20260207-fraction-game-precision-delta",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
-    },
-    {
-      "id": "4b1e825d-26a0-40a4-8d1b-8913f5a9b950",
-      "jobType": "generate",
-      "status": "completed",
-      "request": {
-        "subject": "math",
-        "topic": "fraction game precision epsilon",
-        "gradeLevel": "초등 5학년"
-      },
-      "createdAt": 1770467242089,
-      "moduleId": "20260207-fraction-game-precision-epsilon",
-      "modulePath": "edu-content/20260207-fraction-game-precision-epsilon",
-      "files": [
-        "index.html",
-        "script.js",
-        "style.css"
-      ]
+      "createdAt": 1771082603925,
+      "moduleId": "20260215-topic-b246acfc",
+      "modulePath": "edu-content/20260215-topic-b246acfc"
     }
   ]
 }

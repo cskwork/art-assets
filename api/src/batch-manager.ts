@@ -104,6 +104,10 @@ export class BatchManager {
           subject: request.subject,
           topic,
           gradeLevel: request.gradeLevel,
+          contentType: request.contentType,
+          visualStyle: request.visualStyle,
+          storyTheme: request.storyTheme,
+          difficulty: request.difficulty,
           useArtAssets: request.useArtAssets
         });
 

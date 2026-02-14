@@ -232,18 +232,60 @@ app.get('/api/admin/config', (_req, res) => {
     subjects: [
       { id: 'math', label: '수학' },
       { id: 'english', label: '영어' },
-      { id: 'science', label: '과학' }
+      { id: 'science', label: '과학' },
+      { id: 'social', label: '사회' },
+      { id: 'history', label: '역사' },
+      { id: 'korean', label: '국어' },
+      { id: 'art', label: '미술' },
+      { id: 'music', label: '음악' },
+      { id: 'coding', label: '코딩' }
     ],
     contentTypes: [
       { id: 'phaser', label: 'Phaser 2D 게임' },
-      { id: 'threejs', label: 'Three.js 3D 시각화' }
+      { id: 'threejs', label: 'Three.js 3D 시각화' },
+      { id: 'canvas-2d', label: 'Canvas 2D 그래픽' },
+      { id: 'svg-animation', label: 'SVG 애니메이션' },
+      { id: 'css-animation', label: 'CSS 애니메이션' },
+      { id: 'pixel-art', label: '픽셀 아트 게임' },
+      { id: 'isometric', label: '아이소메트릭 2.5D' }
     ],
     gradeLevels: [
+      { id: 'elementary-1-2', label: '초등 1-2학년' },
       { id: 'elementary-3-4', label: '초등 3-4학년' },
       { id: 'elementary-5-6', label: '초등 5-6학년' },
       { id: 'middle-1', label: '중학교 1학년' },
       { id: 'middle-2', label: '중학교 2학년' },
-      { id: 'middle-3', label: '중학교 3학년' }
+      { id: 'middle-3', label: '중학교 3학년' },
+      { id: 'high-1', label: '고등학교 1학년' },
+      { id: 'high-2', label: '고등학교 2학년' },
+      { id: 'high-3', label: '고등학교 3학년' }
+    ],
+    visualStyles: [
+      { id: 'modern-flat', label: '모던 플랫', description: '깔끔하고 밝은 플랫 디자인' },
+      { id: 'pixel-art', label: '픽셀 아트', description: '8비트/16비트 레트로 스타일' },
+      { id: 'isometric', label: '아이소메트릭', description: '3D 느낌의 2.5D 뷰' },
+      { id: 'hand-drawn', label: '손그림', description: '따뜻한 스케치/수채화 느낌' },
+      { id: 'watercolor', label: '수채화', description: '부드러운 그라데이션과 색 번짐' },
+      { id: 'neon-glow', label: '네온 글로우', description: '어두운 배경에 빛나는 네온' },
+      { id: 'retro-arcade', label: '레트로 아케이드', description: '80년대 아케이드 게임 분위기' },
+      { id: 'cartoon-3d', label: '카툰 3D', description: '만화풍 3D 렌더링' },
+      { id: 'minimal-clean', label: '미니멀', description: '최소한의 요소, 넓은 여백' }
+    ],
+    storyThemes: [
+      { id: 'adventure', label: '모험', description: '탐험과 발견의 여정' },
+      { id: 'mystery', label: '미스터리', description: '수수께끼와 추리' },
+      { id: 'sci-fi', label: 'SF', description: '미래 기술과 우주' },
+      { id: 'daily-life', label: '일상생활', description: '학교와 가정의 친근한 상황' },
+      { id: 'historical', label: '역사', description: '역사적 사건과 인물' },
+      { id: 'fantasy', label: '판타지', description: '마법의 세계와 모험' },
+      { id: 'sports', label: '스포츠', description: '운동과 경기' },
+      { id: 'nature', label: '자연', description: '자연 탐구와 생태계' }
+    ],
+    difficultyLevels: [
+      { id: 'basic', label: '기초' },
+      { id: 'intermediate', label: '중급' },
+      { id: 'advanced', label: '심화' },
+      { id: 'challenge', label: '도전' }
     ],
     artAssetCategories: ['icons', 'illustrations', 'diagrams', 'backgrounds', '3d', '8bit']
   };

@@ -13,7 +13,8 @@
       "Bash(unzip:*)",
       "Bash(node scripts/archive.js:*)",
       "mcp__context7__query-docs",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "Bash(node -e:*)"
     ]
   }
 }

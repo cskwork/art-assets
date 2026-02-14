@@ -1,9 +1,13 @@
-export type Subject = 'math' | 'english' | 'science';
+export type Subject = 'math' | 'english' | 'science' | 'social' | 'history' | 'korean' | 'art' | 'music' | 'coding';
 
 export interface GenerateContentRequest {
   subject: Subject;
   topic: string;
   gradeLevel: string;
+  contentType?: ContentType;
+  visualStyle?: VisualStyle;
+  storyTheme?: StoryTheme;
+  difficulty?: DifficultyLevel;
   useArtAssets?: boolean;
 }
 
@@ -24,6 +28,7 @@ export interface ReviewIssue {
   location: string;
   message: string;
   fix?: string;
+  category?: 'structure' | 'content' | 'visual' | 'accessibility' | 'interaction' | 'accuracy';
 }
 
 export interface ReviewResult {
@@ -109,13 +114,22 @@ export interface Job {
 
 // --- Admin 관련 타입 ---
 
-export type ContentType = 'phaser' | 'threejs';
+export type ContentType = 'phaser' | 'threejs' | 'canvas-2d' | 'svg-animation' | 'css-animation' | 'pixel-art' | 'isometric';
+
+export type VisualStyle = 'modern-flat' | 'pixel-art' | 'isometric' | 'hand-drawn' | 'watercolor' | 'neon-glow' | 'retro-arcade' | 'cartoon-3d' | 'minimal-clean';
+
+export type StoryTheme = 'adventure' | 'mystery' | 'sci-fi' | 'daily-life' | 'historical' | 'fantasy' | 'sports' | 'nature';
+
+export type DifficultyLevel = 'basic' | 'intermediate' | 'advanced' | 'challenge';
 
 export interface BatchGenerateRequest {
   subject: Subject;
   contentType: ContentType;
   gradeLevel: string;
   count: number;
+  visualStyle?: VisualStyle;
+  storyTheme?: StoryTheme;
+  difficulty?: DifficultyLevel;
   useArtAssets?: boolean;
   topics?: string[];
 }
@@ -133,6 +147,9 @@ export interface AdminConfig {
   subjects: Array<{ id: Subject; label: string }>;
   contentTypes: Array<{ id: ContentType; label: string }>;
   gradeLevels: Array<{ id: string; label: string }>;
+  visualStyles: Array<{ id: VisualStyle; label: string; description: string }>;
+  storyThemes: Array<{ id: StoryTheme; label: string; description: string }>;
+  difficultyLevels: Array<{ id: DifficultyLevel; label: string }>;
   artAssetCategories: string[];
 }
 

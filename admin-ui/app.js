@@ -8,6 +8,11 @@
   const $gradeLevelSelect = document.getElementById('gradeLevelSelect');
   const $countSlider = document.getElementById('countSlider');
   const $countDisplay = document.getElementById('countDisplay');
+  const $visualStyleSelect = document.getElementById('visualStyleSelect');
+  const $storyThemeSelect = document.getElementById('storyThemeSelect');
+  const $difficultySelect = document.getElementById('difficultySelect');
+  const $visualStyleHint = document.getElementById('visualStyleHint');
+  const $storyThemeHint = document.getElementById('storyThemeHint');
   const $useArtAssets = document.getElementById('useArtAssets');
   const $btnGenerate = document.getElementById('btnGenerate');
   const $jobGrid = document.getElementById('jobGrid');
@@ -128,6 +133,9 @@
         populateSelect($subjectSelect, data.subjects);
         populateSelect($contentTypeSelect, data.contentTypes);
         populateSelect($gradeLevelSelect, data.gradeLevels);
+        populateSelectWithHint($visualStyleSelect, data.visualStyles || [], $visualStyleHint);
+        populateSelectWithHint($storyThemeSelect, data.storyThemes || [], $storyThemeHint);
+        populateSelect($difficultySelect, data.difficultyLevels || []);
         $btnGenerate.disabled = false;
         addLog('설정 로드 완료', 'success');
       })
@@ -138,12 +146,37 @@
 
   function populateSelect(el, items) {
     el.innerHTML = '';
+    if (!Array.isArray(items)) return;
     items.forEach(function (item) {
       var opt = document.createElement('option');
       opt.value = item.id;
       opt.textContent = item.label;
       el.appendChild(opt);
     });
+  }
+
+  function populateSelectWithHint(el, items, hintEl) {
+    el.innerHTML = '';
+    var defaultOpt = document.createElement('option');
+    defaultOpt.value = '';
+    defaultOpt.textContent = '자동 선택';
+    el.appendChild(defaultOpt);
+    if (!Array.isArray(items)) return;
+    items.forEach(function (item) {
+      var opt = document.createElement('option');
+      opt.value = item.id;
+      opt.textContent = item.label;
+      if (item.description) {
+        opt.dataset.description = item.description;
+      }
+      el.appendChild(opt);
+    });
+    if (hintEl) {
+      el.addEventListener('change', function () {
+        var selected = el.options[el.selectedIndex];
+        hintEl.textContent = selected.dataset.description || '';
+      });
+    }
   }
 
   // --- 슬라이더 ---
@@ -185,7 +218,16 @@
     fetch('/api/admin/batch-generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subject: subject, contentType: contentType, gradeLevel: gradeLevel, count: count, useArtAssets: useArtAssets })
+      body: JSON.stringify({
+        subject: subject,
+        contentType: contentType,
+        gradeLevel: gradeLevel,
+        count: count,
+        visualStyle: $visualStyleSelect.value || undefined,
+        storyTheme: $storyThemeSelect.value || undefined,
+        difficulty: $difficultySelect.value || undefined,
+        useArtAssets: useArtAssets
+      })
     })
       .then(function (res) { return res.json(); })
       .then(function (data) {
@@ -380,14 +422,13 @@
 
     ws.onclose = function () {
       $wsIndicator.classList.remove('connected');
-      $wsStatusText.textContent = '연결 끊김';
-      addLog('WebSocket 연결 끊김', 'warn');
+      $wsStatusText.textContent = '폴링 모드';
       scheduleReconnect();
     };
 
     ws.onerror = function () {
       $wsIndicator.classList.remove('connected');
-      $wsStatusText.textContent = '연결 오류';
+      $wsStatusText.textContent = '폴링 모드';
     };
   }
 

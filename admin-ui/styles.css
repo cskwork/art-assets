@@ -439,6 +439,18 @@ body {
   accent-color: #0f766e;
 }
 
+.field-hint {
+  margin-top: 5px;
+  font-size: 0.74rem;
+  color: #6d7c95;
+  min-height: 1.2em;
+  line-height: 1.4;
+}
+
+[data-theme='dark'] .field-hint {
+  color: #8ea1c1;
+}
+
 .btn-generate {
   width: 100%;
   margin-top: 16px;

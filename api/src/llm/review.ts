@@ -9,7 +9,13 @@ const REVIEW_REQUIREMENT_KEYS = [
   'langKo',
   'koreanOnly',
   'logicalCorrectness',
-  'worksInBrowser'
+  'worksInBrowser',
+  'responsiveDesign',
+  'interactiveElements',
+  'accessibilityBasic',
+  'contentAccuracy',
+  'quizPresent',
+  'progressNavigation'
 ] as const;
 
 export interface DeterministicReviewResult {
@@ -20,6 +26,14 @@ export interface DeterministicReviewResult {
     scriptReferenced: boolean;
     styleReferenced: boolean;
     langKo: boolean;
+    responsiveDesign: boolean;
+    interactiveElements: boolean;
+    accessibilityBasic: boolean;
+    quizPresent: boolean;
+    progressNavigation: boolean;
+    noConsoleErrors: boolean;
+    notoSansKr: boolean;
+    viewportMeta: boolean;
   };
   issues: ReviewIssue[];
 }
@@ -39,38 +53,161 @@ function buildIssue(message: string, location = 'index.html', severity: ReviewIs
   return { severity, location, message };
 }
 
-export function evaluateDeterministicReview(html: string): DeterministicReviewResult {
+function checkResponsiveDesign(html: string, css: string): boolean {
+  return /@media\s*\(/.test(css) || /max-width|min-width/.test(css);
+}
+
+function checkInteractiveElements(html: string, js: string): boolean {
+  const hasButtons = /<button/i.test(html) || /\.addEventListener/i.test(js);
+  const hasDragDrop = /draggable|ondrag|drag/i.test(html) || /drag|drop/i.test(js);
+  const hasInputs = /<input|<select|<textarea/i.test(html);
+  const hasClickHandlers = /onclick|click|addEventListener.*click/i.test(js);
+  return hasButtons || hasDragDrop || hasInputs || hasClickHandlers;
+}
+
+function checkAccessibilityBasic(html: string): boolean {
+  const hasAltText = /alt=["'][^"']+["']/i.test(html);
+  const hasAriaLabels = /aria-label|aria-labelledby|role=/i.test(html);
+  const hasSemanticTags = /<(main|section|header|nav|article|aside|footer)/i.test(html);
+  // At least one accessibility feature present
+  return hasAltText || hasAriaLabels || hasSemanticTags;
+}
+
+function checkQuizPresent(html: string, js: string): boolean {
+  return /quiz/i.test(html) && (/checkAnswer|check.*answer|정답|오답|correct|incorrect/i.test(js));
+}
+
+function checkProgressNavigation(html: string, js: string): boolean {
+  return /nextScene|prevScene|showScene|next.*scene|prev.*scene/i.test(js);
+}
+
+function checkNoConsoleErrors(js: string): boolean {
+  // Check for common JS issues
+  const hasUnclosedBrackets = (js.match(/\{/g) || []).length !== (js.match(/\}/g) || []).length;
+  const hasUnclosedParens = (js.match(/\(/g) || []).length !== (js.match(/\)/g) || []).length;
+  return !hasUnclosedBrackets && !hasUnclosedParens;
+}
+
+function checkNotoSansKr(html: string, css: string): boolean {
+  return /Noto\s*Sans\s*KR/i.test(html) || /Noto\s*Sans\s*KR/i.test(css);
+}
+
+function checkViewportMeta(html: string): boolean {
+  return /<meta[^>]+viewport[^>]+>/i.test(html);
+}
+
+function checkCssVariables(css: string): boolean {
+  return /--primary|--secondary|--accent|:root/i.test(css);
+}
+
+function checkSceneMinContent(html: string): { pass: boolean; emptyScenes: string[] } {
+  const emptyScenes: string[] = [];
+  const scenePattern = /<section[^>]*id=["']([^"']*-scene)["'][^>]*>([\s\S]*?)<\/section>/gi;
+  let match;
+  while ((match = scenePattern.exec(html)) !== null) {
+    const sceneId = match[1];
+    const content = match[2].replace(/\s+/g, '').trim();
+    if (content.length < 20) {
+      emptyScenes.push(sceneId);
+    }
+  }
+  return { pass: emptyScenes.length === 0, emptyScenes };
+}
+
+export function evaluateDeterministicReview(html: string, js?: string, css?: string): DeterministicReviewResult {
+  const scriptContent = js || '';
+  const styleContent = css || '';
+
   const sceneCount = countScenes(html);
   const sevenScenes = sceneCount >= 7;
   const scriptReferenced = /<script[^>]+src=["']script\.js["'][^>]*>/i.test(html);
   const styleReferenced = /<link[^>]+rel=["']stylesheet["'][^>]*href=["']style\.css["'][^>]*>/i.test(html);
   const langKo = /<html[^>]+lang=["']ko["'][^>]*>/i.test(html);
+  const responsiveDesign = checkResponsiveDesign(html, styleContent);
+  const interactiveElements = checkInteractiveElements(html, scriptContent);
+  const accessibilityBasic = checkAccessibilityBasic(html);
+  const quizPresent = checkQuizPresent(html, scriptContent);
+  const progressNavigation = checkProgressNavigation(html, scriptContent);
+  const noConsoleErrors = checkNoConsoleErrors(scriptContent);
+  const notoSansKr = checkNotoSansKr(html, styleContent);
+  const viewportMeta = checkViewportMeta(html);
 
   const issues: ReviewIssue[] = [];
+
+  // Structure checks
   if (!sevenScenes) {
-    issues.push(buildIssue(`씬이 7개 이상이어야 합니다. 현재 ${sceneCount}개입니다.`));
+    issues.push(buildIssue(`씬이 7개 이상이어야 합니다. 현재 ${sceneCount}개입니다.`, 'index.html', 'high'));
   }
   if (!scriptReferenced) {
-    issues.push(buildIssue('script.js가 HTML에 연결되어 있지 않습니다.'));
+    issues.push(buildIssue('script.js가 HTML에 연결되어 있지 않습니다.', 'index.html', 'high'));
   }
   if (!styleReferenced) {
-    issues.push(buildIssue('style.css가 HTML에 연결되어 있지 않습니다.'));
+    issues.push(buildIssue('style.css가 HTML에 연결되어 있지 않습니다.', 'index.html', 'high'));
   }
   if (!langKo) {
-    issues.push(buildIssue('HTML lang 속성이 ko로 설정되지 않았습니다.'));
+    issues.push(buildIssue('HTML lang 속성이 ko로 설정되지 않았습니다.', 'index.html', 'high'));
+  }
+
+  // Visual/responsive checks
+  if (!responsiveDesign) {
+    issues.push(buildIssue('반응형 디자인(미디어 쿼리)이 없습니다.', 'style.css', 'medium'));
+  }
+  if (!notoSansKr) {
+    issues.push(buildIssue('Noto Sans KR 폰트가 설정되지 않았습니다.', 'style.css', 'medium'));
+  }
+  if (!viewportMeta) {
+    issues.push(buildIssue('viewport meta 태그가 없습니다.', 'index.html', 'high'));
+  }
+
+  // Interaction checks
+  if (!interactiveElements) {
+    issues.push(buildIssue('인터랙티브 요소(버튼, 드래그, 입력)가 없습니다.', 'script.js', 'high'));
+  }
+  if (!quizPresent) {
+    issues.push(buildIssue('퀴즈 기능이 구현되지 않았습니다.', 'script.js', 'medium'));
+  }
+  if (!progressNavigation) {
+    issues.push(buildIssue('씬 전환 네비게이션이 없습니다.', 'script.js', 'high'));
+  }
+
+  // Accessibility checks
+  if (!accessibilityBasic) {
+    issues.push(buildIssue('기본 접근성 기능(alt, aria, 시맨틱 태그)이 부족합니다.', 'index.html', 'low'));
+  }
+
+  // Code quality checks
+  if (!noConsoleErrors) {
+    issues.push(buildIssue('JavaScript 괄호 불일치가 감지되었습니다.', 'script.js', 'high'));
+  }
+
+  // Scene content check
+  const sceneCheck = checkSceneMinContent(html);
+  if (!sceneCheck.pass) {
+    sceneCheck.emptyScenes.forEach(sceneId => {
+      issues.push(buildIssue(`${sceneId}의 콘텐츠가 너무 적습니다.`, 'index.html', 'medium'));
+    });
   }
 
   const requirements = {
     sevenScenes,
     scriptReferenced,
     styleReferenced,
-    langKo
+    langKo,
+    responsiveDesign,
+    interactiveElements,
+    accessibilityBasic,
+    quizPresent,
+    progressNavigation,
+    noConsoleErrors,
+    notoSansKr,
+    viewportMeta
   };
 
-  const pass = Object.values(requirements).every(Boolean);
+  // Core requirements (high severity) must all pass
+  const corePass = sevenScenes && scriptReferenced && styleReferenced && langKo && viewportMeta && progressNavigation;
 
   return {
-    pass,
+    pass: corePass,
     sceneCount,
     requirements,
     issues
@@ -89,6 +226,14 @@ export function buildReviewMessages(
     `- scriptReferenced: ${deterministic.requirements.scriptReferenced}`,
     `- styleReferenced: ${deterministic.requirements.styleReferenced}`,
     `- langKo: ${deterministic.requirements.langKo}`,
+    `- responsiveDesign: ${deterministic.requirements.responsiveDesign}`,
+    `- interactiveElements: ${deterministic.requirements.interactiveElements}`,
+    `- accessibilityBasic: ${deterministic.requirements.accessibilityBasic}`,
+    `- quizPresent: ${deterministic.requirements.quizPresent}`,
+    `- progressNavigation: ${deterministic.requirements.progressNavigation}`,
+    `- noConsoleErrors: ${deterministic.requirements.noConsoleErrors}`,
+    `- notoSansKr: ${deterministic.requirements.notoSansKr}`,
+    `- viewportMeta: ${deterministic.requirements.viewportMeta}`,
     `- sceneCount: ${deterministic.sceneCount}`
   ].join('\n');
 
@@ -103,7 +248,13 @@ export function buildReviewMessages(
     '    "langKo": true,',
     '    "koreanOnly": true,',
     '    "logicalCorrectness": true,',
-    '    "worksInBrowser": true',
+    '    "worksInBrowser": true,',
+    '    "responsiveDesign": true,',
+    '    "interactiveElements": true,',
+    '    "accessibilityBasic": true,',
+    '    "contentAccuracy": true,',
+    '    "quizPresent": true,',
+    '    "progressNavigation": true',
     '  },',
     '  "issues": [',
     '    { "severity": "high", "location": "index.html", "message": "설명", "fix": "수정안" }',
@@ -160,7 +311,7 @@ export function buildFixMessages(
     : '이슈 없음';
 
   const deterministicSummary = [
-    `자동 점검: sevenScenes=${deterministic.requirements.sevenScenes}, scriptReferenced=${deterministic.requirements.scriptReferenced}, styleReferenced=${deterministic.requirements.styleReferenced}, langKo=${deterministic.requirements.langKo}, sceneCount=${deterministic.sceneCount}`
+    `자동 점검: sevenScenes=${deterministic.requirements.sevenScenes}, scriptReferenced=${deterministic.requirements.scriptReferenced}, styleReferenced=${deterministic.requirements.styleReferenced}, langKo=${deterministic.requirements.langKo}, responsiveDesign=${deterministic.requirements.responsiveDesign}, interactiveElements=${deterministic.requirements.interactiveElements}, accessibilityBasic=${deterministic.requirements.accessibilityBasic}, quizPresent=${deterministic.requirements.quizPresent}, progressNavigation=${deterministic.requirements.progressNavigation}, noConsoleErrors=${deterministic.requirements.noConsoleErrors}, notoSansKr=${deterministic.requirements.notoSansKr}, viewportMeta=${deterministic.requirements.viewportMeta}, sceneCount=${deterministic.sceneCount}`
   ].join('\n');
 
   const responseSchema = [

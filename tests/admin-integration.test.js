@@ -116,14 +116,18 @@ async function main() {
     const res = await request('GET', '/api/admin/config');
     assert.equal(res.status, 200);
     const { subjects, contentTypes, gradeLevels, artAssetCategories } = res.body;
-    assert.equal(subjects.length, 3);
+    assert.equal(subjects.length, 9);
     assert.ok(subjects.map(s => s.id).includes('math'));
     assert.ok(subjects.map(s => s.id).includes('english'));
     assert.ok(subjects.map(s => s.id).includes('science'));
-    assert.equal(contentTypes.length, 2);
+    assert.ok(subjects.map(s => s.id).includes('social'));
+    assert.ok(subjects.map(s => s.id).includes('coding'));
+    assert.equal(contentTypes.length, 7);
     assert.ok(contentTypes.map(c => c.id).includes('phaser'));
     assert.ok(contentTypes.map(c => c.id).includes('threejs'));
-    assert.equal(gradeLevels.length, 5);
+    assert.ok(contentTypes.map(c => c.id).includes('canvas-2d'));
+    assert.ok(contentTypes.map(c => c.id).includes('pixel-art'));
+    assert.equal(gradeLevels.length, 9);
     assert.ok(Array.isArray(artAssetCategories));
     assert.ok(artAssetCategories.length >= 4);
   });
@@ -137,6 +141,20 @@ async function main() {
       assert.ok(item.id.length > 0);
       assert.ok(item.label.length > 0);
     });
+  });
+
+  await runTest('GET /api/admin/config: 비주얼 스타일, 스토리 테마, 난이도 포함', async () => {
+    const res = await request('GET', '/api/admin/config');
+    const { visualStyles, storyThemes, difficultyLevels } = res.body;
+    assert.ok(Array.isArray(visualStyles));
+    assert.ok(visualStyles.length >= 9);
+    assert.ok(visualStyles.every(v => v.id && v.label && v.description));
+    assert.ok(Array.isArray(storyThemes));
+    assert.ok(storyThemes.length >= 8);
+    assert.ok(storyThemes.every(t => t.id && t.label && t.description));
+    assert.ok(Array.isArray(difficultyLevels));
+    assert.ok(difficultyLevels.length >= 4);
+    assert.ok(difficultyLevels.every(d => d.id && d.label));
   });
 
   await runTest('GET /api/admin/jobs: jobs 배열 반환', async () => {
@@ -191,6 +209,25 @@ async function main() {
     assert.ok(jobsRes.body.jobs.length >= 1);
   });
 
+  await runTest('POST /api/admin/batch-generate: 새 필드 포함 요청', async () => {
+    const res = await request('POST', '/api/admin/batch-generate', {
+      subject: 'coding', contentType: 'pixel-art', gradeLevel: 'elementary-5-6', count: 1,
+      visualStyle: 'pixel-art', storyTheme: 'adventure', difficulty: 'intermediate',
+      useArtAssets: false
+    });
+    assert.equal(res.status, 200);
+    assert.ok(res.body.batchId);
+    assert.equal(res.body.jobs.length, 1);
+  });
+
+  await runTest('POST /api/admin/batch-generate: 새 과목(coding) 지원', async () => {
+    const res = await request('POST', '/api/admin/batch-generate', {
+      subject: 'coding', contentType: 'phaser', gradeLevel: 'middle-1', count: 1, useArtAssets: false
+    });
+    assert.equal(res.status, 200);
+    assert.ok(res.body.batchId);
+  });
+
   await runTest('GET /admin/: Admin UI HTML 반환', async () => {
     const res = await request('GET', '/admin/');
     assert.equal(res.status, 200);
@@ -229,6 +266,7 @@ async function main() {
     const html = res.raw;
     const ids = [
       'subjectSelect', 'contentTypeSelect', 'gradeLevelSelect',
+      'visualStyleSelect', 'storyThemeSelect', 'difficultySelect',
       'countSlider', 'countDisplay', 'useArtAssets', 'btnGenerate',
       'jobGrid', 'emptyState', 'logContent', 'btnClearLog',
       'wsIndicator', 'wsStatusText', 'previewModal', 'previewIframe',

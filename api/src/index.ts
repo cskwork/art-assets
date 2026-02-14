@@ -12,6 +12,8 @@ import {
 } from './job-manager';
 import { createModuleId, generateContentForJob, reviewContentForJob } from './content-generator';
 import {
+  ContentType,
+  DifficultyLevel,
   ErrorCode,
   ErrorResponse,
   GenerateContentRequest,
@@ -19,7 +21,9 @@ import {
   GenerateContentStatusResponse,
   ReviewContentRequest,
   ReviewContentResponse,
-  ReviewContentStatusResponse
+  ReviewContentStatusResponse,
+  StoryTheme,
+  VisualStyle
 } from './types';
 
 dotenv.config();
@@ -83,7 +87,8 @@ export function validateGenerateContentRequest(input: unknown) {
   const gradeLevel = record.gradeLevel;
   const useArtAssets = record.useArtAssets;
 
-  if (subject !== 'math' && subject !== 'english' && subject !== 'science') {
+  const validSubjects = ['math', 'english', 'science', 'social', 'history', 'korean', 'art', 'music', 'coding'];
+  if (typeof subject !== 'string' || !validSubjects.includes(subject)) {
     return { ok: false, code: 'INVALID_SUBJECT' as const };
   }
 
@@ -101,6 +106,38 @@ export function validateGenerateContentRequest(input: unknown) {
 
   if (useArtAssets !== undefined && typeof useArtAssets !== 'boolean') {
     return { ok: false, code: 'INVALID_REQUEST' as const };
+  }
+
+  const contentType = record.contentType;
+  if (contentType !== undefined) {
+    const validContentTypes = ['phaser', 'threejs', 'canvas-2d', 'svg-animation', 'css-animation', 'pixel-art', 'isometric'];
+    if (typeof contentType !== 'string' || !validContentTypes.includes(contentType)) {
+      return { ok: false, code: 'INVALID_REQUEST' as const };
+    }
+  }
+
+  const visualStyle = record.visualStyle;
+  if (visualStyle !== undefined) {
+    const validVisualStyles = ['modern-flat', 'pixel-art', 'isometric', 'hand-drawn', 'watercolor', 'neon-glow', 'retro-arcade', 'cartoon-3d', 'minimal-clean'];
+    if (typeof visualStyle !== 'string' || !validVisualStyles.includes(visualStyle)) {
+      return { ok: false, code: 'INVALID_REQUEST' as const };
+    }
+  }
+
+  const storyTheme = record.storyTheme;
+  if (storyTheme !== undefined) {
+    const validStoryThemes = ['adventure', 'mystery', 'sci-fi', 'daily-life', 'historical', 'fantasy', 'sports', 'nature'];
+    if (typeof storyTheme !== 'string' || !validStoryThemes.includes(storyTheme)) {
+      return { ok: false, code: 'INVALID_REQUEST' as const };
+    }
+  }
+
+  const difficulty = record.difficulty;
+  if (difficulty !== undefined) {
+    const validDifficulties = ['basic', 'intermediate', 'advanced', 'challenge'];
+    if (typeof difficulty !== 'string' || !validDifficulties.includes(difficulty)) {
+      return { ok: false, code: 'INVALID_REQUEST' as const };
+    }
   }
 
   return { ok: true as const };
