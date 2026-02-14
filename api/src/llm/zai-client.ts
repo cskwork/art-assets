@@ -13,15 +13,47 @@ export interface ZaiClientOptions {
   apiKey: string;
   apiUrl?: string;
   model?: string;
+  maxTokens?: number;
+  temperature?: number;
   timeoutMs?: number;
   label?: LogTag;
   onProgress?: (elapsed: number, chars: number) => void;
 }
 
-const DEFAULT_API_URL = 'https://api.z.ai/api/coding/paas/v4/chat/completions';
+const DEFAULT_API_URL = 'https://api.z.ai/api/paas/v4/chat/completions';
 const DEFAULT_MODEL = 'glm-4.7';
+const DEFAULT_MAX_TOKENS = 16384;
+const DEFAULT_TEMPERATURE = 1.0;
 const DEFAULT_TIMEOUT_MS = 600000; // 10분
 const PROGRESS_INTERVAL_MS = 5000;
+
+/** Models that support the thinking parameter */
+const THINKING_MODELS = new Set(['glm-5']);
+
+function needsThinking(model: string) {
+  return THINKING_MODELS.has(model);
+}
+
+function buildRequestBody(
+  messages: ZaiChatMessage[],
+  options: ZaiClientOptions,
+  stream: boolean
+) {
+  const model = options.model ?? DEFAULT_MODEL;
+  const body: Record<string, unknown> = {
+    model,
+    messages,
+    stream,
+    max_tokens: options.maxTokens ?? DEFAULT_MAX_TOKENS,
+    temperature: options.temperature ?? DEFAULT_TEMPERATURE
+  };
+
+  if (needsThinking(model)) {
+    body.thinking = { type: 'enabled' };
+  }
+
+  return body;
+}
 
 function processSseLines(lines: string[], content: string) {
   let updated = content;
@@ -83,6 +115,10 @@ async function streamWithFetch(
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   const label = options.label ?? 'API';
   const startTime = Date.now();
+  const model = options.model ?? DEFAULT_MODEL;
+  const requestBody = buildRequestBody(messages, options, true);
+
+  log(label, `API 호출 시작 (${model}, max_tokens=${requestBody.max_tokens})...`);
 
   try {
     const response = await fetch(options.apiUrl ?? DEFAULT_API_URL, {
@@ -91,16 +127,18 @@ async function streamWithFetch(
         Authorization: `Bearer ${options.apiKey}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model: options.model ?? DEFAULT_MODEL,
-        messages,
-        stream: true
-      }),
+      body: JSON.stringify(requestBody),
       signal: controller.signal
     });
 
     if (!response.ok) {
-      throw new Error(`Z.ai API 오류: ${response.status} ${response.statusText}`);
+      let errorDetail = '';
+      try {
+        errorDetail = await response.text();
+        errorDetail = errorDetail.slice(0, 300);
+      } catch { /* ignore */ }
+      const detail = errorDetail ? ` - ${errorDetail}` : '';
+      throw new Error(`Z.ai API 오류: ${response.status} ${response.statusText}${detail}`);
     }
 
     const reader = response.body?.getReader();
@@ -165,18 +203,15 @@ async function streamWithHttp(
   const model = options.model ?? DEFAULT_MODEL;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const label = options.label ?? 'API';
+  const requestBody = buildRequestBody(messages, options, true);
 
-  const payload = JSON.stringify({
-    model,
-    messages,
-    stream: true
-  });
+  const payload = JSON.stringify(requestBody);
   const url = new URL(apiUrl);
   const requestFn = url.protocol === 'https:' ? https.request : http.request;
   const startTime = Date.now();
 
   logSize(`${label} 요청`, payload);
-  log(label, `API 호출 시작 (${model})...`);
+  log(label, `API 호출 시작 (${model}, max_tokens=${requestBody.max_tokens})...`);
 
   return new Promise<string>((resolve, reject) => {
     let timedOut = false;

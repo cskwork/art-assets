@@ -187,7 +187,7 @@ async function loadClaudeSdk() {
 function buildZaiMessages(prompt, moduleId) {
     const outputGuide = [
         '응답 형식은 아래 두 가지 중 하나로만 출력하세요.',
-        `1) JSON: {"files":[{"path":"edu-content/${moduleId}/index.html","content":"..."}]}`,
+        `1) JSON: {"files":[{"path":"edu-content/${moduleId}/index.html","content":"..."},{"path":"edu-content/${moduleId}/script.js","content":"..."},{"path":"edu-content/${moduleId}/style.css","content":"..."}]}`,
         '2) 마크다운 코드블록:',
         '### index.html',
         '```html',
@@ -202,12 +202,25 @@ function buildZaiMessages(prompt, moduleId) {
         '...',
         '```',
         '필수 파일은 index.html, script.js, style.css 입니다.',
-        '설명 문장 없이 파일 결과만 출력하세요.'
+        '설명 문장 없이 파일 결과만 출력하세요.',
+        '',
+        '품질 요구사항:',
+        '- 7개 씬(hook, anchor, story, core, visualize, quiz, wrap) 필수',
+        '- HTML lang="ko" 필수',
+        '- script.js 참조, style.css 참조 필수',
+        '- viewport meta 태그 필수',
+        '- Noto Sans KR 폰트 사용',
+        '- 반응형 디자인(@media) 포함',
+        '- 인터랙티브 요소(버튼, 드래그, 슬라이더) 포함',
+        '- 씬 전환 네비게이션 필수',
+        '- 퀴즈 기능 구현 필수(정답/오답 피드백)',
+        '- 각 씬에 충분한 콘텐츠 포함',
+        '- 커스텀 SVG 그래픽 사용(이모지 사용 금지)'
     ].join('\n');
     return [
         {
             role: 'system',
-            content: '당신은 교육용 웹 콘텐츠를 생성하는 도우미입니다.'
+            content: '당신은 한국 교육과정에 맞는 고품질 인터랙티브 교육 콘텐츠를 생성하는 전문가입니다. 발견 기반 학습, 스토리텔링, 앵커링을 활용하여 학생들이 직접 조작하며 원리를 발견하도록 설계합니다. 항상 한국어로 작성하고, 커스텀 SVG를 사용하며, 7개 씬 구조를 따릅니다.'
         },
         {
             role: 'user',
@@ -314,25 +327,58 @@ async function generateContentWithZai(jobId, request, moduleId, rootDir, prompt)
     const messages = buildZaiMessages(prompt, moduleId);
     const apiUrl = process.env.ZAI_API_URL?.trim();
     const model = process.env.ZAI_MODEL?.trim();
-    const content = await (0, zai_client_1.streamZaiChat)(messages, {
-        apiKey,
-        apiUrl: apiUrl || undefined,
-        model: model || undefined,
-        label: 'GEN'
-    });
-    let files;
-    try {
-        files = (0, zai_output_1.parseZaiOutput)(content, moduleId);
+    const maxGenAttempts = 2;
+    let lastError = null;
+    for (let attempt = 1; attempt <= maxGenAttempts; attempt++) {
+        let content;
+        try {
+            content = await (0, zai_client_1.streamZaiChat)(messages, {
+                apiKey,
+                apiUrl: apiUrl || undefined,
+                model: model || undefined,
+                label: 'GEN'
+            });
+        }
+        catch (error) {
+            lastError = error instanceof Error ? error : new Error(String(error));
+            (0, logger_1.log)('ERROR', `Z.ai API 호출 실패 (시도 ${attempt}/${maxGenAttempts}): ${lastError.message}`);
+            if (attempt < maxGenAttempts) {
+                (0, logger_1.log)('GEN', `재시도 ${attempt + 1}/${maxGenAttempts}...`);
+                continue;
+            }
+            throw lastError;
+        }
+        // Validate response is not empty or too short
+        if (!content || content.trim().length < 100) {
+            (0, logger_1.log)('ERROR', `Z.ai 응답이 너무 짧습니다 (${content?.length ?? 0}자)`);
+            if (attempt < maxGenAttempts) {
+                (0, logger_1.log)('GEN', `재시도 ${attempt + 1}/${maxGenAttempts}...`);
+                continue;
+            }
+            throw new Error(`Z.ai 응답이 비어있거나 너무 짧습니다 (${content?.length ?? 0}자).`);
+        }
+        try {
+            const files = (0, zai_output_1.parseZaiOutput)(content, moduleId);
+            await writeGeneratedFiles(rootDir, files);
+            files.forEach((file) => {
+                (0, logger_1.log)('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);
+            });
+            (0, logger_1.log)('GEN', `콘텐츠 생성 완료 (${files.length}개 파일)`);
+            return;
+        }
+        catch (error) {
+            lastError = error instanceof Error ? error : new Error(String(error));
+            const preview = content.slice(0, 500).replace(/\n/g, '\\n');
+            (0, logger_1.log)('ERROR', `파싱 실패 (시도 ${attempt}/${maxGenAttempts}): ${lastError.message}`);
+            (0, logger_1.log)('ERROR', `응답 미리보기 (${content.length}자): ${preview}`);
+            if (attempt < maxGenAttempts) {
+                (0, logger_1.log)('GEN', `재시도 ${attempt + 1}/${maxGenAttempts}...`);
+                continue;
+            }
+        }
     }
-    catch (error) {
-        const message = error instanceof Error ? error.message : '알 수 없는 파싱 오류';
-        throw new Error(`생성 결과 파싱 실패: ${message}`);
-    }
-    await writeGeneratedFiles(rootDir, files);
-    files.forEach((file) => {
-        (0, logger_1.log)('WRITE', `${file.path} (${file.content.length.toLocaleString()}자)`);
-    });
-    (0, logger_1.log)('GEN', `콘텐츠 생성 완료 (${files.length}개 파일)`);
+    const message = lastError?.message || '알 수 없는 파싱 오류';
+    throw new Error(`생성 결과 파싱 실패: ${message}`);
 }
 async function runContentReview(prompt, rootDir, moduleId) {
     const provider = getReviewProvider(process.env.LLM_REVIEW_PROVIDER);
@@ -347,7 +393,7 @@ async function runContentReview(prompt, rootDir, moduleId) {
     (0, logger_1.logSize)('index.html', files.indexHtml);
     (0, logger_1.logSize)('script.js', files.scriptJs);
     (0, logger_1.logSize)('style.css', files.styleCss);
-    const deterministic = (0, review_1.evaluateDeterministicReview)(files.indexHtml);
+    const deterministic = (0, review_1.evaluateDeterministicReview)(files.indexHtml, files.scriptJs, files.styleCss);
     (0, logger_1.log)('REVIEW', `결정론적: ${deterministic.pass ? '통과' : '실패'} (씬 ${deterministic.sceneCount}개)`);
     if (!deterministic.pass) {
         deterministic.issues.forEach((issue, i) => {

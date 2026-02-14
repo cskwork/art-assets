@@ -5,11 +5,12 @@ const { parseReviewOutput, evaluateDeterministicReview } = require('../api/dist/
 
 test('evaluateDeterministicReview passes with 7 scenes and assets', () => {
   const scenes = Array.from({ length: 7 })
-    .map((_, index) => `<section class="scene">scene ${index + 1}</section>`)
+    .map((_, index) => `<section class="scene">scene ${index + 1} 충분한 콘텐츠가 여기에 있습니다.</section>`)
     .join('');
-  const html = `<!doctype html><html lang="ko"><head><link rel="stylesheet" href="style.css"></head><body><div id="app">${scenes}</div><script src="script.js"></script></body></html>`;
+  const html = `<!doctype html><html lang="ko"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style.css"></head><body><div id="app">${scenes}</div><script src="script.js"></script></body></html>`;
+  const js = 'function nextScene() {} function checkAnswer() { /* 정답 */ }';
 
-  const result = evaluateDeterministicReview(html);
+  const result = evaluateDeterministicReview(html, js);
 
   assert.equal(result.pass, true);
   assert.equal(result.sceneCount, 7);
@@ -37,7 +38,13 @@ test('parseReviewOutput accepts json response', () => {
       langKo: true,
       koreanOnly: true,
       logicalCorrectness: true,
-      worksInBrowser: true
+      worksInBrowser: true,
+      responsiveDesign: true,
+      interactiveElements: true,
+      accessibilityBasic: true,
+      contentAccuracy: true,
+      quizPresent: true,
+      progressNavigation: true
     },
     issues: [],
     summary: 'ok'
@@ -60,7 +67,13 @@ test('parseReviewOutput accepts fenced json response', () => {
       langKo: true,
       koreanOnly: false,
       logicalCorrectness: false,
-      worksInBrowser: false
+      worksInBrowser: false,
+      responsiveDesign: false,
+      interactiveElements: false,
+      accessibilityBasic: false,
+      contentAccuracy: false,
+      quizPresent: false,
+      progressNavigation: false
     },
     issues: [
       {

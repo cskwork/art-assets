@@ -25,7 +25,7 @@ test('validateGenerateContentRequest allows science subject', () => {
 
 test('validateGenerateContentRequest rejects invalid subject', () => {
   const result = validateGenerateContentRequest({
-    subject: 'history',
+    subject: 'cooking',
     topic: '테스트',
     gradeLevel: '중학교 1학년'
   });
