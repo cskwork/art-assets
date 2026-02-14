@@ -34,6 +34,13 @@ export interface DeterministicReviewResult {
     noConsoleErrors: boolean;
     notoSansKr: boolean;
     viewportMeta: boolean;
+    noJustifyCenter: boolean;
+    navPaddingBottom: boolean;
+    consistentContainerWidth: boolean;
+    noAbsoluteOverflow: boolean;
+    svgQuotesOk: boolean;
+    zIndexSanity: boolean;
+    containerMaxWidth: boolean;
   };
   issues: ReviewIssue[];
 }
@@ -114,6 +121,65 @@ function checkSceneMinContent(html: string): { pass: boolean; emptyScenes: strin
   return { pass: emptyScenes.length === 0, emptyScenes };
 }
 
+function checkNoJustifyCenter(css: string): boolean {
+  // Check that .scene.active doesn't use justify-content: center
+  // which causes content clipping when taller than viewport
+  const sceneActiveMatch = css.match(/\.scene\.active\s*\{[^}]*\}/gi);
+  if (!sceneActiveMatch) return true; // no .scene.active rule means we can't tell
+  return !sceneActiveMatch.some(block => /justify-content\s*:\s*center/i.test(block));
+}
+
+function checkNavPaddingBottom(css: string): boolean {
+  // Verify scenes have adequate bottom padding for fixed navigation
+  const hasNavHeight = /--nav-height/i.test(css);
+  const hasPaddingBottom = /padding-bottom\s*:/.test(css);
+  return hasNavHeight || hasPaddingBottom;
+}
+
+function checkConsistentContainerWidth(html: string, css: string): boolean {
+  // Check that a CSS variable or consistent max-width is used
+  const hasContainerVar = /--container-max/i.test(css);
+  const maxWidths = css.match(/max-width\s*:\s*(\d+)px/gi) || [];
+  if (hasContainerVar) return true;
+  // If more than 3 different max-width values, layout is inconsistent
+  const uniqueWidths = new Set(maxWidths.map(m => m.match(/\d+/)?.[0]));
+  return uniqueWidths.size <= 3;
+}
+
+function checkNoAbsoluteOverflow(html: string, css: string): boolean {
+  // Check that position: absolute elements have overflow-hidden parents
+  const absoluteCount = (css.match(/position\s*:\s*absolute/gi) || []).length;
+  const overflowHidden = (css.match(/overflow\s*:\s*hidden/gi) || []).length;
+  // If lots of absolute positioning without overflow containment, flag it
+  if (absoluteCount > 3 && overflowHidden === 0) return false;
+  return true;
+}
+
+function checkSvgQuotes(html: string): boolean {
+  // Check for broken SVG attribute quoting (mixing " and ' in a single attribute)
+  // Pattern: attribute="value' or attribute='value"
+  const brokenQuotes = html.match(/(?:fill|stroke|style)="[^"]*'[^"]*"/gi);
+  const brokenQuotes2 = html.match(/(?:fill|stroke|style)='[^']*"[^']*'/gi);
+  return !brokenQuotes && !brokenQuotes2;
+}
+
+function checkZIndexSanity(css: string): boolean {
+  // Check that no content elements use z-index > 100 (reserved for nav)
+  const zIndexValues = css.match(/z-index\s*:\s*(\d+)/gi) || [];
+  const highZIndex = zIndexValues.filter(z => {
+    const val = parseInt(z.match(/\d+/)?.[0] || '0');
+    return val > 500;
+  });
+  return highZIndex.length === 0;
+}
+
+function checkContainerMaxWidth(css: string): boolean {
+  // Verify scene containers have width constraints
+  const hasMaxWidth = /max-width/i.test(css);
+  const hasWidthPercent = /width\s*:\s*100%/i.test(css);
+  return hasMaxWidth || hasWidthPercent;
+}
+
 export function evaluateDeterministicReview(html: string, js?: string, css?: string): DeterministicReviewResult {
   const scriptContent = js || '';
   const styleContent = css || '';
@@ -131,6 +197,15 @@ export function evaluateDeterministicReview(html: string, js?: string, css?: str
   const noConsoleErrors = checkNoConsoleErrors(scriptContent);
   const notoSansKr = checkNotoSansKr(html, styleContent);
   const viewportMeta = checkViewportMeta(html);
+
+  // Layout quality checks
+  const noJustifyCenter = checkNoJustifyCenter(styleContent);
+  const navPaddingBottom = checkNavPaddingBottom(styleContent);
+  const consistentContainerWidth = checkConsistentContainerWidth(html, styleContent);
+  const noAbsoluteOverflow = checkNoAbsoluteOverflow(html, styleContent);
+  const svgQuotesOk = checkSvgQuotes(html);
+  const zIndexSanity = checkZIndexSanity(styleContent);
+  const containerMaxWidth = checkContainerMaxWidth(styleContent);
 
   const issues: ReviewIssue[] = [];
 
@@ -188,6 +263,29 @@ export function evaluateDeterministicReview(html: string, js?: string, css?: str
     });
   }
 
+  // Layout quality issues
+  if (!noJustifyCenter) {
+    issues.push(buildIssue('.scene.active에 justify-content: center가 있어 콘텐츠 길 때 위쪽이 잘립니다. flex-start로 변경하세요.', 'style.css', 'high'));
+  }
+  if (!navPaddingBottom) {
+    issues.push(buildIssue('고정 네비게이션을 위한 padding-bottom이 부족합니다.', 'style.css', 'medium'));
+  }
+  if (!consistentContainerWidth) {
+    issues.push(buildIssue('씬 컨테이너의 max-width가 일관적이지 않습니다. CSS 변수를 사용하세요.', 'style.css', 'medium'));
+  }
+  if (!noAbsoluteOverflow) {
+    issues.push(buildIssue('position: absolute 요소가 overflow: hidden 없이 사용되어 겹침이 발생합니다.', 'style.css', 'high'));
+  }
+  if (!svgQuotesOk) {
+    issues.push(buildIssue('SVG 속성에 따옴표 혼용이 있어 렌더링이 깨집니다.', 'index.html', 'high'));
+  }
+  if (!zIndexSanity) {
+    issues.push(buildIssue('z-index가 500 이상인 요소가 있어 레이어 충돌 위험이 있습니다.', 'style.css', 'low'));
+  }
+  if (!containerMaxWidth) {
+    issues.push(buildIssue('컨테이너에 max-width 제한이 없어 넓은 화면에서 레이아웃이 깨집니다.', 'style.css', 'medium'));
+  }
+
   const requirements = {
     sevenScenes,
     scriptReferenced,
@@ -200,7 +298,14 @@ export function evaluateDeterministicReview(html: string, js?: string, css?: str
     progressNavigation,
     noConsoleErrors,
     notoSansKr,
-    viewportMeta
+    viewportMeta,
+    noJustifyCenter,
+    navPaddingBottom,
+    consistentContainerWidth,
+    noAbsoluteOverflow,
+    svgQuotesOk,
+    zIndexSanity,
+    containerMaxWidth
   };
 
   // Core requirements (high severity) must all pass
@@ -234,6 +339,13 @@ export function buildReviewMessages(
     `- noConsoleErrors: ${deterministic.requirements.noConsoleErrors}`,
     `- notoSansKr: ${deterministic.requirements.notoSansKr}`,
     `- viewportMeta: ${deterministic.requirements.viewportMeta}`,
+    `- noJustifyCenter: ${deterministic.requirements.noJustifyCenter}`,
+    `- navPaddingBottom: ${deterministic.requirements.navPaddingBottom}`,
+    `- consistentContainerWidth: ${deterministic.requirements.consistentContainerWidth}`,
+    `- noAbsoluteOverflow: ${deterministic.requirements.noAbsoluteOverflow}`,
+    `- svgQuotesOk: ${deterministic.requirements.svgQuotesOk}`,
+    `- zIndexSanity: ${deterministic.requirements.zIndexSanity}`,
+    `- containerMaxWidth: ${deterministic.requirements.containerMaxWidth}`,
     `- sceneCount: ${deterministic.sceneCount}`
   ].join('\n');
 
@@ -311,7 +423,7 @@ export function buildFixMessages(
     : '이슈 없음';
 
   const deterministicSummary = [
-    `자동 점검: sevenScenes=${deterministic.requirements.sevenScenes}, scriptReferenced=${deterministic.requirements.scriptReferenced}, styleReferenced=${deterministic.requirements.styleReferenced}, langKo=${deterministic.requirements.langKo}, responsiveDesign=${deterministic.requirements.responsiveDesign}, interactiveElements=${deterministic.requirements.interactiveElements}, accessibilityBasic=${deterministic.requirements.accessibilityBasic}, quizPresent=${deterministic.requirements.quizPresent}, progressNavigation=${deterministic.requirements.progressNavigation}, noConsoleErrors=${deterministic.requirements.noConsoleErrors}, notoSansKr=${deterministic.requirements.notoSansKr}, viewportMeta=${deterministic.requirements.viewportMeta}, sceneCount=${deterministic.sceneCount}`
+    `자동 점검: sevenScenes=${deterministic.requirements.sevenScenes}, scriptReferenced=${deterministic.requirements.scriptReferenced}, styleReferenced=${deterministic.requirements.styleReferenced}, langKo=${deterministic.requirements.langKo}, responsiveDesign=${deterministic.requirements.responsiveDesign}, interactiveElements=${deterministic.requirements.interactiveElements}, accessibilityBasic=${deterministic.requirements.accessibilityBasic}, quizPresent=${deterministic.requirements.quizPresent}, progressNavigation=${deterministic.requirements.progressNavigation}, noConsoleErrors=${deterministic.requirements.noConsoleErrors}, notoSansKr=${deterministic.requirements.notoSansKr}, viewportMeta=${deterministic.requirements.viewportMeta}, noJustifyCenter=${deterministic.requirements.noJustifyCenter}, navPaddingBottom=${deterministic.requirements.navPaddingBottom}, consistentContainerWidth=${deterministic.requirements.consistentContainerWidth}, noAbsoluteOverflow=${deterministic.requirements.noAbsoluteOverflow}, svgQuotesOk=${deterministic.requirements.svgQuotesOk}, zIndexSanity=${deterministic.requirements.zIndexSanity}, containerMaxWidth=${deterministic.requirements.containerMaxWidth}, sceneCount=${deterministic.sceneCount}`
   ].join('\n');
 
   const responseSchema = [

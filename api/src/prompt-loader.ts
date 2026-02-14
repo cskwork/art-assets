@@ -240,13 +240,55 @@ async function buildArtAssetContext(request: GenerateContentRequest) {
 
 function buildContentTypeInstructions(contentType?: string): string {
   const instructions: Record<string, string> = {
-    'phaser': '## 콘텐츠 유형: Phaser 2D 게임\n- Phaser 3.x CDN 사용\n- 아케이드 물리, 드래그앤드롭, 점수 시스템 포함\n- Scene 클래스 기반 구조\n- 게임 메카닉(점수, 콤보, 타이머) 포함',
-    'threejs': '## 콘텐츠 유형: Three.js 3D 시각화\n- Three.js r160+ CDN 사용\n- OrbitControls로 3D 인터랙션\n- 슬라이더/드래그로 3D 모델 조작\n- 실시간 수치 피드백',
-    'canvas-2d': '## 콘텐츠 유형: Canvas 2D\n- HTML5 Canvas API 사용\n- 커스텀 그래픽 렌더링\n- 애니메이션 루프(requestAnimationFrame)\n- 터치/마우스 이벤트 처리',
-    'svg-animation': '## 콘텐츠 유형: SVG 애니메이션\n- 인라인 SVG + CSS/JS 애니메이션\n- SMIL 또는 CSS @keyframes 활용\n- 벡터 기반 선명한 그래픽\n- 인터랙티브 SVG 요소',
-    'css-animation': '## 콘텐츠 유형: CSS 애니메이션\n- CSS transform/transition/animation 활용\n- 순수 CSS 기반 시각 효과\n- JavaScript 최소 사용\n- 부드러운 전환 효과',
-    'pixel-art': '## 콘텐츠 유형: 픽셀 아트 스타일\n- 8비트/16비트 레트로 게임 스타일\n- Canvas 기반 픽셀 렌더링\n- image-rendering: pixelated 적용\n- 레트로 게임 사운드 효과',
-    'isometric': '## 콘텐츠 유형: 아이소메트릭 2.5D\n- 아이소메트릭 좌표 변환 사용\n- 깊이 정렬 기반 렌더링\n- 타일 기반 맵 구조\n- 원근감 있는 2D 표현'
+    'phaser': `## 콘텐츠 유형: Phaser 2D 게임
+- Phaser 3.x CDN 사용 (https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js)
+- Scene 클래스 기반 구조, 아케이드 물리 엔진
+- 게임 메카닉: 점수, 콤보, 타이머, 레벨 시스템
+- 드래그앤드롭, 터치 입력 지원
+- 레이아웃: #phaser-game 컨테이너에 max-width: var(--container-max); margin: 0 auto
+- 게임 캔버스 크기: Math.min(600, window.innerWidth - 40) 동적 계산
+- 게임 UI는 Phaser 내부에, 외부 컨트롤은 HTML로 분리
+- resize 이벤트에서 game.scale.resize() 호출`,
+    'threejs': `## 콘텐츠 유형: Three.js 3D 시각화
+- Three.js r160+ CDN (ES Modules 또는 전역 window.THREE)
+- OrbitControls로 3D 인터랙션, 마우스/터치 회전
+- 슬라이더/드래그로 3D 모델 매개변수 실시간 조작
+- 레이아웃: 3D 캔버스 컨테이너에 max-width: var(--container-max); aspect-ratio: 16/10
+- 컨트롤 패널은 캔버스 아래 배치, position: absolute 사용 금지
+- 카메라 초기 위치와 lookAt 설정 필수
+- 조명: AmbientLight + DirectionalLight 최소 구성
+- window resize 핸들러에서 camera.aspect와 renderer.setSize 업데이트`,
+    'canvas-2d': `## 콘텐츠 유형: Canvas 2D
+- HTML5 Canvas API 사용, requestAnimationFrame 루프
+- 커스텀 그래픽 렌더링, 터치/마우스 이벤트 통합
+- 레이아웃: canvas에 max-width: 100%; height: auto; display: block; margin: 0 auto
+- 캔버스 해상도: devicePixelRatio 고려한 고해상도 렌더링
+- 터치 이벤트: touchstart/touchmove/touchend + preventDefault()
+- 컨트롤/텍스트는 HTML 요소로 캔버스 밖에 배치`,
+    'svg-animation': `## 콘텐츠 유형: SVG 애니메이션
+- 인라인 SVG + CSS/JS 애니메이션
+- SVG 속성은 큰따옴표(")만 사용, 작은따옴표 혼용 금지
+- viewBox 설정으로 반응형 SVG
+- 레이아웃: SVG에 width="100%" max-width 제한, height="auto"
+- CSS @keyframes 또는 JS requestAnimationFrame으로 애니메이션
+- 인터랙티브 SVG: pointer-events 설정`,
+    'css-animation': `## 콘텐츠 유형: CSS 애니메이션
+- CSS transform/transition/animation 활용
+- 순수 CSS 기반 시각 효과, JavaScript 최소 사용
+- 레이아웃: flexbox/grid 기반, absolute 최소화
+- 하드웨어 가속: transform, opacity 중심 애니메이션
+- prefers-reduced-motion 미디어 쿼리로 접근성 지원`,
+    'pixel-art': `## 콘텐츠 유형: 픽셀 아트 스타일
+- 8비트/16비트 레트로 게임 스타일
+- Canvas 기반 픽셀 렌더링, image-rendering: pixelated
+- 레이아웃: 캔버스를 정수 배율로 스케일, 흐림 방지
+- 저해상도 캔버스 + CSS 확대 기법
+- 레트로 사운드 효과 (Web Audio API)`,
+    'isometric': `## 콘텐츠 유형: 아이소메트릭 2.5D
+- 아이소메트릭 좌표 변환 (x' = (x-y)*cos30, y' = (x+y)*sin30)
+- 깊이 정렬 기반 렌더링, 타일 맵 구조
+- 레이아웃: 캔버스 중앙 정렬, 줌/팬 컨트롤
+- 타일 크기 일관성 유지`
   };
   if (!contentType || !instructions[contentType]) return '';
   return instructions[contentType] + '\n\n';
@@ -254,15 +296,47 @@ function buildContentTypeInstructions(contentType?: string): string {
 
 function buildVisualStyleInstructions(visualStyle?: string): string {
   const styles: Record<string, string> = {
-    'modern-flat': '## 비주얼 스타일: 모던 플랫\n- 깔끔한 플랫 디자인\n- 밝은 파스텔 색상 팔레트\n- 그림자 최소화, 둥근 모서리\n- 아이콘 기반 UI',
-    'pixel-art': '## 비주얼 스타일: 픽셀 아트\n- 8비트/16비트 레트로 그래픽\n- 제한된 색상 팔레트(16-32색)\n- 픽셀 완벽한 정렬\n- 레트로 게임 UI 요소',
-    'isometric': '## 비주얼 스타일: 아이소메트릭\n- 30도 각도의 아이소메트릭 뷰\n- 3D 느낌의 2D 그래픽\n- 타일 기반 배경\n- 깊이감 있는 레이어링',
-    'hand-drawn': '## 비주얼 스타일: 손그림 스타일\n- 스케치/수채화 느낌\n- 불규칙한 선과 따뜻한 색감\n- 노트북/칠판 배경\n- 친근하고 자연스러운 느낌',
-    'watercolor': '## 비주얼 스타일: 수채화\n- 부드러운 그라데이션\n- 투명한 레이어 효과\n- 자연스러운 색 번짐\n- 예술적이고 감성적인 분위기',
-    'neon-glow': '## 비주얼 스타일: 네온 글로우\n- 어두운 배경에 네온 색상\n- 글로우/블룸 효과\n- 사이버펑크 분위기\n- 빛나는 텍스트와 테두리',
-    'retro-arcade': '## 비주얼 스타일: 레트로 아케이드\n- 80년대 아케이드 게임 스타일\n- CRT 스캔라인 효과\n- 비트맵 폰트\n- 하이스코어 보드 UI',
-    'cartoon-3d': '## 비주얼 스타일: 카툰 3D\n- 만화 같은 3D 렌더링\n- 밝은 색상과 굵은 아웃라인\n- 과장된 비율과 표정\n- 재미있고 친근한 분위기',
-    'minimal-clean': '## 비주얼 스타일: 미니멀 클린\n- 최소한의 디자인 요소\n- 넉넉한 여백\n- 흑백 + 강조색 1개\n- 타이포그래피 중심'
+    'modern-flat': `## 비주얼 스타일: 모던 플랫
+- 깔끔한 플랫 디자인, 밝은 파스텔 색상 팔레트
+- 그림자: var(--shadow-sm) ~ var(--shadow-md) 단계적 사용
+- border-radius: var(--radius-md) 통일, 둥근 카드 UI
+- 아이콘 기반 UI, 여백 충분히 확보 (spacing 변수 활용)
+- 색상 대비: 텍스트/배경 4.5:1 이상`,
+    'pixel-art': `## 비주얼 스타일: 픽셀 아트
+- 8비트/16비트 레트로 그래픽, 제한 색상 팔레트(16-32색)
+- image-rendering: pixelated 필수 적용
+- 픽셀 완벽한 정렬, 서브픽셀 렌더링 방지
+- 비트맵 스타일 UI 요소, 격자 기반 레이아웃`,
+    'isometric': `## 비주얼 스타일: 아이소메트릭
+- 30도 각도의 아이소메트릭 뷰, 타일 기반 배경
+- 깊이감 있는 레이어링, 그림자로 높이 표현
+- 일관된 타일 크기와 간격`,
+    'hand-drawn': `## 비주얼 스타일: 손그림 스타일
+- 스케치/수채화 느낌, 불규칙한 선과 따뜻한 색감
+- SVG filter로 연필/크레용 텍스처 효과
+- 노트북/칠판 배경, 친근하고 자연스러운 분위기`,
+    'watercolor': `## 비주얼 스타일: 수채화
+- 부드러운 그라데이션, 투명한 레이어 효과
+- SVG feGaussianBlur, feTurbulence 필터 활용
+- 자연스러운 색 번짐, 예술적 분위기`,
+    'neon-glow': `## 비주얼 스타일: 네온 글로우
+- 어두운 배경(#0a0a1a)에 네온 색상(#00ffff, #ff00ff, #ffff00)
+- text-shadow와 box-shadow로 글로우/블룸 효과
+- 사이버펑크 분위기, 빛나는 테두리와 애니메이션
+- 배경은 어둡게, 포커스 요소에만 네온 적용`,
+    'retro-arcade': `## 비주얼 스타일: 레트로 아케이드
+- 80년대 아케이드 게임 스타일, CRT 스캔라인 효과
+- 비트맵 폰트 (Press Start 2P 등), 하이스코어 보드 UI
+- 화면 글로우 효과, 도트 매트릭스 패턴`,
+    'cartoon-3d': `## 비주얼 스타일: 카툰 3D
+- 만화 같은 3D 렌더링, 밝은 색상과 굵은 아웃라인
+- 과장된 비율과 표정, 재미있고 친근한 분위기
+- Three.js toon shader 또는 CSS 3D transform 활용`,
+    'minimal-clean': `## 비주얼 스타일: 미니멀 클린
+- 최소한의 디자인 요소, 넉넉한 여백 (spacing-xl 활용)
+- 단색 + 강조색 1개만 사용
+- 타이포그래피 중심, 큰 폰트 사이즈와 넓은 행간
+- 카드/테두리 최소화, 여백으로 구분`
   };
   if (!visualStyle || !styles[visualStyle]) return '';
   return styles[visualStyle] + '\n\n';
@@ -285,10 +359,30 @@ function buildStoryThemeInstructions(storyTheme?: string): string {
 
 function buildDifficultyInstructions(difficulty?: string): string {
   const levels: Record<string, string> = {
-    'basic': '## 난이도: 기초\n- 핵심 개념 1개에만 집중\n- 단순한 인터랙션\n- 충분한 힌트와 가이드 제공\n- 퀴즈 2문제 (직접 적용)',
-    'intermediate': '## 난이도: 중급\n- 개념 간 연결 포함\n- 다양한 인터랙션 유형\n- 힌트 3단계 제공\n- 퀴즈 3문제 (적용+변형)',
-    'advanced': '## 난이도: 심화\n- 복합 개념 통합\n- 복잡한 조작과 다단계 문제\n- 최소 힌트\n- 퀴즈 4문제 (역추론 포함)',
-    'challenge': '## 난이도: 도전\n- 학년 이상의 확장 문제\n- 창의적 문제 해결 요구\n- 힌트 없음, 자유 탐구\n- 퀴즈 5문제 (종합+심화)'
+    'basic': `## 난이도: 기초
+- 핵심 개념 1개에만 집중, 단순한 인터랙션
+- 충분한 힌트와 시각적 가이드 제공 (힌트 버튼 3단계)
+- 퀴즈 2문제 (직접 적용, 객관식 위주)
+- 큰 버튼, 명확한 피드백, 실패해도 격려 메시지
+- 텍스트 최소화, 시각적 설명 위주`,
+    'intermediate': `## 난이도: 중급
+- 개념 간 연결 포함, 다양한 인터랙션 유형
+- 힌트 3단계 제공 (관찰 → 규칙 → 풀이)
+- 퀴즈 3문제 (적용 2개 + 변형 1개)
+- 드래그앤드롭, 슬라이더 등 조작형 인터랙션
+- 정답/오답에 따른 분기 피드백`,
+    'advanced': `## 난이도: 심화
+- 복합 개념 통합, 다단계 문제 해결
+- 최소 힌트 (1단계만), 스스로 발견 유도
+- 퀴즈 4문제 (적용 2개 + 변형 1개 + 역추론 1개)
+- 복잡한 조작과 연쇄 인터랙션
+- 오답 시 구체적 설명과 재도전 기회`,
+    'challenge': `## 난이도: 도전
+- 학년 이상의 확장 문제, 창의적 문제 해결 요구
+- 힌트 없음, 자유 탐구 모드
+- 퀴즈 5문제 (종합 3개 + 심화 2개, 서술형 포함)
+- 시간 제한 옵션, 점수 보드
+- 실패 시에도 학습 포인트 제시`
   };
   if (!difficulty || !levels[difficulty]) return '';
   return levels[difficulty] + '\n\n';

@@ -346,15 +346,33 @@ Each subject has unique vertical anchoring patterns:
 ### CSS Requirements
 
 ```css
-/* Required styles */
+/* ═══════════════════════════════════════════
+   REQUIRED BASE STYLES — COPY EXACTLY
+   ═══════════════════════════════════════════ */
+
 :root {
     --primary-color: #4A90D9;
     --secondary-color: #7ED321;
     --accent-color: #F5A623;
     --text-color: #333;
+    --text-light: #666;
     --bg-color: #FAFAFA;
+    --card-bg: #FFFFFF;
     --error-color: #D0021B;
     --success-color: #7ED321;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);
+    --nav-height: 72px;
+    --container-max: 720px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
 }
 
 * {
@@ -369,13 +387,16 @@ body {
     color: var(--text-color);
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
+/* CRITICAL: Scene container layout */
 .scene {
     display: none;
     width: 100%;
     min-height: 100vh;
-    padding: 20px;
+    padding: var(--spacing-lg) var(--spacing-md);
+    padding-bottom: calc(var(--nav-height) + var(--spacing-lg));
     animation: fadeIn 0.5s ease;
 }
 
@@ -383,19 +404,105 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* IMPORTANT: use flex-start, NOT center for justify-content
+       center causes content to clip at top when taller than viewport */
+    justify-content: flex-start;
+    padding-top: var(--spacing-xl);
 }
+
+/* Consistent inner container for all scenes */
+.scene-inner,
+[class$="-container"] {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+/* Navigation safe zone */
+.scene-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+    z-index: 100;
+    padding: 0 var(--spacing-md);
+}
+
+/* Card system */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+}
+
+/* Button system */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), color-mix(in srgb, var(--primary-color), #000 15%));
+    color: #fff;
+    border: none;
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 48px;  /* touch target */
+}
+
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+/* Responsive breakpoints */
 @media (max-width: 768px) {
-    .scene { padding: 15px; }
+    :root {
+        --container-max: 100%;
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+    }
+    .scene { padding: var(--spacing-md); padding-bottom: calc(var(--nav-height) + var(--spacing-md)); }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-md: 16px;
+        --spacing-lg: 20px;
+    }
 }
 ```
+
+### Layout Anti-Patterns (MUST AVOID)
+
+These patterns cause overlapping, clipping, and unprofessional layouts. **Never use them.**
+
+| Anti-Pattern | Problem | Correct Approach |
+|-------------|---------|-----------------|
+| `justify-content: center` on `.scene.active` | Content taller than viewport gets clipped at top | Use `justify-content: flex-start` with `padding-top` |
+| `position: absolute` for decorative elements without `overflow: hidden` parent | Decorations overlap content and break on mobile | Use `position: absolute` ONLY inside a `position: relative; overflow: hidden` container |
+| Fixed `px` widths on containers | Breaks on small screens | Use `max-width` + `width: 100%` |
+| Different `max-width` per scene | Inconsistent visual rhythm | Use `--container-max` variable everywhere |
+| `min-height: 100vh` + `justify-content: center` | Short content looks fine, long content clips | `min-height: 100vh` + `justify-content: flex-start` + `padding-top` |
+| Mixing `"` and `'` in SVG attributes | SVG rendering breaks | Use `"` for HTML attributes, `'` only inside attribute values |
+| `z-index` > 100 on content elements | Content fights with navigation | Reserve z-index > 100 for navigation only |
+| No `padding-bottom` for fixed navigation | Last content hidden behind nav bar | Always add `padding-bottom: calc(var(--nav-height) + spacing)` |
+| Inline `onclick` without fallback | Breaks if JS loads slowly | Bind events in script.js `bindEvents()` |
+| Canvas/game without `max-width: 100%` | Overflows on mobile | Always constrain canvas: `max-width: 100%; height: auto` |
 
 ### JavaScript Requirements
 
@@ -471,6 +578,15 @@ Items to verify before completing content:
 * [ ] Is it responsive across various screen sizes?
 * [ ] Are animations smooth at 60fps?
 * [ ] Does the Korean font render correctly?
+
+### Layout Quality
+* [ ] Do all scenes use consistent `max-width` (--container-max)?
+* [ ] Is `justify-content: flex-start` used instead of `center` on scenes?
+* [ ] Do decorative elements stay inside their parent bounds?
+* [ ] Is padding-bottom sufficient for the fixed navigation?
+* [ ] Are all SVG attributes properly quoted?
+* [ ] Is z-index < 100 for all non-navigation elements?
+* [ ] Does content scroll properly when taller than the viewport?
 
 ### Accessibility
 * [ ] Is color contrast sufficient?

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-02-14T14:27:58.805Z",
+  "trigger": "manual",
+  "active_modes": {
+    "autopilot": {
+      "phase": "unknown",
+      "originalIdea": ""
+    },
+    "ralph": {
+      "iteration": 0,
+      "prompt": ""
+    },
+    "ultrawork": {
+      "original_prompt": "autopilot ralph use full capabilities - i need much better improvement of content generation ability of admin content generator app, refine and\n  improve to create more diverse more high quality and accurate content visual and story based for\n  learning and 2d, 3d and trending content with accurate and clear validation. fully tested."
+    }
+  },
+  "todo_summary": {
+    "pending": 0,
+    "in_progress": 0,
+    "completed": 0
+  },
+  "wisdom_exported": false
+}
