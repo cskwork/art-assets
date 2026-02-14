@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '..', '.env') });
 var { streamZaiChat } = require('./dist/llm/zai-client');
 var { parseZaiOutput } = require('./dist/llm/zai-output');
 var { enableLogging } = require('./dist/logger');
