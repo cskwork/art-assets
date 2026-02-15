@@ -1,387 +1,235 @@
-# Codebase Structure
+# 코드베이스 구조
 
-**Analysis Date:** 2026-02-15
+**분석 날짜:** 2026-02-15
 
-## Directory Layout
+## 디렉토리 레이아웃
 
 ```
 art-assets/
-├── api/                           # Content generation API (Express server + LLM integration)
-│   ├── src/                       # TypeScript source (builds to dist/)
-│   │   ├── admin-server.ts        # Express HTTP + WebSocket server
-│   │   ├── index.ts               # Public API (generate/review job creation)
-│   │   ├── types.ts               # TypeScript interfaces (Request/Response/Job)
-│   │   ├── content-generator.ts   # LLM pipeline orchestrator
-│   │   ├── job-manager.ts         # In-memory + persisted job store
-│   │   ├── batch-manager.ts       # Batch generation orchestrator
-│   │   ├── prompt-loader.ts       # Asset search + prompt building
-│   │   ├── logger.ts              # Logging utilities
-│   │   ├── default-topics.ts      # Predefined topic suggestions
-│   │   ├── llm/                   # Z.ai API integration
-│   │   │   ├── zai-client.ts      # Z.ai HTTP client (streaming, thinking blocks)
-│   │   │   ├── zai-output.ts      # JSON/file extraction from LLM response
-│   │   │   ├── json-utils.ts      # JSON parsing robustness helpers
-│   │   │   ├── review.ts          # Deterministic + LLM review validators
-│   │   │   └── provider.ts        # LLM provider interface (extensible)
-│   │   └── system-prompt/
-│   │       └── system.md          # Master system prompt for content generation
-│   ├── dist/                      # Compiled JavaScript (output of tsc)
-│   ├── data/                      # Runtime data
-│   │   └── jobs.json              # Persisted job store (auto-created)
-│   ├── node_modules/              # npm dependencies
-│   ├── package.json               # API dependencies (Express, dotenv, TypeScript)
-│   ├── tsconfig.json              # TypeScript compiler config
-│   └── test-zai.js                # Manual Z.ai integration test script
-│
-├── edu-content/                   # Generated interactive content modules (7-scene structure)
-│   ├── 20260126-box-volume/       # Example: 직육면체 부피 (Elementary 6th grade)
-│   │   ├── index.html             # 7 scene sections + HTML structure
-│   │   ├── script.js              # ContentApp singleton, scene logic, interactions
-│   │   └── style.css              # Responsive layout, 7-scene styles, animations
-│   ├── 20260126-comparative-adjectives/
-│   ├── 20260127-pythagorean-3d/   # Three.js 3D module
-│   ├── 20260128-multiplication-racing/ # Phaser 2D game module
-│   ├── 20260209-world-quiz-battle/    # Canvas-based game module
-│   └── [YYYYMMDD-topic]*/         # Pattern: YYYYMMDD-{slugified-topic}(-vN)?
-│
-├── admin-ui/                      # Admin interface (content generation form + gallery)
-│   ├── index.html                 # Admin form for batch/single content generation
-│   ├── app.js                     # Admin UI logic (form handling, WebSocket subscription)
-│   └── [styles]                   # Inline or linked styles
-│
-├── assets-source.json             # Compact source format (MANUAL EDIT HERE)
-│   # Format: {v, updated, categories, assets[], archived[]}
-│   # assets: [id, category, tags[], description, format?, dimensions?]
-│   # archived: [..., archivedDate]
-│
-├── assets.json                    # Full asset index (auto-generated from source)
-│   # Used by: external references, gallery builder, LLM prompt context
-│   # DO NOT EDIT - rebuilt by scripts/build-assets.js
-│
-├── assets-index.json              # Lightweight LLM search index (auto-generated)
-│   # Format: {v, stats, assets[{id, c, t, d}]}
-│   # Used by: prompt-loader for token-based asset matching
-│   # DO NOT EDIT - rebuilt by scripts/build-assets.js
-│
-├── icons/                         # SVG icons
-│   ├── icon-*.svg                 # Naming: icon-{name}-{color?}-{date}.svg
-│   └── [archive/icons/]           # Archived icons (moved via scripts/archive.js)
-│
-├── illustrations/                 # SVG illustrations
-│   ├── illust-*.svg
-│   └── [archive/illustrations/]
-│
-├── diagrams/                      # SVG diagrams and charts
-│   ├── diagram-*.svg
-│   └── [archive/diagrams/]
-│
-├── backgrounds/                   # PNG/JPG backgrounds
-│   ├── bg-*.png
-│   └── [archive/backgrounds/]
-│
-├── photos/                        # JPG photos
-│   ├── photo-*.jpg
-│   └── [archive/photos/]
-│
-├── 3d/                            # 3D models (GLB/GLTF)
-│   ├── 3d-*.glb
-│   ├── elementary-volume/         # Pre-built 3D scenes (legacy)
-│   └── [archive/3d/]
-│
-├── archive/                       # Archived assets (by category)
-│   ├── icons/                     # Old/unused icons
-│   ├── illustrations/
+├── .claude/                    # GSD 및 스킬 설정
+├── .context/                   # 프로젝트 컨텍스트 (계획, 노트)
+├── .omc/                       # GSD 상태 추적
+├── .planning/                  # 분석 문서 (이 파일들)
+├── .vscode/                    # VSCode 설정
+├── 3d/                         # 3D 모델 스크립트 (생성용)
+├── 8bit-assets/                # 픽셀 아트 에셋 팩 (외부 소스)
+├── admin-ui/                   # Admin 대시보드 UI
+├── api/                        # TypeScript API 서버 (콘텐츠 생성/리뷰)
+│   ├── src/                    # TypeScript 소스
+│   ├── dist/                   # 컴파일된 JavaScript
+│   ├── data/                   # 작업 저장소 (JSON)
+│   ├── system-prompt/          # LLM 시스템 프롬프트
+│   ├── test-zai.js             # Z.ai 클라이언트 테스트
+│   └── tsconfig.json           # TypeScript 설정
+├── archive/                    # 아카이브된 에셋 (카테고리별 하위폴더)
+│   ├── icons/
 │   ├── diagrams/
-│   ├── backgrounds/
-│   ├── photos/
-│   └── 3d/
-│
-├── content/                       # Legacy science content (pre-edu-content)
-│   └── science/
-│       └── 2026-01-27/
-│           ├── moon-phases/
-│           ├── newtons-laws/
-│           └── [other topics]/
-│
-├── prompts/                       # Subject-specific generation prompts
-│   ├── math.md                    # Math content guidelines + examples
-│   ├── english.md                 # English content guidelines + examples
-│   ├── science.md                 # Science content guidelines + examples
-│   ├── 3d-content.md              # Three.js 3D module templates
-│   ├── math-8bit-quest.md         # 8-bit asset themed content
-│   └── [other subjects]/
-│
-├── scripts/                       # Build and CLI utilities
-│   ├── build-assets.js            # Compact → assets.json + assets-index.json
-│   ├── archive.js                 # CLI: archive/restore assets, module file
-│   ├── backfill-jobs.js           # Utility: migrate old job data
-│   ├── import-8bit-assets.js      # Utility: import 8bit-assets directory index
-│   └── migrate-to-compact.js      # 1-time migration (source only format)
-│
-├── build-gallery.js               # Gallery builder (runs build-assets then gen HTML)
-│   # Outputs: gallery.html
-│
-├── gallery.html                   # Asset gallery UI (auto-generated, ~214KB)
-│   # Static HTML with inline JS for filtering, Archive/Restore UI
-│
-├── server.js                      # Legacy gallery server (HTTP + Archive/Restore API)
-│   # Being migrated into api/src/admin-server.ts
-│
-├── package.json                   # Root monorepo package.json
-│   # scripts: dev, build, start, test
-│   # Main entry: build-gallery.js
-│
-├── .env                           # Runtime configuration (NOT committed, .env.example provided)
-│   # Keys: Z_AI_API_KEY, PROJECT_ROOT, ADMIN_PORT, ASYNC_JOBS_ENABLED, etc.
-│
-├── .env.example                   # Template for required env vars
-│
-├── CLAUDE.md                      # LLM instruction guide (Korean, comprehensive)
-│
-├── AGENTS.md                      # Agent definitions (legacy reference)
-│
-├── .git/                          # Git repository
-│
-├── .omc/                          # GSD state (OpenMC sessions, checkpoints)
-│
-├── .planning/
-│   └── codebase/                  # Analysis documents (you are here)
-│       ├── ARCHITECTURE.md
-│       ├── STRUCTURE.md
-│       ├── [CONVENTIONS.md]
-│       ├── [TESTING.md]
-│       └── [CONCERNS.md]
-│
-└── 8bit-assets/                   # Pre-built pixel art asset packs (external library)
-    ├── Assets/                    # Organized by pack name
-    │   ├── Packs/Gothicvania Cemetery/
-    │   │   └── Phaser Demo/        # Example Phaser game integration
-    │   └── [other packs]
-    └── index.json                 # Asset catalog (indexed by import script)
+│   └── ...
+├── backgrounds/                # 배경 이미지 (JPG/PNG)
+├── diagrams/                   # 다이어그램, 차트 (SVG/PNG)
+├── docs/                       # 프로젝트 문서 (변경 기록, 계획)
+├── edu-content/                # 교육용 인터랙티브 모듈
+│   ├── 20260126-box-volume/    # 예: 직육면체 부피 (초등 6학년)
+│   ├── 20260127-pythagorean-3d/ # 예: 피타고라스 정리 (중2)
+│   └── ...
+├── icons/                      # SVG 아이콘
+├── illustrations/              # SVG/PNG 일러스트레이션
+├── photos/                     # JPG 사진
+├── prompts/                    # LLM 프롬프트 템플릿 (과목별)
+├── scripts/                    # 유틸리티 스크립트 (빌드, 아카이브)
+├── tests/                      # 자동화 테스트
+├── assets.json                 # 빌드 산출물: full 형식 에셋 목록
+├── assets-index.json           # 빌드 산출물: LLM 검색용 경량 인덱스
+├── assets-source.json          # 에셋 소스 (compact 형식, 편집용)
+├── build-gallery.js            # 에셋 빌드 + 갤러리 HTML 생성
+├── gallery.html                # 빌드 산출물: 에셋 갤러리 UI
+├── server.js                   # 정적 파일 서빙 + Archive API
+├── CLAUDE.md                   # LLM 지침 (한국어)
+├── package.json                # 프로젝트 메타데이터 + 스크립트
+├── package-lock.json
+├── start.sh / start.bat         # 시작 스크립트
+└── .env (not in repo)          # 환경 변수 (Z.ai API 키 등)
 ```
 
-## Directory Purposes
+## 디렉토리 목적
 
-**api/src/**
-- Purpose: Content generation backend in TypeScript
-- Contains: All API logic, LLM integration, job management, prompt loading
-- Key files: `admin-server.ts` (HTTP entry), `content-generator.ts` (pipeline), `llm/zai-client.ts` (LLM bridge)
-- Compiles to: `api/dist/` (JavaScript)
+**에셋 저장소 (최상위 카테고리 폴더):**
+- `icons/`: SVG 아이콘 (체크마크, 버튼, 심볼 등)
+- `illustrations/`: SVG/PNG 일러스트레이션 (캐릭터, 배경 요소)
+- `diagrams/`: SVG/PNG 다이어그램 (수학 그래프, 과학 다이어그램)
+- `backgrounds/`: PNG/JPG 배경 이미지
+- `photos/`: JPG 사진
+- `3d/`: GLB/GLTF 3D 모델, 생성 스크립트
 
-**api/system-prompt/**
-- Purpose: Master system prompt for LLM content generation
-- Contains: Single file `system.md` with role definition, content philosophy, 7-scene structure, guidelines
-- Usage: Loaded by `prompt-loader.ts`, combined with subject-specific prompts and request context
-- Language: English (system instructions), but output is Korean educational content
+**API 서버:**
+- `api/src/`: TypeScript 소스 (구조 아래 참조)
+- `api/dist/`: 컴파일된 JavaScript (실행 파일)
+- `api/data/`: JSON 저장소 (작업 상태, 배치)
+  - `jobs.json`: 진행 중 및 완료된 작업
+  - `batches.json`: 배치 처리 상태
+- `api/system-prompt/`: LLM 시스템 프롬프트 (system.md)
 
-**api/data/**
-- Purpose: Runtime data storage (jobs.json created on first run)
-- Contains: Job store with all metadata, status, review results, errors
-- Cleanup: Auto-expiry jobs older than 7 days (configurable)
-- Persistence: File-based JSON (survives server restarts)
+**교육 콘텐츠:**
+- `edu-content/{YYYYMMDD}-{topic}/`: 각 모듈 디렉토리
+  - `index.html`: 7씬 인터랙티브 콘텐츠 (Hook/Anchor/Story/Core/Visualize/Quiz/Wrap)
+  - `script.js`: 씬 네비게이션, 인터랙션 로직, ContentApp 싱글톤
+  - `style.css`: 반응형 스타일, 애니메이션
 
-**edu-content/**
-- Purpose: Generated interactive content (7-scene modules)
-- Contains: Subdirectories following pattern `YYYYMMDD-{topic}(-vN)?`
-- Each module has: `index.html` (structure), `script.js` (logic), `style.css` (styling)
-- 7 Scenes: Hook → Anchor → Story → Core → Visualize → Quiz → Wrap
-- ContentApp singleton manages navigation and state
+**빌드 산출물:**
+- `gallery.html`: 에셋 갤러리 (브라우저에서 열 수 있음)
+  - 다이나믹 UI: 카테고리 탐색, 검색, Archive/Restore 버튼
+  - 정보: 에셋 메타데이터, 아카이브 상태
+- `assets.json`: full 형식 에셋 목록 (gallery.html에서 읽음)
+- `assets-index.json`: compact 형식 인덱스 (LLM 검색용)
 
-**admin-ui/**
-- Purpose: Web interface for content generation and batch operations
-- Contains: HTML form, WebSocket subscription logic
-- Entry point: Served by `api/src/admin-server.ts:GET /`
-- Features: Topic input, subject/grade/content-type selectors, batch generation, job status polling, WebSocket real-time updates
+**빌드 및 배포:**
+- `scripts/`: CLI 도구
+  - `build-assets.js`: assets-source.json → assets.json + assets-index.json
+  - `archive.js`: 에셋 아카이브/복원
+  - `backfill-jobs.js`: 작업 데이터 마이그레이션
+  - `import-8bit-assets.js`: 외부 에셋 팩 임포트
+- `build-gallery.js`: 전체 빌드 오케스트레이션
+- `server.js`: Node.js HTTP 서버 (갤러리 + API)
 
-**assets-source.json**
-- Purpose: Single source of truth for assets (compact, human-editable format)
-- Format:
-  ```json
-  {
-    "v": "2.0.0",
-    "updated": "2026-02-15",
-    "categories": { "icons": { "d": "...", "f": "svg" }, ... },
-    "assets": [
-      ["id", "category", ["tag1", "tag2"], "description", "format?", [width, height]?],
-      ...
-    ],
-    "archived": [
-      ["id", "category", ["tags"], "description", "format?", [dims]?, "2026-01-26"]
-    ]
-  }
-  ```
-- Editing: Direct JSON edit, then run `npm run build`
-- Output: Generates `assets.json` (full) and `assets-index.json` (lightweight)
+**문서:**
+- `docs/changelog/`: 버전별 변경 기록
+- `docs/plans/`: 프로젝트 계획 문서
+- `.context/`: 프로젝트 컨텍스트 및 노트
+- `.planning/codebase/`: 이 문서들
 
-**assets.json & assets-index.json**
-- Purpose: Built artifacts (DO NOT EDIT directly)
-- assets.json: Full format with paths, all metadata (for external tools)
-- assets-index.json: Lightweight search index (compact keys: c=category, t=tags, d=description)
-- Rebuilt by: `scripts/build-assets.js` (invoked by `build-gallery.js` and npm build scripts)
+**개발:**
+- `tests/`: Jest 테스트 (API 유효성, 콘텐츠 품질 검증 등)
+- `prompts/`: LLM 프롬프트 템플릿 (과목별)
+  - `math.md`: 수학 콘텐츠 프롬프트
+  - `english.md`: 영어 콘텐츠 프롬프트
+  - `science.md`: 과학 콘텐츠 프롬프트 등
+- `.vscode/`: VSCode 설정 (포맷, 린트)
 
-**icons/, illustrations/, diagrams/, backgrounds/, photos/, 3d/**
-- Purpose: Art asset storage by category
-- Naming: `{category}-{name}(-{variant})?-{YYYYMMDD}.{ext}`
-- Example: `icon-checkmark-green-20260124.svg`, `photo-classroom-wide-20260126.jpg`
-- Archived versions: Moved to `archive/{category}/` via `scripts/archive.js`
-- Paths: Referenced in `assets-source.json` or as relative paths in modules
+## 주요 파일 위치
 
-**prompts/**
-- Purpose: Subject-specific generation templates and guidelines
-- Contains: `math.md`, `english.md`, `science.md`, etc.
-- Format: Markdown with example scenarios, educational objectives, content patterns
-- Usage: Loaded by `prompt-loader.ts`, appended to LLM request for domain-specific guidance
+**진입점:**
+- `server.js`: 갤러리 서빙 시작점 (node server.js)
+- `api/dist/admin-server.ts` (컴파일 후 JS): API 서버 시작점
+- `build-gallery.js`: 빌드 시작점
+- `package.json`: npm 스크립트 정의
 
-**scripts/**
-- build-assets.js: Expand compact source → full format + lightweight index
-- archive.js: CLI tool to archive/restore assets (moves files, updates source.json)
-- backfill-jobs.js: Data migration for old job formats
-- import-8bit-assets.js: Index 8bit-assets directory (legacy support)
-- migrate-to-compact.js: 1-time conversion of old assets.json to compact format
+**설정:**
+- `assets-source.json`: 에셋 메타데이터 소스 (편집 파일)
+- `.env`: 환경 변수 (Z.ai API 키, 포트 등) - .gitignore에 포함
+- `api/tsconfig.json`: TypeScript 컴파일 설정
+- `package.json`: 의존성, 스크립트
 
-**build-gallery.js & gallery.html**
-- build-gallery.js: Orchestrator script that runs build-assets.js then generates gallery.html
-- gallery.html: Static HTML gallery UI (~214KB inline) with tabs (by category), Archive/Restore buttons
-- Output: Self-contained, requires no build step to serve
-- Integration: Served by `api/src/admin-server.ts` or legacy `server.js`
+**핵심 로직:**
+- `api/src/index.ts`: 콘텐츠 생성/리뷰 엔드포인트
+- `api/src/admin-server.ts`: Express 서버, 라우팅
+- `api/src/content-generator.ts`: 모듈 생성 로직
+- `api/src/job-manager.ts`: 작업 라이프사이클
+- `api/src/llm/zai-client.ts`: Z.ai API 클라이언트
 
-## Key File Locations
+**테스트:**
+- `tests/api-*.test.js`: API 유효성 검증
+- `tests/api-zai-*.test.js`: Z.ai 클라이언트 테스트
+- `tests/edu-*.test.js`: 콘텐츠 구조/품질 검증
 
-**Entry Points:**
+## 명명 규칙
 
-| File | Purpose | Port/URL |
-|------|---------|----------|
-| `api/src/admin-server.ts` | Main Express server (HTTP + WS) | Port 3000 (configurable) |
-| `api/src/index.ts` | Core API exports (generation/review functions) | - (imported by admin-server.ts) |
-| `build-gallery.js` | Gallery build orchestrator | CLI (npm run build) |
-| `server.js` | Legacy gallery server | Port 3000 (old approach) |
+**에셋 파일:**
+- 형식: `{category}-{description}-{variant}-{YYYYMMDD}.{ext}`
+- 예: `icon-checkmark-green-20260124.svg`, `diagram-pythagorean-20260127.svg`
+- 규칙: kebab-case, 날짜 필수 (YYYYMMDD), 공백/특수문자 금지
 
-**Configuration:**
+**에셋 ID (assets-source.json):**
+- 파일명과 동일 (확장자 제외)
+- 예: `icon-checkmark-green-20260124`
+- 경로: 자동 생성 `{category}/{id}.{format}`
 
-| File | Purpose |
-|------|---------|
-| `.env` | Runtime env vars (Z_AI_API_KEY, PROJECT_ROOT, ADMIN_PORT, JOB_TTL_MS, etc.) |
-| `.env.example` | Template with required keys |
-| `api/tsconfig.json` | TypeScript compiler options |
-| `package.json` | Root monorepo scripts |
-| `api/package.json` | API-specific dependencies |
-| `api/system-prompt/system.md` | Master LLM system prompt |
+**edu-content 모듈:**
+- 형식: `{YYYYMMDD}-{topic-slug}`
+- 예: `20260126-box-volume`, `20260127-pythagorean-3d`
+- 파일: 각 모듈 내에 `index.html`, `script.js`, `style.css` (고정)
 
-**Core Logic:**
+**API 파일 (api/src/):**
+- 파스칼 케이스 모듈: `AdminServer.ts`, `ContentGenerator.ts`
+- 케밥 케이스 유틸: `job-manager.ts`, `zai-client.ts`
+- 타입 파일: `types.ts`
+- 서브디렉토리: `llm/` (LLM 관련)
 
-| File | Purpose | Key Exports |
-|------|---------|-------------|
-| `api/src/content-generator.ts` | LLM pipeline, file writing | `generateContentForJob()`, `createModuleId()` |
-| `api/src/job-manager.ts` | Job store lifecycle | `createJob()`, `getJob()`, `updateJob()` |
-| `api/src/prompt-loader.ts` | Asset search + prompt building | `buildPrompt()` |
-| `api/src/llm/zai-client.ts` | Z.ai HTTP streaming | `streamZaiChat()` |
-| `api/src/llm/review.ts` | Content validation | `evaluateDeterministicReview()`, `buildReviewMessages()` |
+**빌드 및 스크립트:**
+- 케밥 케이스: `build-gallery.js`, `build-assets.js`, `archive.js`
+- 실행 권한: `+x` (Unix/Linux)
 
-**Testing:**
+**API 엔드포인트:**
+- RESTful: `/api/{resource}/{action}`
+- 예: `/api/generate-content`, `/api/generate-content/status/{jobId}`, `/api/review-content`
 
-| File | Purpose |
-|------|---------|
-| `api/test-zai.js` | Manual Z.ai integration test (run with `node test-zai.js`) |
-| (No unit test files currently) | Future: add Jest/Vitest config |
+## 새로운 코드를 추가할 위치
 
-## Naming Conventions
+**새로운 에셋 추가:**
+1. 파일 생성: `{category}/{id}-{YYYYMMDD}.{ext}`
+2. `assets-source.json`의 `assets` 배열에 추가: `[id, category, tags[], description]`
+3. 빌드: `node build-gallery.js`
 
-**Files:**
+**새로운 교육 모듈 추가:**
+1. 디렉토리 생성: `edu-content/{YYYYMMDD}-{topic-slug}/`
+2. 파일 생성:
+   - `index.html`: 7씬 구조 (Hook/Anchor/Story/Core/Visualize/Quiz/Wrap)
+   - `script.js`: ContentApp 싱글톤, 씬 로직
+   - `style.css`: 반응형 스타일
+3. 에셋 참조: 상대 경로 (예: `../../icons/icon-name.svg`)
+4. 서버에서 접속: `http://localhost:3000/edu-content/{YYYYMMDD}-{topic-slug}/`
 
-| Pattern | Example | Context |
-|---------|---------|---------|
-| `{category}-{name}-{date}.{ext}` | `icon-checkmark-green-20260124.svg` | Assets in categories |
-| `YYYYMMDD-{topic}(-vN)?` | `20260126-box-volume`, `20260126-box-volume-v2` | edu-content module directories |
-| `{subject}.md` | `math.md`, `english.md` | Prompt templates in prompts/ |
-| `admin-server.ts` | Main Express app | PascalCase for class-like modules |
-| `content-generator.ts` | Orchestrator module | kebab-case for utility modules |
+**새로운 API 엔드포인트:**
+1. `api/src/index.ts`에 함수 추가: `export async function createXxxJob(...)`
+2. `api/src/types.ts`에 요청/응답 타입 추가
+3. `api/src/admin-server.ts`에 라우트 추가: `app.post('/api/xxx', ...)`
+4. 선택: WebSocket 통합 (admin-server.ts의 `wss()` 핸들러)
 
-**Directories:**
+**새로운 LLM 프롬프트:**
+1. 파일 생성: `prompts/{subject}.md`
+2. 형식: 마크다운 (섹션: System/User/Expected Output)
+3. 로드: `api/src/prompt-loader.ts`의 `loadPrompt(subject)`
+4. 사용: `content-generator.ts`에서 Z.ai 호출 시
 
-| Pattern | Example | Context |
-|---------|---------|---------|
-| `api/src/llm/` | LLM integration layer | Functional grouping |
-| `edu-content/` | Generated modules | YYYYMMDD-topic structure |
-| `archive/{category}/` | Archived assets | Matches active category folders |
-| `content/` | Legacy pre-dated content | Deprecation marker |
+**새로운 테스트:**
+1. 파일 생성: `tests/{module}.test.js`
+2. Node.js 테스트 러너: `node --test` (package.json의 "test" 스크립트)
+3. 실행: `npm test`
 
-## Where to Add New Code
+## 특수 디렉토리
 
-**New Content Generation Feature:**
-- **Logic**: `api/src/content-generator.ts` (modify `generateContentForJob()`)
-- **Types**: `api/src/types.ts` (add new enum or interface)
-- **Validation**: `api/src/index.ts` (update validateGenerateContentRequest())
-- **Prompt context**: `api/src/prompt-loader.ts` (extend asset selection)
-- **System guidance**: `api/system-prompt/system.md` (add role/guidelines)
+**archive/:**
+- 목적: 아카이브된 에셋 저장소
+- 생성: 자동 (archive.js에서 카테고리별 하위폴더 생성)
+- 파일명: 원본과 동일 `{category}/{id}.{format}`
+- 커밋 여부: 선택사항 (에셋 파일만, 메타데이터는 assets-source.json)
 
-**New Subject-Specific Content:**
-- **Templates**: Create `prompts/{subject}.md` following `prompts/math.md` pattern
-- **Assets**: Add to categories (icons/, diagrams/, etc.), then update `assets-source.json`
-- **Subjects enum**: Update `Subject` type in `api/src/types.ts`
-- **Keywords**: Update `SUBJECT_KEYWORDS` in `api/src/prompt-loader.ts`
+**api/data/:**
+- 목적: 작업 상태 저장소
+- 파일: `jobs.json`, `batches.json`
+- 생성: 자동 (admin-server.ts 시작 시)
+- 커밋 여부: 선택사항 (로컬 개발 상태)
 
-**New Educational Module (Manually):**
-- **Directory**: Create `edu-content/YYYYMMDD-{topic}/`
-- **Files**: Add `index.html`, `script.js`, `style.css`
-- **Structure**: Follow 7-scene pattern from `edu-content/20260126-box-volume/`
-- **ContentApp**: Instantiate singleton in `script.js`, implement scene navigation
+**api/dist/:**
+- 목적: TypeScript 컴파일 산출물
+- 생성: `npm run build` (api 디렉토리에서 tsc)
+- 커밋 여부: NO (생성 가능)
+- 실행: `node api/dist/admin-server.js`
 
-**Admin UI Enhancement:**
-- **HTML**: `admin-ui/index.html` (add form fields)
-- **Logic**: `admin-ui/app.js` (handle form submission, WebSocket events)
-- **API**: Extend endpoints in `api/src/admin-server.ts`
+**8bit-assets/:**
+- 목적: 외부 픽셀 아트 팩 저장소
+- 생성: import-8bit-assets.js로 임포트
+- 구조: 원본 유지 (수정 없음)
 
-**New Validation Rule (Review):**
-- **Check logic**: `api/src/llm/review.ts` (add function checkXxx())
-- **Integration**: Add key to `REVIEW_REQUIREMENT_KEYS` constant
-- **Types**: Update `DeterministicReviewResult` interface in `api/src/types.ts`
+**.claude/skills/:**
+- 목적: GSD 스킬 정의 (LLM용)
+- 파일: `{skill-name}/SKILL.md`, `references/`
+- 예: `art-asset-search/`, `Phaser/`
 
-**Asset Category Extension:**
-- **Add category**: `assets-source.json:categories[newCategory]`
-- **Create folder**: `{newCategory}/`
-- **Update build**: `scripts/build-assets.js:categoryFolders` mapping
-- **Update archive**: Create `archive/{newCategory}/`
-
-**New LLM Provider (if replacing Z.ai):**
-- **Interface**: Create `api/src/llm/{provider}-client.ts`
-- **Export**: `getLlmProvider()` in `api/src/llm/provider.ts`
-- **Usage**: Content generator calls generic provider interface (Future: if abstracted)
-
-## Special Directories
-
-**api/dist/**
-- Purpose: Compiled JavaScript output from TypeScript
-- Generated: `npm run build` or `npm run build:watch`
-- Committed: No (in .gitignore)
-- Usage: Executed by Node.js runtime (admin-server.js entry point)
-
-**api/data/**
-- Purpose: Runtime job store persistence
-- Generated: Automatically on first job creation
-- Committed: No (runtime data)
-- Contains: jobs.json (JSON array of job records)
-
-**api/node_modules/**
-- Purpose: npm dependencies
-- Generated: `npm install` in api/ directory
-- Committed: No (in .gitignore)
-- Key packages: express, cors, express-ws, dotenv, @anthropic-ai/claude-agent-sdk
-
-**.planning/codebase/**
-- Purpose: Analysis documents (auto-generated by GSD /gsd:map-codebase)
-- Committed: Yes (reference for developers)
-- Contents: ARCHITECTURE.md, STRUCTURE.md, CONVENTIONS.md, TESTING.md, CONCERNS.md
-
-**.omc/ & .claude/**
-- Purpose: GSD orchestration state
-- Committed: Yes (workflow tracking)
-- Files: Session logs, checkpoints, memory state
-
-**8bit-assets/**
-- Purpose: External pre-built pixel art assets (imported library)
-- Source: External repository or asset pack
-- Usage: Referenced as fallback assets in prompts, indexed by `import-8bit-assets.js`
+**.context/ & .planning/:**
+- 목적: 프로젝트 분석 및 계획
+- 파일: Markdown 문서
+- 관리: 사용자/LLM에 의해 작성
 
 ---
 
-*Structure analysis: 2026-02-15*
+*구조 분석: 2026-02-15*

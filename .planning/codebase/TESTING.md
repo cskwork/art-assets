@@ -1,308 +1,510 @@
-# Testing Patterns
+# 테스팅 패턴
 
-**Analysis Date:** 2026-02-15
+**분석 날짜:** 2026-02-15
 
-## Test Framework
+## 테스트 프레임워크
 
-**Runner:**
-- Node.js built-in test runner (`--test` flag)
-- Configured in root `package.json`: `"test": "node --test"`
-- Version: Node.js 20+ (built-in test runner available)
+### 실행기 (Runner)
 
-**Assertion Library:**
-- Node.js built-in assertions (`node:assert` module, implied usage)
-- No external assertion library (Jest, Vitest, Mocha) configured
-- No test files found in project (`*.test.ts`, `*.test.js`, `*.spec.ts`, `*.spec.js`)
+**Node.js 내장 test 모듈:**
+- 프레임워크: `node:test`
+- 버전: Node.js 18.0+
+- 설정 파일: 없음 (내장)
 
-**Test Framework Details:**
-- Config file: None (uses Node.js defaults)
-- Test discovery: Files matching `**/*.test.js`, `**/*_test.js`, `**/*.test.ts`, `**/*_test.ts`
-- Run command: `npm test` or `node --test`
-
-## Test File Organization
-
-**Location:**
-- Not established in codebase (no test files present)
-- Recommended pattern: Co-located with source
-- For API: `api/src/{module}.test.ts` alongside `api/src/{module}.ts`
-- For scripts: `scripts/{script}.test.js` alongside `scripts/{script}.js`
-
-**Naming:**
-- Recommended: `{name}.test.ts` or `{name}.test.js` suffix
-- Pattern not yet standardized in codebase
-
-**Structure:**
-- No existing test directories
-- `api/` has source code but no `test/` or `__tests__/` directory
-- Root `package.json` declares `"test"` script but no tests present
-
-## Test Structure (Inferred Pattern)
-
-Based on Node.js test runner patterns and project structure, tests should follow:
-
-```typescript
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { createJob, getJob } from './job-manager';
-
-test('job-manager', async (t) => {
-  await t.test('createJob returns a valid UUID', () => {
-    const jobId = createJob({
-      subject: 'math',
-      topic: 'addition',
-      gradeLevel: 'grade-1'
-    });
-    assert(typeof jobId === 'string');
-    assert(jobId.length > 0);
-  });
-
-  await t.test('getJob returns null for non-existent job', () => {
-    const job = getJob('nonexistent-id');
-    assert.strictEqual(job, undefined);
-  });
-});
+**실행 명령어:**
+```bash
+npm test              # node --test
 ```
 
-**Test Suite Organization:**
-- Top-level `test()` call for module or feature
-- Nested `t.test()` for individual test cases
-- Async test functions for I/O operations
-- Use `await` for nested tests to run sequentially
-
-**Patterns:**
-- Setup/teardown: Would use test context hooks (not yet implemented)
-- Assertion style: `assert.strictEqual()`, `assert(condition)`, `assert.throws()`
-- Test isolation: Job store currently global; tests would need cleanup between runs
-
-## Mocking (Not Yet Implemented)
-
-**Framework:**
-- No mocking library configured
-- Manual mocking approach recommended for Node.js test runner
-
-**Patterns (Recommended for Future):**
-```typescript
-// Manual mock of file system
-import * as fs from 'node:fs/promises';
-const originalReaddir = fs.readdir;
-
-test('getExistingModuleNames', async (t) => {
-  await t.test('returns empty array when directory empty', async () => {
-    fs.readdir = async () => [];
-    const result = await getExistingModuleNames('/fake/path');
-    assert.deepStrictEqual(result, []);
-  });
-
-  // Restore original
-  fs.readdir = originalReaddir;
-});
-```
-
-**What to Mock:**
-- File system operations (`fs.readdir`, `fs.readFile`, `fs.writeFile`)
-- External API calls (`streamZaiChat`, LLM providers)
-- Date/time (`Date.now()` for job TTL testing)
-- Environment variables (`process.env`)
-
-**What NOT to Mock:**
-- Type definitions and interfaces
-- Internal module logic (job validation, slug generation)
-- Standard library functions (path joining, crypto)
-- Logger in tests that verify logging behavior
-
-## Fixtures and Factories
-
-**Test Data (Recommended Pattern):**
-
-```typescript
-// Test fixtures for content requests
-const testFixtures = {
-  validRequest: {
-    subject: 'math' as const,
-    topic: 'addition fundamentals',
-    gradeLevel: 'grade-1'
-  },
-  withOptions: {
-    subject: 'math' as const,
-    topic: 'fractions',
-    gradeLevel: 'grade-5',
-    contentType: 'phaser' as const,
-    visualStyle: 'pixel-art' as const
-  },
-  invalidRequest: {
-    subject: 'invalid',
-    topic: '',
-    gradeLevel: null
+**구성:**
+```json
+{
+  "scripts": {
+    "test": "node --test"
   }
-};
-
-// Factory for creating test jobs
-function createTestJob(overrides?: Partial<GenerateContentRequest>) {
-  return {
-    ...testFixtures.validRequest,
-    ...overrides
-  };
 }
 ```
 
-**Location (Recommended):**
-- `api/test/fixtures/` directory for shared test data
-- Inline factories in individual test files for simple cases
-- Example: `api/test/fixtures/requests.ts` for content request fixtures
+### Assertion 라이브러리
 
-## Coverage
+**Node.js 내장 assert/strict:**
+```javascript
+const assert = require('node:assert/strict');
 
-**Requirements:** None enforced (no coverage configuration found)
-
-**View Coverage (Recommended):**
-```bash
-node --test --coverage
-# Output: coverage/ directory with HTML report
+assert.equal(actual, expected);        // 동등성 검사
+assert.ok(value);                      // 참/거짓
+assert.throws(() => fn(), /error/);    // 예외 발생 확인
+assert.match(string, regex);           // 정규식 매칭
 ```
 
-**Coverage Command (Typical Node.js 20+):**
-```bash
-node --test --coverage --coverage-provider=v8
-```
+**특징:**
+- strict mode 사용 (`node:assert/strict`)
+- 타입 엄격 검사: `1 === '1'` 실패
 
-## Test Types
+## 테스트 파일 구조
 
-**Unit Tests:**
-- Scope: Individual functions and modules
-- Approach: Test validation, error handling, transformations
-- Example targets:
-  - `validateGenerateContentRequest()` - input validation
-  - `createModuleId()` - slug generation and versioning
-  - `normalizeJsonPayload()` - JSON extraction and parsing
-  - `stripThinkingBlocks()` - content cleaning
+### 위치
 
-**Integration Tests:**
-- Scope: Job creation → status retrieval flow
-- Approach: Full request cycle without external API calls
-- Example:
-  - Create job, update status, retrieve status
-  - Persist jobs, load from disk, verify data
-  - Review job creation with module ID lookup
+**API 테스트:**
+- `tests/api-*.test.js` 형식
+- 예:
+  - `tests/api-validation.test.js`: 요청 검증
+  - `tests/api-job-manager.test.js`: Job 관리
+  - `tests/api-zai-output.test.js`: 출력 파싱
+  - `tests/api-review-api.test.js`: 리뷰 로직
 
-**E2E Tests:**
-- Not implemented
-- Would require: Express server startup, real HTTP requests, file system
-- Candidate: `api/src/admin-server.ts` endpoints (generate, review, status)
+**이미지/에셋 테스트:**
+- `tests/assets-3d-file-integrity.test.js`
 
-## Common Patterns (Recommended for Implementation)
+**통합 테스트:**
+- `tests/admin-integration.test.js`
 
-**Async Testing:**
-```typescript
-test('async operation', async (t) => {
-  await t.test('async function resolves', async () => {
-    const result = await createModuleId('sample topic');
-    assert(typeof result === 'string');
-    assert(result.startsWith(new Date().getFullYear().toString()));
+**CLI/스크립트 테스트:**
+- `tests/backfill-jobs.test.js`
+- `tests/run-tests.js`: 수동 검증 (assert 기반)
+
+### 명명 규칙
+
+**파일명:**
+- `{target-area}.test.js`
+- 예: `api-validation.test.js`, `api-job-manager.test.js`
+
+**테스트 함수:**
+- `test('설명', () => { ... })`
+
+## 테스트 구조
+
+### 기본 패턴
+
+**import + describe 없음** (Node.js test 모듈 사용):
+
+```javascript
+const test = require('node:test');
+const assert = require('node:assert/strict');
+
+const { validateGenerateContentRequest } = require('../api/dist');
+
+test('validateGenerateContentRequest allows valid request', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'math',
+    topic: '피타고라스 정리',
+    gradeLevel: '중학교 3학년'
   });
+
+  assert.equal(result.ok, true);
 });
 ```
 
-**Error Testing:**
-```typescript
-test('validation errors', (t) => {
-  t.test('rejects invalid subject', () => {
-    const result = validateGenerateContentRequest({
-      subject: 'invalid',
-      topic: 'test',
-      gradeLevel: 'grade-1'
-    });
-    assert.strictEqual(result.ok, false);
-    assert.strictEqual(result.code, 'INVALID_SUBJECT');
+**테스트 그룹화:**
+- 파일당 여러 `test()` 호출
+- 각 테스트 독립적
+
+### 실제 예시
+
+#### 검증 테스트 (`api-validation.test.js`)
+
+```javascript
+test('validateGenerateContentRequest rejects invalid subject', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'cooking',        // 유효하지 않음
+    topic: '테스트',
+    gradeLevel: '중학교 1학년'
   });
 
-  t.test('throws on malformed JSON', () => {
-    assert.throws(() => {
-      normalizeJsonPayload('{ broken json');
-    });
-  });
+  assert.equal(result.ok, false);
+  assert.equal(result.code, 'INVALID_SUBJECT');
 });
 ```
 
-## Testing Strategy for Key Modules
+#### Job 관리 테스트 (`api-job-manager.test.js`)
 
-### job-manager.ts
-- Test job creation, retrieval, updates
-- Verify persistence to disk (`jobs.json`)
-- Test job expiration (TTL) logic
-- Verify type normalization for backward compatibility
+```javascript
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'edu-content-api-'));
+process.env.JOB_STORE_PATH = path.join(tempDir, 'jobs.json');
+process.env.JOB_TTL_MS = String(60 * 60 * 1000);
 
-### content-generator.ts
-- Test `createModuleId()` with various topics
-- Test slug generation (special characters, Unicode normalization)
-- Verify module naming versioning (v1, v2, etc.)
-- Test validation functions with valid/invalid inputs
+const { initializeJobStore, createJob, getJob, updateJob } = require('../api/dist/job-manager');
 
-### llm/json-utils.ts
-- Test JSON extraction from markdown code fences
-- Test handling of `<think>` blocks
-- Test balanced brace tracking
-- Test edge cases (empty strings, no braces, malformed JSON)
-
-### llm/review.ts
-- Test scene counting regex
-- Test accessibility checks (alt text, ARIA labels)
-- Test interactive element detection
-- Test review result aggregation
-
-### index.ts (API main)
-- Test request validation paths
-- Test error response formatting
-- Test job creation and status endpoints
-- Test edge cases (missing fields, invalid types)
-
-## Test Infrastructure
-
-**Setup (Recommended):**
-```bash
-mkdir -p api/test
-touch api/test/setup.ts    # Common test utilities
-touch api/test/fixtures.ts # Shared test data
-```
-
-**Test utilities (api/test/setup.ts):**
-```typescript
-import { initializeJobStore, getAllJobs } from '../src/job-manager';
-
-export function setupTest() {
+test('job-manager creates and persists jobs', () => {
   initializeJobStore();
-}
 
-export function cleanupTest() {
-  // Clear job store between tests
-  // Would require exposing a reset function
-}
+  const request = {
+    subject: 'math',
+    topic: '테스트 주제',
+    gradeLevel: '중학교 3학년'
+  };
 
-export function assertValidUUID(value: unknown) {
-  if (typeof value !== 'string') throw new Error('Not a string');
-  if (!/^[0-9a-f-]{36}$/.test(value)) throw new Error('Not a valid UUID');
-}
+  const jobId = createJob(request);
+  const job = getJob(jobId);
+
+  assert.ok(job);
+  assert.equal(job.status, 'pending');
+
+  updateJob(jobId, { status: 'completed', moduleId: '20260126-test' });
+
+  const stored = JSON.parse(fs.readFileSync(process.env.JOB_STORE_PATH, 'utf8'));
+  const storedJob = stored.jobs.find((item) => item.id === jobId);
+
+  assert.ok(storedJob);
+  assert.equal(storedJob.status, 'completed');
+});
 ```
 
-## Notes on Current Testing State
+**설정 패턴:**
+- 임시 디렉토리 생성: `fs.mkdtempSync()`
+- 환경 변수 주입: `process.env.JOB_STORE_PATH = ...`
+- 초기화 호출: `initializeJobStore()`
+- 모듈 임포트: 테스트 파일 최상단
 
-- **No tests currently in codebase**
-- **Test infrastructure not established**
-- **Test framework (Node.js built-in) available but not utilized**
-- **Manual testing likely via `api/test-zai.js` (integration test script)**
+#### 파싱 테스트 (`api-zai-output.test.js`)
 
-### Manual Test File: `api/test-zai.js`
-- Tests Z.ai API integration
-- Loads environment variables
-- Calls `streamZaiChat()` and `parseZaiOutput()`
-- Logs results to console
-- Purpose: Verify LLM client works with actual API
+```javascript
+test('parseZaiOutput accepts markdown file blocks', () => {
+  const moduleId = '20260126-sample';
+  const payload = [
+    '요청한 파일을 생성했습니다.',
+    '',
+    `### edu-content/${moduleId}/index.html`,
+    '```html',
+    '<!doctype html>...',
+    '```',
+    // ... 추가 파일 블록
+  ].join('\n');
 
-**To run manual tests:**
+  const files = parseZaiOutput(payload, moduleId);
+
+  assert.equal(files.length, 3);
+  const byPath = new Map(files.map((file) => [file.path, file.content]));
+  assert.match(byPath.get(`edu-content/${moduleId}/index.html`), /<!doctype html>/i);
+});
+```
+
+**다양한 입력 형식 검증:**
+- JSON 페이로드
+- JSON 펜스 (`\`\`\`json`)
+- 마크다운 파일 블록 (전체 경로)
+- 마크다운 파일 블록 (파일명만)
+
+#### 수동 검증 (`run-tests.js`)
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+
+const targets = [
+  '20260126-present-perfect-vs-past',
+  '20260126-passive-voice'
+];
+
+const requiredFiles = ['index.html', 'style.css', 'script.js'];
+const requiredScenes = ['hook', 'anchor', 'story', 'core', 'visualize', 'quiz', 'wrap'];
+
+targets.forEach((slug) => {
+  const dir = path.join(root, 'edu-content', slug);
+
+  requiredFiles.forEach((file) => {
+    assertFileExists(path.join(dir, file));
+  });
+
+  const html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+  assertContains(html, /<html\s+lang=["']ko["']>/i, `${slug}: html lang=ko`);
+  assertContains(html, /href=["']..\/common\.css["']/, `${slug}: common.css link`);
+
+  requiredScenes.forEach((scene) => {
+    const regex = new RegExp(`id=["']${scene}-scene["']`);
+    assertContains(html, regex, `${slug}: ${scene}-scene section`);
+  });
+});
+
+console.log('All tests passed.');
+```
+
+**특징:**
+- 파일 시스템 검증 (존재 여부)
+- HTML 구조 검증 (정규식)
+- 스크린 검증 (7씬 구조)
+
+## Mocking
+
+### 환경 변수 Mocking
+
+**Job 저장소 테스트:**
+```javascript
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'edu-content-api-'));
+process.env.JOB_STORE_PATH = path.join(tempDir, 'jobs.json');
+process.env.JOB_TTL_MS = String(60 * 60 * 1000);
+```
+
+**패턴:**
+- 임시 디렉토리로 격리
+- 환경 변수로 경로 오버라이드
+- 각 테스트 독립성 보장
+
+### API 응답 Mocking
+
+**JSON 고정 응답:**
+```javascript
+const payload = JSON.stringify({
+  files: [
+    {
+      path: `edu-content/${moduleId}/index.html`,
+      content: '<!doctype html>'
+    },
+    {
+      path: `edu-content/${moduleId}/script.js`,
+      content: 'console.log("ok");'
+    }
+  ]
+});
+
+const files = parseZaiOutput(payload, moduleId);
+```
+
+**마크다운 블록 고정 응답:**
+```javascript
+const payload = [
+  '### index.html',
+  '```html',
+  '<!doctype html>...',
+  '```',
+  '### script.js',
+  '```js',
+  'console.log("ok");',
+  '```'
+].join('\n');
+
+const files = parseZaiOutput(payload, moduleId);
+```
+
+## 무엇을 Mock하는가
+
+### Mock 대상
+
+1. **파일 시스템:**
+   - 임시 디렉토리로 격리
+   - 실제 파일 읽기/쓰기 테스트
+
+2. **환경 변수:**
+   - `process.env.JOB_STORE_PATH`
+   - `process.env.JOB_TTL_MS`
+
+3. **외부 API:**
+   - 실행 환경 검사: `ASYNC_JOBS_ENABLED` 활성화 여부
+   - 테스트에서 비활성화: 외부 호출 방지
+
+### Mock 미대상
+
+1. **비즈니스 로직:**
+   - 검증, Job 생성, 상태 추적
+   - 직접 테스트
+
+2. **문자열 파싱:**
+   - JSON 파싱
+   - 마크다운 블록 추출
+   - 경로 검증
+
+## 커버리지
+
+### 요구사항
+
+**설정:** 명시적 커버리지 요구 없음
+
+### 테스트 영역
+
+**API 검증 (`api-validation.test.js`):**
+```
+✓ 유효한 요청 수락
+✓ 유효하지 않은 주제 거부
+✓ science 주제 지원
+✓ useArtAssets boolean 검증
+✓ contentType/visualStyle/storyTheme/difficulty 검증
+```
+
+**Job 관리 (`api-job-manager.test.js`):**
+```
+✓ Job 생성 및 영속성
+✓ Job 상태 추적 (pending → completed)
+✓ 만료된 Job 정리 (TTL)
+```
+
+**출력 파싱 (`api-zai-output.test.js`):**
+```
+✓ JSON 페이로드 파싱
+✓ JSON 펜스 파싱
+✓ 마크다운 파일 블록 파싱 (전체 경로)
+✓ 마크다운 파일 블록 파싱 (파일명만)
+✓ 경로 이스케이프 차단 (../secrets.txt)
+```
+
+**보안 검증:**
+```
+✓ 경로 이스케이프 방지
+✓ 허용 확장자만 수락
+✓ edu-content 디렉토리 범위 제한
+```
+
+**교육 콘텐츠 구조 (`run-tests.js`):**
+```
+✓ 필수 파일 존재 (index.html, script.js, style.css)
+✓ 한국어 lang 속성 (lang="ko")
+✓ 7씬 구조 (hook, anchor, story, core, visualize, quiz, wrap)
+✓ 공통 CSS 링크
+✓ 상대 경로 검증
+```
+
+## 테스트 타입
+
+### 단위 테스트 (Unit Tests)
+
+**대상:**
+- 함수 검증: `validateGenerateContentRequest()`
+- 상태 관리: `createJob()`, `updateJob()`
+- 파싱: `parseZaiOutput()`
+- 보안: 경로 검증, 확장자 필터링
+
+**범위:**
+- 한 개 함수 단위
+- 입력 → 출력 검증
+- 예외 처리 확인
+
+**예시:**
+```javascript
+test('validateGenerateContentRequest rejects invalid subject', () => {
+  const result = validateGenerateContentRequest({
+    subject: 'cooking',        // 입력
+    topic: '테스트',
+    gradeLevel: '중학교 1학년'
+  });
+
+  assert.equal(result.ok, false);         // 검증
+  assert.equal(result.code, 'INVALID_SUBJECT');
+});
+```
+
+### 통합 테스트 (Integration Tests)
+
+**대상:**
+- Job 저장소: 생성 → 영속 → 복구
+- 만료 정책: TTL 기반 정리
+- 파일 구조: 모듈 검증
+
+**범위:**
+- 여러 함수/모듈 협력
+- 파일 시스템 상호작용
+- 상태 변화 검증
+
+**예시:**
+```javascript
+test('job-manager creates and persists jobs', () => {
+  const jobId = createJob(request);      // 생성
+  updateJob(jobId, { status: 'completed' });  // 업데이트
+
+  const stored = JSON.parse(fs.readFileSync(...));  // 파일 확인
+  const storedJob = stored.jobs.find((item) => item.id === jobId);
+
+  assert.ok(storedJob);                  // 검증
+  assert.equal(storedJob.status, 'completed');
+});
+```
+
+### 구조 검증 (Structure Tests)
+
+**대상:**
+- 교육 콘텐츠 모듈
+- 필수 파일 존재
+- HTML 구조 (씬 배열)
+
+**범위:**
+- 파일 시스템 검증
+- HTML 정규식 검증
+- 선언적 구조 확인
+
+**예시:**
+```javascript
+const html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+assertContains(html, /<html\s+lang=["']ko["']>/i, `lang=ko`);
+requiredScenes.forEach((scene) => {
+  const regex = new RegExp(`id=["']${scene}-scene["']`);
+  assertContains(html, regex, `${scene}-scene section`);
+});
+```
+
+### E2E 테스트
+
+**상태:** 없음 (구현 안 됨)
+
+**가능성:**
+- 콘텐츠 생성 엔드포인트 (Z.ai API 필요)
+- 리뷰 엔드포인트 (LLM 필요)
+- 파일 쓰기 검증
+
+## 테스트 실행
+
+### 명령어
+
 ```bash
-cd api
-node test-zai.js
+# 모든 테스트 실행
+npm test
+
+# 실제로는:
+node --test
+
+# Node.js 자동 검색:
+# - tests/**/*.test.js
+# - **/*.test.js
+# - **/*.spec.js
 ```
+
+### 테스트 발견
+
+**Node.js test 모듈 자동 검색:**
+- 패턴: `**/{.,}*.test.{cjs,mjs,js}`
+- `tests/` 디렉토리 포함
+
+**프로젝트 구조:**
+```
+tests/
+├── api-validation.test.js
+├── api-job-manager.test.js
+├── api-zai-output.test.js
+├── api-review-api.test.js
+├── assets-3d-file-integrity.test.js
+├── admin-integration.test.js
+└── run-tests.js  # 수동 검증 (assert 기반)
+```
+
+## 주요 테스트 케이스
+
+### 요청 검증 (`api-validation.test.js`)
+
+| 테스트 | 입력 | 예상 |
+|--------|------|------|
+| Valid request | `{ subject: 'math', topic: '...', gradeLevel: '...' }` | `ok: true` |
+| Invalid subject | `{ subject: 'cooking', ... }` | `code: INVALID_SUBJECT` |
+| Empty topic | `{ topic: '', ... }` | `code: INVALID_REQUEST` |
+| Long topic | `{ topic: 'x'.repeat(201), ... }` | `code: INVALID_REQUEST` |
+| Invalid useArtAssets | `{ useArtAssets: 'yes', ... }` | `code: INVALID_REQUEST` |
+
+### Job 생명주기 (`api-job-manager.test.js`)
+
+| 단계 | 작업 | 검증 |
+|------|------|------|
+| 생성 | `createJob(request)` | `status: pending` |
+| 업데이트 | `updateJob(jobId, { status: 'completed' })` | 파일 영속성 |
+| 조회 | `getJob(jobId)` | 상태 반환 |
+| 만료 | `cleanupExpiredJobs()` | TTL 초과 항목 제거 |
+
+### 출력 파싱 (`api-zai-output.test.js`)
+
+| 형식 | 입력 | 검증 |
+|------|------|------|
+| JSON | `{ files: [...] }` | 파일 배열 |
+| JSON 펜스 | `` ```json ... ``` `` | 파일 배열 |
+| 마크다운 (경로) | `### edu-content/.../index.html` ``` | 경로 복원 |
+| 마크다운 (파일명) | `### index.html` ``` | 경로 생성 |
+| 경로 공격 | `../secrets.txt` | 예외 발생 |
 
 ---
 
-*Testing analysis: 2026-02-15*
+*테스팅 분석: 2026-02-15*

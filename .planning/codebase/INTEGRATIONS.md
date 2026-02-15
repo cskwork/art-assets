@@ -1,158 +1,230 @@
-# External Integrations
+# 외부 연동
 
-**Analysis Date:** 2026-02-15
+**분석 날짜:** 2026-02-15
 
-## APIs & External Services
+## APIs & 외부 서비스
 
-**LLM Providers (for content generation):**
-- Z.ai (GLM) API - Primary LLM for generating educational content
-  - SDK/Client: Custom HTTP client in `api/src/llm/zai-client.ts`
-  - Endpoint: `https://api.z.ai/api/paas/v4/chat/completions`
-  - Auth: `ZAI_API_KEY` environment variable (Bearer token)
-  - Models supported: glm-4.7 (default), glm-5 (with thinking blocks)
-  - Timeout: 600 seconds (10 minutes)
-  - Max tokens: 65536
+### LLM 서비스 (필수 선택)
 
-- Anthropic Claude API - Alternative LLM provider
-  - SDK: @anthropic-ai/claude-agent-sdk 0.2.19
-  - Auth: `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` environment variables
-  - Model: claude-sonnet-4-5 (default, configurable)
-  - Provider selection: `LLM_PROVIDER` env var ('claude' or 'zai')
-  - Use case: Agentic content generation with file operations (Read, Write, Glob tools)
+#### Z.ai API (GLM) - 기본 제공자
+- **서비스**: Z.ai PaaS API (중국 AI 회사)
+- **목적**: 한국 학생용 교육 콘텐츠 자동 생성
+- **엔드포인트**: `https://api.z.ai/api/paas/v4/chat/completions`
+- **SDK/클라이언트**: 내부 구현 (`api/src/llm/zai-client.ts`)
+- **인증**: 환경 변수 `ZAI_API_KEY` (Bearer token)
+- **지원 모델**:
+  - `glm-4.7` (기본값) - 일반 콘텐츠 생성
+  - `glm-5` - 향상된 성능, thinking 파라미터 지원
+- **요청 형식**:
+  ```typescript
+  POST https://api.z.ai/api/paas/v4/chat/completions
+  Authorization: Bearer {ZAI_API_KEY}
+  Content-Type: application/json
 
-## Data Storage
+  {
+    "model": "glm-4.7",
+    "messages": [...],
+    "stream": true,
+    "max_tokens": 65536,
+    "temperature": 1.0,
+    "thinking": { "type": "enabled" }  // GLM-5만
+  }
+  ```
+- **응답**: Server-Sent Events (SSE) 스트림
+  - delta.content 필드 누적
+  - thinking 블록 자동 제거
+  - finish_reason: "stop" | "length"
+- **타임아웃**: 600초 (10분)
+- **위치**: `api/src/llm/zai-client.ts` (streamZaiChat 함수)
 
-**Databases:**
-- File-based JSON storage (no external database)
-  - Job store: `api/data/jobs.json` (in-memory with persistence)
-    - Connection: Local file system
-    - Format: JSON array with job records
-    - TTL: 7 days (configurable via `JOB_TTL_MS`)
-  - Batch store: `api/data/batches.json` (batch generation tracking)
-  - Assets metadata: `assets.json` (built from `assets-source.json`)
-  - Assets index: `assets-index.json` (LLM-friendly search index)
+#### Claude API - 대체 제공자
+- **서비스**: Anthropic Claude API
+- **목적**: Z.ai 대신 사용 가능한 대체 LLM
+- **SDK/클라이언트**: `@anthropic-ai/claude-agent-sdk` 0.2.19
+- **인증**: 환경 변수 `ANTHROPIC_API_KEY`
+- **활성화**: `LLM_PROVIDER=claude` 설정
+- **위치**: `api/src/content-generator.ts`
+  - 동적 임포트로 필요 시에만 로드
+  - Claude Agent SDK의 특정 기능 활용
+- **주의**: SDK 미설치 시 에러 메시지 가이드
 
-**File Storage:**
-- Local filesystem only
-  - Generated modules: `edu-content/{YYYYMMDD}-{module-id}/`
-  - Assets: `icons/`, `illustrations/`, `backgrounds/`, `diagrams/`, `photos/`, `3d/`, `archive/`
-  - Snapshots: Stored as archive entries with dated snapshots
+## 데이터 저장
 
-**Caching:**
-- None (in-memory job map with periodic cleanup)
+### 파일 기반 저장소
+- **작업 저장소**: `api/data/jobs.json`
+  - 포맷: JSON (version + jobs 배열)
+  - 용도: 생성/검토 작업의 상태 추적
+  - 지속성: 서버 재시작 후에도 유지
+  - TTL: `JOB_TTL_MS` (기본 7일) 후 자동 삭제
 
-## Authentication & Identity
+- **배치 저장소**: `api/data/batches.json`
+  - 포맷: JSON
+  - 용도: 대량 생성 작업 관리
 
-**Auth Provider:**
-- Custom (API key-based)
-  - Implementation: Bearer token in Authorization header
-  - Providers:
-    - Z.ai: `ZAI_API_KEY` as Bearer token
-    - Claude: `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN`
-  - No user authentication system (server-to-server only)
+- **에셋 인덱스**: `assets-index.json`
+  - 포맷: JSON (compact 형식)
+  - 용도: LLM 프롬프트에 에셋 정보 제공
+  - 필드: id, category (c), tags (t), description (d)
 
-## Monitoring & Observability
+### 데이터베이스
+- **유형**: 없음 (파일 기반만 사용)
+- **SQL/NoSQL**: 미적용
+- **메모리 저장소**: Map<jobId, Job> (in-memory, 시작 시 disk 로드)
 
-**Error Tracking:**
-- None (custom logging only)
+## 파일 저장
 
-**Logs:**
-- Console logging (stdout/stderr)
-- Optional structured logging for LLM calls via `LLM_LOGGING_ENABLED`
-- Log tags: 'GEN', 'REVIEW', 'FIX', 'ERROR', 'WRITE', 'INIT', 'ISSUE', 'DONE'
-- Location: `api/src/logger.ts` (enableLogging function)
+### 로컬 파일시스템 (전체)
+- **에셋 위치**: 루트의 각 카테고리 폴더
+  - `icons/` - SVG 아이콘
+  - `illustrations/` - SVG/PNG 일러스트
+  - `diagrams/` - SVG/PNG 다이어그램
+  - `backgrounds/` - JPG/PNG 배경
+  - `photos/` - JPG 사진
+  - `3d/` - GLB/GLTF 3D 모델
+  - `archive/` - 아카이브된 에셋 (카테고리별)
 
-## CI/CD & Deployment
+- **생성된 콘텐츠**: `edu-content/{moduleId}/`
+  - index.html, script.js, style.css 자동 생성
+  - 디렉토리 네이밍: `{YYYYMMDD}-{topic-slug}` 또는 `{YYYYMMDD}-{topic-slug}-v{N}`
 
-**Hosting:**
-- Self-hosted Node.js server
-- Port: Configurable (default 3000)
-- Entry point: `api/dist/admin-server.js` (compiled TypeScript)
+- **갤러리 산출물**:
+  - `gallery.html` - 빌드 시 생성
+  - `assets.json` - 빌드 시 생성
+  - `assets-source.json` - 소스 (수동 편집)
 
-**CI Pipeline:**
-- None detected (no GitHub Actions, Jenkins, etc.)
-- Manual build: `npm run build`
+**CDN 기반 리소스:**
+- Three.js CDN: `https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js`
+- Phaser CDN: `https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js`
+- MathJax CDN: `https://cdn.jsdelivr.net/npm/mathjax@3/...`
 
-## Environment Configuration
+## 인증 & 보안
 
-**Required env vars for production:**
-- `ZAI_API_KEY` or `ANTHROPIC_API_KEY` / `ANTHROPIC_AUTH_TOKEN` (one of these)
-- `LLM_PROVIDER` (optional, default: 'zai')
-- `PROJECT_ROOT` (optional, defaults to cwd)
-- `ADMIN_PORT` (optional, default: 3000)
+### API 키 관리
+- **Z.ai API Key**: `ZAI_API_KEY` (환경 변수)
+  - 형식: sk-... (Bearer token)
+  - 저장: `.env` 파일 (git ignored)
+  - 노출 위험: 직접 API 호출에 사용되므로 중요
 
-**Optional env vars:**
-- `LLM_LOGGING_ENABLED` (false by default)
-- `LLM_REVIEW_ENABLED` (false by default - explicit opt-in)
-- `LLM_REVIEW_PROVIDER` (zai only, required if review enabled)
-- `LLM_REVIEW_AUTO_FIX_ENABLED` (false by default)
-- `LLM_REVIEW_AUTO_FIX_MAX_ATTEMPTS` (1-3, default 1)
-- `LLM_REVIEW_BLOCK_ON_FAIL` (true by default)
-- `WS_ENABLED` (true by default)
-- `JOB_TTL_MS` (default 7 days = 604800000ms, set to 0 to disable expiration)
-- `JOB_STORE_PATH` (defaults to `api/data/jobs.json`)
-- `CLAUDE_MODEL` (if using Claude, default: 'claude-sonnet-4-5')
-- `CLAUDE_MAX_TURNS` (default: 10)
-- `CLAUDE_PERMISSION_MODE` ('default', 'acceptEdits', 'bypassPermissions')
+- **Claude API Key**: `ANTHROPIC_API_KEY` (환경 변수)
+  - 형식: sk-ant-... (Bearer token)
+  - 저장: `.env` 파일 (git ignored)
+  - 선택 사항: `LLM_PROVIDER=claude` 설정 시만 필요
 
-**Secrets location:**
-- `.env` file (git-ignored)
-- Reference template: `.env.example`
+### 기본 보안
+- **CORS**: express-cors 미들웨어로 모든 출처 허용 (`app.use(cors())`)
+- **경로 탐색 공격**: `ROOT_DIR` 범위 내 접근만 허용 (archive.js에서)
+- **입력 검증**: 요청 데이터 타입, 길이 검증 (validateGenerateContentRequest)
+- **API 토큰**: 헤더에 Bearer token (노출되지 않아야 함)
 
-## Webhooks & Callbacks
+## 모니터링 & 옵저버빌리티
 
-**Incoming:**
-- None (all APIs are request-response)
+### 에러 추적
+- **방식**: 없음 (내부 에러 로깅)
+- **대안**: 개발 중 콘솔 로깅 (`api/src/logger.ts`)
 
-**Outgoing:**
-- WebSocket broadcasts for job status updates (real-time)
-  - Endpoint: `ws://localhost:{PORT}/ws`
-  - Messages: Job creation, status changes
-  - Clients: Admin UI, connected browsers
+### 로그
+- **방식**: 콘솔 출력 (stdout)
+- **구현**: 커스텀 logger (`api/src/logger.ts`)
+  - LogTag: 'API', 'LLM', 'Review', 'Build' 등
+  - logProgress(): 경과 시간 및 문자 수 진행 상황
+  - logSize(): 요청/응답 크기 추적
 
-## API Endpoints (Internal)
+## CI/CD & 배포
 
-**Content Generation:**
-- `POST /api/generate-content` - Create content generation job
-- `GET /api/generate-content/status/:jobId` - Check job status
-- `POST /api/review-content` - Create review job for module
-- `GET /api/review-content/status/:jobId` - Check review status
+### 호스팅
+- **배포 대상**: Node.js 가능한 환경 (Vercel, Heroku, 자체 서버 등)
+- **패키지 배포**: npm으로 배포 가능 (public 아님)
+- **프로덕션 실행**: `node api/dist/admin-server.js`
 
-**Admin APIs:**
-- `GET /api/admin/config` - Configuration options (subjects, content types, grades, etc.)
-- `GET /api/admin/jobs` - List all jobs with status
-- `POST /api/admin/batch-generate` - Batch create multiple content modules
-- `GET /api/admin/batch/:batchId` - Check batch status
-- `GET /api/admin/assets` - Asset index (assets-index.json)
-- `GET /api/admin/prompts` - Available prompt templates
+### 빌드 파이프라인
+- **CI/CD 도구**: 없음 (내부 빌드 스크립트)
+- **빌드 명령**:
+  ```bash
+  npm run build  # TypeScript 빌드 + 갤러리 생성
+  ```
 
-**Asset Management:**
-- `POST /api/archive/:assetId` - Archive an asset
-- `POST /api/restore/:assetId` - Restore archived asset
+## 웹훅 & 콜백
 
-## Integration Points in Codebase
+### 들어오는 웹훅
+- **형식**: 없음 (수동 API 호출만 지원)
 
-**LLM Client:**
-- Location: `api/src/llm/zai-client.ts`
-- Handles: HTTP streaming, SSE parsing, timeout management, response validation
-- Models: Supports GLM-4.7, GLM-5 (with thinking blocks), extensible
+### 나가는 웹훅/콜백
+- **WebSocket 브로드캐스트**:
+  - 엔드포인트: `ws://localhost:3000/ws`
+  - 목적: 작업 상태 실시간 업데이트
+  - 메시지: `{ type: 'job_created', job: {...} }` 등
+  - 위치: `api/src/admin-server.ts` (broadcastJobUpdate)
 
-**Prompt Management:**
-- Location: `api/src/prompt-loader.ts`
-- Loads: Markdown prompt templates from `prompts/` directory
-- Formats: Dynamic prompt building with context variables
+## 환경 설정
 
-**Content Parser:**
-- Location: `api/src/llm/zai-output.ts`
-- Parses: JSON or Markdown code blocks from LLM responses
-- Validates: File structure, allowed extensions (html, css, js, svg, png, jpg)
+### 필수 환경 변수
+```
+ZAI_API_KEY               # Z.ai API 인증 키 (필수)
+```
 
-**Review System:**
-- Location: `api/src/llm/review.ts`
-- Deterministic checks: Scene count, responsive design, interactive elements, accessibility
-- LLM review: Quality scoring, issue detection, auto-fix suggestions
-- Flow: Generate → Review → Auto-fix (optional) → Validate
+### 선택 환경 변수
+```
+LLM_PROVIDER              # "zai" (기본) 또는 "claude"
+ANTHROPIC_API_KEY         # Claude 사용 시
+ZAI_API_URL              # Z.ai 엔드포인트 (기본값 사용 시 생략)
+ADMIN_PORT               # 관리 서버 포트 (기본 3000)
+PORT                     # 폴백 포트 (ADMIN_PORT 우선)
+PROJECT_ROOT             # 프로젝트 루트 (기본 현재 디렉토리)
+JOB_STORE_PATH           # 작업 저장소 경로
+JOB_TTL_MS               # 작업 만료 시간 (밀리초)
+WS_ENABLED               # WebSocket 활성화 (기본 true)
+ASYNC_JOBS_ENABLED       # 비동기 작업 (기본 true)
+ENABLE_DEBUG_LOGGING     # 디버그 로그 활성화
+```
+
+### 비밀 저장
+- **방식**: `.env` 파일 (git ignored, 로컬만)
+- **로드**: `dotenv` 패키지 (`api/src/admin-server.ts`)
+- **주의**: .env 파일은 저장소에 커밋되지 않음 (`.gitignore` 확인 필수)
+
+## 에셋 검색 & 인덱싱
+
+### LLM용 에셋 제공
+- **소스**: `assets-index.json` (경량 인덱스)
+  - 프롬프트에 직접 내장
+  - 카테고리, 태그 기반 필터링
+  - 위치: `api/src/prompt-loader.ts`
+
+### 에셋 매칭 알고리즘
+- **주제 기반**: 요청 topic에서 토큰 추출
+- **카테고리 필터**: subject별 SUBJECT_KEYWORDS 매칭
+- **태그 검색**: 토픽 토큰과 에셋 태그 교집합
+- **순위**: 매칭도 높은 순으로 상위 선택
+- **제한**: Core 에셋 10개 + 8-bit 에셋 14개 최대
+
+## 데이터 파이프라인
+
+### 콘텐츠 생성 흐름
+1. **요청**: POST `/api/generate-content` (GenerateContentRequest)
+2. **검증**: validateGenerateContentRequest 호출
+3. **모듈 ID 생성**: createModuleId (날짜 + topic slug)
+4. **Job 생성**: 상태 pending으로 저장
+5. **LLM 호출** (비동기):
+   - 에셋 로드 (prompt-loader.ts)
+   - 프롬프트 구성 (buildPrompt)
+   - Z.ai API 스트림 호출
+   - 응답 파싱 (parseZaiOutput)
+6. **파일 저장**: edu-content/{moduleId}에 HTML/CSS/JS 저장
+7. **Job 상태 업데이트**: completed 또는 failed
+8. **WebSocket 브로드캐스트**: 클라이언트에 알림
+
+### 콘텐츠 검토 흐름
+1. **요청**: POST `/api/review-content` (ReviewContentRequest)
+2. **모듈 존재 확인**: moduleExists 체크
+3. **Job 생성**: 상태 pending으로 저장
+4. **Review 실행** (비동기):
+   - 모듈 파일 로드
+   - LLM 검토 호출
+   - 결과 파싱 (parseReviewOutput)
+5. **자동 수정** (옵션): buildFixMessages로 수정 프롬프트 생성
+6. **Job 상태 업데이트**: 리뷰 결과 저장
+7. **WebSocket 브로드캐스트**: 검토 결과 전송
 
 ---
 
-*Integration audit: 2026-02-15*
+*외부 연동 분석: 2026-02-15*
