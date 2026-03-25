@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분수의 덧셈 - 피자 셰프 민수</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Scene 1: Hook -->
+        <section id="hook-scene" class="scene active">
+            <div class="content-wrapper">
+                <h1 class="main-title">조각을 모으면?</h1>
+                <div class="visual-container">
+                    <svg id="hook-pizza" viewBox="0 0 200 200" class="spin-slow">
+                        <!-- Pizza SVG will be injected by JS -->
+                    </svg>
+                </div>
+                <p class="question-text">뚝뚝 끊어진 조각들을 모으면 <br>얼마가 될까요?</p>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">탐험 시작하기</button>
+            </div>
+        </section>
+
+        <!-- Scene 2: Anchor -->
+        <section id="anchor-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>이미 아는 거랑 똑같아요!</h2>
+                <div class="anchor-comparison">
+                    <div class="anchor-item">
+                        <div class="icon-group">
+                            <!-- Custom SVG Apple -->
+                            <svg class="icon" viewBox="0 0 24 24" fill="#D32F2F"><path d="M12 2C12 2 15 2 15 6C15 9 12 9 12 9C12 9 9 9 9 6C9 2 12 2 12 2Z"/><path d="M12 9C15 9 18 12 18 16C18 20 15 22 12 22C9 22 6 20 6 16C6 12 9 9 12 9Z"/></svg>
+                            <svg class="icon" viewBox="0 0 24 24" fill="#D32F2F"><path d="M12 2C12 2 15 2 15 6C15 9 12 9 12 9C12 9 9 9 9 6C9 2 12 2 12 2Z"/><path d="M12 9C15 9 18 12 18 16C18 20 15 22 12 22C9 22 6 20 6 16C6 12 9 9 12 9Z"/></svg>
+                        </div>
+                        <span>+</span>
+                        <div class="icon-group">
+                            <!-- Custom SVG Apple -->
+                            <svg class="icon" viewBox="0 0 24 24" fill="#D32F2F"><path d="M12 2C12 2 15 2 15 6C15 9 12 9 12 9C12 9 9 9 9 6C9 2 12 2 12 2Z"/><path d="M12 9C15 9 18 12 18 16C18 20 15 22 12 22C9 22 6 20 6 16C6 12 9 9 12 9Z"/></svg>
+                        </div>
+                        <span>=</span>
+                        <div class="icon-group">
+                            <!-- Custom SVG Apple (3) -->
+                            <svg class="icon" viewBox="0 0 24 24" fill="#D32F2F"><path d="M12 2C12 2 15 2 15 6C15 9 12 9 12 9C12 9 9 9 9 6C9 2 12 2 12 2Z"/><path d="M12 9C15 9 18 12 18 16C18 20 15 22 12 22C9 22 6 20 6 16C6 12 9 9 12 9Z"/></svg>
+                        </div>
+                        <p>2개 + 1개 = 3개</p>
+                    </div>
+                    <div class="arrow-down">
+                        <!-- Custom SVG Arrow Down -->
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="anchor-item fraction-mode">
+                        <div class="fraction-display">
+                            <span class="numerator">2</span><span class="bar"></span><span class="denominator">5</span>
+                        </div>
+                        <span>+</span>
+                        <div class="fraction-display">
+                            <span class="numerator">1</span><span class="bar"></span><span class="denominator">5</span>
+                        </div>
+                        <span>=</span>
+                        <div class="fraction-display unknown">
+                            <span class="numerator">?</span><span class="bar"></span><span class="denominator">5</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="hint-text">사과 대신 5조각 난 피자 조각이라고 생각해보세요!</p>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">다음</button>
+            </div>
+        </section>
+
+        <!-- Scene 3: Story -->
+        <section id="story-scene" class="scene">
+            <div class="content-wrapper">
+                <div class="character-box">
+                    <svg class="chef-icon" viewBox="0 0 100 100">
+                        <!-- Custom Chef Face instead of Emoji -->
+                        <circle cx="50" cy="40" r="20" fill="#FFCC80" />
+                        <path d="M30,30 Q50,5 70,30" fill="white" stroke="#333" stroke-width="2"/>
+                        <rect x="35" y="12" width="30" height="20" fill="white" stroke="#333" stroke-width="2"/>
+                        <path d="M20,40 L80,40 L75,90 L25,90 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                        <circle cx="45" cy="40" r="2" fill="#333"/>
+                        <circle cx="55" cy="40" r="2" fill="#333"/>
+                        <path d="M45,50 Q50,55 55,50" stroke="#333" stroke-width="1" fill="none"/>
+                    </svg>
+                    <div class="speech-bubble">
+                        안녕! 나는 피자 셰프 민수야.<br>
+                        오늘은 특별히 <strong>3/5 피자</strong>를 주문받았어!
+                    </div>
+                </div>
+                <div class="kitchen-counter">
+                    <p>주문서: <span class="highlight">3/5 피자</span></p>
+                    <p>현재 재고: <span class="highlight">1/5 피자</span>, <span class="highlight">2/5 피자</span></p>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">도와주러 가기</button>
+            </div>
+        </section>
+
+        <!-- Scene 4: Core (Interaction) -->
+        <section id="core-scene" class="scene">
+            <div class="core-layout">
+                <div class="instruction-panel">
+                    <h3>피자 만들기</h3>
+                    <p>왼쪽 조각을 눌러서 오른쪽 접시에 옮겨보세요.<br>분모(밑 숫자)가 같으면 어떻게 더해질까요?</p>
+                    <div id="equation-display" class="equation">
+                        0/5 + 0/5 = 0/5
+                    </div>
+                </div>
+                
+                <div class="interaction-area">
+                    <div class="source-container">
+                        <div class="pan" id="source-1-5">
+                            <!-- 1/5 Slice SVG -->
+                            <div class="slice-holder" data-val="1/5" onclick="ContentApp.moveSlice(this, 1)">
+                                <svg viewBox="0 0 100 100" class="slice-svg">
+                                    <path d="M50,50 L50,5 A45,45 0 0,1 92.6,27.5 Z" fill="#FFB74D" stroke="#E65100" stroke-width="2"/>
+                                </svg>
+                                <span class="label">1/5</span>
+                            </div>
+                        </div>
+                        <div class="pan" id="source-2-5">
+                            <!-- 2/5 Slice SVG -->
+                            <div class="slice-holder" data-val="2/5" onclick="ContentApp.moveSlice(this, 2)">
+                                <svg viewBox="0 0 100 100" class="slice-svg" style="transform: rotate(-36deg);">
+                                    <path d="M50,50 L50,5 A45,45 0 0,1 93,50 L50,50 Z" fill="#FFB74D" stroke="#E65100" stroke-width="2" transform="rotate(72 50 50)"/>
+                                    <path d="M50,50 L50,5 A45,45 0 0,1 93,50 L50,50 Z" fill="#FFCC80" stroke="#E65100" stroke-width="2"/>
+                                </svg>
+                                <span class="label">2/5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom SVG Arrow Right -->
+                    <div class="arrow-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg></div>
+
+                    <div class="target-container">
+                        <div class="pan target-pan" id="target-pan">
+                            <!-- Empty initially, fills up here -->
+                            <svg class="pan-base" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#EEE" stroke="#CCC" stroke-dasharray="4 4"/>
+                            </svg>
+                            <div id="target-slices-container"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="feedback-msg" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- Scene 5: Visualize -->
+        <section id="visualize-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>발견한 원리!</h2>
+                <div class="visualization-step">
+                    <div class="step-row">
+                        <div class="visual-pizza part-1-5"></div>
+                        <span class="operator">+</span>
+                        <div class="visual-pizza part-2-5"></div>
+                        <span class="operator">=</span>
+                        <div class="visual-pizza part-3-5"></div>
+                    </div>
+                    <div class="math-row">
+                        <div class="fraction-big">1/5</div>
+                        <span class="operator">+</span>
+                        <div class="fraction-big">2/5</div>
+                        <span class="operator">=</span>
+                        <div class="fraction-big highlight">3/5</div>
+                    </div>
+                </div>
+                <div class="insight-box">
+                    <p><span class="inline-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/></svg></span> 분모(5)는 그대로 두고, 분자(1+2)만 더하면 돼요!</p>
+                    <p>조각의 크기가 같으니까, 조각의 <strong>개수</strong>만 더하는 거예요.</p>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">확인했어요</button>
+            </div>
+        </section>
+
+        <!-- Scene 6: Quiz -->
+        <section id="quiz-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>실전 퀴즈!</h2>
+                <div class="quiz-card">
+                    <p>친구와 주스를 나눠 마셔요.</p>
+                    <div class="quiz-visuals">
+                        <div class="juice-cup" style="height: 40%"></div>
+                        <span>+</span>
+                        <div class="juice-cup" style="height: 20%"></div>
+                        <span>=</span>
+                        <div class="juice-cup question-mark">?</div>
+                    </div>
+                    <p class="quiz-text">2/5 + 1/5 = ?</p>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="ContentApp.checkQuiz(this, false)">3/10</button>
+                        <button class="option-btn" onclick="ContentApp.checkQuiz(this, true)">3/5</button>
+                        <button class="option-btn" onclick="ContentApp.checkQuiz(this, false)">2/5</button>
+                    </div>
+                    <p id="quiz-feedback" class="feedback-text"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 7: Wrap -->
+        <section id="wrap-scene" class="scene">
+            <div class="content-wrapper">
+                <h2>대단해요! <span class="inline-icon"><svg class="icon" viewBox="0 0 24 24" fill="#FFC107" stroke="#FF6F00"><path d="M12 2l3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 9l6-1z"/></svg></span></h2>
+                <div class="summary-box">
+                    <ul>
+                        <li><span class="inline-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 분모가 같으면 분자만 더합니다.</li>
+                        <li><span class="inline-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 1/5 + 2/5 = 3/5 (조각 개수 더하기)</li>
+                    </ul>
+                </div>
+                <p>다음 시간에는 분모가 다를 때는 어떻게 할지 알아볼 거예요!</p>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="ContentApp.showScene(0)">다시 보기</button>
+                    <button class="btn-primary" onclick="ContentApp.showToast('다음 학습으로 넘어갑니다!')">다음 학습</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Custom Alert/Toast -->
+    <div id="toast" class="toast hidden"></div>
+    <script src="script.js"></script>
+</body>
+</html>

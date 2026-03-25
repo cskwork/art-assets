@@ -19,7 +19,7 @@ const { execSync } = require('child_process');
 
 const { archiveAsset, restoreAsset } = require('./scripts/archive');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3200;
 const ROOT_DIR = __dirname;
 
 // MIME 타입 매핑

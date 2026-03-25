@@ -403,14 +403,9 @@ app.use('/edu-content', express.static(eduContentPath));
 // 기존 에셋 파일 (갤러리 등)
 app.use(express.static(ROOT_DIR));
 
-// 루트 -> gallery.html
+// 루트 -> admin UI 리다이렉트
 app.get('/', (_req, res) => {
-  const galleryPath = path.join(ROOT_DIR, 'gallery.html');
-  if (fs.existsSync(galleryPath)) {
-    res.sendFile(galleryPath);
-  } else {
-    res.status(404).send('gallery.html not found');
-  }
+  res.redirect('/admin');
 });
 
 // /admin -> /admin/index.html

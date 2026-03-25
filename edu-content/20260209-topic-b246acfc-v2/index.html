@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분수의 덧셈 - 피자 한 조각, 한 조각</title>
+    <link rel="stylesheet" href="edu-content/20260209-topic-b246acfc-v2/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <span class="scene-indicator" id="scene-indicator">1/7</span>
+        </nav>
+
+        <!-- Scene 1: HookScene -->
+        <section id="hook-scene" class="scene active">
+            <div class="content-container">
+                <h1 class="hook-title">사과 1개와 귤 1개를 더하면?</h1>
+                <div class="visual-hook">
+                    <svg width="100" height="100" viewBox="0 0 100 100" class="icon-fruit apple">
+                        <circle cx="50" cy="50" r="40" fill="#FF6B6B" />
+                        <path d="M50 10 Q50 0 60 10" stroke="#4CAF50" stroke-width="3" fill="none"/>
+                    </svg>
+                    <span class="operator">+</span>
+                    <svg width="100" height="100" viewBox="0 0 100 100" class="icon-fruit tangerine">
+                        <circle cx="50" cy="50" r="40" fill="#FFA500" />
+                    </svg>
+                    <span class="operator">=</span>
+                    <span class="question-mark">?</span>
+                </div>
+                <p class="hook-sub">서로 다른 과일은 바로 더할 수 없어요.</p>
+                <div class="visual-divider">🍕</div>
+                <h2 class="hook-title second">그럼 피자 1/4조각과 또 다른 1/4조각은?</h2>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">시작하기</button>
+            </div>
+        </section>
+
+        <!-- Scene 2: AnchorScene -->
+        <section id="anchor-scene" class="scene">
+            <div class="content-container">
+                <h2 class="scene-title">이미 알고 있는 친구</h2>
+                <div class="anchor-visual">
+                    <div class="number-block">1</div>
+                    <span class="operator">+</span>
+                    <div class="number-block">1</div>
+                    <span class="operator">=</span>
+                    <div class="number-block">2</div>
+                </div>
+                <p class="description">1개씩 두 개를 모으면 2개가 되죠?</p>
+                <div class="bridge-section">
+                    <div class="fraction-display">
+                        <span class="numerator">1</span>
+                        <span class="fraction-line">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span class="operator">+</span>
+                    <div class="fraction-display">
+                        <span class="numerator">1</span>
+                        <span class="fraction-line">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span class="operator">=</span>
+                    <span class="question-big">?</span>
+                </div>
+                <p class="emphasis">조각의 크기(4)가 똑같을 때는 그냥 개수만 더하면 될까요?</p>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">알아보러 가기</button>
+            </div>
+        </section>
+
+        <!-- Scene 3: StoryScene -->
+        <section id="story-scene" class="scene">
+            <div class="content-container">
+                <div class="character-container">
+                    <svg width="120" height="120" viewBox="0 0 100 100" class="character-svg">
+                        <circle cx="50" cy="50" r="45" fill="#FFE0B2" />
+                        <circle cx="35" cy="40" r="5" fill="#333" />
+                        <circle cx="65" cy="40" r="5" fill="#333" />
+                        <path d="M30 65 Q50 85 70 65" stroke="#D84315" stroke-width="3" fill="none" />
+                        <path d="M10 30 Q-10 10 20 5" fill="#FF6F00" /> <!-- Hair -->
+                        <path d="M90 30 Q110 10 80 5" fill="#FF6F00" />
+                        <text x="50" y="95" font-size="10" text-anchor="middle" fill="#333">요리사 보리</text>
+                    </svg>
+                </div>
+                <div class="dialogue-box">
+                    <p class="dialogue">"안녕! 나는 피자 가게 '보리야'의 셰프 보리야."</p>
+                    <p class="dialogue">"손님이 피자를 <strong>1/4조각씩 두 번</strong> 달라고 했어."</p>
+                    <p class="dialogue">"도대체 얼마나 줘야 하는 거지?"</p>
+                </div>
+                <div class="story-visual">
+                    <img src="/3d/3d-elementary-fraction-half-orange-20260125.glb" alt="Orange Fraction Placeholder" class="story-image-placeholder" onerror="this.style.display='none'">
+                    <svg width="150" height="150" viewBox="0 0 100 100" class="pizza-icon">
+                        <circle cx="50" cy="50" r="45" fill="#FFCC80" stroke="#E65100" stroke-width="2"/>
+                        <path d="M50 50 L50 5 A45 45 0 0 1 95 50 Z" fill="#FFAB91" opacity="0.5"/> <!-- 1/4 slice -->
+                    </svg>
+                </div>
+                <button class="btn-primary" onclick="ContentApp.nextScene()">도와주기</button>
+            </div>
+        </section>
+
+        <!-- Scene 4: CoreScene -->
+        <section id="core-scene" class="scene">
+            <div class="content-container">
+                <h2 class="instruction-title">피자 조각을 올려보세요!</h2>
+                <p class="instruction-sub">1/4 조각을 클릭해서 접시에 올려보세요.</p>
+                
+                <div class="interaction-area">
+                    <div class="pizza-tray">
+                        <!-- Dynamic SVG Pizza -->
+                        <svg id="interactive-pizza" width="250" height="250" viewBox="0 0 200 200">
+                            <!-- Base Circle -->
+                            <circle cx="100" cy="100" r="90" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="2" />
+                            <!-- Slices will be injected here via JS -->
+                            <g id="pizza-slices-group"></g>
+                        </svg>
+                    </div>
+                    
+                    <div class="controls">
+                        <div class="slice-button" onclick="ContentApp.addSlice()">
+                            <svg width="60" height="60" viewBox="0 0 100 100">
+                                <path d="M50 50 L50 0 A50 50 0 0 1 100 50 Z" fill="#FFCC80" stroke="#E65100" stroke-width="2"/>
+                                <circle cx="70" cy="30" r="8" fill="#FF7043" opacity="0.8"/>
+                                <circle cx="80" cy="50" r="8" fill="#FF7043" opacity="0.8"/>
+                            </svg>
+                            <span>+ 1/4 조각</span>
+                        </div>
+                        <div class="slice-button" onclick="ContentApp.resetPizza()">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                            <span>초기화</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-panel">
+                    <div class="fraction-status">
+                        <span id="current-fraction">0</span>
+                        <span class="fraction-divider">/</span>
+                        <span>4</span>
+                    </div>
+                    <div id="feedback-msg" class="feedback-msg"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 5: VisualizeScene -->
+        <section id="visualize-scene" class="scene">
+            <div class="content-container">
+                <h2 class="scene-title">원리 발견!</h2>
+                <div class="formula-display">
+                    <div class="fraction-big">
+                        <span class="numerator">1</span>
+                        <span class="fraction-bar">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span class="operator">+</span>
+                    <div class="fraction-big">
+                        <span class="numerator">1</span>
+                        <span class="fraction-bar">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span class="operator">=</span>
+                    <div class="fraction-big result">
+                        <span class="numerator">1 + 1</span>
+                        <span class="fraction-bar">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                </div>
+                <div class="arrow-down">↓</div>
+                <div class="formula-display">
+                    <div class="fraction-big result final">
+                        <span class="numerator highlight">2</span>
+                        <span class="fraction-bar">—</span>
+                        <span class="denominator">4</span>
+                    </div>
+                </div>
+                
+                <div class="principle-box">
+                    <h3>👉 기억할 점</h3>
+                    <p><strong>분모(전체 조각 수)</strong>는 그대로 두고,<br>
+                    <strong>분자(먹은 조각 수)</strong>끼리만 더하면 돼요!</p>
+                </div>
+                
+                <button class="btn-primary" onclick="ContentApp.nextScene()">다음</button>
+            </div>
+        </section>
+
+        <!-- Scene 6: QuizScene -->
+        <section id="quiz-scene" class="scene">
+            <div class="content-container">
+                <div class="quiz-header">
+                    <span class="badge">퀴즈</span>
+                    <h2>초콜릿 케이크 나눠 먹기</h2>
+                </div>
+                <div class="quiz-context">
+                    <p>철수는 케이크의 <strong>3/8</strong>을 먹었고,<br>영희는 같은 케이크의 <strong>2/8</strong>을 먹었어요.</p>
+                    <p>두 사람이 먹은 양은 모두 몇 조각인가요?</p>
+                </div>
+                
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="ContentApp.checkQuiz(0, '5/16')">5/16</button>
+                    <button class="quiz-option" onclick="ContentApp.checkQuiz(1, '5/8')">5/8</button>
+                    <button class="quiz-option" onclick="ContentApp.checkQuiz(2, '6/8')">6/8</button>
+                    <button class="quiz-option" onclick="ContentApp.checkQuiz(3, '3/8')">3/8</button>
+                </div>
+                
+                <div id="quiz-feedback" class="quiz-feedback"></div>
+                <button id="next-quiz-btn" class="btn-primary hidden" onclick="ContentApp.nextScene()">다음으로</button>
+            </div>
+        </section>
+
+        <!-- Scene 7: WrapScene -->
+        <section id="wrap-scene" class="scene">
+            <div class="content-container">
+                <h1 class="finish-title">🎉 완료!</h1>
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3>오늘의 발견</h3>
+                        <p>크기가 같은 분수는 분자끼리 더할 수 있다.</p>
+                    </div>
+                    <div class="card">
+                        <h3>공식</h3>
+                        <p>분모는 그대로! 분자끼리만 합산!</p>
+                    </div>
+                    <div class="card">
+                        <h3>다음 단계</h3>
+                        <p>크기가 다른 분수는 어떻게 더할까요?</p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="ContentApp.showScene(0)">다시 보기</button>
+                    <button class="btn-primary" onclick="alert('축하합니다! 학습을 완료했습니다.')">학습 완료</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="edu-content/20260209-topic-b246acfc-v2/script.js"></script>
+</body>
+</html>
