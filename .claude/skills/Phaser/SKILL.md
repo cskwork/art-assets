@@ -1,3 +1,8 @@
+---
+name: phaser
+description: art-assets의 600×600 Phaser 교육용 게임과 인터랙티브 콘텐츠를 제작한다. Phaser 기반 게임 요청에 사용하며 일반 에셋 검색에는 art-asset-search를 사용한다.
+---
+
 # Phaser.io Game Development Skill
 
 Phaser.io 기반 2D 게임 및 인터랙티브 교육 콘텐츠 개발 스킬.
